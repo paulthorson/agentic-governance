@@ -4,7 +4,7 @@ A plugin that turns research and synthesis into a governed loop. The part that p
 part that judges are different contexts, with different inputs, and one of them cannot overrule
 the other.
 
-Built from paulthorson's Adversarial Agents deck, applied to desk research, UX research,
+Built from the Adversarial Agents framework, applied to desk research, UX research,
 synthesis, and evidence-based recommendations.
 
 ## The separation
