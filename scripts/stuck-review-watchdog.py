@@ -42,6 +42,12 @@ ADVERSARY_AGENT_IDS = {
     "efa203bc-ff0e-4d4c-bec5-0324f9f22585": "Adversarial UX",
     "7d798b0e-fdd2-4231-bfd7-e35ee4bbe050": "Adversarial Researcher",
     "d60f5755-af59-49cd-bb94-337521106061": "Adversarial Universal",
+    "276d36c5-c1ae-4946-bd48-344734510c3d": "Adversarial Security",
+    "390d2d66-6d84-4f89-b55e-54024bbd21ef": "Adversarial Privacy",
+    "d5701004-429c-410b-8fcc-15eab4e9217a": "Adversarial Compliance",
+    "bf531c06-3198-4522-b3b8-474db019d2b9": "Adversarial Product",
+    "60da788b-4f36-4154-899e-72f718f9a3f5": "Adversarial Ops",
+    "badc169b-2cd6-4593-8a1d-c5125bb81ebd": "Adversarial Docs",
 }
 
 def get_company_id() -> str:
