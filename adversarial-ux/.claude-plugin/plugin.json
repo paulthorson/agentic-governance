@@ -1,0 +1,8 @@
+{
+  "name": "adversarial-ux",
+  "version": "0.1.0",
+  "description": "A governed UX design loop. One worker skill generates, three adversary agents review it blind, four constitutional rules gate it, and only a human can clear a veto.",
+  "author": {
+    "name": "paulthorson"
+  }
+}

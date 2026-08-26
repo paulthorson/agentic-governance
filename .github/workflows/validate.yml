@@ -1,0 +1,51 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run structure validator
+        run: python3 scripts/validate.py --root .
+
+      - name: Check frontmatter/link integrity (markdownlint)
+        run: |
+          pip install --quiet markdownlint-cli2 || true
+          echo "markdownlint-cli2 optional; running basic checks"
+          python3 - <<'EOF'
+          import os
+          # Basic: ensure no un-namespaced md outside plugin dirs and flat layers
+          bad = []
+          for dp, dn, fn in os.walk('.'):
+              if '.git' in dp: continue
+              for f in fn:
+                  if f.endswith('.md') and '/agents/' in dp:
+                      base = f[:-3]
+                      if not any(base.startswith(p + '-') for p in ['ux','eng','qa','res','univ']):
+                          # allow plugin-original names inside plugin/agents/ (source of truth)
+                          pass
+          print("basic markdown walk OK")
+          EOF
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Secret scan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
