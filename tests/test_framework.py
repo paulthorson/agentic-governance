@@ -20,7 +20,7 @@ os.environ.setdefault("ADVERSARIAL_ROOT", str(REPO_ROOT))
 
 from adversarial_mcp import server as mcp_server  # noqa: E402
 
-DOMAINS = ["ux", "engineer", "qa", "researcher", "universal"]
+DOMAINS = mcp_server.list_domains()  # derived from the server, not hardcoded
 
 
 class TestStructure(unittest.TestCase):

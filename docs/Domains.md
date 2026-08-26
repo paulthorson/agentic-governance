@@ -13,6 +13,7 @@ calibration ledger.
 | **QA** | `adversarial-qa/` | QA | critic, quality-advocate, edge-case-reviewer | user harm from quality gaps |
 | **Researcher** | `adversarial-researcher/` | general/non-UX research | critic, evidence-advocate, context-reviewer | unsupported claims driving decisions |
 | **Universal** | `adversarial-universal/` | PM, BA, Scrum Master, CEO, catch-all | universal-adversary (single) | irrecoverable harm of any kind |
+| **Prompt** | `adversarial-prompt/` | the framework's own instructions (self-hosting) | prompt-adversary (single) | safety overrides, injection, drift |
 
 ## Per-domain detail
 
@@ -48,6 +49,12 @@ A single adversary applicable anywhere. Four domain-agnostic checks: altitude,
 trade-off, harm/blind-spots, falsifiability. Skills: `univ-altitude-check`,
 `univ-assumption-hunt`, `univ-blind-spot-search`, `univ-counter-case`,
 `univ-decision-gate`, `univ-risk-scan`, `univ-adversarial-universal` (worker).
+
+### Prompt (`adversarial-prompt/`)
+A self-hosting adversary that audits the framework's own instructions (AGENTS.md,
+system prompts, skills, plugin manifests) for prompt-injection, drift, and safety
+overrides. Skills: `prom-prompt-injection-scan`, `prom-instruction-drift-check`,
+`prom-safety-override-scan`, `prom-adversarial-prompt` (worker).
 
 ## Flat namespaced layer
 
