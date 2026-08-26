@@ -18,7 +18,7 @@ Usage: python3 scripts/validate.py [--root ~/adversarial-agents]
 """
 import os, re, sys, argparse
 
-DOMAIN_PREFIXES = ["ux", "eng", "qa", "res", "univ", "prom"]
+DOMAIN_PREFIXES = ["ux", "eng", "qa", "res", "univ", "prom", "sec", "priv", "comp", "prod"]
 
 def parse_frontmatter(path):
     try:
