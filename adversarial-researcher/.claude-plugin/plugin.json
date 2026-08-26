@@ -1,0 +1,8 @@
+{
+  "name": "adversarial-researcher",
+  "version": "0.1.0",
+  "description": "A governed research loop. One worker skill produces research, synthesis, and recommendations; three adversary agents audit the evidence blind; four constitutional rules gate it; and only a human can clear a veto.",
+  "author": {
+    "name": "paulthorson"
+  }
+}

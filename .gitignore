@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Editors
+.idea/
+.vscode/
+*.swp
+
+# Test / build artifacts
+dist/
+build/
+coverage/
+*.log
+
+# Local run artifacts (never commit decision records or ledgers with real data)
+runs/
+*.local.md
+
+# Secrets
+.env
+*.pem
+!adversarial-*/agents/*.pem
