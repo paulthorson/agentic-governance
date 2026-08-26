@@ -1,0 +1,8 @@
+{
+  "name": "adversarial-docs",
+  "version": "0.1.0",
+  "description": "A dedicated documentation adversarial reviewer. Audits docs, AGENTS files, and knowledge bases for accuracy, completeness, and usability, with a hard veto that only a human can clear.",
+  "author": {
+    "name": "paulthorson"
+  }
+}
