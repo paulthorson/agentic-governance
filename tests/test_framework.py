@@ -111,3 +111,32 @@ class TestVerdictRecord(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TestDeepReview(unittest.TestCase):
+    """Deep review mode — mocked LLM so it runs in CI without a model."""
+
+    def test_deep_review_structural_veto_overrides(self):
+        # Mock the LLM to say ALLOW; the structural veto must still KICK_BACK.
+        original = mcp_server._ollama_generate
+        mcp_server._ollama_generate = lambda prompt, model=None: "VERDICT: ALLOW"
+        try:
+            r = mcp_server.run_review_deep(
+                "engineer", "Deploy change that leaks credentials to logs.", model="mock"
+            )
+        finally:
+            mcp_server._ollama_generate = original
+        self.assertEqual(r["verdict"], "KICK_BACK")
+        self.assertTrue(r["veto_triggered"])
+
+    def test_deep_review_llm_verdict_used_when_no_veto(self):
+        original = mcp_server._ollama_generate
+        mcp_server._ollama_generate = lambda prompt, model=None: "VERDICT: KICK_BACK"
+        try:
+            r = mcp_server.run_review_deep(
+                "ux", "A clean onboarding flow with no issues.", model="mock"
+            )
+        finally:
+            mcp_server._ollama_generate = original
+        self.assertEqual(r["verdict"], "KICK_BACK")
+        self.assertFalse(r["veto_triggered"])
