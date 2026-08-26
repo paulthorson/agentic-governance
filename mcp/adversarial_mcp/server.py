@@ -150,17 +150,47 @@ def _load_verdicts(domain: str | None = None, limit: int = 50) -> list[dict[str,
 # ---------------------------------------------------------------------------
 
 VETO_KEYWORDS = {
-    "ux": ["dead end", "accessibility impossible", "silent divergence", "data loss", "money loss"],
-    "engineer": ["data loss", "security hole", "bricked config", "production outage", "credential leak"],
-    "qa": ["user harm", "data loss", "money loss", "release-blocking defect"],
-    "researcher": ["unsupported claim", "fabricated user", "causal claim from correlation", "no source"],
-    "universal": ["irrecoverable harm", "data loss", "security breach", "credential leak", "safety"],
+    "ux": [
+        "dead end", "accessibility impossible", "silent divergence", "data loss",
+        "money loss", "user harm", "screen reader", "no keyboard access",
+    ],
+    "engineer": [
+        "data loss", "security hole", "bricked config", "production outage",
+        "credential leak", "security breach", "api key", "secret exposed",
+        "leak credential", "expose secret", "sql injection", "remote code execution",
+        "privilege escalation", "downtime", "rollback impossible",
+    ],
+    "qa": [
+        "user harm", "data loss", "money loss", "release-blocking defect",
+        "crash on launch", "data corruption", "security regression",
+    ],
+    "researcher": [
+        "unsupported claim", "fabricated user", "causal claim from correlation",
+        "no source", "made up data", "fabricated data", "no evidence",
+    ],
+    "universal": [
+        "irrecoverable harm", "data loss", "security breach", "credential leak",
+        "safety", "api key", "secret exposed", "privacy violation", "legal liability",
+    ],
+}
+
+# Regex patterns for credential/secret exposure that keyword matching misses.
+VETO_PATTERNS = {
+    "engineer": [r"(expos|leak|commit).{0,20}(api[ -]?key|secret|credential|token|password)",
+                  r"(api[ -]?key|secret|credential|token|password).{0,20}(expos|leak|log|commit)"],
+    "universal": [r"(expos|leak).{0,20}(api[ -]?key|secret|credential|token|password)"],
 }
 
 
 def _veto_hits(domain: str, text: str) -> list[str]:
+    import re as _re
+
     text_l = text.lower()
-    return [k for k in VETO_KEYWORDS.get(domain, []) if k in text_l]
+    hits = [k for k in VETO_KEYWORDS.get(domain, []) if k in text_l]
+    for pat in VETO_PATTERNS.get(domain, []):
+        if _re.search(pat, text_l):
+            hits.append(f"pattern:{pat}")
+    return hits
 
 
 def _run_structural_review(domain: str, work: str) -> dict[str, Any]:
