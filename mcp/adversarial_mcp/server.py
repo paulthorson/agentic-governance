@@ -35,7 +35,7 @@ from mcp.server.fastmcp import FastMCP
 # ---------------------------------------------------------------------------
 
 REPO_ROOT = Path(os.environ.get("ADVERSARIAL_ROOT", Path.home() / "adversarial-agents"))
-DOMAINS = ["ux", "engineer", "qa", "researcher", "universal", "prompt", "security", "privacy", "compliance", "product"]
+DOMAINS = ["ux", "engineer", "qa", "researcher", "universal", "prompt", "security", "privacy", "compliance", "product", "ops", "docs"]
 DOMAIN_DIR = {d: REPO_ROOT / f"adversarial-{d}" for d in DOMAINS}
 
 RUNS_DIR = REPO_ROOT / "runs"
@@ -194,6 +194,14 @@ VETO_KEYWORDS = {
     "product": [
         "unvalidated market assumption", "fabricated user need",
         "unsupported competitive claim", "unsound business case", "market risk",
+    ],
+    "ops": [
+        "irreversible deployment", "no rollback path", "no disaster recovery",
+        "unobservable in production", "downtime", "data loss",
+    ],
+    "docs": [
+        "factually wrong documentation", "missing critical documentation",
+        "misleading documentation", "outdated documentation",
     ],
 }
 

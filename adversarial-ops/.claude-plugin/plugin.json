@@ -1,0 +1,8 @@
+{
+  "name": "adversarial-ops",
+  "version": "0.1.0",
+  "description": "A dedicated ops-reliability adversarial reviewer. Audits deployments, rollback, and disaster recovery for operational risk, with a hard veto that only a human can clear.",
+  "author": {
+    "name": "paulthorson"
+  }
+}
