@@ -36,6 +36,16 @@ folders and re-symlinks them into Cursor (`~/.cursor/`) and Claude
 python3 scripts/consolidate-adversarial.py
 ```
 
+## `scripts/stuck-review-watchdog.py`
+
+Detects `in_review` tickets that have been sitting without a verdict past the
+staleness threshold (default 120 min) — the assigned adversary is down, paused,
+or stalled. Alerts via Discord with dedupe state. Wired into a 30-min cron.
+
+```bash
+python3 scripts/stuck-review-watchdog.py --stale-minutes 120 --dry-run
+```
+
 ## `mcp/`
 
 The MCP server (see [[MCP]]). Managed with `uv`; pinned to `mcp<2`.

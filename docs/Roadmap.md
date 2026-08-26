@@ -44,8 +44,9 @@ list — update it as the framework evolves.
 
 ### Governance & automation
 - [ ] **ADR log** (architecture decision records) for the framework's own decisions.
-- [ ] **Stuck-review watchdog** — detect in_review tickets with no verdict
-      (adversary down/paused) and alert.
+- [x] **Stuck-review watchdog** — detect in_review tickets with no verdict
+      (adversary down/paused) and alert. `scripts/stuck-review-watchdog.py`,
+      cron every 30 min.
 - [ ] **Calibration automation** — periodic analysis of the verdict ledger.
 - [ ] **Telemetry / alerting** on vetoes.
 
