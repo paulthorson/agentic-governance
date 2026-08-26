@@ -18,6 +18,8 @@ calibration ledger.
 | **Privacy** | `adversarial-privacy/` | data handling, retention, consent | privacy-adversary (single) | unlawful collection, no consent, unbounded retention |
 | **Compliance** | `adversarial-compliance/` | regulatory/policy gates | compliance-adversary (single) | regulatory/policy violation, no evidence |
 | **Product** | `adversarial-product/` | product/market decisions | product-adversary (single) | unvalidated assumptions, unsound business case |
+| **Ops** | `adversarial-ops/` | deployment, rollback, DR | ops-adversary (single) | irreversible deployment, no rollback, no DR |
+| **Docs** | `adversarial-docs/` | docs, AGENTS, knowledge bases | docs-adversary (single) | wrong/missing/misleading docs |
 
 ## Per-domain detail
 
@@ -83,6 +85,19 @@ A product/market reviewer. Audits market assumptions, user need, competitive
 position, business case, and market risk. Skills: `prod-market-assumption-check`,
 `prod-user-need-check`, `prod-competitive-position-check`, `prod-business-case-check`,
 `prod-market-risk-scan`, `prod-adversarial-product` (worker).
+
+### Ops (`adversarial-ops/`)
+An ops/reliability reviewer. Audits deployability, rollback, disaster recovery,
+monitoring, and on-call readiness. Skills: `ops-deployability-check`,
+`ops-rollback-check`, `ops-disaster-recovery-check`, `ops-monitoring-check`,
+`ops-oncall-readiness-check`, `ops-adversarial-ops` (worker).
+
+### Docs (`adversarial-docs/`)
+A documentation reviewer. Audits accuracy, completeness, usability,
+consistency, and discoverability. Skills: `doc-doc-accuracy-check`,
+`doc-doc-completeness-check`, `doc-doc-usability-check`,
+`doc-doc-consistency-check`, `doc-doc-discoverability-check`,
+`doc-adversarial-docs` (worker).
 
 ## Flat namespaced layer
 

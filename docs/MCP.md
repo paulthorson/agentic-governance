@@ -15,6 +15,7 @@ client — can run a governed review without re-reading the framework files.
 | `get_standard(domain)` | Fetch a domain's quality standard |
 | `get_agent(domain, agent_name)` | Fetch a full adversary agent body |
 | `run_review(domain, work, context)` | Run a governed review → verdict + review prompt |
+| `run_review_deep(domain, work, context, model)` | Run a governed review, invoking the adversary agents via LLM (Ollama) |
 | `check_veto(domain, text)` | Check if text trips a hard constitutional veto |
 | `record_verdict(domain, verdict, summary, ticket)` | Append to the decision record |
 | `query_verdicts(domain, limit)` | Query recent verdicts |
@@ -51,6 +52,10 @@ Point `ADVERSARIAL_ROOT` at the repo if it isn't `~/adversarial-agents`.
 
 - **Deterministic first pass** — `check_veto` and the structural scan in
   `run_review` are objective keyword scans, giving a fast, reproducible gate.
+- **Deep review** — `run_review_deep` actually invokes the adversary agents via
+  Ollama (default `gemma3:12b`, safe size; override with `ADVERSARIAL_DEEP_MODEL`
+  or per-call `model`). A structural veto always overrides the LLM verdict —
+  the veto is absolute.
 - **Prompt assembly** — `run_review` assembles the full review prompt
   (work + context + constitution + agent list) for the domain's adversary
   agents to execute.
