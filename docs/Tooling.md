@@ -46,6 +46,18 @@ or stalled. Alerts via Discord with dedupe state. Wired into a 30-min cron.
 python3 scripts/stuck-review-watchdog.py --stale-minutes 120 --dry-run
 ```
 
+## `scripts/gen-plugin.py`
+
+Generates a new adversarial plugin from a spec (domain, prefix, agent name,
+checks, skills, veto keywords, personas). Reusable — creates the full plugin
+structure mirroring the existing plugins. Used to build the security, privacy,
+compliance, and product plugins.
+
+```bash
+python3 scripts/gen-plugin.py <domain> <prefix> <agent> --title. --desc. \
+  --checks "." --skills "." --veto "." --personas "."
+```
+
 ## `mcp/`
 
 The MCP server (see [[MCP]]). Managed with `uv`; pinned to `mcp<2`.

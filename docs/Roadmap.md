@@ -23,21 +23,19 @@ list — update it as the framework evolves.
 ### Additional adversary agents (enterprise depth)
 - [x] **Adversarial Prompt / AGENTS** — reviews the agent instructions
       themselves (self-hosting the framework).
-- [ ] **Adversarial Security** — dedicated security reviewer (currently folded
+- [x] **Adversarial Security** — dedicated security reviewer (currently folded
       into Engineer). Standalone is stronger for enterprise.
-- [ ] **Adversarial Data / Privacy** — GDPR/CCPA, data handling, retention.
-- [ ] **Adversarial Compliance** — regulatory gates.
-- [ ] **Adversarial Product / Market** — reviews PM/market decisions (currently
+- [x] **Adversarial Data / Privacy** — GDPR/CCPA, data handling, retention.
+- [x] **Adversarial Compliance** — regulatory gates.
+- [x] **Adversarial Product / Market** — reviews PM/market decisions (currently
       PM → Universal).
 - [ ] **Adversarial Ops / Reliability** — deployment, rollback, DR (folded into
       Engineer today).
 - [ ] **Adversarial Documentation** — reviews docs/AGENTS quality.
-- [ ] **Adversarial Prompt / AGENTS** — reviews the agent instructions
-      themselves (self-hosting the framework).
 
 ### Additional checks
 - [x] **Prompt-injection / agent-safety** check (critical for AI agents).
-- [ ] **Software supply-chain** check (dependencies, SBOM).
+- [x] **Software supply-chain** check (dependencies, SBOM).
 - [ ] **Performance / latency** check (engineer has constraints, no dedicated check).
 - [ ] **Disaster-recovery / rollback** gate (formal).
 - [ ] **Ethical / harm** check beyond user-harm.
