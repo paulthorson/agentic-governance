@@ -333,6 +333,100 @@ def run_review(domain: str, work: str, context: str = "") -> dict[str, Any]:
     return result
 
 
+# ---------------------------------------------------------------------------
+# Deep review (LLM-invoked)
+# ---------------------------------------------------------------------------
+
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
+DEEP_MODEL = os.environ.get("ADVERSARIAL_DEEP_MODEL", "gemma3:12b")
+
+
+def _ollama_generate(prompt: str, model: str | None = None) -> str:
+    """Call Ollama to run the adversary agents on the assembled prompt."""
+    import urllib.request
+
+    payload = json.dumps(
+        {
+            "model": model or DEEP_MODEL,
+            "prompt": prompt,
+            "stream": False,
+            "options": {"temperature": 0.2, "num_ctx": 8192},
+        }
+    ).encode()
+    req = urllib.request.Request(
+        f"{OLLAMA_URL}/api/generate",
+        data=payload,
+        headers={"Content-Type": "application/json"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=180) as resp:
+            data = json.loads(resp.read())
+        return data.get("response", "")
+    except Exception as e:
+        return f"ERROR: deep review failed: {e}"
+
+
+@mcp.tool()
+def run_review_deep(domain: str, work: str, context: str = "", model: str = "") -> dict[str, Any]:
+    """Run a governed adversarial review, invoking the adversary agents via an LLM.
+
+    Unlike run_review (which assembles the prompt), this actually calls the LLM
+    to execute the domain's adversary agents and returns their findings.
+
+    Args:
+        domain: one of the adversarial domains.
+        work: the artifact/decision/claim to review.
+        context: optional surrounding context.
+        model: optional Ollama model override (default gemma3:12b).
+
+    Returns the structural scan plus the LLM-generated verdict and findings.
+    """
+    structural = _run_structural_review(domain, work)
+    agents = _agents_for(domain)
+    constitution = _constitution(domain)
+    standard = _standard(domain)
+
+    prompt = (
+        f"You are the adversarial review team for the '{domain}' domain.\n\n"
+        f"## Work under review\n{work}\n\n"
+        f"## Context\n{context or '(none provided)'}\n\n"
+        f"## Constitution\n{constitution or '(none)'}\n\n"
+        f"## Standard\n{standard or '(none)'}\n\n"
+        f"## Adversary agents\n"
+        + "\n".join(f"- {a['name']}: {a['description']}" for a in agents)
+        + "\n\nFor each agent, produce findings with severity "
+        "(BLOCKER/CONCERN/NOTE) and a verdict of KICK_BACK or ALLOW. "
+        "If any agent finds a BLOCKER or a constitutional veto is triggered, "
+        "the overall verdict is KICK_BACK. End with: VERDICT: KICK_BACK|ALLOW"
+    )
+
+    llm_out = _ollama_generate(prompt, model or None)
+    llm_lower = llm_out.lower()
+    llm_verdict = "KICK_BACK" if "kick_back" in llm_lower else "ALLOW"
+    # A structural veto overrides the LLM verdict — the veto is absolute.
+    final_verdict = "KICK_BACK" if structural["veto_triggered"] else llm_verdict
+
+    result = {
+        "domain": domain,
+        "verdict": final_verdict,
+        "veto_triggered": structural["veto_triggered"],
+        "veto_hits": structural["veto_hits"],
+        "agents": structural["agents"],
+        "model": model or DEEP_MODEL,
+        "llm_findings": llm_out,
+    }
+    _append_verdict(
+        {
+            "kind": "deep_review",
+            "domain": domain,
+            "verdict": final_verdict,
+            "veto_hits": structural["veto_hits"],
+            "model": model or DEEP_MODEL,
+        }
+    )
+    return result
+
+
 @mcp.tool()
 def check_veto(domain: str, text: str) -> dict[str, Any]:
     """Check whether text trips a hard constitutional veto for a domain.
