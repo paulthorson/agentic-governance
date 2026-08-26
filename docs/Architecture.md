@@ -2,6 +2,8 @@
 
 The governed adversarial review loop, end to end.
 
+![The governed adversarial review loop](assets/review-loop.svg)
+
 ## The loop
 
 ```

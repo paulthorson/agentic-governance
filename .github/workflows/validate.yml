@@ -39,6 +39,23 @@ jobs:
           print("basic markdown walk OK")
           EOF
 
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install MCP deps + pytest
+        run: |
+          pip install --quiet "mcp<2" pytest
+
+      - name: Run test suite
+        run: python -m pytest tests/ -q
+
   secrets:
     runs-on: ubuntu-latest
     steps:
