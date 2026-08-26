@@ -14,6 +14,10 @@ calibration ledger.
 | **Researcher** | `adversarial-researcher/` | general/non-UX research | critic, evidence-advocate, context-reviewer | unsupported claims driving decisions |
 | **Universal** | `adversarial-universal/` | PM, BA, Scrum Master, CEO, catch-all | universal-adversary (single) | irrecoverable harm of any kind |
 | **Prompt** | `adversarial-prompt/` | the framework's own instructions (self-hosting) | prompt-adversary (single) | safety overrides, injection, drift |
+| **Security** | `adversarial-security/` | security-sensitive changes | security-adversary (single) | vulnerabilities, secret exposure, supply chain |
+| **Privacy** | `adversarial-privacy/` | data handling, retention, consent | privacy-adversary (single) | unlawful collection, no consent, unbounded retention |
+| **Compliance** | `adversarial-compliance/` | regulatory/policy gates | compliance-adversary (single) | regulatory/policy violation, no evidence |
+| **Product** | `adversarial-product/` | product/market decisions | product-adversary (single) | unvalidated assumptions, unsound business case |
 
 ## Per-domain detail
 
@@ -55,6 +59,30 @@ A self-hosting adversary that audits the framework's own instructions (AGENTS.md
 system prompts, skills, plugin manifests) for prompt-injection, drift, and safety
 overrides. Skills: `prom-prompt-injection-scan`, `prom-instruction-drift-check`,
 `prom-safety-override-scan`, `prom-adversarial-prompt` (worker).
+
+### Security (`adversarial-security/`)
+A dedicated security reviewer (previously folded into Engineer). Audits code,
+config, infra, and dependencies for vulnerabilities, secret exposure, supply-chain
+risk, and data protection. Skills: `sec-vuln-scan`, `sec-secret-exposure-scan`,
+`sec-supply-chain-check`, `sec-data-protection-check`, `sec-adversarial-security` (worker).
+
+### Privacy (`adversarial-privacy/`)
+A GDPR/CCPA data-privacy reviewer. Audits data collection, consent, retention,
+subject rights, and cross-border transfer. Skills: `priv-data-collection-audit`,
+`priv-consent-check`, `priv-retention-bound`, `priv-subject-rights-check`,
+`priv-transfer-lawfulness`, `priv-adversarial-privacy` (worker).
+
+### Compliance (`adversarial-compliance/`)
+A regulatory/policy reviewer. Audits work against regulatory gates, policy
+alignment, evidence, audit trail, and liability. Skills: `comp-regulatory-gate-check`,
+`comp-policy-alignment-check`, `comp-compliance-evidence`, `comp-audit-trail-check`,
+`comp-liability-scan`, `comp-adversarial-compliance` (worker).
+
+### Product (`adversarial-product/`)
+A product/market reviewer. Audits market assumptions, user need, competitive
+position, business case, and market risk. Skills: `prod-market-assumption-check`,
+`prod-user-need-check`, `prod-competitive-position-check`, `prod-business-case-check`,
+`prod-market-risk-scan`, `prod-adversarial-product` (worker).
 
 ## Flat namespaced layer
 
