@@ -29,30 +29,34 @@ list — update it as the framework evolves.
 - [x] **Adversarial Compliance** — regulatory gates.
 - [x] **Adversarial Product / Market** — reviews PM/market decisions (currently
       PM → Universal).
-- [ ] **Adversarial Ops / Reliability** — deployment, rollback, DR (folded into
+- [x] **Adversarial Ops / Reliability** — deployment, rollback, DR (folded into
       Engineer today).
-- [ ] **Adversarial Documentation** — reviews docs/AGENTS quality.
+- [x] **Adversarial Documentation** — reviews docs/AGENTS quality.
 
 ### Additional checks
 - [x] **Prompt-injection / agent-safety** check (critical for AI agents).
 - [x] **Software supply-chain** check (dependencies, SBOM).
-- [ ] **Performance / latency** check (engineer has constraints, no dedicated check).
-- [ ] **Disaster-recovery / rollback** gate (formal).
-- [ ] **Ethical / harm** check beyond user-harm.
+- [x] **Performance / latency** check (engineer has constraints, no dedicated check).
+      `eng-performance-check`.
+- [x] **Disaster-recovery / rollback** gate (formal). `ops-rollback-check`,
+      `ops-disaster-recovery-check`.
+- [x] **Ethical / harm** check beyond user-harm. `univ-ethical-harm-check`.
 
 ### Governance & automation
-- [ ] **ADR log** (architecture decision records) for the framework's own decisions.
+- [x] **ADR log** (architecture decision records) for the framework's own decisions.
+      `docs/ADR.md` + `docs/adr/` (5 ADRs + template).
 - [x] **Stuck-review watchdog** — detect in_review tickets with no verdict
       (adversary down/paused) and alert. `scripts/stuck-review-watchdog.py`,
       cron every 30 min.
-- [ ] **Calibration automation** — periodic analysis of the verdict ledger.
+- [x] **Calibration automation** — periodic analysis of the verdict ledger.
+      `scripts/calibration-report.py`.
 - [ ] **Telemetry / alerting** on vetoes.
 
 ### MCP
 - [ ] **Streamable HTTP transport** (currently stdio only).
 - [ ] **Auth** for remote deployments.
-- [ ] **`run_review` deep mode** — actually invoke the adversary agents (LLM)
-      rather than only assembling the prompt.
+- [x] **`run_review` deep mode** — actually invoke the adversary agents (LLM)
+      rather than only assembling the prompt. `run_review_deep` via Ollama.
 
 ### Docs
 - [x] **Diagram** of the loop as an image (currently ASCII).
