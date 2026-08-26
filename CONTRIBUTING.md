@@ -41,5 +41,5 @@ spirit.
 
 ## Getting help
 
-Open an issue, or ping Paul (maintainer on Discord). If you found a security issue, use
+Open an issue, or contact the maintainer. If you found a security issue, use
 `SECURITY.md` and do not open a public issue.

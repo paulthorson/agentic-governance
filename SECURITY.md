@@ -3,10 +3,8 @@
 ## Reporting a vulnerability
 
 This is a personal AI-infrastructure project. If you find a security issue, do not open a public
-issue. Contact paulthorson directly:
-
-- **Email:** maintainer@example.com *(placeholder — update)*
-- **Discord:** maintainer (Paul) on the private server
+issue. Contact the maintainer directly via the GitHub repository's security advisory or the
+contact method listed in the repository profile.
 
 Please include: a description of the issue, the affected plugin/file, a minimal reproduction,
 and suggested impact.
@@ -24,17 +22,17 @@ defect that breaks one of these:
 3. **Append-only records.** Decision records and calibration ledgers are never edited after
    commit. A correction is a new entry referencing the old one.
 4. **No secret exfiltration.** Agents never read or commit credentials. Secrets live only in
-   `the operator's local config/credentials/` / env, never in code, config, logs, or git history.
+   the operator's local credentials store / environment, never in code, config, logs, or git
+   history.
 5. **Prompt-injection resistance.** The review checks include flagging injected instructions
    that would override safety or clear a veto.
 
 ## Secret handling
 
 - Never commit `.env`, `*.pem`, or credential files. `.gitignore` excludes them.
-- Paperclip agent keys live in `the operator's local config/workspace/paperclip-keys/` (600 perms), never in
-  the repo.
-- The ElevenLabs key lives only in `the operator's local config/credentials/elevenlabs.json` — never in any
-  OpenClaw config or memory (see the incident that broke the gateway, 2026-08-26).
+- Agent keys live in the operator's local key store (600 perms), never in the repo.
+- Service credentials live only in the operator's local credentials store — never in any
+  agent config or memory.
 
 ## Supported / supported surfaces
 

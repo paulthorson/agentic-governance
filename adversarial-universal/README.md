@@ -4,7 +4,7 @@ A single universal adversarial reviewer you can point at anything: a decision, a
 design, a code change, a piece of research, a contract, a message before you send it. One agent,
 four universal checks, a hard veto only a human can clear.
 
-Built from paulthorson's Adversarial Agents deck, as a domain-agnostic catch-all.
+Built from the Adversarial Agents framework, as a domain-agnostic catch-all.
 
 ## The idea
 

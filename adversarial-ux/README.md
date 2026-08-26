@@ -4,7 +4,7 @@ A plugin that turns UX design work into a governed loop. The part that produces 
 that judges are different contexts, with different inputs, and one of them cannot overrule the
 other.
 
-Built from paulthorson's Adversarial Agents deck.
+Built from the Adversarial Agents framework.
 
 ## The separation
 

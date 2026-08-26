@@ -4,7 +4,7 @@ A plugin that turns engineering work into a governed loop. The part that produce
 that judges are different contexts, with different inputs, and one of them cannot overrule the
 other.
 
-Built from paulthorson's Adversarial Agents deck, applied to code, architecture, configuration,
+Built from the Adversarial Agents framework, applied to code, architecture, configuration,
 and infrastructure.
 
 ## The separation

@@ -4,7 +4,7 @@ A plugin that turns quality assurance into a governed loop. The part that produc
 that judges are different contexts, with different inputs, and one of them cannot overrule the
 other.
 
-Built from paulthorson's Adversarial Agents deck, applied to testing, acceptance criteria, and
+Built from the Adversarial Agents framework, applied to testing, acceptance criteria, and
 defect hunting.
 
 ## The separation

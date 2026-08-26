@@ -74,7 +74,7 @@ Enterprise-class coverage suggests these specialist reviewers (each a plugin wit
 - No architecture diagram of the loop.
 - No ADR log (decision record of the framework's own choices — e.g. why namespacing, why the
   blind-review isolation).
-- No MOC (map of content) for cross-referencing — Paul uses Obsidian (`~/the assistant`).
+- No MOC (map of content) for cross-referencing — the maintainer uses Obsidian for cross-referencing.
 
 ### 2.6 MCP — MISSING (explicit ask)
 An enterprise MCP server that exposes the review system to any MCP-capable client:

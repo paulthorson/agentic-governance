@@ -1,6 +1,6 @@
 # Adversarial Agents
 
-Consolidated root for all the assistant adversarial agents and skills. Referenceable from both
+Consolidated root for all adversarial agents and skills. Referenceable from both
 **Cursor** and **Claude Code** for agents and skills.
 
 ## What's here
@@ -53,12 +53,36 @@ them, the flat `agents/` and `skills/` copies (and the Cursor/Claude symlinks) p
 namespaced copies, not the plugin originals — so to propagate an edit, re-run:
 
 ```
-python3 /tmp/consolidate-adversarial.py
+python3 scripts/consolidate-adversarial.py
 ```
 
-(or the canonical script at `the operator's local config/workspace/scripts/consolidate-adversarial.py` if you
-moved it there). This rebuilds the flat layer from the plugin folders and re-symlinks into
-Cursor and Claude.
+This rebuilds the flat layer from the plugin folders and re-symlinks into Cursor and Claude.
+
+## MCP server
+
+Run the adversarial review loop as callable tools from any agent (Claude, Cursor, OpenClaw):
+
+```bash
+cd mcp && uv run adversarial-mcp
+```
+
+See [`mcp/README.md`](mcp/README.md) and [`docs/MCP.md`](docs/MCP.md) for tools and wiring.
+
+## Documentation
+
+The `docs/` folder is an Obsidian-able wiki (MOCs + pages): architecture, domains, constitution,
+vetoes, calibration, MCP, Paperclip wiring, tooling, and the roadmap. Start at `docs/Home.md`.
+
+## Tooling & CI
+
+- `scripts/validate.py` — structure validator (frontmatter, namespacing, plugin skeleton).
+- `.github/workflows/validate.yml` — CI: validate + gitleaks secret scan on push/PR.
+- `scripts/consolidate-adversarial.py` — rebuild flat layer + re-symlink into Cursor/Claude.
+
+## Governance
+
+- `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the repo root.
+- `AUDIT.md` — the original gap analysis that drove the enterprise expansion.
 
 ## Each plugin's internal layout (mirrors adversarial-ux)
 
