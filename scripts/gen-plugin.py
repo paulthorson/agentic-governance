@@ -28,6 +28,21 @@ def write(path, content):
     path.write_text(content)
     print(f"  wrote {path.relative_to(ROOT)}")
 
+def write_governance_constitution(path, content):
+    # Constitutional content is law, not capability: refuse to regenerate it.
+    # A human amending a constitution edits the file directly; it is never
+    # regenerated from a scaffold. Unconditional — no override flag, because a
+    # flag an agent can pass makes this guard decorative.
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        raise SystemExit(
+            f"refusing: {path.relative_to(ROOT)} already exists. "
+            "Constitutions are amended by a human editing the file, not regenerated. "
+            "If you intend a different domain, use a domain that has no constitution yet."
+        )
+    path.write_text(content)
+    print(f"  wrote {path.relative_to(ROOT)}")
+
 def gen(args):
     domain = args.domain
     prefix = args.prefix
@@ -189,7 +204,7 @@ When VETO is ACTIVE, end with this line verbatim:
         f"{domain} work can cause irrecoverable harm: {d.lower()}."
         for i, (c, d) in enumerate(checks, 1)
     )
-    write(ROOT / "constitution" / "domains" / f"{domain}.md", f"""# The Constitution
+    write_governance_constitution(ROOT / "constitution" / "domains" / f"{domain}.md", f"""# The Constitution
 
 Four rules for reviewing {domain}. They are enforced mechanically, by checks
 that produce a pass or a fail, regardless of the work under review.
