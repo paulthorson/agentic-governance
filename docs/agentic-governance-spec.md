@@ -134,6 +134,7 @@ Every harness file uses these nine sections in this order. (Section count correc
 ## Outputs and who you hand to
 ## Required artifact format
 ## Stop conditions
+## Permitted plugins
 ```
 
 **Read first** is not decoration. These are always-on autonomous agents, and they do not reliably re-read files unless instructed to at a specific moment. Every harness instructs the bot to load the constitution and its own harness file at the start of every task, not once at spin-up.
