@@ -1,8 +1,6 @@
 # Vetoes
 
-A **veto** is the framework's hard stop. When an adversary agent finds a
-veto condition, the work is kicked back and **only a human can clear it** —
-the producer cannot argue it away.
+A **veto** is the hard stop defined by Rule 1 of the constitution: production harm is a veto, and only a human clears it. See `constitution.md`, Rule 1.
 
 ## Veto conditions by domain
 
