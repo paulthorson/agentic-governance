@@ -21,7 +21,16 @@ sys.path.insert(0, str(REPO_ROOT / "mcp"))
 sys.path.insert(0, str(REPO_ROOT))
 os.environ.setdefault("ADVERSARIAL_ROOT", str(REPO_ROOT))
 
-from adversarial_mcp import server as mcp_server # noqa: E402
+try:
+    from adversarial_mcp import server as mcp_server  # noqa: E402
+except ImportError:
+    print(
+        "SMOKE TEST BLOCKED: the 'mcp' package is not importable under this Python.\n"
+        "Run with the repo virtualenv (which has 'mcp' installed):\n"
+        f"  {REPO_ROOT / 'mcp' / '.venv' / 'bin' / 'python'} {Path(__file__).resolve()}\n"
+        "or install it:  pip install 'mcp<2'"
+    )
+    sys.exit(1)
 
 def is_empty(value) -> bool:
     """True when a tool result is empty in a way that should never pass."""
@@ -48,16 +57,22 @@ def main() -> int:
     failures: list[str] = []
 
     # --- non-domain / whole-system tools (called once) ---
+    # list_domains and framework_status must be non-empty. query_verdicts is
+    # legitimately empty on a fresh log, so it is checked for errors only (not
+    # for non-emptiness) — an empty verdict history is a valid state.
     for name, call in [
         ("list_domains", lambda: mcp_server.list_domains()),
         ("framework_status", lambda: mcp_server.framework_status()),
-        ("query_verdicts", lambda: mcp_server.query_verdicts(limit=5)),
     ]:
         try:
             if fails(call()):
                 failures.append(f"{name} (no domain) returned empty/error")
         except Exception as e:  # noqa: BLE001
             failures.append(f"{name} (no domain) raised: {e}")
+    try:
+        mcp_server.query_verdicts(limit=5)  # must not raise; empty is valid
+    except Exception as e:  # noqa: BLE001
+        failures.append(f"query_verdicts (no domain) raised: {e}")
 
     # --- per-domain tools (all domains) ---
     for d in domains:
@@ -87,9 +102,11 @@ def main() -> int:
         else:
             failures.append(f"get_agent ({d}) skipped — no agents to look up")
 
-        # run_review returns a structured dict (structural scan + prompt, no LLM)
+        # run_review returns a structured dict (structural scan + prompt, no LLM).
+        # Tagged source=smoke_test so its verdict-log records can be filtered out
+        # of the real-review log (runs/verdicts.jsonl).
         try:
-            res = mcp_server.run_review(d, "smoke test work")
+            res = mcp_server.run_review(d, "smoke test work", source="smoke_test")
             if fails(res):
                 failures.append(f"run_review ({d}) returned empty/error")
         except Exception as e:  # noqa: BLE001

@@ -53,6 +53,9 @@ jobs:
         run: |
           pip install --quiet "mcp<2" pytest
 
+      - name: Run MCP smoke test (every tool, every domain)
+        run: python scripts/smoke_test_mcp.py
+
       - name: Run test suite
         run: python -m pytest tests/ -q
 
