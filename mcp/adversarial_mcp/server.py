@@ -30,6 +30,8 @@ from typing import Any
 
 from mcp.server.fastmcp import FastMCP
 
+from . import setup_wizard
+
 # ---------------------------------------------------------------------------
 # Framework discovery
 # ---------------------------------------------------------------------------
@@ -262,6 +264,24 @@ def _run_structural_review(domain: str, work: str) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 mcp = FastMCP("adversarial-agents")
+
+
+@mcp.tool()
+def setup_wizard_start() -> dict[str, Any]:
+    """Begin (or resume) the conversational governance setup wizard (Section 9.3).
+    Returns the first/pending question, with labeled options where bounded. Call
+    setup_wizard_answer() with the operator's reply."""
+    return setup_wizard.start_wizard(REPO_ROOT)
+
+
+@mcp.tool()
+def setup_wizard_answer(answer: str) -> dict[str, Any]:
+    """Record the operator's answer to the current wizard question and return the
+    next question, or the completion summary when the wizard is done. For bounded
+    questions, answer must be one of the offered options; for roster rows, send
+    'done' to finish the roster. Writes config/setup.md, config/roster.md, and one
+    persona block per roster row into config/personas/ on completion."""
+    return setup_wizard.answer_wizard(REPO_ROOT, answer)
 
 
 @mcp.tool()

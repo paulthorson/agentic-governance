@@ -8,6 +8,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Governance setup wizard** (`mcp/adversarial_mcp/setup_wizard.py`): conversational, exposed through the MCP server as `setup_wizard_start` / `setup_wizard_answer` (Section 9.3). Asks the operator's 13 questions natively with labeled options where bounded, writes `config/setup.md` and `config/roster.md`, and generates one persona block per roster row into `config/personas/` (Section 9.4 template). Re-runnable; absent/incomplete config is the unknown state, never defaulted. Built untested per operator instruction (interactive tooling down).
 - `docs/agentic-governance-spec.md` — the ratified work order (`agent-harnesses.md`) committed into the repo (including the Section 7 constitutional-content carve-out). From this commit forward the repo copy is canonical; the Downloads copy is dead.
 - **Agentic governance restructure** (governance-restructure branch) per ratified `agent-harnesses.md` work order:
   - Repo renamed `adversarial-agents` → `agentic-governance` (GitHub redirect from old name).
