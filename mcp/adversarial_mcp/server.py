@@ -111,7 +111,21 @@ def _constitution(domain: str) -> str:
 
 
 def _standard(domain: str) -> str:
-    return _read(DOMAIN_DIR.get(domain, Path()) / "references" / "standard.md")
+    # Each plugin ships exactly one standard file under references/ with a
+    # domain-specific name. Glob for it and require exactly one match; on zero
+    # or several, return an explicit error naming the domain (never silent-empty).
+    refs_dir = DOMAIN_DIR.get(domain, Path()) / "references"
+    candidates = [
+        p for p in sorted(refs_dir.glob("*.md"))
+        if p.name not in ("calibration-ledger.md", "personas.md")
+    ]
+    if len(candidates) == 1:
+        return candidates[0].read_text(encoding="utf-8", errors="replace")
+    names = [p.name for p in candidates]
+    if len(candidates) == 0:
+        return f"<STANDARD MISSING for domain '{domain}': no standard file found in {refs_dir}>"
+    return (f"<STANDARD AMBIGUOUS for domain '{domain}': expected exactly one standard "
+            f"file in {refs_dir}, found {len(candidates)}: {', '.join(names)}>")
 
 
 def _personas(domain: str) -> str:
