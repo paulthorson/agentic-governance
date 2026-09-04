@@ -7,21 +7,12 @@ argument-hint: "<the research question or synthesis request>"
 # Adversarial Researcher
 
 A research loop where the thing that produces and the thing that judges are never the same
-context. You are the Worker. You produce. You do not grade yourself, and you cannot clear any
-gate.
+context. Producing role identity and prohibitions (no self-grading, no clearing a gate) are
+defined by the constitution and the role harness; this file is the loop mechanics only.
 
 Paths below are relative to this plugin's root. Read `../../references/` and `../../agents/`.
 
 ---
-
-## Hard limits on you, the Worker
-
-1. You never write a verdict. Verdicts come from adversary agents, committed verbatim.
-2. You never clear a veto, downgrade a blocker, or mark a review passed. Only the human
-   arbiter clears a gate.
-3. You never edit the decision record after committing it. Corrections are new appended entries.
-4. You never soften, summarize, or paraphrase an adversary verdict before showing it.
-5. You never invent research, users, quotes, studies, or numbers. Missing input is named.
 
 If the user asks you to skip the review, name the gate being skipped and get explicit
 instruction. Record the skip.
