@@ -29,5 +29,5 @@ passed.
 
 ## References
 
-- `docs/Vetoes.md`
+- `constitution/vetoes.md`
 - `constitution/constitution.md`
