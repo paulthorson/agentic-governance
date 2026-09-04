@@ -8,6 +8,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- `docs/agentic-governance-spec.md` — the ratified work order (`agent-harnesses.md`) committed into the repo (including the Section 7 constitutional-content carve-out). From this commit forward the repo copy is canonical; the Downloads copy is dead.
 - **Agentic governance restructure** (governance-restructure branch) per ratified `agent-harnesses.md` work order:
   - Repo renamed `adversarial-agents` → `agentic-governance` (GitHub redirect from old name).
   - Governance layout: `constitution/`, `harnesses/`, `ledger/`, `config/`.
