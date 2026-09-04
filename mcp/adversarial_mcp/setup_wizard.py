@@ -160,9 +160,10 @@ def _save_state(repo_root: Path, state: dict[str, Any]) -> None:
 # --- helpers -----------------------------------------------------------------
 
 def _is_repeated_pending(state: dict[str, Any], q: dict[str, Any]) -> bool:
-    """A repeated question (roster) is complete when the last recorded value
-    for its id was the 'done' sentinel."""
-    return state.get(q["id"], [])[-1:] != ["__DONE__"]
+    """A repeated question (roster) is complete when the recorded value for its
+    id is the 'done' sentinel. The roster rows are stored in state['roster'] and
+    the sentinel in state['answers'][id] as the string '__DONE__'."""
+    return state.get("answers", {}).get(q["id"]) != "__DONE__"
 
 
 def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
