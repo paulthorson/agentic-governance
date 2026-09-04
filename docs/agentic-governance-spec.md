@@ -322,6 +322,8 @@ Capability files written before the harnesses existed carry identity language th
 
 **Scope: every capability file, not only the plugins.** Plugins, agents, and skills alike. The identity-duplication problem is not confined to one file type, and a migration that stops at plugins leaves the same contradiction living everywhere else. Audit all three.
 
+**Rescope (ratified 2026-09-04).** The migration applies **only to capability files loaded by bots that read their harness and the constitution first.** The whole premise is that the executing reader has already loaded `constitution/` and `harnesses/<role>.md`, so identity/prohibition in the capability file is duplicate. That is true for the Grokbot role bots. It is **not** true for the adversarial plugin skills, which are consumed by a separate system: an installer runs the skill in their own environment and never reads a harness or a domain constitution. In that path the skill's own prohibition block (e.g. "Hard limits on you, the Worker") was the governance the executing reader would actually see, so it is **out of scope** and must not be stripped. The review agents are already **excluded by the adversarial-agent carve-out** below.
+
 **Task:** strip capability files back to pure capability.
 
 For each plugin, agent, and skill:
@@ -336,7 +338,7 @@ For each plugin, agent, and skill:
 
 **One nuance for agents.** The adversarial agents legitimately carry identity, granted by the constitution rather than by a harness. Do not strip identity from an adversarial agent. Flag any case where an agent's identity language conflicts with the constitution instead.
 
-**One carve-out for constitutional content.** The per-plugin `references/constitution.md` files are constitutional content, not capability. Phase 3 does not touch `references/constitution.md` in any plugin. Stripping them would delete the operative rules and break `get_constitution` at once. They are moved (not stripped) per Section 14 migration, into `constitution/domains/`, and `get_constitution` is repointed to that path.
+**One carve-out for constitutional content.** The per-plugin `references/constitution.md` files are constitutional content, not capability. The migration does not touch `references/constitution.md` in any plugin. Stripping them would delete the operative rules and break `get_constitution` at once. They are moved (not stripped) into `constitution/domains/`, and `get_constitution` is repointed to that path.
 
 **Required report.** Produce a migration report listing, per file:
 
@@ -347,6 +349,8 @@ For each plugin, agent, and skill:
 The ambiguous list is the important one. Those go to the operator for a decision. Do not resolve them with a best guess.
 
 **One file per commit.** If something gets stripped that should not have been, that one file reverts cleanly. On a large repo this is a long run, and commit granularity is what makes it recoverable.
+
+**Migration outcome for this repo (recorded 2026-09-04).** On application, the migration is **closed with no files changed.** Audit findings: (1) the repo's capability files (non-adversarial skills, ~80) were audited and found **already role-neutral capability** — they read as "any reviewer can run" and pass the two-roles test as-is; (2) the `*-adversarial-*` skills are **excluded** because they are consumed outside the harness system (the executing reader never loads a harness or domain constitution, so their embedded governance must stay); (3) the review agents (`adversarial-*/agents/*` and the flat `agents/`) are **excluded by the adversarial-agent carve-out**. With all three accounted for, there is nothing left to migrate.
 
 ---
 
