@@ -102,7 +102,9 @@ def _skills_for(domain: str) -> list[dict[str, str]]:
 
 
 def _constitution(domain: str) -> str:
-    return _read(DOMAIN_DIR.get(domain, Path()) / "references" / "constitution.md")
+    # Per-domain constitutions live in constitution/domains/<domain>.md
+    # (moved out of capability folders). See the governance restructure changelog.
+    return _read(REPO_ROOT / "constitution" / "domains" / f"{domain}.md")
 
 
 def _standard(domain: str) -> str:
