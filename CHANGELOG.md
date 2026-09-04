@@ -8,11 +8,25 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Agentic governance restructure** (governance-restructure branch) per ratified `agent-harnesses.md` work order:
+  - Repo renamed `adversarial-agents` → `agentic-governance` (GitHub redirect from old name).
+  - Governance layout: `constitution/`, `harnesses/`, `ledger/`, `config/`.
+  - Five role harness files: `harnesses/pm.md`, `harnesses/ux.md`, `harnesses/engineer.md`, `harnesses/qa.md`, `harnesses/ceo.md` — using the Section 4 skeleton and Sections 5/10 content, with Section 11 plugin allowlists cross-referenced.
+  - `config/roster.md` — empty roster table (Section 9.2 columns).
+  - `ledger/queue.md` — human queue (Section 13).
+  - `docs/communication.md` — communication rules (Section 6).
+  - `docs/commit-discipline.md` — commit discipline (Section 8).
+  - Constitution relocated `docs/Constitution.md` → `constitution/constitution.md`; calibration ledger `docs/Calibration.md` → `ledger/calibration-ledger.md` (git mv, history preserved); inbound reference in `docs/adr/0004-hard-vetoes.md` updated.
+  - `docs/` retained as the in-repo wiki (no separate `wiki/` folder).
 - Foundation for GitHub publication: LICENSE (MIT), SECURITY.md, CONTRIBUTING.md,
   AGENTS.md (repo operating rules), CHANGELOG.md, .gitignore.
 - AUDIT.md — enterprise gap analysis + roadmap.
 - CI validation workflow (`scripts/validate.py` + GitHub Actions) — lints frontmatter,
   checks naming uniqueness, validates structure and cross-references.
+
+### Moved
+- `docs/Constitution.md` → `constitution/constitution.md` (git rename).
+- `docs/Calibration.md` → `ledger/calibration-ledger.md` (git rename).
 
 ## [0.1.0] — 2026-08-26
 

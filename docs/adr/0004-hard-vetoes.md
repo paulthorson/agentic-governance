@@ -30,4 +30,4 @@ passed.
 ## References
 
 - `docs/Vetoes.md`
-- `docs/Constitution.md`
+- `constitution/constitution.md`
