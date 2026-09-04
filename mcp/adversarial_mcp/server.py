@@ -34,7 +34,10 @@ from mcp.server.fastmcp import FastMCP
 # Framework discovery
 # ---------------------------------------------------------------------------
 
-REPO_ROOT = Path(os.environ.get("ADVERSARIAL_ROOT", Path.home() / "adversarial-agents"))
+# Repo root resolves from this file's own location (mcp/adversarial_mcp/server.py
+# → up two parents to the repo root) so the repo can be renamed or cloned
+# anywhere without breaking. ADVERSARIAL_ROOT overrides when set.
+REPO_ROOT = Path(os.environ.get("ADVERSARIAL_ROOT", Path(__file__).resolve().parents[2]))
 DOMAINS = ["ux", "engineer", "qa", "researcher", "universal", "prompt", "security", "privacy", "compliance", "product", "ops", "docs"]
 DOMAIN_DIR = {d: REPO_ROOT / f"adversarial-{d}" for d in DOMAINS}
 
