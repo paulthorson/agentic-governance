@@ -149,7 +149,7 @@ def _append_verdict(record: dict[str, Any]) -> None:
         fh.write(json.dumps(record) + "\n")
 
 
-def _load_verdicts(domain: str | None = None, limit: int = 50) -> list[dict[str, Any]]:
+def _load_verdicts(domain: str | None = None, limit: int = 50, source: str | None = None) -> list[dict[str, Any]]:
     if not VERDICT_LOG.exists():
         return []
     rows = []
@@ -161,6 +161,8 @@ def _load_verdicts(domain: str | None = None, limit: int = 50) -> list[dict[str,
         except json.JSONDecodeError:
             continue
         if domain and r.get("domain") != domain:
+            continue
+        if source is not None and r.get("source") != source:
             continue
         rows.append(r)
     return rows[-limit:]
@@ -324,13 +326,15 @@ def get_agent(domain: str, agent_name: str) -> str:
 
 
 @mcp.tool()
-def run_review(domain: str, work: str, context: str = "") -> dict[str, Any]:
+def run_review(domain: str, work: str, context: str = "", source: str = "app") -> dict[str, Any]:
     """Run a governed adversarial review on a piece of work.
 
     Args:
         domain: one of ux, engineer, qa, researcher, universal.
         work: the artifact/decision/claim to review (code, design, plan, message, research).
         context: optional surrounding context (ticket, constraints, prior findings).
+        source: provenance tag for the verdict log — "app" for real reviews, or a
+            test/automation tag (e.g. "smoke_test") so records can be filtered out.
 
     Returns a structured verdict: structural scan, veto status, and the review
     prompt assembled for the domain's adversary agents.
@@ -367,6 +371,7 @@ def run_review(domain: str, work: str, context: str = "") -> dict[str, Any]:
             "verdict": verdict,
             "veto_hits": structural["veto_hits"],
             "work_chars": structural["work_chars"],
+            "source": source,
         }
     )
     return result
@@ -493,15 +498,18 @@ def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "") ->
         "verdict": verdict.upper(),
         "summary": summary,
         "ticket": ticket,
+        "source": "app",
     }
     _append_verdict(rec)
     return {"recorded": True, "record": rec}
 
 
 @mcp.tool()
-def query_verdicts(domain: str = "", limit: int = 50) -> list[dict[str, Any]]:
-    """Query recent review verdicts from the decision record. Optionally filter by domain."""
-    return _load_verdicts(domain or None, limit)
+def query_verdicts(domain: str = "", limit: int = 50, source: str = "") -> list[dict[str, Any]]:
+    """Query recent review verdicts from the decision record. Optionally filter by
+    domain and/or source (e.g. source="app" for real reviews, source="smoke_test"
+    to inspect test records). An empty source filter matches all sources."""
+    return _load_verdicts(domain or None, limit, source or None)
 
 
 @mcp.tool()
