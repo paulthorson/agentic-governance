@@ -78,7 +78,7 @@ Built from the Adversarial Agents framework, applied to {domain}.
 
 ## References
 
-- `references/constitution.md` — the {domain}-review constitution.
+- `constitution/domains/{domain}.md` — the {domain}-review constitution (in the governance repo, not in the plugin).
 - `references/{domain}-standard.md` — the {domain} quality bar.
 - `references/personas.md` — the stress personas.
 - `references/calibration-ledger.md` — the verdict record.
@@ -119,7 +119,7 @@ and you say what would have to be true for the harm to be gone.
 
 Read, in this order:
 
-1. `../references/constitution.md`
+1. `../../constitution/domains/{domain}.md`
 2. `../references/{domain}-standard.md`
 3. The work you were handed
 
@@ -182,13 +182,14 @@ When VETO is ACTIVE, end with this line verbatim:
 > This veto can only be cleared by a human arbiter. No AI in this system may clear it.
 """)
 
-    # constitution
+    # constitution — written to the governance repo at constitution/domains/<domain>.md,
+    # NOT into the plugin's references/ (constitutional content is not capability content).
     rule_lines = "\n".join(
         f"**What triggers it.** The {args.title} Adversary raises a blocker when "
         f"{domain} work can cause irrecoverable harm: {d.lower()}."
         for i, (c, d) in enumerate(checks, 1)
     )
-    write(base / "references" / "constitution.md", f"""# The Constitution
+    write(ROOT / "constitution" / "domains" / f"{domain}.md", f"""# The Constitution
 
 Four rules for reviewing {domain}. They are enforced mechanically, by checks
 that produce a pass or a fail, regardless of the work under review.
@@ -257,7 +258,7 @@ falsify it, or says plainly it cannot name one (which is itself a finding).
 
 - Every human override is logged in `references/calibration-ledger.md`.
 - Three overrides of one rule puts the rule on trial.
-- Only a human edits `references/constitution.md`.
+- Only a human edits `constitution/domains/{domain}.md`.
 """)
 
     # standard
