@@ -6,7 +6,8 @@ Checks:
   1. Every agent .md and SKILL.md has a `name:` frontmatter field.
   2. In the flat agents/ + skills/ layers, names are unique (no collisions).
   3. Every plugin folder has the required structure: agents/, skills/, references/
-     (constitution.md, <domain>-standard.md, personas.md, calibration-ledger.md),
+     references/calibration-ledger.md, personas.md), and that a per-domain constitution
+     exists at constitution/domains/<domain>.md,
      assets/templates/ (decision-record.md, calibration-entry.md), commands/.
   4. The flat layer's namespaced files are consistent with the plugin folders
      (each flat file/folder traces back to a plugin + original name).
@@ -14,9 +15,10 @@ Checks:
 
 Exit code 0 = valid, 1 = invalid (prints failures).
 
-Usage: python3 scripts/validate.py [--root ~/adversarial-agents]
+Usage: python3 scripts/validate.py [--root <repo root>]
 """
 import os, re, sys, argparse
+from pathlib import Path
 
 DOMAIN_PREFIXES = ["ux", "eng", "qa", "res", "univ", "prom", "sec", "priv", "comp", "prod", "ops", "doc"]
 
@@ -35,7 +37,7 @@ def parse_frontmatter(path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", default=os.path.expanduser("~/adversarial-agents"))
+    ap.add_argument("--root", default=str(Path(__file__).resolve().parents[1]))
     args = ap.parse_args()
     root = os.path.abspath(args.root)
     errors = []
@@ -54,13 +56,17 @@ def main():
         "assets/templates": "dir",
         "commands": "dir",
     }
-    ref_files = ["constitution.md", "calibration-ledger.md", "personas.md"]
+    ref_files = ["calibration-ledger.md", "personas.md"]  # constitution.md moved to constitution/domains/
     tmpl_files = ["decision-record.md", "calibration-entry.md"]
     for p in plugins:
         base = os.path.join(root, p)
+        domain = p[len("adversarial-"):]
         for rel, kind in required.items():
             if kind == "dir" and not os.path.isdir(os.path.join(base, rel)):
                 errors.append(f"[{p}] missing dir: {rel}/")
+        # per-domain constitution now lives outside the plugin, in constitution/domains/
+        if not os.path.exists(os.path.join(root, "constitution", "domains", f"{domain}.md")):
+            errors.append(f"[{p}] missing constitution/domains/{domain}.md")
         # references
         ref_dir = os.path.join(base, "references")
         if os.path.isdir(ref_dir):
@@ -110,7 +116,8 @@ def main():
                 if not any(base.startswith(pfx + "-") for pfx in DOMAIN_PREFIXES):
                     errors.append(f"[agents/{f}] not domain-namespaced (expected {DOMAIN_PREFIXES})")
     if os.path.isdir(flat_skills):
-        sk = os.listdir(flat_skills)
+        sk = [d for d in os.listdir(flat_skills)
+              if os.path.isdir(os.path.join(flat_skills, d)) and not d.startswith(".")]
         dupes = {n for n in sk if sk.count(n) > 1}
         for d in sorted(dupes):
             errors.append(f"[skills/] duplicate folder: {d}")
@@ -135,7 +142,7 @@ def main():
     print("VALIDATION PASSED")
     print(f"  plugins: {len(plugins)}")
     print(f"  flat agents: {len([f for f in os.listdir(flat_agents) if f.endswith('.md')]) if os.path.isdir(flat_agents) else 0}")
-    print(f"  flat skills: {len(os.listdir(flat_skills)) if os.path.isdir(flat_skills) else 0}")
+    print(f"  flat skills: {len([d for d in os.listdir(flat_skills) if os.path.isdir(os.path.join(flat_skills, d)) and not d.startswith('.')]) if os.path.isdir(flat_skills) else 0}")
     sys.exit(0)
 
 if __name__ == "__main__":
