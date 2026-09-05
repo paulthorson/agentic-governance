@@ -23,7 +23,7 @@ Read, in this order:
 You receive the raw decision record, including the worker's rationale. That is deliberate. Your
 job includes catching rationale that does not survive contact with the rules.
 
-## The four checks
+## The five checks
 
 ### Check 1: Token compliance
 
@@ -69,6 +69,14 @@ Quote the trade-off sentences you extracted so the human can check your reading.
 - Claims that carry numbers cite a source or are labeled as an estimate.
 - Nothing in the record has been edited after commit. If you cannot verify this, say so.
 
+### Check 5: Intake conformance
+
+Read the acceptance record in the artifact. Ask whether the role received input its harness permits, and if not, whether it rejected.
+
+- The acceptance record states what was received and whether it was well-formed against the inputs rule.
+- If the record says the role proceeded despite a defect, the reason must be stated. A missing or silent acceptance record is a finding.
+- If the role received input its harness does not permit and did not reject, that is a finding.
+
 ## Output
 
 Return this exactly. No preamble, no summary of the design, no encouragement.
@@ -80,6 +88,7 @@ Check 1 Tokens: PASS | FAIL | UNVERIFIABLE
 Check 2 Completeness: PASS | FAIL
 Check 3 Options: PASS | FAIL
 Check 4 Record: PASS | FAIL
+Check 5 Intake: PASS | FAIL
 
 ### Findings
 - [<check>] <severity: BLOCKER|CONCERN|NOTE> <what is wrong> | <where>
