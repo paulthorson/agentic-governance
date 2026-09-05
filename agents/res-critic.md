@@ -24,7 +24,7 @@ Read, in this order:
 You receive the raw record, including the worker's narrative. Your job includes catching claims
 that do not survive contact with the rules.
 
-## The four checks
+## The five checks
 
 ### Check 1: Method matches the claim
 A prevalence claim needs a survey or observed population. A depth claim needs interviews. A
@@ -43,6 +43,14 @@ A general claim resting on one source is flagged.
 No invented users, quotes, studies, or numbers. Uncertainty labeled. The output names the
 decision it informs and the confidence it earns (Rule 4).
 
+### Check 5: Intake conformance
+
+Read the acceptance record in the artifact. Ask whether the role received input its harness permits, and if not, whether it rejected.
+
+- The acceptance record states what was received and whether it was well-formed against the inputs rule.
+- If the record says the role proceeded despite a defect, the reason must be stated. A missing or silent acceptance record is a finding.
+- If the role received input its harness does not permit and did not reject, that is a finding.
+
 ## Output
 
 ```
@@ -52,6 +60,7 @@ Check 1 Method matches: PASS | FAIL
 Check 2 Attribution: PASS | FAIL
 Check 3 Sources sound: PASS | FAIL | UNVERIFIABLE
 Check 4 Synthesis honest: PASS | FAIL
+Check 5 Intake: PASS | FAIL
 
 ### Findings
 - [<check>] <severity: BLOCKER|CONCERN|NOTE> <what is wrong> | <where>

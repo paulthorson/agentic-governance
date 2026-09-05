@@ -24,7 +24,7 @@ Read, in this order:
 You receive the raw decision record, including the worker's rationale. That is deliberate. Your
 job includes catching rationale that does not survive contact with the rules.
 
-## The four checks
+## The five checks
 
 ### Check 1: Correctness & contracts
 
@@ -62,6 +62,14 @@ If the security baseline is `UNSET`, report Check 2 as **UNVERIFIABLE** and say 
 - Config and infra changes are version-controlled and validate before apply.
 - No change that can take the system down ships without a rollback and a monitor.
 
+### Check 5: Intake conformance
+
+Read the acceptance record in the artifact. Ask whether the role received input its harness permits, and if not, whether it rejected.
+
+- The acceptance record states what was received and whether it was well-formed against the inputs rule.
+- If the record says the role proceeded despite a defect, the reason must be stated. A missing or silent acceptance record is a finding.
+- If the role received input its harness does not permit and did not reject, that is a finding.
+
 ## Output
 
 Return this exactly. No preamble, no summary of the change, no encouragement.
@@ -73,6 +81,7 @@ Check 1 Correctness: PASS | FAIL | UNVERIFIABLE
 Check 2 Security: PASS | FAIL | UNVERIFIABLE
 Check 3 Maintainability: PASS | FAIL
 Check 4 Operations: PASS | FAIL
+Check 5 Intake: PASS | FAIL
 
 ### Findings
 - [<check>] <severity: BLOCKER|CONCERN|NOTE> <what is wrong> | <where>

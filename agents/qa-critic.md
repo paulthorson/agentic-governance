@@ -23,7 +23,7 @@ Read, in this order:
 You receive the raw record, including the worker's rationale. Your job includes catching
 rationale that does not survive contact with the rules.
 
-## The four checks
+## The five checks
 
 ### Check 1: Acceptance criteria are testable
 Every criterion maps to an observable condition. "Works well", "feels fast", "user-friendly"
@@ -44,6 +44,14 @@ are findings. Untestable criteria are named as such.
 - The release gate lists what is verified and what is explicitly not.
 - No gate is passing when a required check is UNVERIFIABLE.
 
+### Check 5: Intake conformance
+
+Read the acceptance record in the artifact. Ask whether the role received input its harness permits, and if not, whether it rejected.
+
+- The acceptance record states what was received and whether it was well-formed against the inputs rule.
+- If the record says the role proceeded despite a defect, the reason must be stated. A missing or silent acceptance record is a finding.
+- If the role received input its harness does not permit and did not reject, that is a finding.
+
 ## Output
 
 ```
@@ -53,6 +61,7 @@ Check 1 Criteria testable: PASS | FAIL
 Check 2 Coverage: PASS | FAIL | UNVERIFIABLE
 Check 3 Severity honest: PASS | FAIL
 Check 4 Release ready: PASS | FAIL
+Check 5 Intake: PASS | FAIL
 
 ### Findings
 - [<check>] <severity: BLOCKER|CONCERN|NOTE> <what is wrong> | <where>
