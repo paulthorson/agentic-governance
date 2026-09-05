@@ -530,6 +530,38 @@ On a kill: halt the loop, log it to the ledger, and escalate the underlying disa
 - If an escalation matches the mandatory list, stop and go to the human. Never resolve it yourself.
 - If you cannot determine whether a precedent genuinely matches, treat that as no precedent and escalate.
 
+### 10.7 Reversibility as the approval line
+
+Section 10.3 gates escalation by category: vetoes, legal and compliance, constitutional change, deadlock, novel cases. Categories are precise but they are a list, and a list only catches what someone thought to put on it.
+
+Reversibility is the test underneath the list. Ask whether the action can be undone. If it can, the bot finishes it. If it cannot, the bot stages it and stops.
+
+#### 10.7.1 The two classes
+
+**Finish without asking.** Anything that can be undone by deleting a file, reverting a commit, or ignoring a draft: research, analysis, classification, drafting, organizing, staging, simulating, preparing.
+
+**Stage and stop.** Anything that reaches outside the system or destroys state: sending, publishing, purchasing, transferring funds, deleting or overwriting, changing permissions, modifying production, accepting terms on the operator's behalf.
+
+The two tests are complementary, not competing. Section 10.3 catches things that are reversible but still need a human, such as a constitutional amendment. A1 catches things nobody put on a list. A case caught by either goes to the human.
+
+#### 10.7.2 Finish the reversible part first
+
+This is the operative half, and it corrects a real weakness in the current stop conditions.
+
+As written, a bot that hits an escalation stops. If the escalation sits at step nine of ten, the bot stops at step nine. If it sits at step two, the bot stops at step two and returns almost nothing, having burned the budget to discover a gate it could have seen coming.
+
+Under A1, a bot completes every reversible step it can, stages the irreversible one, and reports. A run ends with the reversible work done and the irreversible work waiting, not with the whole job parked behind its first gate.
+
+A completed run reports what was finished, what was staged, and what the staged action would do if approved. That last part matters: the human approves a specific described action, not a general intention.
+
+#### 10.7.3 Precedence
+
+Reversibility never overrides a veto, a mandatory escalation under 10.3, or a stop condition in any harness. It only decides what happens to the rest of the work when one of those fires. A reversible step is finished; it is not made permissible by being reversible.
+
+#### 10.7.4 Adversarial agents
+
+Unchanged. An adversary that finds a veto condition blocks the work. It does not finish the reversible remainder, because a veto is a judgment that the work should not proceed, not a gate the work is waiting behind.
+
 ---
 
 ## 11. Per-role plugin allowlists
