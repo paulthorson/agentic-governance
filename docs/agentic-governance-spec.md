@@ -449,6 +449,18 @@ The enforcement is the check, not the instruction. The real control is that the 
 
 Genuine isolation requires separate credentials. Where two bots must have genuinely different levels of trust, that separation lives in the accounts and environments they run under, not in their persona blocks. The framework cannot provide it, and should not claim to. This same reasoning applies anywhere else the framework relies on an instruction to prevent an action a bot is technically able to take: an instruction sets expectations, a check enforces them, and where the two are confused the system reports a guarantee it cannot keep.
 
+### 9.6 Config validation
+
+Section 9.1 establishes that an absent or incomplete config is the unknown state, and that the correct behavior on unknown is to ask rather than default. That covers missing values. It does not cover wrong ones.
+
+A config can be complete and still incoherent: a per-epic budget larger than the total allowance, an escalation threshold above one hundred percent, quiet hours that span the full day, a promotion gate of zero clean runs, a retry count of zero paired with an escalation that never fires, a roster naming a role with no harness file.
+
+The wizard validates before writing, and refuses on a contradiction rather than writing it and letting a bot discover it at runtime. The refusal names the specific conflict and the two values that produce it.
+
+Validation runs on every wizard run, including re-runs, because a change to one value can contradict another that was fine when it was set.
+
+Where a value cannot be validated, because it depends on a runtime the framework cannot see, that is stated rather than assumed correct.
+
 ---
 
 ## 10. CEO Bot Harness
