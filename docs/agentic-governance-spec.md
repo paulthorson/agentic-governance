@@ -599,6 +599,31 @@ Autonomy is a runtime state, not a property of the bot. A bot that has been demo
 
 The wizard asks for the starting level for new bots and the number of clean runs required per promotion. Default starting level is 1. Nothing starts above 2 without the operator setting it explicitly.
 
+### 10.9 Declared retry budgets
+
+Section 10.5 kills redundant loops after the fact, once repetition is visible. That is the right backstop and it stays. But detection-after-the-fact means the spend has already happened by the time anything intervenes.
+
+A declared budget is the preventive half. Before a bot begins, its retries are bounded.
+
+#### 10.9.1 What a bounded retry needs
+
+Four things, all declared before the work starts:
+
+1. **A target.** What success is, stated so it can be checked rather than felt.
+2. **A count.** How many attempts are allowed. Not "until it works."
+3. **A gap.** Each failed attempt records what specifically was missing, so the next attempt repairs something rather than rephrasing.
+4. **An escalation.** What happens when the count is exhausted. Never silence, and never another attempt.
+
+#### 10.9.2 The bot does not set its own budget
+
+A bot decides how to repair a gap. It does not decide whether it gets another attempt. That separation is the entire point: a bot allowed to extend its own retry count has no retry count.
+
+The budget comes from config. When it is exhausted, the case escalates with its failure record attached, so the human sees what was tried rather than only that it failed.
+
+#### 10.9.3 Repeated failure is a rule problem
+
+A case that exhausts its retry budget three or more times across separate runs is not a hard case. It is a rule, an artifact format, or a target that is wrong. Send it to rule-on-trial, matching the existing treatment in 10.2 and 10.3.
+
 ---
 
 ## 11. Per-role plugin allowlists
