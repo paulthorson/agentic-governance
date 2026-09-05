@@ -862,6 +862,49 @@ Nothing here assumes a runtime, an industry, a regulator, a budget model, a team
 
 If a future change to this document requires knowing who the operator is or what they are running, that change is wrong. Route it through config instead.
 
+### End-to-end validation before further extension
+
+Every mechanism in the spec and in this addendum is designed and none has been observed. No epic has moved from a PM brief through UX to engineering to QA, no CEO ruling has been reviewed by an adversary, no morning queue has been answered, and no bot has been promoted or demoted.
+
+Before the framework is extended further, one small epic runs the full chain end to end.
+
+The point is not to prove it works. The point is to find where it does not, while the cost of changing it is low. Predicted failure modes are not evidence, and a framework that has only ever been reasoned about has been tested against its author's assumptions rather than against use.
+
+Two things to watch first, because they are the most likely to fail quietly:
+
+**The two-approaches requirement.** Section 5.1 requires a PM brief to carry at least two genuinely different approaches. It is the easiest requirement in the framework to satisfy dishonestly, since two phrasings of one idea will pass any check that counts rather than compares.
+
+**Whether the chain stalls.** Each role can reject work back to the previous one. Nothing yet demonstrates that a real brief survives PM to UX to engineer to QA without bouncing indefinitely between two roles that each consider the other at fault.
+
+Record what breaks. That record is worth more than the next addendum.
+
+### When not to invoke the chain
+
+Nothing in this framework says when it should not be used, and a governance system that cannot be proportionate will be routed around.
+
+The full chain is research, a brief with two approaches, design with a rationale, implementation, verification, and adversarial review. For a one-line copy fix or a colour change, that overhead exceeds the work by an order of magnitude, and a team that has to run it anyway will start doing small work outside the system entirely. That is the worst outcome available: the framework's overhead becomes the reason work escapes governance.
+
+#### The test
+
+Invoke the chain when the work involves a **decision that could be wrong in a way that matters**.
+
+Skip it when the work is fully specified, reversible, and carries no decision. Fixing a typo, correcting a broken link, applying a change already decided in a prior epic.
+
+The test is not size. A one-line change to a permission check is a decision. A thousand-line change that mechanically applies a decision already made is not.
+
+#### The floor
+
+Two things always hold, however small the work:
+
+- The irreversible-action gates in A1. Small work publishes, sends, and deletes exactly like large work.
+- Attribution. Work outside the chain is still recorded as done and by whom, so the log stays a full account of what changed.
+
+Skipping the chain is skipping the deliberation, not the guardrails.
+
+#### Who decides
+
+The CEO bot routes work as small, and records the call. If an adversary or the operator disagrees, that judgment is escalated like any other, and repeated disagreement about what counts as small is a rule problem heading for rule-on-trial rather than a series of individual disputes.
+
 ### Not executable by the implementing agent
 
 Two steps belong to the operator, not the agent:
