@@ -404,6 +404,14 @@ Turning an objective into a research question means **restating a solution-frame
 
 ---
 
+## A19. The carve-out boundary: identity, not check list
+
+**Decided.** This is not an open problem; it is a ratified boundary rule for the Section 7 carve-out.
+
+The Section 7 carve-out protects an adversarial agent's **identity**, not its **check list**. Identity is what the agent is and what it may never do; a check is what it verifies. Adding, removing, or amending a check is **procedure** and is permitted. Changing what the agent is, what it may never do, or its authority to block is **identity** and is forbidden. An amendment that requires rewording the identity section is not procedure, whatever it is called.
+
+---
+
 ## A11. End-to-end validation before further extension
 
 **Lands in:** Section 14, as an adoption prerequisite.
