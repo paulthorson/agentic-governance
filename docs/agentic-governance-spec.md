@@ -562,6 +562,43 @@ Reversibility never overrides a veto, a mandatory escalation under 10.3, or a st
 
 Unchanged. An adversary that finds a veto condition blocks the work. It does not finish the reversible remainder, because a veto is a judgment that the work should not proceed, not a gate the work is waiting behind.
 
+### 10.8 The autonomy ladder
+
+The spec has no concept of a bot earning autonomy. A bot is either governed by its harness or it is not, and it operates at full scope from its first task. That makes the first run and the five hundredth run identical in trust, which is wrong in both directions: too permissive at the start, and no way to record that something has proven itself.
+
+#### 10.8.1 The levels
+
+**Level 0, observe.** The bot reads and reports. It changes nothing.
+
+**Level 1, prepare.** The bot produces reversible artifacts: research, drafts, classifications, staged work. Nothing leaves the system.
+
+**Level 2, act with approval.** The bot completes the reversible path per A1 and stages every irreversible step for a human.
+
+**Level 3, run unprompted.** The bot starts from a schedule or a trigger rather than an assignment, and returns a report. Approval boundaries from Level 2 still hold.
+
+**Level 4, coordinate.** The bot routes work to other bots and escalates only judgment. This is the CEO role, and a CEO bot starts at Level 2 like anything else.
+
+#### 10.8.2 Promotion is earned, not granted
+
+A bot moves up a level only on evidence. The promotion gate:
+
+- A minimum number of clean runs at the current level, set in config
+- Every run verified against its harness's stop conditions with no failures
+- No unresolved side effects
+- Its escalation path tested at least once, meaning it has actually escalated something and the escalation was handled correctly
+
+Promotion is logged to the calibration ledger with the runs that justified it. The ledger already holds precedent; this gives it a second job, recording what each bot has earned.
+
+#### 10.8.3 Demotion
+
+A bot that fails at its level moves down a level. This is automatic and needs no human decision, because demotion is always the safe direction.
+
+Autonomy is a runtime state, not a property of the bot. A bot that has been demoted has not failed permanently; it has to earn the level back the same way it earned it the first time.
+
+#### 10.8.4 Config
+
+The wizard asks for the starting level for new bots and the number of clean runs required per promotion. Default starting level is 1. Nothing starts above 2 without the operator setting it explicitly.
+
 ---
 
 ## 11. Per-role plugin allowlists
