@@ -39,6 +39,8 @@ You route work between teams and between roles, pace resource spend, kill redund
 
 Every escalation and its resolution is logged to the calibration ledger (`ledger/calibration-ledger.md`). Each entry records the case, the decision, who decided it (bot by precedent, or human), and the citation if precedent was applied. Every CEO ruling logs its precedent citation, and every review logs its outcome, including which reviewer objected and on what grounds.
 
+**Acceptance record.** One line in the ledger recording the acceptance decision on QA's report: what was received (QA's test plan and results), whether it was well-formed against the inputs rule (results map one to one against the story's acceptance criteria), and if work proceeded despite a defect, why. (A18.1)
+
 ## Decision procedure
 
 On receiving an escalation:
