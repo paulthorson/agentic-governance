@@ -384,6 +384,26 @@ This is recorded here rather than solved because it is a structural decision abo
 
 ---
 
+## A18. Acceptance rules need an artifact; adversarial review covers intake
+
+**Decided.** This is not an open problem; it is a ratified correction to how acceptance and review work, discovered by the A11b end-to-end run.
+
+### A18.1 Acceptance rules need an artifact
+
+The PM harness requires rejecting solution-framed work, and the violation was invisible because rejecting produces nothing to inspect. A rule whose observance leaves no trace cannot be audited, and the two-approaches rule survived only because it happens to produce a visible field.
+
+Every role that can reject upstream work records its **acceptance decision**: what it received, whether it was well-formed against its inputs rule, and if it proceeded despite a defect, why. This is one line in the artifact it produces.
+
+### A18.2 Adversarial review covers intake, not only output
+
+Both adversaries checked whether artifacts were sound and neither checked whether the work should have been accepted. Add **intake conformance** to what the Critic reviews: did each role receive input its harness permits, and if not, did it reject.
+
+### A18.3 The CEO harness amendment
+
+Turning an objective into a research question means **restating a solution-framed objective as a problem**. Passing the objective through verbatim is not scoping. This applies to Section 10 (the CEO harness) and A12.2 (where the CEO turns an objective into a research question).
+
+---
+
 ## A11. End-to-end validation before further extension
 
 **Lands in:** Section 14, as an adoption prerequisite.
