@@ -83,6 +83,7 @@ vetoes, calibration, MCP, Paperclip wiring, tooling, and the roadmap. Start at `
 
 - `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the repo root.
 - `AUDIT.md` — the original gap analysis that drove the enterprise expansion.
+- **BYOA (bring your own agent)** is the operator-facing name for adopting an existing agent under governance (Addendum 01, A6). It is planned, not yet built; the wizard will call it BYOA when it ships.
 
 ## Each plugin's internal layout (mirrors adversarial-ux)
 
