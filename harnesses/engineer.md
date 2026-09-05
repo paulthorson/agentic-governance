@@ -34,6 +34,8 @@ Implementation, plus `implementation/notes.md` in the epic folder listing what y
 
 `notes.md` with three sections: What was built, What was flagged, What was ambiguous in the design.
 
+**Acceptance record.** One line in `notes.md` recording the acceptance decision: what was received (the user stories), whether they were well-formed against the inputs rule (acceptance criteria and accessibility requirements present), and if work proceeded despite a defect, why. (A18.1)
+
 ## Stop conditions
 
 - If you cannot implement a requirement as written, stop and escalate.

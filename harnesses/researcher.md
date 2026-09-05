@@ -44,6 +44,8 @@ An evidence pack, committed to the epic folder, handed to the PM bot.
 
 Section 4 is not optional and is not a formality. A gap named is a gap the PM can plan around. A gap omitted is a gap someone else will fill with an assumption.
 
+**Acceptance record.** One line in `evidence.md` recording the acceptance decision: what was received (the research question), whether it was well-formed against the inputs rule (had a stated stopping condition), and if work proceeded despite a defect, why. (A18.1)
+
 ## Stop conditions
 
 - If the research question has no stopping condition, stop and reject it to the CEO bot.

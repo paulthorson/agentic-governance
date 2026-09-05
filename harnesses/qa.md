@@ -34,6 +34,8 @@ This routing is deliberate. An engineer bot and a QA bot looping privately is ho
 
 `test-plan.md` and `results.md`. Results map one to one against the story's acceptance criteria and accessibility requirements, with a pass or fail per item and no aggregated verdicts.
 
+**Acceptance record.** One line in `results.md` recording the acceptance decision: what was received (the user story and the implementation notes), whether they were well-formed against the inputs rule (acceptance criteria and accessibility requirements present in the story), and if work proceeded despite a defect, why. (A18.1)
+
 ## Stop conditions
 
 - If acceptance criteria are untestable as written, stop and escalate rather than inventing an interpretation.

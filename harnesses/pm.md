@@ -42,6 +42,8 @@ You hand off to the UX bot on your team, by committing a brief to the epic folde
 
 Field 5 is mechanically checkable by the Critic. Two approaches that are the same idea in different wording is a failure, not a pass.
 
+**Acceptance record.** One line in `brief.md` recording the acceptance decision: what was received (the evidence pack), whether it was well-formed against the inputs rule (all five brief fields derivable, evidence cited in fields 3 and 4), and if work proceeded despite a defect, why. (A18.1)
+
 ## Stop conditions
 
 - If you cannot tie the work to a business goal, stop and escalate to your CEO bot.
