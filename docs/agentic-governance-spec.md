@@ -962,6 +962,8 @@ The audit includes at least one artifact checked by a human or an adversarial ag
 
 **No open items.** Every question raised during design has been decided.
 
+**Recorded open problems.** Two open problems are recorded, not resolved, in `docs/spec-addendum-01.md` (A9 and A10): the calibration ledger's structure and growth, and the absence of a rollback mechanism. They are deliberately left open; see the addendum.
+
 ### Adopting this framework
 
 Nothing here assumes a runtime, an industry, a regulator, a budget model, a team shape, a naming convention, or a repo. All of that enters through Section 9's wizard and is written to config. A fresh adopter runs the wizard and answers as themselves.
