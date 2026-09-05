@@ -624,6 +624,16 @@ The budget comes from config. When it is exhausted, the case escalates with its 
 
 A case that exhausts its retry budget three or more times across separate runs is not a hard case. It is a rule, an artifact format, or a target that is wrong. Send it to rule-on-trial, matching the existing treatment in 10.2 and 10.3.
 
+### 10.10 Cost attribution
+
+Section 10.4 has the CEO bot watch a number and escalate when an epic crosses its threshold. The number is an aggregate, which means an overrun is visible but its cause is not.
+
+Spend is recorded per bot, not only per epic. When a budget is crossed, the report names which bots consumed what.
+
+This matters for two reasons beyond accounting. A single misbehaving bot in a retry cycle looks identical to a genuinely expensive epic when all you have is a total, and A3's retry budgets cannot be tuned without knowing which role exhausts them. Attribution turns both from guesses into readings.
+
+Where a runtime does not expose per-bot usage, the framework records what it can and marks the rest unattributed rather than distributing it evenly. An invented number is worse than a gap, because a gap is visible.
+
 ---
 
 ## 11. Per-role plugin allowlists
