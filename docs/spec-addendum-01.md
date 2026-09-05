@@ -14,7 +14,7 @@ Sections A1 through A4, A6, A7, A8, and A11 through A15 are decided content. Eac
 
 One finding is recorded in A5. It is not an addition. It corrects an assumption in Section 9.4 that turns out to be weaker than written.
 
-**A9 and A10 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
+**A9, A10, and A16 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
 
 ---
 
@@ -345,6 +345,24 @@ The decisions this requires:
 **What links an artifact to the ruling that permitted it?** Without that link, the blast radius of a bad precedent cannot be determined, only guessed at.
 
 This is the largest gap in the framework. It is recorded here rather than solved because solving it requires decisions about the operator's tolerance for disruption that the framework cannot make on their behalf.
+
+---
+
+## A16. Open problem: harness bodies are duplicated
+
+**Not decided. Do not implement.**
+
+Each producing role harness body exists in two places: inline in the spec (Sections 5.0 through 5.4, and the CEO harness in Section 10) and as a standalone file in `harnesses/`. This matches the pre-existing pattern, but nothing states which copy wins when they diverge.
+
+A harness is governance. Two copies of a rule that can disagree is the duplication problem this framework exists to remove, and it is currently unresolved for the harnesses themselves.
+
+The fix is one of two, and the choice belongs to the operator:
+
+**A precedence rule.** One copy is authoritative and the other is documentation. The spec is the canonical text and the harness file is generated from it, or the harness file is canonical and the spec is a rendering.
+
+**Generate one from the other.** A single source of truth, with the other produced from it, so the two cannot drift.
+
+This is recorded here rather than solved because either fix changes how every harness is maintained, and that decision is the operator's to make.
 
 ---
 
