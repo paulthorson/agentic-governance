@@ -665,6 +665,22 @@ The stall timeout in Section 13 counts turns since a block. A failed node produc
 
 A step that has neither produced an artifact nor reported a structured failure within its bound is treated as failed and escalated to the CEO bot. Silence is not a state the system waits in indefinitely.
 
+### 10.12 Gates belong in architecture where architecture allows it
+
+A1 requires bots to stage irreversible actions rather than take them. That requirement is currently carried by instruction: a harness says to stage, and a bot that reads its harness stages.
+
+Where the runtime can make an unsafe transition genuinely impossible, that is enforcement and it is worth more than the instruction. Where it cannot, the instruction stands, and everyone should know which of the two they have.
+
+The ordering, strongest first:
+
+1. **The action is unreachable without approval.** The bot lacks the credential, the permission, or the path.
+2. **The action is intercepted.** A check outside the bot blocks it, as the adversarial commit check does for the governance repo.
+3. **The bot is instructed not to.** A harness rule and nothing else.
+
+Level three is where this framework mostly operates, and that is a legitimate place to be given runtime neutrality. What is not legitimate is describing level three as though it were level one.
+
+So: for each irreversible action class in A1.1, the config records which level of protection actually applies. Where a gate is instruction-only, it is written down as instruction-only. A system that knows which of its guarantees are real can be reasoned about. One that does not will be trusted exactly as far as its weakest gate, without anyone knowing which gate that is.
+
 ---
 
 ## 11. Per-role plugin allowlists
