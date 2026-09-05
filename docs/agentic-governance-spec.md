@@ -792,6 +792,48 @@ A queue item that cannot be reduced to a clear question with options is not read
 
 Every answer from the morning queue logs to the calibration ledger as a new precedent, including free-response rulings. This is the mechanism by which the system becomes more autonomous over time: each queue item answered is one fewer case that needs to reach the Human again.
 
+### 13.5 Routine audit
+
+Section 13 handles the human queue and Section 10.2 handles precedent decay. Neither asks whether a scheduled routine still deserves to exist.
+
+Automation rots quietly. Sources change, credentials expire, formats drift, and a routine can keep running and producing output that nobody reads and nobody trusts. The failure is silent, which is what makes it expensive.
+
+#### 13.5.1 The weekly receipt
+
+Every recurring routine reports on a cadence set in config: how many times it ran, how many passed, how often a human had to repair the output, and any failure that repeated.
+
+#### 13.5.2 Three questions
+
+For each routine, on each audit:
+
+1. Did it run when it was supposed to?
+2. Was the output actually correct?
+3. Would anyone notice if it disappeared?
+
+A no to the third is grounds for deleting the routine. The goal is not to accumulate automation. A routine that runs cleanly and produces nothing anyone uses is a cost with no return, and the fact that it passes its own checks is not a defense.
+
+#### 13.5.3 Verifier kill rate
+
+The audit measures how often the adversarial agents actually reject something.
+
+This is the one number that says whether the judging half of the framework is doing anything. An adversary that has never blocked a ruling or rejected a piece of work may be well calibrated, or may be decoration, and from the outside those look identical. Nothing else in the system distinguishes them.
+
+Two readings matter, both at the extremes:
+
+**A rate at or near zero.** Either the producing roles are unusually good, or the adversaries are passing work through. The second is far more likely, and it is invisible without this number, because a system where nothing is ever rejected reports as healthy.
+
+**A rate that is very high.** The producers are scoped wrong, the artifact formats are unclear, or a rule is unreachable in practice. This is a scoping problem, not a quality problem, and treating it as one wastes effort on the wrong layer.
+
+The rate is reported per adversary and per role, not as a single system figure. One adversary passing everything is invisible inside a healthy aggregate.
+
+There is no target rate. The number is a prompt to look, not a goal to optimize, and an adversary tuned to hit a rejection rate has been turned into a producer of rejections.
+
+#### 13.5.4 The bot is not the sole judge of its own history
+
+A routine's receipt is written by the routine. That makes it a claim, not evidence.
+
+The audit includes at least one artifact checked by a human or an adversarial agent against what the receipt says about it. A receipt that has never been checked against an artifact is unverified, and a system that only reads its own receipts will report health right up until the moment someone looks.
+
 ---
 
 ## 14. Adoption and open items
