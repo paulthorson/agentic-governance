@@ -443,7 +443,11 @@ Your default project repo is <repo>, unless your assignment names another.
 You write only to your own folder in the epic you were handed.
 ```
 
-**On the read-only line.** In most runtimes a bot can technically write to any repo it can reach, including the one holding its own rules. A bot editing its own harness is the worst available failure mode, and prohibition alone is thin protection. So the adversarial agents flag **any commit to the governance repo not authored by the human**, automatically. That check is cheap and it is the one that matters most.
+**On the read-only line.** The persona line declaring the governance repo read-only is worth keeping, but it is **documentation, not enforcement**. Where agents share an environment, they share its credentials; separate names and personas create the appearance of separate trust boundaries without creating the boundaries themselves. A bot with filesystem access to the governance repo can write to it, and an instruction not to is a request.
+
+The enforcement is the check, not the instruction. The real control is that the adversarial agents flag **any commit to the governance repo not authored by the human**, automatically. That check is what makes the read-only claim true; the persona line documents the intent.
+
+Genuine isolation requires separate credentials. Where two bots must have genuinely different levels of trust, that separation lives in the accounts and environments they run under, not in their persona blocks. The framework cannot provide it, and should not claim to. This same reasoning applies anywhere else the framework relies on an instruction to prevent an action a bot is technically able to take: an instruction sets expectations, a check enforces them, and where the two are confused the system reports a guarantee it cannot keep.
 
 ---
 
