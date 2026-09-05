@@ -14,7 +14,7 @@ Sections A1 through A4, A6, A7, A8, and A11 through A15 are decided content. Eac
 
 One finding is recorded in A5. It is not an addition. It corrects an assumption in Section 9.4 that turns out to be weaker than written.
 
-**A9, A10, and A16 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
+**A9, A10, A16, and A17 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
 
 ---
 
@@ -363,6 +363,24 @@ The fix is one of two, and the choice belongs to the operator:
 **Generate one from the other.** A single source of truth, with the other produced from it, so the two cannot drift.
 
 This is recorded here rather than solved because either fix changes how every harness is maintained, and that decision is the operator's to make.
+
+---
+
+## A17. Open problem: no project repo for governance-repo work
+
+**Not decided. Do not implement.**
+
+This repo has no separate project repo. Every real change targets the governance repo itself, which bots cannot write. The read-only rule in Section 9.4 and the engineer's obligation in Section 5.3 cannot both hold for governance-repo work: the engineer is required to produce an applied implementation, but writing to the governance repo is forbidden.
+
+The options, and the choice belongs to the operator:
+
+**A separate project repo.** Work product lives in a project repo (as Section 1 assumes), and the governance repo stays read-only. This is the framework's intended shape, but this repo has no such project repo.
+
+**An exception path for governance work.** A defined path where a human applies the change, since bots cannot write the governance repo. The engineer produces the diff; the human applies it.
+
+**Scope the framework to exclude self-modification.** The framework governs work product, not changes to itself; governance-repo changes are out of scope and handled by humans directly.
+
+This is recorded here rather than solved because it is a structural decision about how this repo is used, and that decision is the operator's to make.
 
 ---
 
