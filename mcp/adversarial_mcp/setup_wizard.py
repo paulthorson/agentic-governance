@@ -130,6 +130,47 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "question": "How old can a precedent be before it is flagged for fresh review rather than applied automatically?",
         "options": None,
     },
+    # --- Addendum 01 config questions (A2, A3, A4, A12.4, A14) ---
+    {
+        "id": "autonomy_starting_level",
+        "question": "What autonomy starting level should new bots begin at? (A2.4: default is 1; nothing starts above 2 without setting it explicitly.)",
+        "options": None,
+    },
+    {
+        "id": "clean_runs_per_promotion",
+        "question": "How many clean runs are required for a bot to be promoted up the autonomy ladder? (A2.2)",
+        "options": None,
+    },
+    {
+        "id": "retry_count",
+        "question": "What is the declared retry count for a bounded retry? (A3.1: how many attempts are allowed, not 'until it works'.)",
+        "options": None,
+    },
+    {
+        "id": "retry_escalation_on_exhaustion",
+        "question": "What happens when a retry count is exhausted? (A3.1: never silence, never another attempt.)",
+        "options": None,
+    },
+    {
+        "id": "audit_cadence",
+        "question": "On what cadence should recurring routines report for the routine audit? (A4.1)",
+        "options": None,
+    },
+    {
+        "id": "research_rounds_without_findings",
+        "question": "How many rounds without new findings should stop the research discovery loop? (A12.4)",
+        "options": None,
+    },
+    {
+        "id": "research_round_budget",
+        "question": "What is the round budget for the research discovery loop? (A12.4)",
+        "options": None,
+    },
+    {
+        "id": "irreversible_action_protection",
+        "question": "For each irreversible action class in A1.1, which protection level applies (1 unreachable / 2 intercepted / 3 instructed)? (A14)",
+        "options": None,
+    },
 ]
 
 # --- state persistence -------------------------------------------------------
@@ -268,6 +309,24 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Precedent decay window",
         f"- {answers.get('precedent_decay_window', '') or '(unset)'}",
+        "",
+        "## Autonomy ladder (A2)",
+        f"- starting level for new bots: {answers.get('autonomy_starting_level', '') or '(unset)'}",
+        f"- clean runs required per promotion: {answers.get('clean_runs_per_promotion', '') or '(unset)'}",
+        "",
+        "## Retry budgets (A3)",
+        f"- retry count: {answers.get('retry_count', '') or '(unset)'}",
+        f"- escalation on exhaustion: {answers.get('retry_escalation_on_exhaustion', '') or '(unset)'}",
+        "",
+        "## Routine audit (A4)",
+        f"- audit cadence: {answers.get('audit_cadence', '') or '(unset)'}",
+        "",
+        "## Research discovery loop (A12.4)",
+        f"- rounds without new findings: {answers.get('research_rounds_without_findings', '') or '(unset)'}",
+        f"- round budget: {answers.get('research_round_budget', '') or '(unset)'}",
+        "",
+        "## Irreversible action protection (A14)",
+        f"- per action class: {answers.get('irreversible_action_protection', '') or '(unset)'}",
         "",
     ]
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
