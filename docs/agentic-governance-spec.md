@@ -634,6 +634,37 @@ This matters for two reasons beyond accounting. A single misbehaving bot in a re
 
 Where a runtime does not expose per-bot usage, the framework records what it can and marks the rest unattributed rather than distributing it evenly. An invented number is worse than a gap, because a gap is visible.
 
+### 10.11 Failure domains
+
+Every harness has stop conditions, and all of them describe a bot that decides to stop. Nothing describes a bot that dies.
+
+A bot times out, a tool returns malformed data, a runtime rate-limits, a model ignores the artifact format. These are not decisions and no stop condition catches them, so today they surface as work that simply never arrives.
+
+#### 10.11.1 Every node has a policy
+
+For any step in the chain, the failure policy is declared rather than improvised:
+
+1. Retry, within the bound set under A3
+2. On exhaustion, return a structured failure rather than nothing
+3. Continue if the remaining work is still sufficient
+4. Block only where the failed step is genuinely required
+
+A structured failure is itself an artifact. It names what was attempted, what failed, and what the failure prevents. A bot that dies silently leaves the CEO bot unable to distinguish it from a bot still working.
+
+#### 10.11.2 Never hide missing work
+
+A run that completed part of its work reports the part it completed and the part it did not.
+
+This is the same rule as A12.6's coverage section, generalized: nothing in this framework reports completeness it did not achieve. Degrade visibly.
+
+The reason is not tidiness. A stated failure can be corrected by someone downstream. A quiet omission propagates as though it were a result, and the further it travels the more expensive it becomes to detect.
+
+#### 10.11.3 Distinguish stalled from failed
+
+The stall timeout in Section 13 counts turns since a block. A failed node produces no turns at all, so it never triggers.
+
+A step that has neither produced an artifact nor reported a structured failure within its bound is treated as failed and escalated to the CEO bot. Silence is not a state the system waits in indefinitely.
+
 ---
 
 ## 11. Per-role plugin allowlists
