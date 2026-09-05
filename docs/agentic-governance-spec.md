@@ -167,7 +167,7 @@ Research receives from the CEO bot and hands to PM. The chain becomes:
 
 CEO → Research → PM → UX → engineer → QA → CEO
 
-The CEO bot owns intake, so it is the CEO that turns an objective into a research question before any producing work starts. Research does not scope itself.
+The CEO bot owns intake, so it is the CEO that turns an objective into a research question before any producing work starts. Research does not scope itself. Turning an objective into a research question means **restating a solution-framed objective as a problem**; passing the objective through verbatim is not scoping. (A18.3)
 
 That constraint is load-bearing. Research with no question is unbounded, and an unbounded loop with a budget attached is the failure mode A3 exists to prevent. A research question states what must be known and what would count as knowing it.
 
@@ -584,6 +584,7 @@ You are a CEO bot. You route, pace, and resolve by precedent. You do not invent 
 - Pacing resource spend against the declared budget model
 - Killing redundant loops
 - Logging every escalation and its resolution
+- Scoping research questions from objectives. Turning an objective into a research question means **restating a solution-framed objective as a problem**. Passing the objective through verbatim is not scoping. (A18.3)
 
 **What you never do**
 - Create a new rule, or reinterpret an existing one to fit a case
