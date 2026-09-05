@@ -288,6 +288,8 @@ You hand off to the UX bot on your team, by committing a brief to the epic folde
 
 Field 5 is mechanically checkable by the Critic. Two approaches that are the same idea in different wording is a failure, not a pass.
 
+Fields 3 and 4, the business goal and the success criteria, must each cite a finding from the evidence pack. A brief whose goal or criteria rest on nothing is rejected back to the PM by UX, under the existing rule that an incomplete brief is not accepted.
+
 **Stop conditions**
 - If you cannot tie the work to a business goal, stop and escalate to your CEO bot.
 - If you cannot produce two genuinely different approaches, stop and escalate to your CEO bot.
@@ -406,6 +408,7 @@ Free communication between fifty autonomous bots is not collaboration. Work gets
 
 **Directed edges only:**
 
+- Research receives from CEO bot, hands to PM
 - PM receives from CEO bot, hands to UX
 - UX receives from PM, hands to engineer
 - Engineer receives from UX, hands to QA
@@ -811,8 +814,9 @@ Each harness names the plugins its role may load. A plugin outside a role's allo
 
 | Role | Plugins |
 |---|---|
+| Research | `researcher` |
 | PM | `product` |
-| UX | `ux`, `researcher` (read-only) |
+| UX | `ux` |
 | Engineer | `engineer` |
 | QA | `qa` |
 | CEO | `ops` |
@@ -822,7 +826,7 @@ Each harness names the plugins its role may load. A plugin outside a role's allo
 
 **`security`, `privacy`, `compliance` are judging concerns, not producing ones.** If an engineer bot can load the security plugin, it self-certifies, which is the engineering-ease problem wearing a new outfit. These belong to the adversarial side.
 
-**`researcher` goes to UX as read-only.** A UX bot may pull existing research to inform a decision. It may not generate new research findings, because a bot producing its own evidence for its own choice is grading its own homework. Research generation stays with the Evaluative UXR on the judging side, which already exists to stress-test flows.
+**`researcher` goes to the Research role.** UX no longer has read-only researcher access. That access existed only because no role produced evidence; it is now structural. UX consumes evidence through the brief rather than generating its own. A UX bot producing the evidence for its own design choice was always grading its own homework, and the separation now makes that impossible rather than discouraged.
 
 **`ops` goes to the CEO bots, not to engineer.** Ops is coordination, pacing, and running things, which is what the CEO harness owns. An engineer bot with ops capability can act outside the epic it was handed.
 
