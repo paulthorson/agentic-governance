@@ -47,6 +47,11 @@ RUNS_DIR = REPO_ROOT / "runs"
 RUNS_DIR.mkdir(parents=True, exist_ok=True)
 VERDICT_LOG = RUNS_DIR / "verdicts.jsonl"
 
+# A21: retention window (days) for the calibration ledger. Entries older than
+# this are summarized to a stub on load (age-out). The operator sets this;
+# default 90 days.
+RETENTION_DAYS = int(os.environ.get("LEDGER_RETENTION_DAYS", "90"))
+
 
 def _read(path: Path) -> str:
     try:
@@ -145,6 +150,10 @@ def _ledger(domain: str) -> str:
 
 def _append_verdict(record: dict[str, Any]) -> None:
     record.setdefault("ts", int(time.time() * 1000))
+    # A22: every ruling carries a status (active by default) and a provenance
+    # field linking the artifact to the ruling that permitted it.
+    record.setdefault("status", "active")
+    record.setdefault("provenance", "")
     with VERDICT_LOG.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(record) + "\n")
 
@@ -165,7 +174,37 @@ def _load_verdicts(domain: str | None = None, limit: int = 50, source: str | Non
         if source is not None and r.get("source") != source:
             continue
         rows.append(r)
+    # A21 age-out: entries older than the retention window are summarized to a
+    # stub (kept, but flagged) so the ledger does not grow without bound. The
+    # retention window is in days; the operator sets it (default 90).
+    rows = [_age_out(r) for r in rows]
     return rows[-limit:]
+
+
+def _age_out(record: dict[str, Any]) -> dict[str, Any]:
+    """A21: summarize an entry older than the retention window to a stub.
+
+    The full record is retained on disk (append-only); the stub is what a
+    consumer sees for old entries, so the load cost stays bounded while the
+    history is preserved.
+    """
+    ts = record.get("ts")
+    if not ts:
+        return record
+    age_days = (time.time() * 1000 - ts) / 86400000.0
+    if age_days <= RETENTION_DAYS:
+        return record
+    return {
+        "kind": record.get("kind", "verdict"),
+        "domain": record.get("domain", ""),
+        "verdict": record.get("verdict", ""),
+        "summary": "[aged out] " + (record.get("summary", "") or "")[:80],
+        "ticket": record.get("ticket", ""),
+        "rule": record.get("rule", ""),
+        "case_tag": record.get("case_tag", ""),
+        "ts": ts,
+        "aged_out": True,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -371,6 +410,8 @@ def run_review(domain: str, work: str, context: str = "", source: str = "app") -
             "verdict": verdict,
             "veto_hits": structural["veto_hits"],
             "work_chars": structural["work_chars"],
+            "rule": "constitution-rule-1" if structural["veto_triggered"] else "",
+            "case_tag": "veto" if structural["veto_triggered"] else "review",
             "source": source,
         }
     )
@@ -465,6 +506,8 @@ def run_review_deep(domain: str, work: str, context: str = "", model: str = "") 
             "domain": domain,
             "verdict": final_verdict,
             "veto_hits": structural["veto_hits"],
+            "rule": "constitution-rule-1" if structural["veto_triggered"] else "",
+            "case_tag": "veto" if structural["veto_triggered"] else "deep_review",
             "model": model or DEEP_MODEL,
         }
     )
@@ -483,7 +526,7 @@ def check_veto(domain: str, text: str) -> dict[str, Any]:
 
 
 @mcp.tool()
-def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "") -> dict[str, Any]:
+def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "", rule: str = "", case_tag: str = "") -> dict[str, Any]:
     """Record a review verdict to the decision record (calibration ledger).
 
     Args:
@@ -491,6 +534,10 @@ def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "") ->
         verdict: KICK_BACK or ALLOW.
         summary: short human summary of the outcome.
         ticket: optional ticket/issue id.
+        rule: the rule cited (A21 structured field — e.g. the constitution rule
+            or harness section the verdict turns on).
+        case_tag: a short case tag for precedent matching (A21 structured
+            field — e.g. "veto-production-harm", "two-approaches").
     """
     rec = {
         "kind": "verdict",
@@ -498,6 +545,8 @@ def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "") ->
         "verdict": verdict.upper(),
         "summary": summary,
         "ticket": ticket,
+        "rule": rule,
+        "case_tag": case_tag,
         "source": "app",
     }
     _append_verdict(rec)
@@ -510,6 +559,47 @@ def query_verdicts(domain: str = "", limit: int = 50, source: str = "") -> list[
     domain and/or source (e.g. source="app" for real reviews, source="smoke_test"
     to inspect test records). An empty source filter matches all sources."""
     return _load_verdicts(domain or None, limit, source or None)
+
+
+@mcp.tool()
+def overturn_verdict(ticket: str, reason: str) -> dict[str, Any]:
+    """A22: mark a ruling as overturned (status, not deletion).
+
+    Only a human overturns a precedent (matching who clears a veto). The ruling
+    keeps its record but is flagged `overturned` so it is no longer citable as
+    precedent — a bot that would have cited it must instead escalate (the
+    overturned status makes the match "arguable," which already means escalate
+    under 10.1).
+
+    Args:
+        ticket: the ticket/issue id of the ruling to overturn.
+        reason: why it is overturned (recorded for the audit trail).
+    """
+    if not ticket or not reason:
+        return {"status": "error", "error": "ticket and reason are required."}
+    if not VERDICT_LOG.exists():
+        return {"status": "error", "error": "No verdict log to overturn from."}
+    lines = VERDICT_LOG.read_text(encoding="utf-8").splitlines()
+    found = False
+    out = []
+    for line in lines:
+        if not line.strip():
+            continue
+        try:
+            r = json.loads(line)
+        except json.JSONDecodeError:
+            out.append(line)
+            continue
+        if r.get("ticket") == ticket and r.get("status") != "overturned":
+            r["status"] = "overturned"
+            r["overturned_at"] = int(time.time() * 1000)
+            r["overturned_reason"] = reason
+            found = True
+        out.append(json.dumps(r))
+    if not found:
+        return {"status": "error", "error": f"No active ruling found for ticket '{ticket}'."}
+    VERDICT_LOG.write_text("\n".join(out) + "\n", encoding="utf-8")
+    return {"status": "overturned", "ticket": ticket, "reason": reason}
 
 
 @mcp.tool()
