@@ -63,3 +63,15 @@ The MCP `query_verdicts(domain, limit)` tool returns recent verdicts. The
 **Action:** abstract the watchdog data source (ADR-0007).
 
 **Citation:** ADR-0006 D4 · relayed 2026-09-06 via Openclaw Bridge.
+
+## 2026-09-06 — Watchdog data-source abstraction (ADR-0007)
+
+**Case:** Ladders team does not use Paperclip; the stuck-review-watchdog was Paperclip-native and could not drop in.
+
+**Finding (calibration):** the watchdog's logic (staleness, dedupe, alerting) is portable; only its data source was coupled. The framework must be vanilla-handoffable.
+
+**Decision:** abstract the watchdog data source. `--source paperclip` (default, unchanged) or `--source file --issues-file <path>` (JSON file or stdin). Any team's store adapts by emitting the issue shape. `collect_stuck` unchanged.
+
+**Action:** implemented in `scripts/stuck-review-watchdog.py`; recorded as ADR-0007.
+
+**Citation:** ADR-0007 · 2026-09-06.

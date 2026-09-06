@@ -7,15 +7,33 @@ long — the assigned adversary agent is down, paused, or stalled. Alerts via
 Discord so a human can intervene before the pipeline silently stalls.
 
 Logic:
-  1. Query Paperclip for all `in_review` issues.
+  1. Load `in_review` issues from a data source (Paperclip by default, or a
+     generic JSON file for non-Paperclip teams).
   2. For each, compute how long since `lastActivityAt` (or `updatedAt`).
   3. If older than the staleness threshold, it is stuck.
   4. Alert (Discord) for each stuck ticket, unless already alerted recently
      (dedupe via a state file).
 
+Data source (ADR-0007):
+  The watchdog is data-source-agnostic. It reads a list of in_review issues
+  and applies the same staleness/dedupe/alert logic regardless of where the
+  issues come from. Two sources are built in:
+
+  --source paperclip (default)
+      Shells out to `paperclipai issue list --status in_review --json`.
+      This is the Grimdor default adapter.
+
+  --source file --issues-file <path>
+      Reads a JSON file (or stdin with `-`) containing a list of issue
+      dicts. Any team's store (GitHub PR review state, a file ledger in the
+      epic folder, Linear, Jira) can be adapted by emitting this shape:
+      [{"identifier", "title", "assigneeAgentId", "lastActivityAt"|"updatedAt"}]
+
 Usage:
   python3 scripts/stuck-review-watchdog.py [--stale-minutes 120] [--dry-run]
   python3 scripts/stuck-review-watchdog.py --json [--stale-minutes 120] [--dry-run]
+  python3 scripts/stuck-review-watchdog.py --source file --issues-file issues.json
+  python3 scripts/stuck-review-watchdog.py --source file --issues-file - < issues.json
 
 Machine-parseable output:
   With `--json` (or `--format json`), the watchdog emits a single, versioned
@@ -24,7 +42,7 @@ Machine-parseable output:
   scripts/stuck-review-watchdog.schema.md for the schema reference.
 
 Config (env):
-  PAPERCLIP_COMPANY_ID   company id (default: auto-detect)
+  PAPERCLIP_COMPANY_ID   company id (default: auto-detect; paperclip source only)
   DISCORD_WEBHOOK_URL    webhook for alerts (optional; falls back to post-to-discord.py)
   STUCK_STATE_FILE       path to dedupe state (default: runs/stuck-watchdog.json)
 """
@@ -104,6 +122,41 @@ def query_in_review(company_id: str) -> tuple[list[dict], dict | None]:
         print("WARN: could not parse paperclipai output", file=sys.stderr)
         return [], {"reason": "parse_error", "message": "could not parse paperclipai output"}
 
+def query_in_review_file(path: str) -> tuple[list[dict], dict | None]:
+    """Read in_review issues from a JSON file (or stdin with '-').
+
+    The file is a JSON list of issue dicts with the same shape the Paperclip
+    adapter returns: each has identifier (or id), title, assigneeAgentId, and
+    lastActivityAt (or updatedAt). This is the generic adapter that lets any
+    team's store feed the watchdog (ADR-0007).
+    """
+    try:
+        if path == "-":
+            raw = sys.stdin.read()
+        else:
+            raw = Path(path).read_text(encoding="utf-8")
+    except OSError as e:
+        return [], {"reason": "read_failed", "message": str(e)}
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as e:
+        return [], {"reason": "parse_error", "message": str(e)}
+    if not isinstance(data, list):
+        return [], {"reason": "shape_error", "message": "expected a JSON list of issues"}
+    return data, None
+
+def load_issues(args) -> tuple[list[dict], dict | None]:
+    """Load in_review issues from the configured source (ADR-0007).
+
+    Returns (issues, error). On success error is None. On failure issues is []
+    and error is a machine-readable descriptor {"reason", "message"} so the
+    caller can distinguish a genuine empty result from a failed query.
+    """
+    if args.source == "file":
+        return query_in_review_file(args.issues_file)
+    # Default: Paperclip adapter.
+    return query_in_review(args.company_id)
+
 def parse_ts(ts: str | None) -> float | None:
     if not ts:
         return None
@@ -154,16 +207,17 @@ def collect_stuck(issues: list[dict], args, now: float, state: dict) -> list[dic
         })
     return stuck
 
-def build_report(args, company_id: str) -> dict:
+def build_report(args) -> dict:
     """Build the machine-parseable JSON report document for the run."""
     now = time.time()
     run = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "mode": "dry_run" if args.dry_run else "alert",
+        "source": args.source,
     }
     base = {"schema_version": SCHEMA_VERSION, "run": run}
 
-    issues, err = query_in_review(company_id)
+    issues, err = load_issues(args)
     if err is not None:
         return {**base, "status": "error", "error": err, "tickets": []}
     if not issues:
@@ -183,35 +237,45 @@ def main() -> None:
                     help="emit a single versioned JSON document to stdout")
     ap.add_argument("--format", choices=["text", "json"], default="text",
                     help="output format; --json is an alias for --format json")
+    ap.add_argument("--source", choices=["paperclip", "file"], default="paperclip",
+                    help="data source for in_review issues (default paperclip; ADR-0007)")
+    ap.add_argument("--issues-file", default=None,
+                    help="JSON file of in_review issues for --source file ('-' for stdin)")
+    ap.add_argument("--company-id", default=None,
+                    help="Paperclip company id (overrides PAPERCLIP_COMPANY_ID / auto-detect)")
     args = ap.parse_args()
 
     json_mode = args.json or args.format == "json"
 
-    # Resolve company id. In JSON mode a hard failure emits a structured error
-    # document; in the default mode the existing SystemExit behavior is kept.
-    try:
-        company_id = get_company_id()
-    except SystemExit as e:
-        if json_mode:
-            print(json.dumps({
-                "schema_version": SCHEMA_VERSION,
-                "run": {
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
-                    "mode": "dry_run" if args.dry_run else "alert",
-                },
-                "status": "error",
-                "error": {"reason": "hard_failure", "message": str(e)},
-                "tickets": [],
-            }, indent=2))
-            return
-        raise
+    # Resolve the Paperclip company id only when the paperclip source is used.
+    # In JSON mode a hard failure emits a structured error document; in the
+    # default mode the existing SystemExit behavior is kept.
+    args.company_id = args.company_id or os.environ.get("PAPERCLIP_COMPANY_ID")
+    if args.source == "paperclip" and not args.company_id:
+        try:
+            args.company_id = get_company_id()
+        except SystemExit as e:
+            if json_mode:
+                print(json.dumps({
+                    "schema_version": SCHEMA_VERSION,
+                    "run": {
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "mode": "dry_run" if args.dry_run else "alert",
+                        "source": args.source,
+                    },
+                    "status": "error",
+                    "error": {"reason": "hard_failure", "message": str(e)},
+                    "tickets": [],
+                }, indent=2))
+                return
+            raise
 
     if json_mode:
-        print(json.dumps(build_report(args, company_id), indent=2))
+        print(json.dumps(build_report(args), indent=2))
         return
 
     # ---- human-readable default path (unchanged) ----
-    issues, _ = query_in_review(company_id)
+    issues, _ = load_issues(args)
     if not issues:
         print("No in_review issues. All clear.")
         return
