@@ -171,6 +171,27 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "question": "For each irreversible action class in A1.1, which protection level applies (1 unreachable / 2 intercepted / 3 instructed)? (A14)",
         "options": None,
     },
+    # --- Messaging: the operator's alert channel, baked into the scripts ---
+    # The framework sends alerts (veto telemetry, stuck-review watchdog) to the
+    # operator's messaging system. This is configured here and read by the
+    # scripts via ALERT_CHANNEL / ALERT_WEBHOOK_URL / ALERT_COMMAND.
+    {
+        "id": "alert_channel",
+        "question": "Which messaging system should alerts go to? (discord, whatsapp, imessage, or generic command)",
+        "options": ["discord", "whatsapp", "imessage", "generic"],
+    },
+    {
+        "id": "alert_webhook",
+        "if_alert_channel": "discord",
+        "question": "Discord: what is the webhook URL for alerts?",
+        "options": None,
+    },
+    {
+        "id": "alert_command",
+        "if_alert_channel_other": True,
+        "question": "WhatsApp/iMessage/generic: what command delivers an alert? (the message is appended as the final argument)",
+        "options": None,
+    },
     # --- Addendum 01 A6: BYOA adoption flow ---
     # Runs after the roster. The operator adopts existing agents (reconcile,
     # never layer) and/or defines roles that do not exist yet.
@@ -222,11 +243,20 @@ def _is_repeated_pending(state: dict[str, Any], q: dict[str, Any]) -> bool:
 
 
 def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
-    """A question with if_budget is shown only when the budget model matches."""
+    """A question is shown only when its condition matches the answers so far.
+
+    Supports if_budget (budget model match), if_alert_channel (alert channel
+    match), and if_alert_channel_other (alert channel is not discord).
+    """
     cond = q.get("if_budget")
-    if cond is None:
-        return True
-    return answers.get("budget_model") == cond
+    if cond is not None:
+        return answers.get("budget_model") == cond
+    cond = q.get("if_alert_channel")
+    if cond is not None:
+        return answers.get("alert_channel") == cond
+    if q.get("if_alert_channel_other"):
+        return answers.get("alert_channel") in ("whatsapp", "imessage", "generic")
+    return True
 
 
 def _next_question(state: dict[str, Any]) -> dict[str, Any] | None:
@@ -341,6 +371,11 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Irreversible action protection (A14)",
         f"- per action class: {answers.get('irreversible_action_protection', '') or '(unset)'}",
+        "",
+        "## Messaging (alert channel)",
+        f"- channel: {answers.get('alert_channel', '') or '(unset)'}",
+        f"- webhook URL (discord): {answers.get('alert_webhook', '') or '(unset)'}",
+        f"- command (whatsapp/imessage/generic): {answers.get('alert_command', '') or '(unset)'}",
         "",
     ]
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
