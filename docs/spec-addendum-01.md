@@ -14,7 +14,7 @@ Sections A1 through A4, A6, A7, A8, and A11 through A15 are decided content. Eac
 
 One finding is recorded in A5. It is not an addition. It corrects an assumption in Section 9.4 that turns out to be weaker than written.
 
-**A17 is an open problem, not decided content.** It records a gap in the framework and names the decision that gap requires. Do not implement it, and do not resolve it. It is here so the gap is recorded rather than discovered later.
+**All recorded open problems (A9, A10, A16, A17) are now decided.** They were recorded as open problems and have since been resolved by A21, A22, A23, and A24 respectively. The sections are retained for the record of each problem as it was posed.
 
 ---
 
@@ -379,7 +379,10 @@ This is recorded here rather than solved because either fix changes how every ha
 
 ## A17. Open problem: no project repo for governance-repo work
 
-**Not decided. Do not implement.**
+**Resolved by A24 (2026-09-06).** The decision is recorded in A24 below; this
+section is retained for the record of the problem as it was posed.
+
+**Not decided. Do not implement.** (Superseded by A24.)
 
 This repo has no separate project repo. Every real change targets the governance repo itself, which bots cannot write. The read-only rule in Section 9.4 and the engineer's obligation in Section 5.3 cannot both hold for governance-repo work: the engineer is required to produce an applied implementation, but writing to the governance repo is forbidden.
 
@@ -519,6 +522,30 @@ disagreeing, no precedence rule) occurred in this repo on 2026-09-06. A
 precedence rule would have told a bot which copy to believe, but it would not
 have prevented the two copies from disagreeing in the first place. Option B
 removes the duplication, which is the actual problem A16 names.
+
+---
+
+## A24. Governance-repo work: the exception path
+
+**Decided.** This is not an open problem; it is a ratified decision resolving
+A17. The operator approved Option B on 2026-09-06.
+
+**The exception path.** Bots cannot write the governance repo (Section 9.4
+read-only). For governance-repo work, the engineer produces the diff and a
+**human applies it**. This is the defined path that lets the engineer's
+obligation (Section 5.3) and the read-only rule (9.4) both hold.
+
+**Why this over a separate project repo or excluding self-modification:** it is
+the smallest change that resolves the contradiction, keeps the governance repo
+read-only to bots, and matches how the framework has actually been working (the
+`--json` patch was produced by the engineer and applied by a human). It does not
+require a second repo, and it keeps the human gate explicit — consistent with
+the framework's philosophy that humans clear vetoes and apply governance changes.
+
+**Formalization:** the exception path is documented as the
+engineer-produces-diff / human-applies workflow. A governance change is proposed
+in `docs/proposals/`, reviewed, and applied by a human. This is the pattern used
+for A20–A24.
 
 ---
 

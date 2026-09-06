@@ -1,9 +1,10 @@
 # Proposal: A17 — no project repo for governance-repo work
 
-**Status:** Draft for operator review. Not decided.
+**Status:** DECIDED — Option B (exception path), approved by operator (Paul)
+on 2026-09-06. Recorded as **A24** in spec-addendum-01.md.
 **Date:** 2026-09-06
-**Related:** A17 open problem (spec-addendum-01.md §A17). Distinct from A20
-(where validation records live), which is decided.
+**Related:** A17 open problem (spec-addendum-01.md §A17), now resolved by A24.
+Distinct from A20 (where validation records live), which is decided.
 
 ## The problem
 
