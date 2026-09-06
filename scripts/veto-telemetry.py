@@ -34,6 +34,25 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 VERDICT_LOG = Path(os.environ.get("VERDICT_LOG", REPO_ROOT / "runs" / "verdicts.jsonl"))
 VETO_STATE_FILE = Path(os.environ.get("VETO_STATE_FILE", REPO_ROOT / "runs" / "veto-telemetry-state.json"))
 
+def load_config() -> dict:
+    """Read the verdict-log config from config/setup.md (written by the wizard).
+
+    Returns a dict with key verdict_log. Missing or unparseable config returns
+    empty values; the caller falls back to env / default.
+    """
+    cfg = {}
+    p = REPO_ROOT / "config" / "setup.md"
+    if not p.exists():
+        return cfg
+    try:
+        for line in p.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("- verdict log (telemetry):"):
+                cfg["verdict_log"] = line.split(":", 1)[1].strip()
+    except OSError:
+        return {}
+    return cfg
+
 def load_verdicts(days: int) -> list[dict]:
     if not VERDICT_LOG.exists():
         return []
@@ -86,6 +105,15 @@ def main() -> None:
     ap.add_argument("--dry-run", action="store_true", help="report without alerting")
     ap.add_argument("--watch", action="store_true", help="alert only on new vetoes since last run")
     args = ap.parse_args()
+
+    # Fall back to the wizard-written config (config/setup.md) for the verdict
+    # log when VERDICT_LOG env is not set, so telemetry is configured at setup
+    # time (ADR-0007).
+    global VERDICT_LOG
+    if not os.environ.get("VERDICT_LOG"):
+        cfg = load_config()
+        if cfg.get("verdict_log"):
+            VERDICT_LOG = Path(cfg["verdict_log"])
 
     rows = load_verdicts(args.days)
     events = veto_events(rows)

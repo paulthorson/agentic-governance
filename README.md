@@ -94,6 +94,26 @@ see [`docs/deployment.md`](docs/deployment.md).
 - `scripts/consolidate-adversarial.py` — rebuild flat layer + re-symlink into Cursor/Claude.
 - `scripts/stuck-review-watchdog.py` — flags in_review tickets stuck with no verdict
   (supports `--json` for machine-parseable output).
+- `scripts/veto-telemetry.py` — alerts on constitutional vetoes from the verdict ledger.
+- `scripts/messaging.py` — shared alert delivery (discord/whatsapp/imessage/generic).
+
+## Vanilla handoff (ADR-0006, ADR-0007)
+
+The framework is **environment-agnostic** — handoffable to any team in any environment.
+Adopters take the constitution + harnesses as a **loadable contract** (no repo mirror)
+and load them into their own mode of operation.
+
+- **Constitution, harnesses, vetoes, calibration ledger, messaging** — all
+  environment-agnostic.
+- **Veto telemetry** — file-based (`runs/verdicts.jsonl`), portable.
+- **Stuck-review watchdog** — data-source-agnostic (ADR-0007): `--source paperclip`
+  (default), `--source file --issues-file <path>` (JSON file or stdin), or `--source none`
+  (disabled until an in_review backend exists). The setup wizard asks which source a
+  team uses and writes it to `config/setup.md`.
+
+First real-team adoption: **Ladders Grok Bot** (2026-09-06) — see
+[`docs/adr/0006-first-real-team-adoption.md`](docs/adr/0006-first-real-team-adoption.md)
+and [`docs/adr/0007-watchdog-data-source.md`](docs/adr/0007-watchdog-data-source.md).
 
 ## Governance
 

@@ -7,6 +7,20 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- **Vanilla handoff (ADR-0006, ADR-0007).** The framework is now environment-agnostic —
+  adopters take the constitution + harnesses as a loadable contract (no repo mirror).
+  First real-team adoption: Ladders Grok Bot (2026-09-06).
+- **Watchdog data-source abstraction (ADR-0007).** `stuck-review-watchdog.py` now
+  supports `--source paperclip` (default), `--source file --issues-file <path>` (JSON
+  file or stdin), and `--source none` (disabled until an in_review backend exists).
+  `collect_stuck` logic unchanged; backward-compatible.
+- **Setup wizard data-source questions.** The wizard now asks where in_review issues
+  and the verdict ledger live (`issue_source`, `issues_file`, `verdict_log`) and writes
+  them to `config/setup.md`, so the watchdog + telemetry are configured at setup time.
+- **Config-file fallback in watchdog + telemetry.** Both scripts read the data-source
+  config from `config/setup.md` when CLI flags / env are not set.
+
 ### Fixed
 - `docs/spec-addendum-01.md` — **A16 self-contradiction caught and fixed.** A decision about where validation records live was recorded as DECIDED in `docs/proposals/a17-validation-record-home.md` while §A17 still said "Not decided. Do not implement." — two copies of a governance rule disagreeing, with no precedence rule. This is exactly the A16 open problem, occurring inside the file where A16 is written down. The fix renumbered the validation-record decision as **A20** (decided, distinct from A17), kept A17 open on its actual subject (no project repo for governance-repo work), renamed the proposal file to `a20-validation-record-home.md`, and recorded the occurrence in the A16 section as evidence the duplication problem is real and already biting.
 

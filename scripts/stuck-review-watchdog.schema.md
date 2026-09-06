@@ -8,10 +8,24 @@ A consumer can implement against this document without reading the script source
 
 ```
 python3 scripts/stuck-review-watchdog.py --json [--stale-minutes 120] [--dry-run]
+python3 scripts/stuck-review-watchdog.py --json --source file --issues-file issues.json
+python3 scripts/stuck-review-watchdog.py --json --source none
 ```
 
 `--json` and `--format json` are equivalent. When neither is given, the
 human-readable report is emitted (unchanged) and no JSON is produced.
+
+## Data source (ADR-0007)
+
+The watchdog is data-source-agnostic. `--source` selects where in_review
+issues come from:
+
+- `paperclip` (default) — shells out to `paperclipai issue list --status in_review --json`.
+- `file` — reads a JSON file (or stdin with `-`) of issue dicts via `--issues-file`.
+- `none` — watchdog disabled; emits `status: "disabled"` until an in_review backend is configured.
+
+When CLI flags are omitted, the watchdog falls back to the wizard-written
+`config/setup.md` (issue source + issues file), so it is configured at setup time.
 
 ## Versioning
 
@@ -25,7 +39,7 @@ treat the document as incompatible and fail loudly rather than mis-parse.
 |------------------|--------|-------------|
 | `schema_version` | string | Schema version identifier (currently `"1"`). |
 | `run` | object | Run-level metadata (see below). |
-| `status` | string | One of `ok_no_findings`, `ok_with_findings`, `error`. |
+| `status` | string | One of `ok_no_findings`, `ok_with_findings`, `error`, `disabled`. |
 | `tickets` | array | List of stuck-ticket objects (may be empty). |
 | `error` | object | Present only when `status` is `error` (see below). |
 
@@ -35,6 +49,7 @@ treat the document as incompatible and fail loudly rather than mis-parse.
 |-------------|--------|-------------|
 | `timestamp` | string | ISO 8601 UTC timestamp of the run. |
 | `mode` | string | `"dry_run"` or `"alert"`, matching `--dry-run`. |
+| `source` | string | The data source used: `paperclip`, `file`, or `none`. |
 
 ### `status` values
 
@@ -43,6 +58,7 @@ treat the document as incompatible and fail loudly rather than mis-parse.
 | `ok_no_findings` | Run succeeded; no stuck reviews were found. |
 | `ok_with_findings` | Run succeeded; one or more stuck reviews were found. |
 | `error` | Run failed (query error, parse error, or hard failure). |
+| `disabled` | Watchdog disabled (`--source none`); no in_review backend configured. |
 
 ### `tickets` array
 
@@ -60,7 +76,7 @@ Each element is a stuck-ticket object:
 
 | Field | Type | Description |
 |-----------|--------|-------------|
-| `reason` | string | Machine-readable error code: `query_failed`, `parse_error`, or `hard_failure`. |
+| `reason` | string | Machine-readable error code: `query_failed`, `parse_error`, `hard_failure`, or `no_in_review_backend`. |
 | `message` | string | Human-readable detail. |
 
 ## Example
