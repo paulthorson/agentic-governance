@@ -84,7 +84,8 @@ its existing instructions against the harness — never layering one on top of t
 
 The `docs/` folder is an Obsidian-able wiki (MOCs + pages): architecture, domains,
 constitution, vetoes, calibration, MCP, Paperclip wiring, tooling, and the roadmap.
-Start at [`docs/Home.md`](docs/Home.md).
+Start at [`docs/Home.md`](docs/Home.md). For remote deployment of the MCP server,
+see [`docs/deployment.md`](docs/deployment.md).
 
 ## Tooling & CI
 
