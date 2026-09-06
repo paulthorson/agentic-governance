@@ -14,7 +14,7 @@ Sections A1 through A4, A6, A7, A8, and A11 through A15 are decided content. Eac
 
 One finding is recorded in A5. It is not an addition. It corrects an assumption in Section 9.4 that turns out to be weaker than written.
 
-**A16 and A17 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
+**A17 is an open problem, not decided content.** It records a gap in the framework and names the decision that gap requires. Do not implement it, and do not resolve it. It is here so the gap is recorded rather than discovered later.
 
 ---
 
@@ -356,7 +356,10 @@ This is the largest gap in the framework. It is recorded here rather than solved
 
 ## A16. Open problem: harness bodies are duplicated
 
-**Not decided. Do not implement.**
+**Resolved by A23 (2026-09-06).** The decision is recorded in A23 below; this
+section is retained for the record of the problem as it was posed.
+
+**Not decided. Do not implement.** (Superseded by A23.)
 
 Each producing role harness body exists in two places: inline in the spec (Sections 5.0 through 5.4, and the CEO harness in Section 10) and as a standalone file in `harnesses/`. This matches the pre-existing pattern, but nothing states which copy wins when they diverge.
 
@@ -488,6 +491,34 @@ tractable.
 **Implementation note:** A22 depends on A21 (the structured ledger) — the
 `status` field and the provenance field both require the structured ledger
 fields A21 establishes. A22 is therefore implementable now that A21 is decided.
+
+---
+
+## A23. Harness bodies: single source of truth
+
+**Decided.** This is not an open problem; it is a ratified decision resolving
+A16. The operator approved Option B on 2026-09-06.
+
+**The harness file is the source of truth.** Each producing role harness body
+lives in `harnesses/<role>.md`; the spec's inline copy (Sections 5.0–5.4 and the
+CEO harness in Section 10) is generated from it, or replaced by a pointer to the
+file. The two cannot drift because there is only one copy that is authoritative.
+
+**Why the harness file, not the spec:** the harness file is what a bot actually
+loads at runtime (the persona block points at `harnesses/<role>.md`), so the
+file a bot reads should be the truth. The spec's inline copy becomes a rendering
+for human reading.
+
+**Implementation:** a generation step (script or build) produces the spec's
+inline copy from the harness files, plus a CI check that the generated copy is
+in sync. Until that is built, the harness file is authoritative and the spec's
+inline copy is documentation.
+
+**Why this over a precedence rule:** the A16 failure mode (two copies of a rule
+disagreeing, no precedence rule) occurred in this repo on 2026-09-06. A
+precedence rule would have told a bot which copy to believe, but it would not
+have prevented the two copies from disagreeing in the first place. Option B
+removes the duplication, which is the actual problem A16 names.
 
 ---
 
