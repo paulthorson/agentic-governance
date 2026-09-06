@@ -134,6 +134,24 @@ def main():
                 if name != expected:
                     errors.append(f"[agents/{f}] frontmatter name '{name}' != filename '{expected}'")
 
+    # 4. Diff/patch files must be machine-applicable (F1 from the BA real-epic run)
+    #    The engineer's diff is its primary deliverable; a diff that cannot be
+    #    applied is a defect. Verify every .diff/.patch applies cleanly with
+    #    `git apply --check` (stricter than `patch`, returns non-zero on failure).
+    import subprocess
+    for dp, dn, fn in os.walk(root):
+        if ".git" in dp or ".venv" in dp or "node_modules" in dp:
+            continue
+        for f in fn:
+            if f.endswith(".diff") or f.endswith(".patch"):
+                p = os.path.join(dp, f)
+                r = subprocess.run(
+                    ["git", "apply", "--check", p],
+                    capture_output=True, text=True, cwd=root,
+                )
+                if r.returncode != 0:
+                    errors.append(f"[{p}] diff does not apply cleanly (git apply rejected it): {r.stderr.strip()[:120]}")
+
     if errors:
         print(f"VALIDATION FAILED ({len(errors)} issue(s)):\n")
         for e in errors:

@@ -34,6 +34,12 @@ Implementation, plus `implementation/notes.md` in the epic folder listing what y
 
 `notes.md` with three sections: What was built, What was flagged, What was ambiguous in the design.
 
+**The implementation diff must be machine-applicable.** The diff is the engineer's
+primary deliverable — it must apply cleanly with `patch --dry-run` or
+`git apply --check` before handoff. A diff with incorrect hunk headers or line
+counts that `patch` rejects is a defect, not a deliverable. Verify the diff
+applies before handing off to QA; if it does not, fix it first.
+
 **Acceptance record.** One line in `notes.md` recording the acceptance decision: what was received (the user stories), whether they were well-formed against the inputs rule (acceptance criteria and accessibility requirements present), and if work proceeded despite a defect, why. (A18.1)
 
 ## Stop conditions
