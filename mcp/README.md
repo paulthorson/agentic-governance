@@ -40,7 +40,7 @@ Point `ADVERSARIAL_ROOT` at the repo if it isn't `~/adversarial-agents`.
   "mcpServers": {
     "adversarial": {
       "command": "uv",
-      "args": ["--directory", "~/adversarial-agents/mcp", "run", "adversarial-mcp"]
+      "args": ["--directory", "<REPO_ROOT>/mcp", "run", "adversarial-mcp"]
     }
   }
 }
