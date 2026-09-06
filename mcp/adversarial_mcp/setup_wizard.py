@@ -192,6 +192,27 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "question": "WhatsApp/iMessage/generic: what command delivers an alert? (the message is appended as the final argument)",
         "options": None,
     },
+    # --- Data source: where in_review issues + verdicts live (ADR-0007) ---
+    # The stuck-review-watchdog and veto-telemetry need to know where the
+    # team's issue/verdict store is. This makes the operational scripts
+    # vanilla-handoffable — a team that does not use Paperclip can point them
+    # at a file ledger or their own store.
+    {
+        "id": "issue_source",
+        "question": "Where do in_review issues live for the stuck-review watchdog? (paperclip, file, or none — 'none' disables the watchdog until an in_review backend exists)",
+        "options": ["paperclip", "file", "none"],
+    },
+    {
+        "id": "issues_file",
+        "if_issue_source": "file",
+        "question": "File source: what is the path to the JSON file of in_review issues? (or '-' for stdin)",
+        "options": None,
+    },
+    {
+        "id": "verdict_log",
+        "question": "Where is the verdict ledger for veto telemetry? (default: runs/verdicts.jsonl — a JSONL file appended on every veto)",
+        "options": None,
+    },
     # --- Addendum 01 A6: BYOA adoption flow ---
     # Runs after the roster. The operator adopts existing agents (reconcile,
     # never layer) and/or defines roles that do not exist yet.
@@ -246,7 +267,8 @@ def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
     """A question is shown only when its condition matches the answers so far.
 
     Supports if_budget (budget model match), if_alert_channel (alert channel
-    match), and if_alert_channel_other (alert channel is not discord).
+    match), if_alert_channel_other (alert channel is not discord), and
+    if_issue_source (issue source match).
     """
     cond = q.get("if_budget")
     if cond is not None:
@@ -256,6 +278,9 @@ def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
         return answers.get("alert_channel") == cond
     if q.get("if_alert_channel_other"):
         return answers.get("alert_channel") in ("whatsapp", "imessage", "generic")
+    cond = q.get("if_issue_source")
+    if cond is not None:
+        return answers.get("issue_source") == cond
     return True
 
 
@@ -376,6 +401,11 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         f"- channel: {answers.get('alert_channel', '') or '(unset)'}",
         f"- webhook URL (discord): {answers.get('alert_webhook', '') or '(unset)'}",
         f"- command (whatsapp/imessage/generic): {answers.get('alert_command', '') or '(unset)'}",
+        "",
+        "## Data source (ADR-0007)",
+        f"- issue source (watchdog): {answers.get('issue_source', '') or '(unset)'}",
+        f"- issues file (if file source): {answers.get('issues_file', '') or '(unset)'}",
+        f"- verdict log (telemetry): {answers.get('verdict_log', '') or '(unset)'}",
         "",
     ]
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")

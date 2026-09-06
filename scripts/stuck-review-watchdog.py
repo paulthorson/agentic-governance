@@ -157,6 +157,30 @@ def load_issues(args) -> tuple[list[dict], dict | None]:
     # Default: Paperclip adapter.
     return query_in_review(args.company_id)
 
+def load_config() -> dict:
+    """Read the data-source config from config/setup.md (written by the wizard).
+
+    Returns a dict with keys issue_source, issues_file, verdict_log. Missing
+    or unparseable config returns empty values; the caller falls back to CLI
+    flags / defaults.
+    """
+    cfg = {}
+    p = REPO_ROOT / "config" / "setup.md"
+    if not p.exists():
+        return cfg
+    try:
+        for line in p.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("- issue source (watchdog):"):
+                cfg["issue_source"] = line.split(":", 1)[1].strip()
+            elif line.startswith("- issues file (if file source):"):
+                cfg["issues_file"] = line.split(":", 1)[1].strip()
+            elif line.startswith("- verdict log (telemetry):"):
+                cfg["verdict_log"] = line.split(":", 1)[1].strip()
+    except OSError:
+        return {}
+    return cfg
+
 def parse_ts(ts: str | None) -> float | None:
     if not ts:
         return None
@@ -237,7 +261,7 @@ def main() -> None:
                     help="emit a single versioned JSON document to stdout")
     ap.add_argument("--format", choices=["text", "json"], default="text",
                     help="output format; --json is an alias for --format json")
-    ap.add_argument("--source", choices=["paperclip", "file"], default="paperclip",
+    ap.add_argument("--source", choices=["paperclip", "file", "none"], default="paperclip",
                     help="data source for in_review issues (default paperclip; ADR-0007)")
     ap.add_argument("--issues-file", default=None,
                     help="JSON file of in_review issues for --source file ('-' for stdin)")
@@ -246,6 +270,14 @@ def main() -> None:
     args = ap.parse_args()
 
     json_mode = args.json or args.format == "json"
+
+    # Fall back to the wizard-written config (config/setup.md) when CLI flags
+    # are not given, so the watchdog is configured at setup time (ADR-0007).
+    cfg = load_config()
+    if args.source == "paperclip" and cfg.get("issue_source") in ("file", "none"):
+        args.source = cfg["issue_source"]
+    if args.source == "file" and not args.issues_file and cfg.get("issues_file"):
+        args.issues_file = cfg["issues_file"]
 
     # Resolve the Paperclip company id only when the paperclip source is used.
     # In JSON mode a hard failure emits a structured error document; in the
@@ -269,6 +301,25 @@ def main() -> None:
                 }, indent=2))
                 return
             raise
+
+    if args.source == "none":
+        # Watchdog disabled: no in_review backend configured. Report cleanly.
+        if json_mode:
+            print(json.dumps({
+                "schema_version": SCHEMA_VERSION,
+                "run": {
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "mode": "dry_run" if args.dry_run else "alert",
+                    "source": "none",
+                },
+                "status": "disabled",
+                "error": {"reason": "no_in_review_backend",
+                           "message": "issue source is 'none'; watchdog disabled until an in_review backend is configured"},
+                "tickets": [],
+            }, indent=2))
+            return
+        print("Watchdog disabled: no in_review backend configured (issue source = none).")
+        return
 
     if json_mode:
         print(json.dumps(build_report(args), indent=2))
