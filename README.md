@@ -1,98 +1,102 @@
-# Adversarial Agents
+# Agentic Governance
 
-Consolidated root for all adversarial agents and skills. Referenceable from both
-**Cursor** and **Claude Code** for agents and skills.
+A **bring-your-own-agent (BYOA)** governance framework: a set of adversarial review
+loops, constitutional rules, and a setup wizard that let you run **any** AI agent —
+Claude, ChatGPT/Codex, Hermes, OpenAI, Cursor, OpenClaw, or a custom client — under
+verifiable governance. You do not start over; you bring the agent you already have
+and govern it.
 
-## What's here
+> **What changed from "Adversarial Agents"?** This repo was formerly named
+> *Adversarial Agents*. It is the same codebase, renamed to reflect what it actually
+> is: a governance framework, not a set of agents. The adversarial reviewers are the
+> enforcement mechanism; governance is the product.
 
-Five adversarial frameworks, each a self-contained plugin folder plus a flat, namespaced
-consumption layer:
+---
 
-| Plugin | Domain | Reviews | Veto |
-|---|---|---|---|
-| `adversarial-ux` | User experience (designs, HUD, voice, personas) | UXer, UX Researcher | User harm |
-| `adversarial-engineer` | Engineering (code, architecture, config, infra) | Engineer | Production harm |
-| `adversarial-qa` | Testing, acceptance criteria, release gates | QA | User harm |
-| `adversarial-researcher` | Research, synthesis, evidence | general research | Unsupported claims |
-| `adversarial-universal` | Catch-all (any domain) | PM, BA, Scrum, CEO, anything | Irrecoverable harm |
+## What this is
 
-## Structure
+A governed workflow for AI agents that produce work. The core loop:
 
-```
-~/adversarial-agents/
-├── <plugin>/ # self-contained plugin (agents/, skills/, references/, commands/)
-├── agents/ # FLAT namespaced agents, e.g. eng-critic.md, ux-cx-advocate.md
-└── skills/ # FLAT namespaced skills, e.g. eng-system-map/, ux-altitude-check/
-```
+1. A **worker** produces work (a design, code, research, a decision).
+2. **Adversary agents** judge it blind — they see neutral facts, never the worker's
+   rationale.
+3. A **constitution** gates it with hard vetoes (production harm, user harm,
+   unsupported claims, irrecoverable harm).
+4. Only a **human** clears a veto.
 
-Namespacing (`eng-`, `qa-`, `res-`, `ux-`, `univ-`) prevents collisions between domains — every
-plugin has a `critic` and an `altitude-check`, so the flat layer disambiguates them.
+The same loop is exposed to any MCP-capable client through a single MCP server, so
+the governance is identical no matter which agent you run.
 
-## Reference into Cursor
+## Why it exists
 
-Agents and skills are already symlinked into:
+Most agent setups are governed by vibes: a prompt says "be careful," and nothing
+checks whether the agent was. This framework makes governance **mechanical** — checks
+that produce a pass or a fail, not style-guide language everyone reads differently.
+It is designed to be adopted incrementally, one agent at a time, without stopping the
+work that is already running.
 
-- `~/.cursor/agents/` → `eng-critic.md`, `ux-cx-advocate.md`,. (13 agents)
-- `~/.cursor/skills/` → `eng-system-map/`, `ux-altitude-check/`,. (45 skills)
+## The five domains
 
-Cursor picks these up automatically from `.cursor/agents` and `.cursor/skills`.
+| Domain | What it reviews | Veto |
+|---|---|---|
+| `adversarial-ux` | User experience (designs, HUD, voice, personas) | User harm |
+| `adversarial-engineer` | Engineering (code, architecture, config, infra) | Production harm |
+| `adversarial-qa` | Testing, acceptance criteria, release gates | User harm |
+| `adversarial-researcher` | Research, synthesis, evidence | Unsupported claims |
+| `adversarial-universal` | Catch-all (any domain) | Irrecoverable harm |
 
-## Reference into Claude
+## Quick start (any system)
 
-Agents and skills are already symlinked into:
-
-- `~/.claude/agents/` → the 13 namespaced agent files
-- `~/.claude/skills/` → the 45 namespaced skill folders
-
-Claude Code loads agents from `~/.claude/agents/*.md` and skills from `~/.claude/skills/*/SKILL.md`.
-
-## Re-wiring after edits
-
-The plugin folders under `~/adversarial-agents/<plugin>/` are the source of truth. If you edit
-them, the flat `agents/` and `skills/` copies (and the Cursor/Claude symlinks) point at the
-namespaced copies, not the plugin originals — so to propagate an edit, re-run:
-
-```
-python3 scripts/consolidate-adversarial.py
-```
-
-This rebuilds the flat layer from the plugin folders and re-symlinks into Cursor and Claude.
-
-## MCP server
-
-Run the adversarial review loop as callable tools from any agent (Claude, Cursor, OpenClaw):
+The framework ships an **MCP server** (`mcp/`) that exposes the review loop as callable
+tools. Any agent that supports MCP can wire it in.
 
 ```bash
-cd mcp && uv run adversarial-mcp
+# 1. Clone
+git clone https://github.com/paulthorson/agentic-governance.git
+cd agentic-governance
+
+# 2. Install the MCP server (requires uv)
+cd mcp
+uv sync
+uv run adversarial-mcp # stdio transport (default for MCP clients)
 ```
 
-See [`mcp/README.md`](mcp/README.md) and [`docs/MCP.md`](docs/MCP.md) for tools and wiring.
+Then wire the MCP server into your agent. See **[`docs/onboarding/`](docs/onboarding/)**
+for per-framework guides:
+
+- [Claude Code](docs/onboarding/claude-code.md)
+- [ChatGPT / Codex](docs/onboarding/chatgpt-codex.md)
+- [Cursor](docs/onboarding/cursor.md)
+- [OpenClaw](docs/onboarding/openclaw.md)
+- [Hermes](docs/onboarding/hermes.md)
+- [Other MCP clients](docs/onboarding/other-mcp-clients.md)
+
+## Adopting your agent (BYOA)
+
+You do not start over. The **setup wizard** (exposed through the MCP server) walks you
+through declaring your roster, mapping each existing agent to a role, and reconciling
+its existing instructions against the harness — never layering one on top of the other.
+
+- Run the wizard: `setup_wizard_start()` → `setup_wizard_answer(.)`
+- See **[`docs/onboarding/byoa.md`](docs/onboarding/byoa.md)** for the adoption walkthrough.
 
 ## Documentation
 
-The `docs/` folder is an Obsidian-able wiki (MOCs + pages): architecture, domains, constitution,
-vetoes, calibration, MCP, Paperclip wiring, tooling, and the roadmap. Start at `docs/Home.md`.
+The `docs/` folder is an Obsidian-able wiki (MOCs + pages): architecture, domains,
+constitution, vetoes, calibration, MCP, Paperclip wiring, tooling, and the roadmap.
+Start at [`docs/Home.md`](docs/Home.md).
 
 ## Tooling & CI
 
 - `scripts/validate.py` — structure validator (frontmatter, namespacing, plugin skeleton).
 - `.github/workflows/validate.yml` — CI: validate + gitleaks secret scan on push/PR.
 - `scripts/consolidate-adversarial.py` — rebuild flat layer + re-symlink into Cursor/Claude.
+- `scripts/stuck-review-watchdog.py` — flags in_review tickets stuck with no verdict
+  (supports `--json` for machine-parseable output).
 
 ## Governance
 
 - `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the repo root.
 - `AUDIT.md` — the original gap analysis that drove the enterprise expansion.
-- **BYOA (bring your own agent)** is the operator-facing name for adopting an existing agent under governance (Addendum 01, A6). It is planned, not yet built; the wizard will call it BYOA when it ships.
-
-## Each plugin's internal layout (mirrors adversarial-ux)
-
-```
-<plugin>/
-├──.claude-plugin/plugin.json
-├── agents/ the standing adversary agents (with YAML frontmatter)
-├── skills/ the worker skill + stateless skills (each a SKILL.md)
-├── references/ constitution.md, <domain>-standard.md, personas.md, calibration-ledger.md
-├── assets/templates/ decision-record.md, calibration-entry.md
-└── commands/ the loop + review commands
-```
+- The **constitution** (`constitution/constitution.md`) is the governing law; it is
+  deliberately hard to change (amendment requires adversarial review + human approval).
