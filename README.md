@@ -96,6 +96,10 @@ see [`docs/deployment.md`](docs/deployment.md).
   (supports `--json` for machine-parseable output).
 - `scripts/veto-telemetry.py` — alerts on constitutional vetoes from the verdict ledger.
 - `scripts/messaging.py` — shared alert delivery (discord/whatsapp/imessage/generic).
+- `scripts/ticket.py` — **built-in local ticket/story system** (no external tracker
+  needed). Create work items, track review state, record verdicts. Writes
+  `runs/in_review.json` (feeds the watchdog) and `runs/verdicts.jsonl` (feeds
+  telemetry), so a vanilla install runs the whole loop with no Paperclip/Discord.
 
 ## Vanilla handoff (ADR-0006, ADR-0007)
 
