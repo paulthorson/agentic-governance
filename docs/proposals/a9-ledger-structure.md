@@ -1,8 +1,9 @@
 # Proposal: A9 — the calibration ledger's structure and growth
 
-**Status:** Draft for operator review. Not decided.
+**Status:** DECIDED — Option A for both questions, approved by operator (Paul)
+on 2026-09-06. Recorded as **A21** in spec-addendum-01.md.
 **Date:** 2026-09-06
-**Related:** A9 open problem (spec-addendum-01.md §A9).
+**Related:** A9 open problem (spec-addendum-01.md §A9), now resolved by A21.
 
 ## The problem
 
