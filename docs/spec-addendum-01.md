@@ -14,7 +14,7 @@ Sections A1 through A4, A6, A7, A8, and A11 through A15 are decided content. Eac
 
 One finding is recorded in A5. It is not an addition. It corrects an assumption in Section 9.4 that turns out to be weaker than written.
 
-**A10, A16, and A17 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
+**A16 and A17 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
 
 ---
 
@@ -331,7 +331,10 @@ The decision belongs to the operator, and it should be made before the ledger is
 
 ## A10. Open problem: no rollback
 
-**Not decided. Do not implement.**
+**Resolved by A22 (2026-09-06).** The decision is recorded in A22 below; this
+section is retained for the record of the problem as it was posed.
+
+**Not decided. Do not implement.** (Superseded by A22.)
 
 The framework is built to stop bad work before it lands. Vetoes block, gates hold, adversarial review can overrule a CEO, and reversible work is separated from irreversible work under A1.
 
@@ -454,6 +457,37 @@ N.
 
 **Open sub-decisions (operator to set):** the exact field set and who migrates
 existing entries; the retention window N.
+
+---
+
+## A22. Rollback: overturning precedent and linking artifacts
+
+**Decided.** This is not an open problem; it is a ratified decision resolving
+A10. The operator approved all three decisions as recommended on 2026-09-06.
+
+**Decision 1 — Overturning a precedent:** a precedent can be overturned, and
+only a human does it (matching who clears a veto). An overturned precedent gets
+a **status** (`overturned`), not deletion, so the record of the mistake survives
+alongside the correction. A bot that would have cited an overturned precedent
+must instead escalate — the overturned status makes the match "arguable,"
+which already means escalate under 10.1.
+
+**Decision 2 — Work approved under an overturned precedent:** leave it in place
+but **flag it** by default. Withdrawing committed work is usually more
+disruptive than leaving it. The system records that the work was approved under
+a now-overturned precedent, so it is known to be work the system would not
+approve today, but it is not automatically withdrawn. The operator decides
+per-case whether to withdraw, leave, or remediate.
+
+**Decision 3 — Linking an artifact to its permitting ruling:** each artifact
+carries a **provenance field** recording the ruling (ledger entry id) that
+permitted it. This gives the blast radius of a bad precedent: given a ruling,
+you can find every artifact that cites it. This is what makes Decisions 1 and 2
+tractable.
+
+**Implementation note:** A22 depends on A21 (the structured ledger) — the
+`status` field and the provenance field both require the structured ledger
+fields A21 establishes. A22 is therefore implementable now that A21 is decided.
 
 ---
 

@@ -1,9 +1,9 @@
 # Proposal: A10 — rollback (decision framework)
 
-**Status:** Draft for operator review. Not decided.
+**Status:** DECIDED — all three decisions as recommended, approved by operator
+(Paul) on 2026-09-06. Recorded as **A22** in spec-addendum-01.md.
 **Date:** 2026-09-06
-**Related:** A10 open problem (spec-addendum-01.md §A10). The largest gap in the
-framework.
+**Related:** A10 open problem (spec-addendum-01.md §A10), now resolved by A22.
 
 ## The problem
 
