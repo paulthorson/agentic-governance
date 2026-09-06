@@ -15,6 +15,13 @@ Logic:
 
 Usage:
   python3 scripts/stuck-review-watchdog.py [--stale-minutes 120] [--dry-run]
+  python3 scripts/stuck-review-watchdog.py --json [--stale-minutes 120] [--dry-run]
+
+Machine-parseable output:
+  With `--json` (or `--format json`), the watchdog emits a single, versioned
+  JSON document to stdout for the whole run. The human-readable report remains
+  the default and is byte-for-byte unchanged when the flag is absent. See
+  scripts/stuck-review-watchdog.schema.md for the schema reference.
 
 Config (env):
   PAPERCLIP_COMPANY_ID   company id (default: auto-detect)
@@ -33,6 +40,10 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 STATE_FILE = Path(os.environ.get("STUCK_STATE_FILE", REPO_ROOT / "runs" / "stuck-watchdog.json"))
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "")
+
+# Version of the machine-parseable JSON schema. Bump when the emitted shape
+# changes; consumers must treat an unknown version as incompatible.
+SCHEMA_VERSION = "1"
 
 # Adversary agents by id (the reviewers that should clear in_review tickets).
 # If a ticket is in_review and assigned to one of these, it is waiting on a verdict.
@@ -62,8 +73,13 @@ def get_company_id() -> str:
             return entries[0].name
     raise SystemExit("Could not determine company id. Set PAPERCLIP_COMPANY_ID.")
 
-def query_in_review(company_id: str) -> list[dict]:
-    """Query Paperclip for in_review issues via the CLI."""
+def query_in_review(company_id: str) -> tuple[list[dict], dict | None]:
+    """Query Paperclip for in_review issues via the CLI.
+
+    Returns (issues, error). On success error is None. On failure issues is []
+    and error is a machine-readable descriptor {"reason", "message"} so the
+    caller can distinguish a genuine empty result from a failed query (F5).
+    """
     cmd = [
         "paperclipai", "issue", "list",
         "--company-id", company_id,
@@ -74,15 +90,15 @@ def query_in_review(company_id: str) -> list[dict]:
         out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
     except (subprocess.TimeoutExpired, FileNotFoundError) as e:
         print(f"WARN: could not query Paperclip: {e}", file=sys.stderr)
-        return []
+        return [], {"reason": "query_failed", "message": str(e)}
     if out.returncode != 0:
         print(f"WARN: paperclipai issue list failed: {out.stderr.strip()}", file=sys.stderr)
-        return []
+        return [], {"reason": "query_failed", "message": out.stderr.strip()}
     try:
-        return json.loads(out.stdout)
+        return json.loads(out.stdout), None
     except json.JSONDecodeError:
         print("WARN: could not parse paperclipai output", file=sys.stderr)
-        return []
+        return [], {"reason": "parse_error", "message": "could not parse paperclipai output"}
 
 def parse_ts(ts: str | None) -> float | None:
     if not ts:
@@ -130,24 +146,13 @@ def alert_discord(message: str) -> None:
         except Exception as e:
             print(f"WARN: post-to-discord failed: {e}", file=sys.stderr)
 
-def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--stale-minutes", type=int, default=120,
-                    help="in_review tickets older than this are stuck (default 120)")
-    ap.add_argument("--dry-run", action="store_true", help="report without alerting")
-    args = ap.parse_args()
+def collect_stuck(issues: list[dict], args, now: float, state: dict) -> list[dict]:
+    """Return stuck-ticket dicts: identifier, title, reviewer, age_min, reason.
 
-    company_id = get_company_id()
-    issues = query_in_review(company_id)
-    if not issues:
-        print("No in_review issues. All clear.")
-        return
-
-    now = time.time()
+    Shared by the human and JSON paths so the two surfaces cannot drift.
+    """
     stale_secs = args.stale_minutes * 60
-    state = load_state()
     stuck = []
-
     for issue in issues:
         ident = issue.get("identifier", issue.get("id", "?"))
         assignee = issue.get("assigneeAgentId", "")
@@ -162,13 +167,87 @@ def main() -> None:
         last_alert = state.get(ident)
         if last_alert and (now - last_alert) < stale_secs:
             continue
-        stuck.append((ident, issue.get("title", ""), reviewer, age_min))
+        stuck.append({
+            "identifier": ident,
+            "title": issue.get("title", "")[:120],
+            "reviewer": reviewer,
+            "age_min": round(age_min),
+            "reason": f"In in_review for {age_min:.0f} min with no verdict. Adversary may be down/paused.",
+        })
+    return stuck
+
+def build_report(args, company_id: str) -> dict:
+    """Build the machine-parseable JSON report document for the run."""
+    now = time.time()
+    run = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "mode": "dry_run" if args.dry_run else "alert",
+    }
+    base = {"schema_version": SCHEMA_VERSION, "run": run}
+
+    issues, err = query_in_review(company_id)
+    if err is not None:
+        return {**base, "status": "error", "error": err, "tickets": []}
+    if not issues:
+        return {**base, "status": "ok_no_findings", "tickets": []}
+    state = load_state()
+    stuck = collect_stuck(issues, args, now, state)
+    if not stuck:
+        return {**base, "status": "ok_no_findings", "tickets": []}
+    return {**base, "status": "ok_with_findings", "tickets": stuck}
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--stale-minutes", type=int, default=120,
+                    help="in_review tickets older than this are stuck (default 120)")
+    ap.add_argument("--dry-run", action="store_true", help="report without alerting")
+    ap.add_argument("--json", action="store_true",
+                    help="emit a single versioned JSON document to stdout")
+    ap.add_argument("--format", choices=["text", "json"], default="text",
+                    help="output format; --json is an alias for --format json")
+    args = ap.parse_args()
+
+    json_mode = args.json or args.format == "json"
+
+    # Resolve company id. In JSON mode a hard failure emits a structured error
+    # document; in the default mode the existing SystemExit behavior is kept.
+    try:
+        company_id = get_company_id()
+    except SystemExit as e:
+        if json_mode:
+            print(json.dumps({
+                "schema_version": SCHEMA_VERSION,
+                "run": {
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "mode": "dry_run" if args.dry_run else "alert",
+                },
+                "status": "error",
+                "error": {"reason": "hard_failure", "message": str(e)},
+                "tickets": [],
+            }, indent=2))
+            return
+        raise
+
+    if json_mode:
+        print(json.dumps(build_report(args, company_id), indent=2))
+        return
+
+    # ---- human-readable default path (unchanged) ----
+    issues, _ = query_in_review(company_id)
+    if not issues:
+        print("No in_review issues. All clear.")
+        return
+
+    now = time.time()
+    state = load_state()
+    stuck = collect_stuck(issues, args, now, state)
 
     if not stuck:
         print("No stuck in_review tickets.")
         return
 
-    for ident, title, reviewer, age_min in stuck:
+    for t in stuck:
+        ident, title, reviewer, age_min = t["identifier"], t["title"], t["reviewer"], t["age_min"]
         line = (
             f"⚠️ **Stuck review: {ident}**\n"
             f"Title: {title[:120]}\n"
