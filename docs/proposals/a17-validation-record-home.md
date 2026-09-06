@@ -1,6 +1,6 @@
 # Proposal: A17 — where validation records live
 
-**Status:** Proposal for operator review. Not decided, not merged.
+**Status:** DECIDED — Option A approved by operator (Paul) on 2026-09-06.
 **Date:** 2026-09-06
 **Related:** A17 open problem (spec-addendum-01.md §A17), A11c validation record.
 
@@ -57,8 +57,11 @@ discoverable home, and it keeps evidence next to the spec it validates. The
 existing `docs/a11c-validation-record.md` would move into the new directory as
 the first entry.
 
-## Open question for the operator
+## Decision (2026-09-06)
 
-1. Approve Option A, B, or C?
-2. If A: should the existing `a11c-validation-record.md` be moved into
-   `docs/validation-records/` (renamed per the convention), or left in place?
+**Option A approved by the operator (Paul).** Validation records live in
+`docs/validation-records/` with the naming convention
+`YYYY-MM-DD-<epic>-<run>.md`. The existing `docs/a11c-validation-record.md` is
+left in place (not moved) to avoid churn; new records use the new directory.
+The A18.3 clean-test record (`docs/validation-records/2026-09-06-a183-clean-test.md`)
+is the first entry under the decided convention.
