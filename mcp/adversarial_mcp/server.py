@@ -412,6 +412,7 @@ def run_review(domain: str, work: str, context: str = "", source: str = "app") -
             "work_chars": structural["work_chars"],
             "rule": "constitution-rule-1" if structural["veto_triggered"] else "",
             "case_tag": "veto" if structural["veto_triggered"] else "review",
+            "provenance": context or "",  # A22: link the artifact to its ruling
             "source": source,
         }
     )
@@ -508,6 +509,7 @@ def run_review_deep(domain: str, work: str, context: str = "", model: str = "") 
             "veto_hits": structural["veto_hits"],
             "rule": "constitution-rule-1" if structural["veto_triggered"] else "",
             "case_tag": "veto" if structural["veto_triggered"] else "deep_review",
+            "provenance": context or "",  # A22: link the artifact to its ruling
             "model": model or DEEP_MODEL,
         }
     )
@@ -646,14 +648,20 @@ def main() -> None:
 
 
 def _auth_middleware(app, token: str):
-    """Wrap an ASGI app with bearer-token auth.
+    """Wrap an ASGI app with bearer-token auth and optional rate limiting.
 
     Every request must carry `Authorization: Bearer <token>`. Requests without
-    a valid token get 401. This is a lightweight gate for remote deployments;
-    it does not replace a full auth layer (e.g. mTLS or an API gateway) for
-    production.
+    a valid token get 401. When MCP_RATE_LIMIT is set (requests per minute per
+    IP), requests over the limit get 429. This is a lightweight gate for remote
+    deployments; it does not replace a full auth layer (e.g. mTLS or an API
+    gateway) for production.
     """
     import asyncio
+    import time
+
+    rate_limit = int(os.environ.get("MCP_RATE_LIMIT", "0"))  # 0 = disabled
+    # per-IP sliding window: {ip: [timestamps]}
+    hits: dict[str, list[float]] = {}
 
     async def auth_app(scope, receive, send):
         if scope["type"] != "http":
@@ -669,6 +677,21 @@ def _auth_middleware(app, token: str):
             })
             await send({"type": "http.response.body", "body": b"unauthorized"})
             return
+        # Rate limit per client IP (best-effort; behind a proxy use X-Forwarded-For).
+        if rate_limit > 0:
+            ip = scope.get("client", ("unknown", 0))[0]
+            now = time.time()
+            window = hits.setdefault(ip, [])
+            window[:] = [t for t in window if now - t < 60]
+            if len(window) >= rate_limit:
+                await send({
+                    "type": "http.response.start",
+                    "status": 429,
+                    "headers": [(b"content-type", b"text/plain")],
+                })
+                await send({"type": "http.response.body", "body": b"rate limited"})
+                return
+            window.append(now)
         await app(scope, receive, send)
 
     return auth_app
