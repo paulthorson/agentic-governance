@@ -50,17 +50,21 @@ list — update it as the framework evolves.
       cron every 30 min.
 - [x] **Calibration automation** — periodic analysis of the verdict ledger.
       `scripts/calibration-report.py`.
-- [ ] **Telemetry / alerting** on vetoes.
+- [x] **Telemetry / alerting** on vetoes.
+      `scripts/veto-telemetry.py` (scan + alert + --watch dedupe).
 
 ### MCP
-- [ ] **Streamable HTTP transport** (currently stdio only).
-- [ ] **Auth** for remote deployments.
+- [x] **Streamable HTTP transport** (currently stdio only).
+      `--transport streamable-http|sse|stdio`.
+- [x] **Auth** for remote deployments.
+      `MCP_AUTH_TOKEN` bearer-token middleware.
 - [x] **`run_review` deep mode** — actually invoke the adversary agents (LLM)
       rather than only assembling the prompt. `run_review_deep` via Ollama.
 
 ### Docs
 - [x] **Diagram** of the loop as an image (currently ASCII).
-- [ ] **Per-domain deep-dive** pages.
+- [x] **Per-domain deep-dive** pages.
+      `docs/domains/` (12 pages).
 
 ## See also
 
