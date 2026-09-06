@@ -171,6 +171,8 @@ The CEO bot owns intake, so it is the CEO that turns an objective into a researc
 
 That constraint is load-bearing. Research with no question is unbounded, and an unbounded loop with a budget attached is the failure mode A3 exists to prevent. A research question states what must be known and what would count as knowing it.
 
+A research question asks the researcher to **establish what is true** — it does not ask the researcher to recommend a course of action. The researcher harness forbids recommending (that is the PM's and UX's work), so a research question that asks for a recommendation conflicts with the researcher's harness. Ask for findings and what would count as an adequate answer, not a recommendation.
+
 #### The harness
 
 The harness is the **source of truth** at `harnesses/researcher.md` (A23). The inline copy is not maintained here; edit the harness file.
