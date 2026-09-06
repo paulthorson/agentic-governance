@@ -45,12 +45,35 @@ dependent on Grimdor's automations or Discord.
 - **Action:** provide the Ladders/Grok side with the watchdog + telemetry scripts and
   let them wire their own alerting; do not route Ladders alerts through Grimdor.
 
+### D4. The watchdog is Paperclip-coupled; telemetry is not (vanilla-handoff finding)
+The Ladders team does **not** use Paperclip (work lives in GitHub PRs + epic markdown;
+no `in_review` ticket store). This exposed a real coupling in the framework:
+
+- **`stuck-review-watchdog.py` is Paperclip-native** — it shells out to
+  `paperclipai issue list --status in_review --json`, reads `~/.paperclip/instances/`,
+  and holds Grimdor's adversary IDs. It does **not** drop into a non-Paperclip team.
+- **`veto-telemetry.py` is environment-agnostic** — it reads a plain JSONL file
+  (`runs/verdicts.jsonl`), which any team can point at its own verdict log.
+- **Constitution, harnesses, vetoes, calibration ledger, messaging** — all
+  environment-agnostic.
+
+- **Decision:** the framework's *logic* (staleness, dedupe, alerting, veto detection) is
+  portable; the *data source* must be abstracted. The watchdog should read a generic
+  "in_review issues" input (JSON file / stdin) with Paperclip as one adapter, so any
+  team's store (GitHub PR review state, a file ledger, Linear, Jira) can feed it.
+- **Ladders decision (2026-09-06):** telemetry **on** (file-based, Ladders-scoped
+  verdicts log, alerts to Grok Bot chat for now); watchdog **off** until Ladders has an
+  `in_review` backend (GitHub PR review state or a file ledger in the epic folder);
+  no Paperclip on Ladders. Veto-class issues escalate to Paul in chat until then.
+- **Action:** abstract the watchdog's data source (ADR-0007) so it is vanilla.
+
 ## Consequences
 
 - **Positive:** adoption is lightweight (no fork), teams stay self-sufficient, and the
   framework's checks are portable.
-- **Negative:** requires the harnesses to be standalone-loadable (D1) and a Researcher
-  on every roster (D2) — both are now explicit requirements.
+- **Negative:** requires the harnesses to be standalone-loadable (D1), a Researcher
+  on every roster (D2), and the watchdog's data source to be abstracted (D4) — all now
+  explicit requirements.
 
 ## Alternatives considered
 
