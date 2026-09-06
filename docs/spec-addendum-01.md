@@ -412,6 +412,25 @@ The Section 7 carve-out protects an adversarial agent's **identity**, not its **
 
 ---
 
+## A20. Where validation records live
+
+**Decided.** This is not an open problem; it is a ratified decision about where
+end-to-end validation records (the evidence artifacts produced by runs) live.
+
+Validation records live in **`docs/validation-records/`** with the naming
+convention `YYYY-MM-DD-<epic>-<run>.md`. The existing
+`docs/a11c-validation-record.md` is left in place (not moved) to avoid churn;
+new records use the new directory. The A18.3 clean-test record
+(`docs/validation-records/2026-09-06-a183-clean-test.md`) is the first entry
+under the decided convention.
+
+This decision is **distinct from A17**. A17 remains an open problem about the
+broader question — no project repo for governance-repo work (read-only 9.4 vs.
+engineer obligation 5.3). A20 decides only where validation records live; it
+does not resolve A17.
+
+---
+
 ## A11. End-to-end validation before further extension
 
 **Lands in:** Section 14, as an adoption prerequisite.

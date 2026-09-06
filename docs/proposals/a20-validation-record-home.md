@@ -1,23 +1,21 @@
-# Proposal: A17 — where validation records live
+# Proposal: A20 — where validation records live
 
 **Status:** DECIDED — Option A approved by operator (Paul) on 2026-09-06.
 **Date:** 2026-09-06
-**Related:** A17 open problem (spec-addendum-01.md §A17), A11c validation record.
+**Related:** A11c validation record. (This is a distinct decision from A17, which
+remains open on its own subject — no project repo for governance-repo work.)
 
 ## The problem
 
-A17 records that the governance repo has no project repo, and that bots cannot
-write the governance repo (Section 9.4 read-only) while the engineer is
-obligated to produce applied implementations (Section 5.3). The A11c run
-surfaced a concrete instance: the validation record — the only evidence an
-adversarial check can fail — had no defined home. We pragmatically placed it
-at `docs/a11c-validation-record.md`, but that was an ad-hoc choice, not a
-decided rule.
+The A11c run surfaced a concrete instance of an unresolved question: the validation
+record — the only evidence an adversarial check can fail — had no defined home. We
+pragmatically placed it at `docs/a11c-validation-record.md`, but that was an ad-hoc
+choice, not a decided rule.
 
 ## The decision needed
 
-Where do validation records (the evidence artifacts produced by end-to-end
-runs) live, and how are they named?
+Where do validation records (the evidence artifacts produced by end-to-end runs)
+live, and how are they named?
 
 ## Options
 
@@ -46,8 +44,8 @@ A top-level directory parallel to `docs/`, `scripts/`, `harnesses/`.
 No new rule; each record placed where it seems fit.
 
 - **Pros:** No change.
-- **Cons:** Exactly the ambiguity A17 is trying to resolve; records scatter and
-  become undiscoverable.
+- **Cons:** Exactly the ambiguity this decision is trying to resolve; records
+  scatter and become undiscoverable.
 
 ## Recommendation
 
@@ -65,3 +63,6 @@ the first entry.
 left in place (not moved) to avoid churn; new records use the new directory.
 The A18.3 clean-test record (`docs/validation-records/2026-09-06-a183-clean-test.md`)
 is the first entry under the decided convention.
+
+This decision is recorded as **A20** in `docs/spec-addendum-01.md`. It does not
+resolve A17, which remains open on its own subject.
