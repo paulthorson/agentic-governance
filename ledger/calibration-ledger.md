@@ -51,3 +51,15 @@ The MCP `query_verdicts(domain, limit)` tool returns recent verdicts. The
 **Decision:** Recorded as ADR-0006. Ladders to spin up a Grok Research agent; Ladders to own its own telemetry/watchdog from the Grok side.
 
 **Citation:** ADR-0006 · relayed 2026-09-06 via Openclaw Bridge.
+
+## 2026-09-06 — Ladders data-source decision (Paperclip coupling)
+
+**Case:** Ladders team confirmed their issue/verdict store: GitHub PRs + epic markdown, no `in_review` ticket store, no Paperclip.
+
+**Finding (calibration):** The stuck-review-watchdog is Paperclip-native and does not drop into a non-Paperclip team; veto-telemetry is file-based and portable. The framework's logic is portable, but the watchdog's data source must be abstracted for vanilla handoff.
+
+**Decision (Ladders, 2026-09-06):** telemetry ON (Ladders-scoped verdicts log, alerts to Grok Bot chat for now); watchdog OFF until Ladders has an in_review backend (GitHub PR review state or file ledger in epic folder); no Paperclip on Ladders; veto-class issues escalate to Paul in chat until then.
+
+**Action:** abstract the watchdog data source (ADR-0007).
+
+**Citation:** ADR-0006 D4 · relayed 2026-09-06 via Openclaw Bridge.
