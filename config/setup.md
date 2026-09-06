@@ -20,7 +20,7 @@ Configured by the conversational setup wizard (Section 9.3). Absent or incomplet
 - in play: in-play
 
 ## Project repos
-- ~/adversarial-agents (governance repo, read-only to bots); project work in /tmp or a project repo
+- ~/adversarial-agents (governance repo, read-only to bots)
 
 ## Escalation preferences (beyond Section 10.3 mandatory list)
 - none beyond the mandatory list in 10.3
