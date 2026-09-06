@@ -25,7 +25,7 @@ The constitution is deliberately hard to change. Amendments require:
 
 1. A written proposal stating the rule, the problem, and the proposed change.
 2. A review by the relevant adversary agent(s).
-3. Human approval (a master — Paul or Christina).
+3. Human approval (a designated human master).
 
 This mirrors the framework's own philosophy: change is possible, but it must
 survive adversarial scrutiny and a human gate.
