@@ -45,130 +45,130 @@ ADVERSARIAL_STATES = ["in-play", "not-in-play"]
 WIZARD_FLOW: list[dict[str, Any]] = [
     {
         "id": "runtime",
-        "question": "What executes the agents? (Name your runtime. This determines only the persona block wrapper, never the content.)",
+        "question": "What tool or system runs your AI agents? (Examples: Claude Code, Cursor, OpenClaw, ChatGPT, a custom setup. This only affects how each agent's instructions are wrapped — it never changes the rules.)",
         "options": None,
     },
     {
         "id": "budget_model",
-        "question": "What is the budget model?",
+        "question": "How do you want to control how much work the agents can do? (metered = a set allowance that resets on a schedule; billed = a hard spend cap; not-yet-known = you'll decide later)",
         "options": BUDGET_MODELS,
     },
     # conditional sub-questions (only presented when budget_model == their key)
     {
         "id": "metered_allowance",
         "if_budget": "metered",
-        "question": "Metered: what is the allowance per cycle?",
+        "question": "Metered: how much work is allowed per cycle? (A number that resets on the schedule you set below.)",
         "options": None,
     },
     {
         "id": "metered_reset_cadence",
         "if_budget": "metered",
-        "question": "Metered: what is the reset cadence (e.g. weekly)?",
+        "question": "Metered: how often does the allowance reset? (e.g. weekly, monthly)",
         "options": None,
     },
     {
         "id": "metered_headroom",
         "if_budget": "metered",
-        "question": "Metered: how much headroom should the CEO reserve for in-flight work?",
+        "question": "Metered: how much of the allowance should be held back for work already in progress, so it doesn't get cut off mid-task?",
         "options": None,
     },
     {
         "id": "billed_cap",
         "if_budget": "billed",
-        "question": "Billed: what is the total spend cap?",
+        "question": "Billed: what is the total spend limit?",
         "options": None,
     },
     {
         "id": "billed_escalation_threshold",
         "if_budget": "billed",
-        "question": "Billed: at what percentage of the cap should escalation trigger?",
+        "question": "Billed: at what percentage of the limit should the system warn you before it's reached?",
         "options": None,
     },
     {
         "id": "per_epic_budget",
-        "question": "What is a single epic allowed to consume?",
+        "question": "How much work is a single project (an 'epic') allowed to use? (A number; the system warns when a project gets close to it.)",
         "options": None,
     },
     {
         "id": "roster",
-        "question": "Add a roster row as: bot name | role | team | default project repo(s). Send 'done' when the roster is complete.",
+        "question": "List the agents on your team, one per line, as: agent name | role (pm, ux, engineer, qa, ceo, researcher) | team name | project folder. Type 'done' when the list is complete.",
         "options": None,
         "repeated": True,
     },
     {
         "id": "adversarial_agents",
-        "question": "Are the adversarial agents in play?",
+        "question": "Do you want independent 'adversary' reviewers to double-check the work? (in-play = yes, they review and can flag problems; not-in-play = no, skip the extra review layer)",
         "options": ADVERSARIAL_STATES,
     },
     {
         "id": "project_repos",
-        "question": "Where do project repos live, and what is the epic folder convention?",
+        "question": "Where does your team's work live, and how are project folders organized? (e.g. a git repo path, and a folder like docs/epics/ for each project's files)",
         "options": None,
     },
     {
         "id": "escalation_preferences",
-        "question": "Which escalation categories should always reach the human beyond the mandatory list in Section 10.3?",
+        "question": "Are there any topics that should always go to a human for approval, beyond the automatic ones (harm, legal, rule changes)? (Leave blank if the automatic list is enough.)",
         "options": None,
     },
     {
         "id": "domain_risk",
-        "question": "Are there industry or regulatory constraints making certain decisions non-delegable? (This is the only place domain specificity may enter.)",
+        "question": "Are there any industry or legal rules that make certain decisions require a human? (e.g. healthcare, finance, privacy. Leave blank if none.)",
         "options": None,
     },
     {
         "id": "quiet_hours",
-        "question": "When is the human unavailable? (Escalations in this window queue rather than stall.)",
+        "question": "When are you unavailable? (e.g. 23:00-08:00. Questions that need you during this window wait rather than interrupt.)",
         "options": None,
     },
     {
         "id": "stall_threshold",
-        "question": "How many turns without a materially new artifact before a blocked case is queued?",
+        "question": "How many back-and-forth rounds with no real progress should pass before a stuck task is flagged for a human?",
         "options": None,
     },
     {
         "id": "precedent_decay_window",
-        "question": "How old can a precedent be before it is flagged for fresh review rather than applied automatically?",
+        "question": "How old can a past decision be before it's re-checked instead of automatically reused? (e.g. 90d = 90 days)",
         "options": None,
     },
     # --- Addendum 01 config questions (A2, A3, A4, A12.4, A14) ---
     {
         "id": "autonomy_starting_level",
-        "question": "What autonomy starting level should new bots begin at? (A2.4: default is 1; nothing starts above 2 without setting it explicitly.)",
+        "question": "How much freedom should new agents start with? (Level 1 = they check with a human before acting on their own. Higher = more independence. Default is 1.)",
         "options": None,
     },
     {
         "id": "clean_runs_per_promotion",
-        "question": "How many clean runs are required for a bot to be promoted up the autonomy ladder? (A2.2)",
+        "question": "How many problem-free tasks must an agent complete before it earns more freedom?",
         "options": None,
     },
     {
         "id": "retry_count",
-        "question": "What is the declared retry count for a bounded retry? (A3.1: how many attempts are allowed, not 'until it works'.)",
+        "question": "How many times may an agent retry a task before it stops and asks for help? (A set number, not 'until it works'.)",
         "options": None,
     },
     {
         "id": "retry_escalation_on_exhaustion",
-        "question": "What happens when a retry count is exhausted? (A3.1: never silence, never another attempt.)",
+        "question": "What should happen when an agent runs out of retries? (It should never stay silent and never just keep trying.)",
         "options": None,
     },
     {
         "id": "audit_cadence",
-        "question": "On what cadence should recurring routines report for the routine audit? (A4.1)",
+        "question": "How often should the system review its own recurring tasks and report on them? (e.g. weekly)",
         "options": None,
     },
     {
         "id": "research_rounds_without_findings",
-        "question": "How many rounds without new findings should stop the research discovery loop? (A12.4)",
+        "question": "When researching, how many rounds of digging with no new information should stop the research?",
         "options": None,
     },
     {
         "id": "research_round_budget",
-        "question": "What is the round budget for the research discovery loop? (A12.4)",
+        "question": "How much effort (rounds) should a single research task be allowed?",
         "options": None,
     },
     {
         "id": "irreversible_action_protection",
-        "question": "For each irreversible action class in A1.1, which protection level applies (1 unreachable / 2 intercepted / 3 instructed)? (A14)",
+        "question": "For actions that can't be undone (sending, publishing, deleting, spending money), how protected should they be? (1 = agents can't reach them; 2 = a human must approve; 3 = agents are told to be careful but can do them)",
         "options": None,
     },
     # --- Messaging: the operator's alert channel, baked into the scripts ---
@@ -177,19 +177,19 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     # scripts via ALERT_CHANNEL / ALERT_WEBHOOK_URL / ALERT_COMMAND.
     {
         "id": "alert_channel",
-        "question": "Which messaging system should alerts go to? (discord, whatsapp, imessage, or generic command)",
+        "question": "Where should the framework send alerts (like 'a review is stuck' or 'a veto fired')? (discord, whatsapp, imessage, or a custom command)",
         "options": ["discord", "whatsapp", "imessage", "generic"],
     },
     {
         "id": "alert_webhook",
         "if_alert_channel": "discord",
-        "question": "Discord: what is the webhook URL for alerts?",
+        "question": "Discord: paste the webhook URL for the channel where alerts should appear. (You can get this from Discord's channel settings → Integrations → Webhooks.)",
         "options": None,
     },
     {
         "id": "alert_command",
         "if_alert_channel_other": True,
-        "question": "WhatsApp/iMessage/generic: what command delivers an alert? (the message is appended as the final argument)",
+        "question": "WhatsApp/iMessage/custom: what command should deliver an alert? (The alert text is added as the final argument. Example: a script that sends a message.)",
         "options": None,
     },
     # --- Data source: where in_review issues + verdicts live (ADR-0007) ---
@@ -218,13 +218,13 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     # never layer) and/or defines roles that do not exist yet.
     {
         "id": "adopt_existing",
-        "question": "Adopt an existing agent (BYOA). For each agent you already run, give: name | what it does | role it maps to (pm, ux, engineer, qa, ceo, or new) | path to its current instructions (optional). Send 'done' when you have no more agents to adopt.",
+        "question": "Do you already run agents you want to bring under this framework? For each one, give: name | what it does | role it maps to (pm, ux, engineer, qa, ceo, researcher, or new) | path to its current instructions (optional). Type 'done' when finished.",
         "options": None,
         "repeated": True,
     },
     {
         "id": "define_new_role",
-        "question": "Define a role that does not exist yet (A6.4). Give the role name, or 'none' to skip. The wizard will collect the 8 skeleton fields and generate a harness.",
+        "question": "Is there a role your team needs that doesn't exist yet? Give the role name, or 'none' to skip. The wizard will walk you through defining it and create its instructions.",
         "options": None,
     },
 ]
