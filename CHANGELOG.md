@@ -7,6 +7,9 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+- `docs/spec-addendum-01.md` — **A16 self-contradiction caught and fixed.** A decision about where validation records live was recorded as DECIDED in `docs/proposals/a17-validation-record-home.md` while §A17 still said "Not decided. Do not implement." — two copies of a governance rule disagreeing, with no precedence rule. This is exactly the A16 open problem, occurring inside the file where A16 is written down. The fix renumbered the validation-record decision as **A20** (decided, distinct from A17), kept A17 open on its actual subject (no project repo for governance-repo work), renamed the proposal file to `a20-validation-record-home.md`, and recorded the occurrence in the A16 section as evidence the duplication problem is real and already biting.
+
 ### Added
 - `docs/spec-addendum-01.md` — Addendum 01 (Reversibility, Autonomy, Budgets, and Audit), ratified, committed into the repo so the repo copy is canonical and the Downloads copy is dead. Amends Sections 5, 6, 9, 10, 11, 13, 14 of `docs/agentic-governance-spec.md`. A9 and A10 are recorded open problems (not implemented).
 - `docs/agentic-governance-spec.md`: added **Section 10.7 Reversibility as the approval line** (A1) — finish reversible work, stage and stop irreversible work; precedence over vetoes/mandatory escalation; adversarial agents unchanged.

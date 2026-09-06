@@ -364,6 +364,8 @@ The fix is one of two, and the choice belongs to the operator:
 
 This is recorded here rather than solved because either fix changes how every harness is maintained, and that decision is the operator's to make.
 
+**Observed 2026-09-06.** This exact failure mode occurred in this repo. A decision about where validation records live was recorded as DECIDED in `docs/proposals/a17-validation-record-home.md` while `spec-addendum-01.md` §A17 still said "Not decided. Do not implement." — two copies of a governance rule disagreeing, with no precedence rule saying which a bot should believe. The contradiction was caught by a human review, not by any check. The fix renumbered the validation-record decision as A20 (decided) and kept A17 open on its actual subject. The occurrence is recorded here as evidence that the duplication problem A16 names is real and already biting, and that the precedence rule or single-source fix is not optional.
+
 ---
 
 ## A17. Open problem: no project repo for governance-repo work
