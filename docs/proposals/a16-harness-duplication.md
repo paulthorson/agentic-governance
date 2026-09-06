@@ -1,11 +1,9 @@
 # Proposal: A16 — harness bodies are duplicated
 
-**Status:** Draft for operator review. Not decided.
+**Status:** DECIDED — Option B (generate one from the other), approved by
+operator (Paul) on 2026-09-06. Recorded as **A23** in spec-addendum-01.md.
 **Date:** 2026-09-06
-**Related:** A16 open problem (spec-addendum-01.md §A16). This is the problem
-that just bit us (2026-09-06): a decision recorded as DECIDED in a proposal
-while the addendum said "Not decided" — two copies of a rule disagreeing, no
-precedence rule.
+**Related:** A16 open problem (spec-addendum-01.md §A16), now resolved by A23.
 
 ## The problem
 
