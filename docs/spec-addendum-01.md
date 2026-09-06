@@ -14,7 +14,7 @@ Sections A1 through A4, A6, A7, A8, and A11 through A15 are decided content. Eac
 
 One finding is recorded in A5. It is not an addition. It corrects an assumption in Section 9.4 that turns out to be weaker than written.
 
-**A9, A10, A16, and A17 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
+**A10, A16, and A17 are open problems, not decided content.** They record gaps in the framework and name the decisions those gaps require. Do not implement them, and do not resolve them. They are here so the gaps are recorded rather than discovered later.
 
 ---
 
@@ -310,7 +310,10 @@ Where a value cannot be validated, because it depends on a runtime the framework
 
 ## A9. Open problem: the ledger's structure and growth
 
-**Not decided. Do not implement.**
+**Resolved by A21 (2026-09-06).** The decision is recorded in A21 below; this
+section is retained for the record of the problem as it was posed.
+
+**Not decided. Do not implement.** (Superseded by A21.)
 
 The calibration ledger began as a record of human overrides. It now carries three jobs: precedent for CEO rulings (10.2), promotion history for the autonomy ladder (A2.2), and the audit trail for adversarial review of rulings (12.5). It is still prose in a markdown file.
 
@@ -430,6 +433,27 @@ This decision is **distinct from A17**. A17 remains an open problem about the
 broader question — no project repo for governance-repo work (read-only 9.4 vs.
 engineer obligation 5.3). A20 decides only where validation records live; it
 does not resolve A17.
+
+---
+
+## A21. The calibration ledger: structure and growth
+
+**Decided.** This is not an open problem; it is a ratified decision resolving
+A9. The operator approved Option A for both questions on 2026-09-06.
+
+**Precedent matching (A9, Decision 1):** each ledger entry carries a small set
+of machine-readable fields — the rule cited, the domain, the decision, and a
+short case tag. The CEO bot matches on these fields first, then reads the prose
+to confirm. The "materially similar" test (10.1) becomes a field comparison
+plus a confirmation read.
+
+**Growth (A9, Decision 2):** entries age out with a retention rule. An entry
+not cited within a retention window N (set by the operator) is summarized to a
+one-line stub; a precedent never cited stops persisting in full. The human sets
+N.
+
+**Open sub-decisions (operator to set):** the exact field set and who migrates
+existing entries; the retention window N.
 
 ---
 
