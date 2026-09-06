@@ -616,7 +616,62 @@ def framework_status() -> dict[str, Any]:
 
 
 def main() -> None:
-    mcp.run()
+    """Run the MCP server.
+
+    Transport defaults to stdio (the standard for MCP clients). For remote
+    deployments, pass --transport streamable-http (and optionally --port /
+    --mount-path) to expose the server over HTTP.
+    """
+    import argparse
+    ap = argparse.ArgumentParser(description="Adversarial MCP server")
+    ap.add_argument("--transport", choices=["stdio", "sse", "streamable-http"],
+                    default="stdio", help="MCP transport (default stdio)")
+    ap.add_argument("--port", type=int, default=8000, help="HTTP port (streamable-http/sse)")
+    ap.add_argument("--mount-path", default="/mcp", help="HTTP mount path (streamable-http/sse)")
+    args = ap.parse_args()
+
+    if args.transport == "stdio":
+        mcp.run(transport="stdio")
+    else:
+        # streamable-http / sse: run the server over HTTP. FastMCP's run()
+        # with a non-stdio transport serves the server on the given port.
+        import uvicorn
+        # Optional bearer-token auth for remote deployments (MCP_AUTH_TOKEN).
+        # When set, every HTTP request must carry Authorization: Bearer <token>.
+        auth_token = os.environ.get("MCP_AUTH_TOKEN", "")
+        app = mcp.streamable_http_app() if args.transport == "streamable-http" else mcp.sse_app()
+        if auth_token:
+            app = _auth_middleware(app, auth_token)
+        uvicorn.run(app, host="0.0.0.0", port=args.port)
+
+
+def _auth_middleware(app, token: str):
+    """Wrap an ASGI app with bearer-token auth.
+
+    Every request must carry `Authorization: Bearer <token>`. Requests without
+    a valid token get 401. This is a lightweight gate for remote deployments;
+    it does not replace a full auth layer (e.g. mTLS or an API gateway) for
+    production.
+    """
+    import asyncio
+
+    async def auth_app(scope, receive, send):
+        if scope["type"] != "http":
+            await app(scope, receive, send)
+            return
+        headers = dict(scope.get("headers", []))
+        auth = headers.get(b"authorization", b"").decode("utf-8", "ignore")
+        if auth != f"Bearer {token}":
+            await send({
+                "type": "http.response.start",
+                "status": 401,
+                "headers": [(b"content-type", b"text/plain")],
+            })
+            await send({"type": "http.response.body", "body": b"unauthorized"})
+            return
+        await app(scope, receive, send)
+
+    return auth_app
 
 
 if __name__ == "__main__":
