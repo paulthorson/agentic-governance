@@ -171,6 +171,20 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "question": "For each irreversible action class in A1.1, which protection level applies (1 unreachable / 2 intercepted / 3 instructed)? (A14)",
         "options": None,
     },
+    # --- Addendum 01 A6: BYOA adoption flow ---
+    # Runs after the roster. The operator adopts existing agents (reconcile,
+    # never layer) and/or defines roles that do not exist yet.
+    {
+        "id": "adopt_existing",
+        "question": "Adopt an existing agent (BYOA). For each agent you already run, give: name | what it does | role it maps to (pm, ux, engineer, qa, ceo, or new) | path to its current instructions (optional). Send 'done' when you have no more agents to adopt.",
+        "options": None,
+        "repeated": True,
+    },
+    {
+        "id": "define_new_role",
+        "question": "Define a role that does not exist yet (A6.4). Give the role name, or 'none' to skip. The wizard will collect the 8 skeleton fields and generate a harness.",
+        "options": None,
+    },
 ]
 
 # --- state persistence -------------------------------------------------------
@@ -385,6 +399,282 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
     return written
 
 
+# --- A6 BYOA: adoption helpers ----------------------------------------------
+
+# The 9-section harness skeleton (Section 4 of the spec). Used to generate a
+# harness for a role that does not exist yet (A6.4).
+HARNESS_SKELETON = [
+    "## Read first",
+    "## Identity",
+    "## What you own",
+    "## What you never do",
+    "## Inputs and who you receive from",
+    "## Outputs and who you hand to",
+    "## Required artifact format",
+    "## Stop conditions",
+    "## Permitted plugins",
+]
+
+# The 8 fields the wizard collects to define a new role (A6.4).
+NEW_ROLE_FIELDS = [
+    ("role_identity", "Identity, in one sentence: who this is and what it owns."),
+    ("role_never", "What it never does."),
+    ("role_receives", "Who it receives work from, and what exact data crosses that edge."),
+    ("role_hands_to", "Who it hands to, and what exact data crosses that edge."),
+    ("role_artifact", "Its required artifact format."),
+    ("role_stop", "Its stop conditions: what makes it stop and escalate rather than proceed."),
+    ("role_plugins", "Which plugins it may use (comma-separated)."),
+]
+
+
+def _reconcile_instructions(agent_instructions: str, role: str, repo_root: Path) -> dict[str, Any]:
+    """A6.3: sort an existing agent's instructions against the harness for its
+    role into covered / compatible-and-specific / conflicting. Never layers.
+
+    This is a best-effort structural reconciliation: it reads the harness for
+    the role (if one exists) and the agent's instructions, and classifies each
+    instruction line. The operator makes the final call on conflicts.
+    """
+    harness_path = repo_root / "harnesses" / f"{role}.md"
+    harness_text = ""
+    if harness_path.exists():
+        harness_text = harness_path.read_text(encoding="utf-8")
+
+    # Split the agent's instructions into lines; drop empties and headers.
+    lines = [l.strip() for l in agent_instructions.splitlines() if l.strip()]
+    covered: list[str] = []
+    compatible: list[str] = []
+    conflicting: list[str] = []
+
+    for line in lines:
+        if line.startswith("#") or line.startswith("---"):
+            continue
+        low = line.lower()
+        # A line that negates something the harness states is a conflict, and
+        # must be flagged for the operator BEFORE coverage is considered.
+        if _looks_conflicting(low, harness_text):
+            conflicting.append(line)
+        elif harness_text and any(
+            phrase in harness_text.lower()
+            for phrase in _key_phrases(low)
+        ):
+            covered.append(line)
+        else:
+            compatible.append(line)
+
+    return {
+        "role": role,
+        "harness": str(harness_path) if harness_path.exists() else None,
+        "covered": covered,
+        "compatible": compatible,
+        "conflicting": conflicting,
+        "note": (
+            "Reconcile, never layer. Covered lines are dropped (the harness carries "
+            "them). Compatible lines move into the harness or persona block. "
+            "Conflicting lines go to the operator with both versions shown; the "
+            "wizard never resolves a conflict itself."
+        ),
+    }
+
+
+def _key_phrases(low: str) -> list[str]:
+    """Extract short key phrases from an instruction line for coverage matching."""
+    # Drop common filler and keep 3-5 word windows.
+    words = [w for w in low.split() if w not in {"the", "a", "an", "and", "or", "to", "of", "in", "on", "for", "you", "your", "must", "should", "always", "never"}]
+    phrases: list[str] = []
+    for i in range(len(words) - 2):
+        phrases.append(" ".join(words[i : i + 3]))
+    return phrases
+
+
+def _looks_conflicting(low: str, harness_text: str) -> bool:
+    """Heuristic: a line conflicts if it negates something the harness states.
+
+    A line is conflicting only when it contains a negation AND the harness
+    states the positive form of what the line negates (without that same
+    negation). A 'never' line that the harness also states (e.g. both say
+    'never ship to production without review') is covered, not conflicting.
+    """
+    if not harness_text:
+        return False
+    low_h = harness_text.lower()
+    for marker in ("never ", "do not ", "must not ", "cannot ", "refuse to "):
+        idx = low.find(marker)
+        if idx == -1:
+            continue
+        negated = low[idx + len(marker):].strip()
+        # The harness states the positive form of the negated phrase, and does
+        # NOT itself carry the same negation marker before that phrase.
+        if negated and negated in low_h:
+            # Ensure the harness isn't itself negating the same phrase.
+            if marker not in low_h[: low_h.find(negated)]:
+                return True
+    return False
+
+
+def _generate_harness(role: str, fields: dict[str, str], repo_root: Path) -> Path | None:
+    """A6.4/A6.5: generate a harness for a new role from the 9-section skeleton.
+    Refuses (returns None) if the harness already exists — never overwrite.
+    """
+    harness_path = repo_root / "harnesses" / f"{role}.md"
+    if harness_path.exists():
+        return None  # A6.5: refuse, never overwrite
+
+    lines = [
+        f"# {role.title()} Harness",
+        "",
+        "## Read first",
+        "Before beginning any task, load the constitution, this harness file, `config/setup.md`, and the roster. Do this at the start of every task.",
+        "",
+        "## Identity",
+        fields.get("role_identity", ""),
+        "",
+        "## What you own",
+        "",
+        "## What you never do",
+        fields.get("role_never", ""),
+        "",
+        "## Inputs and who you receive from",
+        fields.get("role_receives", ""),
+        "",
+        "## Outputs and who you hand to",
+        fields.get("role_hands_to", ""),
+        "",
+        "## Required artifact format",
+        fields.get("role_artifact", ""),
+        "",
+        "## Stop conditions",
+        fields.get("role_stop", ""),
+        "",
+        "## Permitted plugins",
+        fields.get("role_plugins", ""),
+        "",
+    ]
+    harness_path.parent.mkdir(parents=True, exist_ok=True)
+    harness_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return harness_path
+
+
+def _answer_adopt_existing(repo_root: Path, state: dict[str, Any], value: str) -> dict[str, Any]:
+    """A6.2/A6.3: collect an adopted agent and reconcile its instructions."""
+    adopted = state.setdefault("adopted", [])
+    if value.lower() == "done":
+        state["answers"]["adopt_existing"] = "__DONE__"
+        _save_state(repo_root, state)
+        nxt = _next_question(state)
+        if nxt is None:
+            return _finalize(repo_root, state)
+        _save_state(repo_root, state)
+        return _question_payload(nxt, len(state.get("roster", [])))
+
+    parts = [p.strip() for p in value.split("|")]
+    if len(parts) < 2:
+        return {
+            "status": "invalid",
+            "question": "adopt_existing",
+            "error": "Format: name | what it does | role | path-to-instructions (optional).",
+        }
+    name, what = parts[0], parts[1]
+    role = parts[2] if len(parts) > 2 and parts[2] else ""
+    instr_path = parts[3] if len(parts) > 3 and parts[3] else ""
+
+    # Read the agent's current instructions if a path was given.
+    instructions = ""
+    if instr_path:
+        p = Path(instr_path).expanduser()
+        if p.exists():
+            instructions = p.read_text(encoding="utf-8")
+        else:
+            return {
+                "status": "invalid",
+                "question": "adopt_existing",
+                "error": f"Instructions path not found: {instr_path}",
+            }
+
+    reconcile = None
+    if role and instructions:
+        reconcile = _reconcile_instructions(instructions, role, repo_root)
+
+    adopted.append({
+        "name": name,
+        "what": what,
+        "role": role,
+        "instructions_path": instr_path,
+        "reconcile": reconcile,
+    })
+    _save_state(repo_root, state)
+    nxt = _next_question(state)
+    if nxt is None:
+        return _finalize(repo_root, state)
+    _save_state(repo_root, state)
+    return _question_payload(nxt, len(state.get("roster", [])))
+
+
+def _answer_define_new_role(repo_root: Path, state: dict[str, Any], value: str) -> dict[str, Any]:
+    """A6.4: collect the 8 skeleton fields for a new role, then generate a harness."""
+    value = (value or "").strip()
+    if value.lower() in ("none", "skip", ""):
+        state["answers"]["define_new_role"] = "__SKIP__"
+        _save_state(repo_root, state)
+        nxt = _next_question(state)
+        if nxt is None:
+            return _finalize(repo_root, state)
+        _save_state(repo_root, state)
+        return _question_payload(nxt, len(state.get("roster", [])))
+
+    # First answer names the role; subsequent answers fill the 8 fields.
+    new_role = state.setdefault("new_role", {})
+    if "name" not in new_role:
+        new_role["name"] = value
+        new_role["field_index"] = 0
+        _save_state(repo_root, state)
+        field_id, field_q = NEW_ROLE_FIELDS[0]
+        return {
+            "status": "question",
+            "question_id": f"new_role.{field_id}",
+            "question": f"For role '{value}': {field_q}",
+            "free_text": True,
+        }
+
+    # Fill the current field.
+    idx = new_role.get("field_index", 0)
+    if idx < len(NEW_ROLE_FIELDS):
+        field_id, _ = NEW_ROLE_FIELDS[idx]
+        new_role[field_id] = value
+        new_role["field_index"] = idx + 1
+        _save_state(repo_root, state)
+
+    # If more fields remain, ask the next one.
+    if new_role.get("field_index", 0) < len(NEW_ROLE_FIELDS):
+        nidx = new_role["field_index"]
+        field_id, field_q = NEW_ROLE_FIELDS[nidx]
+        return {
+            "status": "question",
+            "question_id": f"new_role.{field_id}",
+            "question": f"For role '{new_role['name']}': {field_q}",
+            "free_text": True,
+        }
+
+    # All fields collected — generate the harness (A6.5: refuse if exists).
+    role_name = new_role["name"]
+    harness_path = _generate_harness(role_name, new_role, repo_root)
+    if harness_path is None:
+        return {
+            "status": "refused",
+            "question": "define_new_role",
+            "error": f"A6.5: harness for '{role_name}' already exists at harnesses/{role_name}.md. Refusing to overwrite. Edit the file to amend it.",
+        }
+
+    state["answers"]["define_new_role"] = "__DONE__"
+    state["generated_harness"] = str(harness_path)
+    _save_state(repo_root, state)
+    nxt = _next_question(state)
+    if nxt is None:
+        return _finalize(repo_root, state)
+    _save_state(repo_root, state)
+    return _question_payload(nxt, len(state.get("roster", [])))
+
+
 # --- orchestration -----------------------------------------------------------
 
 def start_wizard(repo_root: Path) -> dict[str, Any]:
@@ -416,6 +706,8 @@ def answer_wizard(repo_root: Path, value: str) -> dict[str, Any]:
 
     # roster rows are collected conversationally until 'done'
     if q.get("repeated"):
+        if q["id"] == "adopt_existing":
+            return _answer_adopt_existing(repo_root, state, value)
         roster = state.setdefault("roster", [])
         if value.lower() == "done":
             # mark roster complete; move on
@@ -432,6 +724,10 @@ def answer_wizard(repo_root: Path, value: str) -> dict[str, Any]:
             return _question_payload(nxt, len(roster))
         _save_state(repo_root, state)
         return _question_payload(nxt, len(roster))
+
+    # define_new_role collects the 8 skeleton fields one at a time
+    if q["id"] == "define_new_role":
+        return _answer_define_new_role(repo_root, state, value)
 
     # validate bounded answers
     if q.get("options") and value not in q["options"]:
@@ -472,6 +768,7 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
     setup_path = _write_setup(repo_root, answers)
     roster_path = _write_roster(repo_root, roster)
     persona_paths = _write_personas(repo_root, roster, answers)
+    adoption_path = _write_adoption(repo_root, state)
     # clear wizard state so a fresh run starts over (re-runnable)
     _state_path(repo_root).unlink(missing_ok=True)
     return {
@@ -480,7 +777,52 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
             "setup": str(setup_path),
             "roster": str(roster_path),
             "personas": [str(p) for p in persona_paths],
+            "adoption": str(adoption_path) if adoption_path else None,
         },
         "roster_rows": len(roster),
+        "adopted_agents": len(state.get("adopted", [])),
+        "generated_harness": state.get("generated_harness"),
         "note": "Wizard complete. Every configured value is the operator's; re-run the wizard to change anything.",
     }
+
+
+def _write_adoption(repo_root: Path, state: dict[str, Any]) -> Path | None:
+    """Write the BYOA adoption record (A6) to config/adoption.md."""
+    adopted = state.get("adopted", [])
+    generated = state.get("generated_harness")
+    if not adopted and not generated:
+        return None
+    p = repo_root / "config" / "adoption.md"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# Adoption (BYOA, A6)",
+        "",
+        "Agents brought under governance and roles defined through the setup wizard.",
+        "",
+    ]
+    if adopted:
+        lines += ["## Adopted agents", "", "| Name | What it does | Role | Instructions |", "|---|---|---|---|"]
+        for a in adopted:
+            lines.append(f"| {a['name']} | {a['what']} | {a['role'] or '(unmapped)'} | {a['instructions_path'] or '(none)'} |")
+        lines.append("")
+        # Reconcile results
+        for a in adopted:
+            if a.get("reconcile"):
+                r = a["reconcile"]
+                lines += [
+                    f"### {a['name']} — reconcile vs {r['role']} harness",
+                    "",
+                    f"- Covered (dropped, harness carries): {len(r['covered'])}",
+                    f"- Compatible (moves into harness/persona): {len(r['compatible'])}",
+                    f"- Conflicting (operator decides): {len(r['conflicting'])}",
+                    "",
+                ]
+                if r["conflicting"]:
+                    lines += ["Conflicting lines (operator must decide):", ""]
+                    for c in r["conflicting"]:
+                        lines.append(f"- {c}")
+                    lines.append("")
+    if generated:
+        lines += ["## Generated harness", "", f"- {generated}", ""]
+    p.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return p
