@@ -194,23 +194,23 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     },
     # --- Data source: where in_review issues + verdicts live (ADR-0007) ---
     # The stuck-review-watchdog and veto-telemetry need to know where the
-    # team's issue/verdict store is. This makes the operational scripts
-    # vanilla-handoffable — a team that does not use Paperclip can point them
-    # at a file ledger or their own store.
+    # team's issue/verdict store is. Asked in plain language because most
+    # setup users won't know the framework's internal terms. Defaults to the
+    # safe, portable option (file) so a user who doesn't know can proceed.
     {
         "id": "issue_source",
-        "question": "Where do in_review issues live for the stuck-review watchdog? (paperclip, file, or none — 'none' disables the watchdog until an in_review backend exists)",
-        "options": ["paperclip", "file", "none"],
+        "question": "Does your team have a system that tracks work waiting for review (like a task board or ticket list)? This lets the framework flag work that's been stuck in review too long. Choose: 'file' (a simple file you or your agents update — works for any team), 'paperclip' (only if you use the Paperclip tool), or 'none' (skip this for now — you can turn it on later).",
+        "options": ["file", "paperclip", "none"],
     },
     {
         "id": "issues_file",
         "if_issue_source": "file",
-        "question": "File source: what is the path to the JSON file of in_review issues? (or '-' for stdin)",
+        "question": "Where should the file of in-review work live? (We'll create it for you if it doesn't exist. Default: runs/in_review.json — a simple list your agents update when work enters review.)",
         "options": None,
     },
     {
         "id": "verdict_log",
-        "question": "Where is the verdict ledger for veto telemetry? (default: runs/verdicts.jsonl — a JSONL file appended on every veto)",
+        "question": "Where should the framework record review decisions (pass/fail and any vetoes)? This powers the veto alerts. (Default: runs/verdicts.jsonl — we create it automatically. You usually don't need to change this.)",
         "options": None,
     },
     # --- Addendum 01 A6: BYOA adoption flow ---
@@ -834,6 +834,7 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
     roster_path = _write_roster(repo_root, roster)
     persona_paths = _write_personas(repo_root, roster, answers)
     adoption_path = _write_adoption(repo_root, state)
+    data_files = _write_data_files(repo_root, answers)
     # clear wizard state so a fresh run starts over (re-runnable)
     _state_path(repo_root).unlink(missing_ok=True)
     return {
@@ -843,12 +844,37 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
             "roster": str(roster_path),
             "personas": [str(p) for p in persona_paths],
             "adoption": str(adoption_path) if adoption_path else None,
+            "data_files": [str(p) for p in data_files],
         },
         "roster_rows": len(roster),
         "adopted_agents": len(state.get("adopted", [])),
         "generated_harness": state.get("generated_harness"),
         "note": "Wizard complete. Every configured value is the operator's; re-run the wizard to change anything.",
     }
+
+
+def _write_data_files(repo_root: Path, answers: dict[str, Any]) -> list[Path]:
+    """Create the default data-source files so the user doesn't have to know
+    the paths (ADR-0007). Creates the in_review issues file and the verdict
+    log if they don't already exist, using the configured (or default) paths.
+    Returns the list of files created.
+    """
+    written: list[Path] = []
+    source = answers.get("issue_source", "")
+    if source == "file":
+        issues_path = answers.get("issues_file") or "runs/in_review.json"
+        p = repo_root / issues_path
+        p.parent.mkdir(parents=True, exist_ok=True)
+        if not p.exists():
+            p.write_text("[]\n", encoding="utf-8")
+            written.append(p)
+    verdict_path = answers.get("verdict_log") or "runs/verdicts.jsonl"
+    vp = repo_root / verdict_path
+    vp.parent.mkdir(parents=True, exist_ok=True)
+    if not vp.exists():
+        vp.write_text("", encoding="utf-8")
+        written.append(vp)
+    return written
 
 
 def _write_adoption(repo_root: Path, state: dict[str, Any]) -> Path | None:
