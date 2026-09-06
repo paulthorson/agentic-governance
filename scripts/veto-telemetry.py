@@ -21,14 +21,17 @@ import json
 import os
 import sys
 import time
-import urllib.request
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Shared messaging: sends alerts to the operator's configured channel
+# (discord/whatsapp/imessage/generic), set by the setup wizard.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from messaging import send_alert # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 VERDICT_LOG = Path(os.environ.get("VERDICT_LOG", REPO_ROOT / "runs" / "verdicts.jsonl"))
-DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "")
 VETO_STATE_FILE = Path(os.environ.get("VETO_STATE_FILE", REPO_ROOT / "runs" / "veto-telemetry-state.json"))
 
 def load_verdicts(days: int) -> list[dict]:
@@ -63,30 +66,6 @@ def veto_events(rows: list[dict]) -> list[dict]:
                 "case_tag": r.get("case_tag", ""),
             })
     return events
-
-def alert_discord(message: str) -> None:
-    """Send an alert to Discord via webhook or the post-to-discord helper."""
-    if DISCORD_WEBHOOK_URL:
-        try:
-            payload = json.dumps({"content": message}).encode("utf-8")
-            req = urllib.request.Request(
-                DISCORD_WEBHOOK_URL, data=payload,
-                headers={"Content-Type": "application/json"},
-            )
-            urllib.request.urlopen(req, timeout=10)
-            return
-        except Exception as e:
-            print(f"WARN: Discord webhook failed: {e}", file=sys.stderr)
-    # Fallback: post-to-discord.py helper.
-    helper = REPO_ROOT.parent / ".openclaw" / "workspace" / "scripts" / "post-to-discord.py"
-    if helper.exists():
-        try:
-            import subprocess
-            subprocess.run([sys.executable, str(helper), message], check=False)
-            return
-        except Exception as e:
-            print(f"WARN: post-to-discord failed: {e}", file=sys.stderr)
-    print(f"ALERT (no delivery): {message}")
 
 def _load_state() -> dict:
     if not VETO_STATE_FILE.exists():
@@ -124,7 +103,7 @@ def main() -> None:
                     f"hits={', '.join(e['veto_hits']) or 'none'}"
                 )
                 if not args.dry_run:
-                    alert_discord(msg)
+                    send_alert(msg)
                 else:
                     print(f"[DRY-RUN] {msg}")
             state["seen"] = sorted({e.get("ts") for e in events})

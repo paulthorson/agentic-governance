@@ -37,9 +37,13 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Shared messaging: sends alerts to the operator's configured channel
+# (discord/whatsapp/imessage/generic), set by the setup wizard.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from messaging import send_alert # noqa: E402
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 STATE_FILE = Path(os.environ.get("STUCK_STATE_FILE", REPO_ROOT / "runs" / "stuck-watchdog.json"))
-DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "")
 
 # Version of the machine-parseable JSON schema. Bump when the emitted shape
 # changes; consumers must treat an unknown version as incompatible.
@@ -119,32 +123,6 @@ def load_state() -> dict:
 def save_state(state: dict) -> None:
     STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
     STATE_FILE.write_text(json.dumps(state, indent=2))
-
-def alert_discord(message: str) -> None:
-    """Send an alert to Discord via webhook or the post-to-discord helper."""
-    if DISCORD_WEBHOOK_URL:
-        import urllib.request
-
-        payload = json.dumps({"content": message}).encode()
-        req = urllib.request.Request(
-            DISCORD_WEBHOOK_URL, data=payload, headers={"Content-Type": "application/json"}
-        )
-        try:
-            urllib.request.urlopen(req, timeout=15)
-            return
-        except Exception as e:
-            print(f"WARN: Discord webhook failed: {e}", file=sys.stderr)
-            return
-    # Fallback: post-to-discord.py helper (channel #briefs).
-    helper = REPO_ROOT.parent / ".openclaw" / "workspace" / "scripts" / "post-to-discord.py"
-    if helper.exists():
-        try:
-            subprocess.run(
-                [sys.executable, str(helper), message],
-                capture_output=True, text=True, timeout=30,
-            )
-        except Exception as e:
-            print(f"WARN: post-to-discord failed: {e}", file=sys.stderr)
 
 def collect_stuck(issues: list[dict], args, now: float, state: dict) -> list[dict]:
     """Return stuck-ticket dicts: identifier, title, reviewer, age_min, reason.
@@ -257,7 +235,7 @@ def main() -> None:
         )
         print(f"[{'DRY-RUN' if args.dry_run else 'ALERT'}] {ident} ({reviewer}) stuck {age_min:.0f} min")
         if not args.dry_run:
-            alert_discord(line)
+            send_alert(line)
             state[ident] = now
 
     if not args.dry_run:

@@ -79,3 +79,21 @@ The engineer flagged this as ambiguous in the design; the story did not authoriz
 5. **The epic itself is valid and worth completing.** Unlike the A11 false-premise epic, this one has a genuine write path and a real operator need (durable, discoverable report persistence). It should proceed through the rework loop to acceptance.
 
 **Bottom line:** The governance chain **works end to end on a real epic** — it caught two genuine defects in a real implementation, routed rework correctly, and never stalled or fabricated work. The one structural breakage is the engineer role's non-applicable diff, which should be fixed in the harness.
+
+---
+
+## Follow-up (2026-09-06, later): D1 and D2 fixed
+
+The two implementation defects found by QA were fixed in `scripts/calibration-report.py`:
+
+- **D1 (missing trailing newline):** the report is now built as a string with a
+  trailing newline and emitted via a single `emit()` helper; file output is
+  byte-identical to stdout (verified with `diff`).
+- **D2 (no atomic-write guarantee):** the file is written to a temp file in the
+  target directory then atomically renamed (`os.replace`), so a mid-write
+  failure never leaves a partial file. Missing-directory and unwritable-path
+  errors give a clear message and non-zero exit. Verified: no temp files left
+  behind, JSON output valid.
+
+The `--output` flag is now implemented with both defects resolved. The epic is
+ready to re-run through QA to acceptance.

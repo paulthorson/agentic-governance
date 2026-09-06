@@ -55,3 +55,7 @@ Configured by the conversational setup wizard (Section 9.3). Absent or incomplet
 ## Irreversible action protection (A14)
 - per action class: 2
 
+## Messaging (alert channel)
+- channel: discord
+- webhook URL (discord): (uses post-to-discord.py helper with bot token)
+- command (whatsapp/imessage/generic): (unset)
