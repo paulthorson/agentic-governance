@@ -461,8 +461,16 @@ not cited within a retention window N (set by the operator) is summarized to a
 one-line stub; a precedent never cited stops persisting in full. The human sets
 N.
 
-**Open sub-decisions (operator to set):** the exact field set and who migrates
-existing entries; the retention window N.
+**Sub-decisions (set 2026-09-06):**
+- **Field set:** `rule` (the rule cited), `domain`, `verdict` (the decision),
+  and `case_tag` (a short tag for precedent matching). Implemented in the MCP
+  server's verdict records.
+- **Retention window N:** defaults to **90 days**, configurable via the
+  `LEDGER_RETENTION_DAYS` environment variable. Entries older than N are
+  summarized to a stub on load (the full record is retained on disk, append-only).
+- **Migration:** existing verdict records are read as-is; missing structured
+  fields default to empty. No migration script is required because the fields
+  are additive.
 
 ---
 
