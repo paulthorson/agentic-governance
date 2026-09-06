@@ -14,6 +14,7 @@ edited.
 | [ADR-0003](adr/0003-mcp-server.md) | MCP server for the review loop | Accepted | 2026-08-26 |
 | [ADR-0004](adr/0004-hard-vetoes.md) | Hard vetoes, human-only clearing | Accepted | 2026-08-26 |
 | [ADR-0005](adr/0005-standalone-repo.md) | Standalone git repo (not home repo) | Accepted | 2026-08-26 |
+| [ADR-0006](adr/0006-first-real-team-adoption.md) | First real-team adoption (Ladders Grok Bot) | Accepted | 2026-09-06 |
 
 ## Template
 
