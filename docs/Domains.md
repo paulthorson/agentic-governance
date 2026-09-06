@@ -107,6 +107,14 @@ consumption layer wired into Cursor and Claude. Names are prefixed by domain
 distinct agents/skills without collision. Rebuild with
 `scripts/consolidate-adversarial.py`.
 
+## Per-domain deep dives
+
+Each domain has a dedicated deep-dive page:
+
+- [UX](domains/ux.md) · [Engineer](domains/engineer.md) · [QA](domains/qa.md) · [Researcher](domains/researcher.md) · [Universal](domains/universal.md)
+- [Prompt](domains/prompt.md) · [Security](domains/security.md) · [Privacy](domains/privacy.md) · [Compliance](domains/compliance.md)
+- [Product](domains/product.md) · [Ops](domains/ops.md) · [Docs](domains/docs.md)
+
 ## See also
 
 - [[Architecture]] · [[Constitution]] · [[Vetoes]] · [[Calibration]] · [[Paperclip]]
