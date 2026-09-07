@@ -12,11 +12,17 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   operator will run more than one project/team at once; if yes, a Cos roster
   row is required. Cos is the human funnel: only Cos surfaces decisions to the
   human; Cos owns the Section 13 morning queue in multi-team mode; Cos triages
-  P0/P1 and enforces a four-hour daytime escalate; Cos watches governance and
+  P0/P1 and enforces the daytime escalate; Cos watches governance and
   drafts amendment proposals (human still gates the constitution). Single-team
   mode unchanged: CEO → human for the morning queue. Harness:
   `harnesses/chief-of-staff.md`. Spec/comms/wizard deltas as recorded in the
   Cos proposal.
+- **Cos escalation behavior is wizard-configured, not hardcoded.** Two new
+  setup-wizard questions: quiet-hours P0 behavior (`interrupt` to break through
+  via messaging, or `defer` to queue at the head until quiet hours end) and the
+  daytime escalate SLA in hours (default 4). Both land in `config/setup.md`.
+  Operator's own quiet hours stay in local config; nothing personal ships in
+  the build.
 - **Vanilla handoff (ADR-0006, ADR-0007).** The framework is now environment-agnostic —
   adopters take the constitution + harnesses as a loadable contract (no repo mirror).
   First real-team adoption: Ladders Grok Bot (2026-09-06).

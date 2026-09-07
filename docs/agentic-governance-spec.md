@@ -584,8 +584,8 @@ The audit includes at least one artifact checked by a human or an adversarial ag
 Required when the operator will run more than one project or team at once.
 Cos is the human funnel: only Cos surfaces decisions to the human; Cos owns
 the morning queue in multi-team mode; Cos triages P0/P1; Cos enforces the
-four-hour daytime escalate; Cos watches governance and drafts amendment
-proposals. The human still gates the constitution.
+daytime escalate (wizard-configured, default 4 hours); Cos watches governance
+and drafts amendment proposals. The human still gates the constitution.
 
 The harness is the **source of truth** at `harnesses/chief-of-staff.md` (A23).
 The inline copy is not maintained here; edit the harness file.

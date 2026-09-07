@@ -127,6 +127,16 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "options": None,
     },
     {
+        "id": "quiet_hours_p0_behavior",
+        "question": "During your quiet hours, how should a P0 (urgent, can't-wait) escalation reach you? (interrupt = break through with a message even at night; defer = queue at the head of the morning queue, delivered when quiet hours end)",
+        "options": ["interrupt", "defer"],
+    },
+    {
+        "id": "daytime_sla_hours",
+        "question": "During the day, how quickly should an escalation that needs you reach you? (Default 4 = within 4 hours during open hours. You can tighten or loosen it.)",
+        "options": None,
+    },
+    {
         "id": "stall_threshold",
         "question": "How many back-and-forth rounds with no real progress should pass before a stuck task is flagged for a human?",
         "options": None,
@@ -381,6 +391,8 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Quiet hours",
         f"- {answers.get('quiet_hours', '') or '(unset)'}",
+        f"- P0 behavior during quiet hours: {answers.get('quiet_hours_p0_behavior', '') or '(unset)'}",
+        f"- daytime escalate SLA (hours): {answers.get('daytime_sla_hours', '') or '(unset)'}",
         "",
         "## Stall threshold",
         f"- {answers.get('stall_threshold', '') or '(unset)'}",

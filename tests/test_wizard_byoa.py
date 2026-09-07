@@ -35,6 +35,8 @@ def _valid_answers():
         "escalation_preferences": "none",
         "domain_risk": "none",
         "quiet_hours": "23:00-08:00",
+        "quiet_hours_p0_behavior": "defer",
+        "daytime_sla_hours": "4",
         "stall_threshold": "3",
         "precedent_decay_window": "90d",
         "autonomy_starting_level": "1",
@@ -197,6 +199,10 @@ class WizardByoaTest(unittest.TestCase):
             "harnesses/chief-of-staff.md",
             (self.root / "config" / "personas" / "cos1.md").read_text(),
         )
+        # Q3/Q4 wizard fields land in config/setup.md
+        setup = (self.root / "config" / "setup.md").read_text()
+        self.assertIn("P0 behavior during quiet hours: defer", setup)
+        self.assertIn("daytime escalate SLA (hours): 4", setup)
 
     def test_reconcile_covered_line(self):
         # 'never ship to production without review' is in the engineer harness
