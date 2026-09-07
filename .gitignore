@@ -32,3 +32,6 @@ runs/
 
 # Local install config (never ship: local paths, team names, runtime-specific)
 config/
+
+# Working drops / scratch (never commit: agent-authored proposals staged for apply)
+ops/

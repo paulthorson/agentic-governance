@@ -119,6 +119,23 @@ First real-team adoption: **Ladders Grok Bot** (2026-09-06) — see
 [`docs/adr/0006-first-real-team-adoption.md`](docs/adr/0006-first-real-team-adoption.md)
 and [`docs/adr/0007-watchdog-data-source.md`](docs/adr/0007-watchdog-data-source.md).
 
+## Multi-team mode and the Chief of Staff (Cos)
+
+If you will run **more than one project or team at once**, the setup wizard
+requires a **Chief of Staff (Cos)** roster row. Cos is the human funnel:
+
+- Only Cos surfaces decisions to you (no scattered CEO pings)
+- Cos owns the morning queue in multi-team mode
+- Cos triages P0 / P1 and keeps daytime escalations inside a four-hour window
+- Cos watches for governance drift and drafts amendment proposals — you still
+  gate the constitution
+
+**Single-project / single-team** stays as today: the CEO presents the morning
+queue to you directly, and Cos is not required.
+
+CEOs still route and resolve by precedent inside their teams. In multi-team
+mode they escalate **via Cos**, not past Cos.
+
 ## Governance
 
 - `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the repo root.
