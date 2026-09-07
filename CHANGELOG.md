@@ -8,6 +8,17 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Chief of Staff (CoS) harness — multi-team human funnel.** New role
+  `harnesses/chief-of-staff.md`. When an operator runs more than one
+  project/team at once, the CoS is the single surface where decisions reach
+  the human: only the CoS surfaces decisions across teams, CEOs escalate to
+  the CoS, and the Section 13.3 morning queue becomes CoS-owned. Triage:
+  P0 tech blockers surface immediately; P1 look/verify routes to QA unless
+  audio/heard/human-only; non-P0 unanswered 4h daytime hands the call to that
+  project's CEO. The CoS also runs governance watch (flags harness/constitution
+  breaks, proposes amendments; the human still gates changes). Spec §13.6
+  added, setup wizard gains a `multi vs single` human-funnel question, and
+  `config/setup.md` records the funnel mode + CoS entry.
 - **Vanilla handoff (ADR-0006, ADR-0007).** The framework is now environment-agnostic —
   adopters take the constitution + harnesses as a loadable contract (no repo mirror).
   First real-team adoption: Ladders Grok Bot (2026-09-06).

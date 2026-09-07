@@ -36,6 +36,7 @@ from typing import Any
 
 BUDGET_MODELS = ["metered", "billed", "not-yet-known"]
 ADVERSARIAL_STATES = ["in-play", "not-in-play"]
+HUMAN_FUNNEL_MODES = ["single", "multi"]
 
 # The question flow. Each entry:
 #   id        – stable key under which the answer is stored
@@ -91,9 +92,20 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     },
     {
         "id": "roster",
-        "question": "List the agents on your team, one per line, as: agent name | role (pm, ux, engineer, qa, ceo, researcher) | team name | project folder. Type 'done' when the list is complete.",
+        "question": "List the agents on your team, one per line, as: agent name | role (pm, ux, engineer, qa, ceo, researcher, chief-of-staff) | team name | project folder. Type 'done' when the list is complete.",
         "options": None,
         "repeated": True,
+    },
+    {
+        "id": "human_funnel",
+        "question": "Will you run more than one project or team at once? (single = one project/team, the CEO talks to you directly as today; multi = several teams, so a Chief of Staff funnel becomes the only path that surfaces decisions to you)",
+        "options": HUMAN_FUNNEL_MODES,
+    },
+    {
+        "id": "chief_of_staff",
+        "if_human_funnel": "multi",
+        "question": "Multi-team mode requires a Chief of Staff (CoS) as your single human inbox. Do you have one to add to the roster, or should we create one? (Give the CoS name if you have one; 'create' to make a cof/staff named Chief-of-Staff.)",
+        "options": None,
     },
     {
         "id": "adversarial_agents",
@@ -281,6 +293,9 @@ def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
     cond = q.get("if_issue_source")
     if cond is not None:
         return answers.get("issue_source") == cond
+    cond = q.get("if_human_funnel")
+    if cond is not None:
+        return answers.get("human_funnel") == cond
     return True
 
 
@@ -363,6 +378,10 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Project repos",
         f"- {answers.get('project_repos', '') or '(unset)'}",
+        "",
+        "## Human funnel (Chief of Staff)",
+        f"- mode: {answers.get('human_funnel', '') or '(unset)'}",
+        f"- chief of staff: {answers.get('chief_of_staff', '') or '(unset)'}",
         "",
         "## Escalation preferences (beyond Section 10.3 mandatory list)",
         f"- {answers.get('escalation_preferences', '') or '(unset)'}",

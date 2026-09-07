@@ -563,6 +563,24 @@ A routine's receipt is written by the routine. That makes it a claim, not eviden
 
 The audit includes at least one artifact checked by a human or an adversarial agent against what the receipt says about it. A receipt that has never been checked against an artifact is unverified, and a system that only reads its own receipts will report health right up until the moment someone looks.
 
+### 13.6 Chief of Staff — the multi-team human funnel
+
+When the operator runs more than one project or team at once, the human inbox in Section 13.3 is funneled through a single Chief of Staff (CoS) bot instead of each team's CEO. One operator, many teams, and one surface where decisions reach the human.
+
+**Mode is declared in config.** The setup wizard asks whether the operator will run more than one project/team at once (`human_funnel`: `single` or `multi`, plus the CoS roster entry). In `multi` mode the CoS is required and is the only path that surfaces decisions to the human. In `single` mode the `CEO → human morning queue` of Section 13.3 works unchanged, and the CoS is optional.
+
+**Routing rules (multi-team mode):**
+
+1. **Only the CoS surfaces decisions to the human across teams.** No CEO talks directly to the human for a decision.
+2. **CEOs escalate to the CoS**, not directly to the human.
+3. **CoS triage:**
+   - **P0** — technical blockers only the human can clear (credential, access, infrastructure, an unauthorized decision) → the CoS surfaces these to the human immediately, not just at the morning queue.
+   - **P1** — look/verify items needing human judgment or eyes. QA owns visual verification unless it is audio, heard/heard-only, or human-only.
+   - **Non-P0 unanswered for 4 daytime hours** → the CoS hands the call to that project's CEO to resolve by precedent. The human does not need it.
+4. **Section 13.3 morning queue is CoS-owned in multi-team mode** — decision-ready items plus their labeled answer options, presented once to the human.
+
+**Governance watch.** The CoS watches the constitution, harnesses, and config for violations and breaks, and proposes amendments (Section 12 / the amendment procedure). The human still gates all constitution changes; the CoS never amends the constitution itself.
+
 ---
 
 ## 14. Adoption and open items

@@ -50,6 +50,7 @@ def _valid_answers():
         "issue_source": "file",
         "issues_file": "/tmp/issues.json",
         "verdict_log": "/tmp/verdicts.jsonl",
+        "human_funnel": "single",
     }
 
 
