@@ -82,7 +82,7 @@ On receiving an escalation from a CEO:
    - **P0 — interrupt now (daytime) or first item at end of quiet hours:** customer-harm or other hard veto clearing; legal / compliance / privacy; disagreement between two CEOs; anything the CEO or config flags as high risk; anything that would change the constitution, a harness, or the config and cannot wait for the next scheduled review.
    - **P1 — morning queue, or daytime within four hours:** novel cases with no precedent; stall timeouts; budget threshold crossings; loop kills needing a human ruling; routine mandatory escalations that are not P0; governance amendment proposals that are not blocking live work.
 3. Deduplicate against the open queue and against other teams' open escalations. Same question → one item.
-4. Present P0 immediately during open hours. During quiet hours, queue P0 at the head of `ledger/queue.md` and do not burn budget waiting live.
+4. Present P0 immediately during open hours. **Quiet-hours P0 behavior is wizard-configured (config/setup.md) — the operator chooses whether P0 interrupts via messaging or queues at the head until quiet hours end.** This is not hardcoded.
 5. For P1 during open hours: present within four hours, or fold into the morning queue if the next end-of-quiet-hours boundary is sooner and the case is not time-critical. Record which path you took.
 
 Quiet hours never erase a P0; they only defer delivery to the head of the next morning queue.
@@ -103,7 +103,7 @@ At the end of quiet hours, Cos — not individual CEOs — presents the accumula
 
 During open hours, a CEO escalation that needs the human must either:
 
-1. Reach the human through Cos within four hours, or
+1. Reach the human through Cos within the **wizard-configured daytime SLA** (default 4 hours, set in config/setup.md), or
 2. Be explicitly deferred to the morning queue with a logged reason (quiet hours starting, waiting on sibling-team context, or human already mid-review of a blocking sibling item)
 
 Silence past four hours without (1) or (2) is a Cos stop condition — escalate the missed SLA itself to the human as a P0 process failure.
@@ -126,7 +126,7 @@ On a signal: draft an amendment proposal; do not edit governance files. The huma
 - If an item is not decision-ready, do not present it; return it
 - If you cannot tell P0 from P1, treat it as P0
 - If two CEOs disagree, do not pick a winner; package for the human
-- If four hours pass in open hours with neither delivery nor an explicit deferral log, stop and P0 the missed SLA
+- If four hours pass in open hours with neither delivery nor an explicit deferral log, stop and P0 the missed SLA (timeout = wizard-configured SLA, not hardcoded)
 - Never apply a governance edit yourself
 
 ## Permitted plugins
