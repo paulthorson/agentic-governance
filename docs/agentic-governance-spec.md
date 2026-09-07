@@ -220,7 +220,15 @@ The existing rule-on-trial mechanism carries over. A rule overridden three times
 
 ### 10.3 Mandatory escalation to the human
 
-These always go to the human, regardless of precedent:
+These always go to the human, regardless of precedent. The escalation path is
+mode-conditional:
+
+- **Single-team:** the CEO escalates to the human (current text).
+- **Multi-team (more than one project/team at once):** the CEO escalates to
+  Cos; Cos presents to the human. Categories 1–8 below stay mandatory; Cos may
+  not drop or downgrade a mandatory item below P0 when it is a veto, legal /
+  compliance / privacy, constitutional, CEO–CEO disagreement, or high-risk
+  case. Cos does not invent a ninth category that bypasses this section.
 
 1. Anything with a customer-harm veto attached.
 2. Anything legal, compliance, or privacy related. This is a generic domain-risk category. What lands in it is defined by the config, not by this file.
@@ -427,6 +435,7 @@ Each harness names the plugins its role may load. A plugin outside a role's allo
 | Engineer | `engineer` |
 | QA | `qa` |
 | CEO | `ops` |
+| Chief of Staff (Cos) | `ops` |
 | Adversarial agents only | `security`, `privacy`, `compliance` |
 
 ### Rationale for the non-obvious assignments
@@ -436,6 +445,8 @@ Each harness names the plugins its role may load. A plugin outside a role's allo
 **`researcher` goes to the Research role.** UX no longer has read-only researcher access. That access existed only because no role produced evidence; it is now structural. UX consumes evidence through the brief rather than generating its own. A UX bot producing the evidence for its own design choice was always grading its own homework, and the separation now makes that impossible rather than discouraged.
 
 **`ops` goes to the CEO bots, not to engineer.** Ops is coordination, pacing, and running things, which is what the CEO harness owns. An engineer bot with ops capability can act outside the epic it was handed.
+
+**The Chief of Staff (Cos) carries the same `ops` allowlist as the CEO.** Cos's funnel and governance-watch work are coordination across teams, the same class of capability the CEO owns inside one team.
 
 ---
 
@@ -503,7 +514,10 @@ During quiet hours, anything that would escalate to the Human is **queued rather
 
 ### 13.3 The morning queue
 
-At the end of quiet hours, the CEO bot presents the accumulated queue to the Human as a single reviewable list rather than as scattered pings from individual bots.
+At the end of quiet hours, the accumulated queue is presented to the Human as a single reviewable list rather than as scattered pings from individual bots.
+
+- **Single-project / single-team:** the CEO bot presents the queue (current behavior).
+- **Multi-team (more than one project/team at once):** the Chief of Staff (Cos) presents the queue. CEOs write decision-ready items into the queue; Cos merges, dedupes across teams, orders by priority, and presents once.
 
 Each queue item must be **decision-ready**. The question is stated so that it can be answered without the Human reconstructing context, and it comes with pre-formed answer options: labeled choices the Human can select quickly.
 
@@ -520,6 +534,8 @@ A queue item that cannot be reduced to a clear question with options is not read
 ### 13.4 Resolutions become precedent
 
 Every answer from the morning queue logs to the calibration ledger as a new precedent, including free-response rulings. This is the mechanism by which the system becomes more autonomous over time: each queue item answered is one fewer case that needs to reach the Human again.
+
+In multi-team mode, answers from a Cos-presented queue log to the calibration ledger as precedent, and Cos routes each answer back to the source CEO(s). Cos may not keep a human's ruling to itself or delay routing it to the team that asked.
 
 ### 13.5 Routine audit
 
@@ -563,23 +579,16 @@ A routine's receipt is written by the routine. That makes it a claim, not eviden
 
 The audit includes at least one artifact checked by a human or an adversarial agent against what the receipt says about it. A receipt that has never been checked against an artifact is unverified, and a system that only reads its own receipts will report health right up until the moment someone looks.
 
-### 13.6 Chief of Staff — the multi-team human funnel
+### 13.6 Chief of Staff (Cos)
 
-When the operator runs more than one project or team at once, the human inbox in Section 13.3 is funneled through a single Chief of Staff (CoS) bot instead of each team's CEO. One operator, many teams, and one surface where decisions reach the human.
+Required when the operator will run more than one project or team at once.
+Cos is the human funnel: only Cos surfaces decisions to the human; Cos owns
+the morning queue in multi-team mode; Cos triages P0/P1; Cos enforces the
+four-hour daytime escalate; Cos watches governance and drafts amendment
+proposals. The human still gates the constitution.
 
-**Mode is declared in config.** The setup wizard asks whether the operator will run more than one project/team at once (`human_funnel`: `single` or `multi`, plus the CoS roster entry). In `multi` mode the CoS is required and is the only path that surfaces decisions to the human. In `single` mode the `CEO → human morning queue` of Section 13.3 works unchanged, and the CoS is optional.
-
-**Routing rules (multi-team mode):**
-
-1. **Only the CoS surfaces decisions to the human across teams.** No CEO talks directly to the human for a decision.
-2. **CEOs escalate to the CoS**, not directly to the human.
-3. **CoS triage:**
-   - **P0** — technical blockers only the human can clear (credential, access, infrastructure, an unauthorized decision) → the CoS surfaces these to the human immediately, not just at the morning queue.
-   - **P1** — look/verify items needing human judgment or eyes. QA owns visual verification unless it is audio, heard/heard-only, or human-only.
-   - **Non-P0 unanswered for 4 daytime hours** → the CoS hands the call to that project's CEO to resolve by precedent. The human does not need it.
-4. **Section 13.3 morning queue is CoS-owned in multi-team mode** — decision-ready items plus their labeled answer options, presented once to the human.
-
-**Governance watch.** The CoS watches the constitution, harnesses, and config for violations and breaks, and proposes amendments (Section 12 / the amendment procedure). The human still gates all constitution changes; the CoS never amends the constitution itself.
+The harness is the **source of truth** at `harnesses/chief-of-staff.md` (A23).
+The inline copy is not maintained here; edit the harness file.
 
 ---
 
@@ -656,4 +665,5 @@ Two steps belong to the operator, not the agent:
 - **Bot naming:** no convention imposed. Bots are identified by a roster row. See Section 9.2.
 - **Persona blocks:** generated by the wizard from the roster. See Section 9.4.
 - **Wizard form:** conversational, exposed through the MCP server. Nothing filled in by hand. See Section 9.3.
+- **Chief of Staff for multi-team mode:** written. See the Chief of Staff harness (`harnesses/chief-of-staff.md`) and Section 13.6.
 - **Migration scope:** all capability files (plugins, agents, skills), not plugins alone. See Section 7.

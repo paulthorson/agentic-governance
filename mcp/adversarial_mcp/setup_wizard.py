@@ -36,7 +36,7 @@ from typing import Any
 
 BUDGET_MODELS = ["metered", "billed", "not-yet-known"]
 ADVERSARIAL_STATES = ["in-play", "not-in-play"]
-HUMAN_FUNNEL_MODES = ["single", "multi"]
+MULTI_TEAM_CHOICES = ["yes", "no"]
 
 # The question flow. Each entry:
 #   id        – stable key under which the answer is stored
@@ -91,21 +91,15 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "options": None,
     },
     {
+        "id": "multi_team",
+        "question": "Will you run more than one project or team at once? (yes = more than one team or project in parallel; a Chief of Staff (Cos) is required and is the only role that surfaces decisions to you. no = single project/team; your CEO presents the morning queue to you directly.)",
+        "options": MULTI_TEAM_CHOICES,
+    },
+    {
         "id": "roster",
-        "question": "List the agents on your team, one per line, as: agent name | role (pm, ux, engineer, qa, ceo, researcher, chief-of-staff) | team name | project folder. Type 'done' when the list is complete.",
+        "question": "List the agents on your team, one per line, as: agent name | role (pm, ux, engineer, qa, ceo, researcher, cos) | team name | project folder. Type 'done' when the list is complete. In multi-team mode a Cos row is required.",
         "options": None,
         "repeated": True,
-    },
-    {
-        "id": "human_funnel",
-        "question": "Will you run more than one project or team at once? (single = one project/team, the CEO talks to you directly as today; multi = several teams, so a Chief of Staff funnel becomes the only path that surfaces decisions to you)",
-        "options": HUMAN_FUNNEL_MODES,
-    },
-    {
-        "id": "chief_of_staff",
-        "if_human_funnel": "multi",
-        "question": "Multi-team mode requires a Chief of Staff (CoS) as your single human inbox. Do you have one to add to the roster, or should we create one? (Give the CoS name if you have one; 'create' to make a cof/staff named Chief-of-Staff.)",
-        "options": None,
     },
     {
         "id": "adversarial_agents",
@@ -293,9 +287,6 @@ def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
     cond = q.get("if_issue_source")
     if cond is not None:
         return answers.get("issue_source") == cond
-    cond = q.get("if_human_funnel")
-    if cond is not None:
-        return answers.get("human_funnel") == cond
     return True
 
 
@@ -379,9 +370,8 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "## Project repos",
         f"- {answers.get('project_repos', '') or '(unset)'}",
         "",
-        "## Human funnel (Chief of Staff)",
-        f"- mode: {answers.get('human_funnel', '') or '(unset)'}",
-        f"- chief of staff: {answers.get('chief_of_staff', '') or '(unset)'}",
+        "## Multi-team mode (Chief of Staff)",
+        f"- multi_team: {answers.get('multi_team', '') or '(unset)'}",
         "",
         "## Escalation preferences (beyond Section 10.3 mandatory list)",
         f"- {answers.get('escalation_preferences', '') or '(unset)'}",
@@ -455,16 +445,19 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
     personas_dir.mkdir(parents=True, exist_ok=True)
     runtime = answers.get("runtime", "runtime")
     governance_repo = "agentic-governance"  # canonical governance repo name
+    # Cos's harness file is harnesses/chief-of-staff.md; role may be 'cos'.
+    harness_by_role = {"cos": "chief-of-staff", "chief-of-staff": "chief-of-staff"}
     written: list[Path] = []
     for row in roster:
         bot_name, role, team, repo = (row + ["", "", "", ""])[:4]
         if not bot_name:
             continue
+        harness_name = harness_by_role.get(role, role)
         block = (
             f"You are {bot_name}, the {role} bot for {team}.\n\n"
             f"Before every task, read the following from {governance_repo}:\n"
             f"  - constitution/constitution.md\n"
-            f"  - harnesses/{role}.md\n"
+            f"  - harnesses/{harness_name}.md\n"
             f"  - config/setup.md\n"
             f"  - config/roster.md\n\n"
             f"Your harness defines what you own, what you never do, who you receive from,\n"
@@ -849,6 +842,17 @@ def _question_payload(q: dict[str, Any], roster_len: int) -> dict[str, Any]:
 def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
     roster = state.get("roster", [])
     answers = state.get("answers", {})
+    # A8 / multi-team mode: if the operator runs more than one team, a roster
+    # row with role 'cos' is required. Without one the system is incomplete.
+    multi_team = answers.get("multi_team") == "yes"
+    has_cos = any((row + [""])[1] in ("cos", "chief-of-staff") for row in roster)
+    if multi_team and not has_cos:
+        return {
+            "status": "invalid",
+            "error": "multi_team is 'yes' but no roster row has role 'cos'. "
+            "Multi-team mode requires a Chief of Staff (Cos); add a roster row "
+            "with role 'cos' before completion. (A8)",
+        }
     setup_path = _write_setup(repo_root, answers)
     roster_path = _write_roster(repo_root, roster)
     persona_paths = _write_personas(repo_root, roster, answers)
@@ -868,8 +872,19 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
         "roster_rows": len(roster),
         "adopted_agents": len(state.get("adopted", [])),
         "generated_harness": state.get("generated_harness"),
-        "note": "Wizard complete. Every configured value is the operator's; re-run the wizard to change anything.",
+        "note": _completion_note(answers),
     }
+
+
+def _completion_note(answers: dict[str, Any]) -> str:
+    if answers.get("multi_team") == "yes":
+        return (
+            "Multi-team mode: CEOs escalate via Cos; Cos owns the morning queue; "
+            "only Cos pages you."
+        )
+    if answers.get("multi_team") == "no":
+        return "Single-team mode: CEO → you for the morning queue."
+    return "Wizard complete. Every configured value is the operator's; re-run the wizard to change anything."
 
 
 def _write_data_files(repo_root: Path, answers: dict[str, Any]) -> list[Path]:

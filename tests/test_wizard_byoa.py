@@ -50,7 +50,7 @@ def _valid_answers():
         "issue_source": "file",
         "issues_file": "/tmp/issues.json",
         "verdict_log": "/tmp/verdicts.jsonl",
-        "human_funnel": "single",
+        "multi_team": "no",
     }
 
 
@@ -117,6 +117,86 @@ class WizardByoaTest(unittest.TestCase):
         self.assertTrue((self.root / "config" / "adoption.md").exists())
         # Generated harness written
         self.assertTrue((self.root / "harnesses" / "data-analyst.md").exists())
+
+    def test_multi_team_requires_cos_roster_row(self):
+        # A8 / Delta G: multi_team 'yes' with no cos roster row must refuse
+        # completion. The existing _run_full_wizard roster is a lone engineer,
+        # so with multi_team=yes the wizard must not complete.
+        valid = _valid_answers()
+        valid["multi_team"] = "yes"
+        r = sw.start_wizard(self.root)
+        roster_rows = 0
+        adopt_done = False
+        new_role_name = None
+        steps = 0
+        while r["status"] == "question" and steps < 60:
+            qid = r["question_id"]
+            steps += 1
+            if qid == "roster":
+                val = "bot1 | engineer | team-a | ~/proj" if roster_rows == 0 else "done"
+                roster_rows = 1
+            elif qid == "adopt_existing":
+                if not adopt_done:
+                    instr = self.root / "legacy-instructions.md"
+                    instr.write_text("You are a data analyst.\n")
+                    val = f"legacy-bot | data analysis | engineer | {instr}"
+                    adopt_done = True
+                else:
+                    val = "done"
+            elif qid == "define_new_role":
+                val = "none"
+            else:
+                val = valid.get(qid, "x")
+            r = sw.answer_wizard(self.root, val)
+            if r["status"] != "question":
+                break
+        self.assertEqual(r["status"], "invalid")
+        self.assertIn("cos", r.get("error", "").lower())
+
+    def test_multi_team_with_cos_completes(self):
+        # multi_team 'yes' WITH a cos roster row completes and emits a Cos
+        # persona referencing harnesses/chief-of-staff.md.
+        from pathlib import Path as _P
+        cos_h = _P(self.root) / "harnesses" / "chief-of-staff.md"
+        cos_h.write_text("# Chief of Staff Harness\n")
+        valid = _valid_answers()
+        valid["multi_team"] = "yes"
+        r = sw.start_wizard(self.root)
+        roster_rows = 0
+        adopt_done = False
+        steps = 0
+        while r["status"] == "question" and steps < 60:
+            qid = r["question_id"]
+            steps += 1
+            if qid == "roster":
+                if roster_rows == 0:
+                    val = "cos1 | cos | all-teams | ~/proj"
+                elif roster_rows == 1:
+                    val = "bot1 | engineer | team-a | ~/proj"
+                else:
+                    val = "done"
+                roster_rows += 1
+            elif qid == "adopt_existing":
+                if not adopt_done:
+                    instr = self.root / "legacy-instructions.md"
+                    instr.write_text("You are a data analyst.\n")
+                    val = f"legacy-bot | data analysis | engineer | {instr}"
+                    adopt_done = True
+                else:
+                    val = "done"
+            elif qid == "define_new_role":
+                val = "none"
+            else:
+                val = valid.get(qid, "x")
+            r = sw.answer_wizard(self.root, val)
+            if r["status"] != "question":
+                break
+        self.assertEqual(r["status"], "complete")
+        self.assertTrue((self.root / "config" / "personas" / "cos1.md").exists())
+        self.assertIn(
+            "harnesses/chief-of-staff.md",
+            (self.root / "config" / "personas" / "cos1.md").read_text(),
+        )
 
     def test_reconcile_covered_line(self):
         # 'never ship to production without review' is in the engineer harness
