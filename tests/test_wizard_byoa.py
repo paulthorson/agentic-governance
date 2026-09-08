@@ -25,6 +25,7 @@ _spec.loader.exec_module(sw)
 def _valid_answers():
     return {
         "runtime": "claude-code",
+        "engine": "limen",
         "budget_model": "metered",
         "metered_allowance": "100",
         "metered_reset_cadence": "weekly",

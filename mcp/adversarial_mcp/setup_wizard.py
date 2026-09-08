@@ -50,6 +50,11 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "options": None,
     },
     {
+        "id": "engine",
+        "question": "Which engine orchestrates your agents? (BYOE — bring your own engine. Limen is the recommended default: a one-human-many-agents harness built from files, git, and one CLI. Or bring your own: Claude Code, Cursor, Paperclip, a custom setup. The framework's harnesses and adversarial review govern any engine.)",
+        "options": ["limen", "claude-code", "cursor", "paperclip", "custom"],
+    },
+    {
         "id": "budget_model",
         "question": "How do you want to control how much work the agents can do? (metered = a set allowance that resets on a schedule; billed = a hard spend cap; not-yet-known = you'll decide later)",
         "options": BUDGET_MODELS,
@@ -349,6 +354,9 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Runtime",
         f"- {answers.get('runtime', '') or '(unset)'}",
+        "",
+        "## Engine (BYOE)",
+        f"- {answers.get('engine', '') or '(unset)'}",
         "",
         "## Budget model",
         f"- {answers.get('budget_model', '') or '(unset)'}",
