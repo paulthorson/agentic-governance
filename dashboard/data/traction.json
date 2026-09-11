@@ -1,12 +1,12 @@
 {
-  "updatedAt": null,
-  "sourceNote": "Cos/Paul fill measured values only. Raise minVisible (or set values) to reveal widgets. Default launch: all hidden. Never invent live traction numbers.",
+  "updatedAt": "2026-09-11T22:45:00Z",
+  "sourceNote": "Cos 6pm digest 2026-09-11: measured GitHub API counts only. Raise minVisible (or set values) to reveal widgets. Never invent live traction numbers.",
   "repoPublicRequired": true,
   "metrics": {
     "githubStars": {
       "id": "githubStars",
       "label": "GitHub stars",
-      "value": null,
+      "value": 0,
       "minVisible": 1,
       "href": "https://github.com/paulthorson/agentic-governance",
       "unit": "stars"
@@ -30,7 +30,7 @@
     "openPrs": {
       "id": "openPrs",
       "label": "Open PRs",
-      "value": null,
+      "value": 1,
       "minVisible": 1,
       "href": "https://github.com/paulthorson/agentic-governance/pulls",
       "unit": "open PRs"
@@ -38,7 +38,7 @@
     "mergedPrs": {
       "id": "mergedPrs",
       "label": "Merged PRs",
-      "value": null,
+      "value": 5,
       "minVisible": 1,
       "href": "https://github.com/paulthorson/agentic-governance/pulls?q=is%3Apr+is%3Amerged",
       "unit": "merged PRs"
