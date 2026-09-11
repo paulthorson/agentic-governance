@@ -1,6 +1,6 @@
 [project]
 name = "adversarial-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server exposing the adversarial review framework as callable tools: run domain reviews, check vetoes, record/query verdicts, inventory agents and skills."
 requires-python = ">=3.11"
 dependencies = [
