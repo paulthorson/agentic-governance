@@ -6,11 +6,6 @@ Claude, ChatGPT/Codex, Hermes, OpenAI, Cursor, OpenClaw, or a custom client — 
 verifiable governance. You do not start over; you bring the agent you already have
 and govern it.
 
-> **What changed from "Adversarial Agents"?** This repo was formerly named
-> *Adversarial Agents*. It is the same codebase, renamed to reflect what it actually
-> is: a governance framework, not a set of agents. The adversarial reviewers are the
-> enforcement mechanism; governance is the product.
-
 ---
 
 ## What this is
