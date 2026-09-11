@@ -8,6 +8,15 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Continuous improve reporting path.** Daily markdown reports live under
+  `docs/improve/` (README with KPI rules, `_template.md`, dated stubs). KPIs
+  must be measured or method-estimated — never invented. A public Next.js
+  marketing dashboard under `dashboard/` (UI SoT = Meta Astryx:
+  `@astryxdesign/core` + `theme-neutral`) puts KPI strip/charts first, a loud
+  Get AG CTA second, then changelog/contribute. Traction widgets are fully
+  wired but gated by `data/traction.json` `minVisible` thresholds (hidden on
+  launch). Vercel-ready; Cos/Paul must make the marketing surface public.
+
 - **Chief of Staff (Cos) for multi-team mode.** Setup wizard asks whether the
   operator will run more than one project/team at once; if yes, a Cos roster
   row is required. Cos is the human funnel: only Cos surfaces decisions to the

@@ -1,0 +1,63 @@
+{
+  "updatedAt": null,
+  "sourceNote": "Cos/Paul fill measured values only. Raise minVisible (or set values) to reveal widgets. Default launch: all hidden. Never invent live traction numbers.",
+  "repoPublicRequired": true,
+  "metrics": {
+    "githubStars": {
+      "id": "githubStars",
+      "label": "GitHub stars",
+      "value": null,
+      "minVisible": 1,
+      "href": "https://github.com/paulthorson/agentic-governance",
+      "unit": "stars"
+    },
+    "downloads": {
+      "id": "downloads",
+      "label": "Downloads / clones",
+      "value": null,
+      "minVisible": 1,
+      "href": null,
+      "unit": "downloads"
+    },
+    "discussions": {
+      "id": "discussions",
+      "label": "Discussions / comments",
+      "value": null,
+      "minVisible": 1,
+      "href": "https://github.com/paulthorson/agentic-governance/discussions",
+      "unit": "discussions"
+    },
+    "openPrs": {
+      "id": "openPrs",
+      "label": "Open PRs",
+      "value": null,
+      "minVisible": 1,
+      "href": "https://github.com/paulthorson/agentic-governance/pulls",
+      "unit": "open PRs"
+    },
+    "mergedPrs": {
+      "id": "mergedPrs",
+      "label": "Merged PRs",
+      "value": null,
+      "minVisible": 1,
+      "href": "https://github.com/paulthorson/agentic-governance/pulls?q=is%3Apr+is%3Amerged",
+      "unit": "merged PRs"
+    },
+    "contributors": {
+      "id": "contributors",
+      "label": "Contributors",
+      "value": null,
+      "minVisible": 1,
+      "href": "https://github.com/paulthorson/agentic-governance/graphs/contributors",
+      "unit": "contributors"
+    },
+    "forumActivity": {
+      "id": "forumActivity",
+      "label": "Forum activity",
+      "value": null,
+      "minVisible": 1,
+      "href": null,
+      "unit": "posts"
+    }
+  }
+}
