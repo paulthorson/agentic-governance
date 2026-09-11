@@ -86,4 +86,5 @@ no `in_review` ticket store). This exposed a real coupling in the framework:
 
 ## See also
 
+- Ladders epic retros (SoT): [`projects/ladders/retros/`](../../projects/ladders/retros/)
 - [[ADR]] · [[Architecture]] · [[Calibration]] · [[Roadmap]]

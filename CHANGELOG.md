@@ -106,6 +106,15 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Migration brief (Section 7):** added carve-out — Phase 3 does not touch `references/constitution.md` in any plugin (constitutional content, not capability).
 - **Spec correction:** the Section 4 skeleton lists eight harness sections, but every harness carries a ninth — the Section 11 plugin allowlist. The allowlist is legitimately part of a harness; the spec (not the harnesses) is wrong. Noted for spec fix.
 
+## [0.1.1] — 2026-09-11
+
+### Added
+- **Ladders epic retrospectives as SoT** under `projects/ladders/retros/`
+  (Paul LOCK 2026-09-11). Filed triad retros for `migration-drift-gate` and
+  `marketing-landing` (went well / didn't / improve only). Optional mirrors
+  elsewhere OK later; this tree is canonical. Docs only — no framework-policy
+  change.
+
 ## [0.1.0] — 2026-08-26
 
 ### Added
