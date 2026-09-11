@@ -50,4 +50,5 @@ Do not backfill fake history later.
 - Template: [`_template.md`](./_template.md)
 - Changelog: [`../../CHANGELOG.md`](../../CHANGELOG.md)
 - Public dashboard: [`../../dashboard/`](../../dashboard/) (UI SoT = Meta Astryx)
+- Admin (Google SSO): [`../../dashboard/`](../../dashboard/) `/admin/*` — see dashboard README for Vercel env + OAuth
 - Traction gates: [`../../data/traction.json`](../../data/traction.json) — widgets stay hidden until Cos/Paul set measured values ≥ `minVisible`

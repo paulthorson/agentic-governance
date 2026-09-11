@@ -56,3 +56,31 @@ export function hiddenTractionCount(
   const all = Object.values(config.metrics);
   return all.length - visibleTractionMetrics(config).length;
 }
+
+export type TractionAdminRow = TractionMetric & {
+  publicVisible: boolean;
+  displayValue: string;
+  gateNote: string;
+};
+
+/**
+ * Admin-only: raw traction rows even when below minVisible or null.
+ * Public surface must keep using visibleTractionMetrics().
+ */
+export function allTractionAdminRows(
+  config: TractionConfig = loadTractionConfig(),
+): TractionAdminRow[] {
+  return Object.values(config.metrics).map((metric) => {
+    const hasValue = metric.value !== null && metric.value !== undefined;
+    const publicVisible = hasValue && metric.value! >= metric.minVisible;
+    let displayValue = "not measured";
+    let gateNote = "null value — hidden on public";
+    if (hasValue) {
+      displayValue = String(metric.value);
+      gateNote = publicVisible
+        ? `≥ minVisible (${metric.minVisible}) — public`
+        : `below minVisible (${metric.minVisible}) — gated on public`;
+    }
+    return {...metric, publicVisible, displayValue, gateNote};
+  });
+}

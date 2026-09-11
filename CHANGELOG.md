@@ -8,6 +8,13 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Dashboard public + admin split.** Same Vercel deploy (`dashboard/`): public
+  marketing at `/` (KPI strip, Get AG CTA, traction gated by
+  `data/traction.json`); admin at `/admin/*` behind Auth.js v5 Google SSO with
+  allowlist (`noreply address` + optional `ADMIN_EMAILS`). Admin shows
+  honest Baseline / unpaid token placeholders, cycle-time tables, improve
+  report detail, raw traction (including below `minVisible`), and anonymized
+  scar index — never invents live token/$ numbers; no Studio PII.
 - **OpenClaw pin-enforce scar SoT** at
   `projects/openclaw/scars/pin-enforce-version-drift.md` (docs only; Cos
   canonicalizes on OpenClaw Eng’s draft, not Bridge paste). CLOSED harness scar
