@@ -8,6 +8,12 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **OpenClaw pin-enforce scar SoT** at
+  `projects/openclaw/scars/pin-enforce-version-drift.md` (docs only; Cos
+  canonicalizes on OpenClaw Eng’s draft, not Bridge paste). CLOSED harness scar
+  for silent downgrade via nightly `npm update -g openclaw` vs pin; documents
+  the pin-enforce process lock only — no framework-policy invention beyond that
+  lock.
 - **Continuous improve reporting path.** Daily markdown reports live under
   `docs/improve/` (README with KPI rules, `_template.md`, dated stubs). KPIs
   must be measured or method-estimated — never invented. A public Next.js
