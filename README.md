@@ -1,49 +1,106 @@
 # Agentic Governance
 
-A **bring-your-own-agent (BYOA)** governance framework: a set of adversarial review
-loops, constitutional rules, and a setup wizard that let you run **any** AI agent —
-Claude, ChatGPT/Codex, Hermes, OpenAI, Cursor, OpenClaw, or a custom client — under
-verifiable governance. You do not start over; you bring the agent you already have
-and govern it.
+A **bring-your-own-agent (BYOA)** governance framework: role harnesses, a directed production chain, a constitution, a calibration ledger, and a setup wizard — so you can run **any** AI agent (Claude, ChatGPT/Codex, Hermes, Cursor, OpenClaw, or a custom client) under verifiable rules.
+
+You do not start over. You bring the agents you already have. The wizard maps them to roles, reconciles their instructions against the harness (never layers a second rulebook on top), and writes the config your team will actually run.
 
 ---
 
-## What this is
-
-A governed workflow for AI agents that produce work. The core loop:
-
-1. A **worker** produces work (a design, code, research, a decision).
-2. **Adversary agents** judge it blind — they see neutral facts, never the worker's
-   rationale.
-3. A **constitution** gates it with hard vetoes (production harm, user harm,
-   unsupported claims, irrecoverable harm).
-4. Only a **human** clears a veto.
-
-The same loop is exposed to any MCP-capable client through a single MCP server, so
-the governance is identical no matter which agent you run.
-
 ## Why it exists
 
-Most agent setups are governed by vibes: a prompt says "be careful," and nothing
-checks whether the agent was. This framework makes governance **mechanical** — checks
-that produce a pass or a fail, not style-guide language everyone reads differently.
-It is designed to be adopted incrementally, one agent at a time, without stopping the
-work that is already running.
+Most agent setups are governed by vibes: a prompt says "be careful," and nothing checks whether the agent was. This framework makes governance **mechanical** — harness stop conditions, required artifact shapes, a constitution with hard vetoes, and a ledger that turns human answers into precedent.
 
-## The five domains
+It is designed to be adopted **incrementally**, one agent at a time, without stopping work that is already running.
 
-| Domain | What it reviews | Veto |
-|---|---|---|
-| `adversarial-ux` | User experience (designs, HUD, voice, personas) | User harm |
-| `adversarial-engineer` | Engineering (code, architecture, config, infra) | Production harm |
-| `adversarial-qa` | Testing, acceptance criteria, release gates | User harm |
-| `adversarial-researcher` | Research, synthesis, evidence | Unsupported claims |
-| `adversarial-universal` | Catch-all (any domain) | Irrecoverable harm |
+---
 
-## Quick start (any system)
+## How it came to be
 
-The framework ships an **MCP server** (`mcp/`) that exposes the review loop as callable
-tools. Any agent that supports MCP can wire it in.
+1. **Adversarial review plugins** — domain reviewers with blind facts, constitutions, and hard vetoes (UX, engineering, QA, research, plus cross-cutting domains).
+2. **Enterprise gap audit** — `AUDIT.md` drove the expansion from review loops into a full governance product.
+3. **Harnesses + one master governance repo** — ratified in `docs/agentic-governance-spec.md`: constitution, role harnesses, calibration ledger, config, and in-repo wiki live here; project repos hold work product only. Git handoffs (named bot commits, folder ownership, no sideways writes) are the audit trail.
+4. **Governance layout** — constitution, harnesses, ledger, and config landed in one master repo (`agentic-governance` on GitHub).
+5. **Setup wizard** — conversational BYOA via the MCP server (`setup_wizard_start` / `setup_wizard_answer`), writing `config/setup.md`, `config/roster.md`, and persona blocks.
+6. **Vanilla handoff** — first real-team adoption (Ladders, 2026-09-06): adopters load constitution + harnesses as a **contract**, not a repo fork (ADR-0006). Local tickets + portable watchdog/telemetry so a vanilla install needs no Paperclip (ADR-0007).
+
+The full design lives in [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) and [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md). Start the wiki at [`docs/Home.md`](docs/Home.md).
+
+---
+
+## The framework (what you actually run)
+
+| Layer | Job |
+|---|---|
+| **Constitution** (`constitution/`) | Governing law and hard vetoes. Deliberately hard to change. |
+| **Harnesses** (`harnesses/`) | Who each role is, what it owns, what it never does, inputs/outputs, artifact format, stop conditions. |
+| **The chain** | Directed edges only. Research → PM → UX → Engineer → QA → CEO. No sideways traffic. |
+| **Calibration ledger** (`ledger/`) | Case law: escalations, resolutions, promotions. CEOs resolve by precedent only — they never invent policy. |
+| **Config** (`config/`) | Operator answers from the wizard: roster, budget, quiet hours, autonomy ladder, data sources. |
+| **Plugins** (`adversarial-*/`) | Capability packs the harnesses may allowlist. Plugins never assert a role. |
+| **Engine** (`mcp/` + `scripts/`) | MCP server, wizard, local tickets, stuck-review watchdog, veto telemetry. |
+
+**Plugins vs harnesses.** Plugins are capability (what a thing can do). Harnesses are role definition (who a bot is). A harness may name which plugins a role may use. A plugin must never claim a role.
+
+**One governance repo.** Every bot on every team reads the same constitution, harnesses, changelog, and ledger. Project repos hold epics and artifacts only — no forked copies of the rules.
+
+---
+
+## Who is who
+
+```
+HUMAN (Paul or You)
+│ last resort: novel cases, veto clearance, CEO/adversary deadlock,
+│ governance amendments, applying framework diffs
+│
+└── CHIEF OF STAFF (CoS) [multi-team mode only]
+    │  the only bot allowed to reach the human
+    │  merges + dedupes CEO queues · triages P0/P1 · decision-ready only
+    │  daytime window · quiet hours · may NOT bypass its own funnel
+    │
+    ├── CEO BOT — team A
+    ├── CEO BOT — team B
+    └── CEO BOT — team C .
+        │  resolves escalations by precedent from the Calibration Ledger
+        │  never invents policy · may kill redundant loops
+        │
+        └── THE CHAIN (directed edges only, no sideways traffic)
+            │
+            RESEARCH ──> PM ──> UX ──> ENGINEER ──> QA ──> back to CEO
+              │          │      │        │          │
+              │          │      │        │          └─ test plans, gates
+              │          │      │        └─ code, diffs
+              │          │      └─ user stories, rationale.md
+              │          └─ problem brief, 2+ real options
+              └─ evidence pack, never recommends
+
+Single-team mode: no CoS. CEO talks to the human directly.
+```
+
+### Role harnesses (7)
+
+| Role | Owns |
+|---|---|
+| **Researcher** | Evidence pack. Establishes what is true. Never recommends. |
+| **PM** | Problem brief with **two or more real options**. |
+| **UX** | User stories + `rationale.md`. |
+| **Engineer** | Code and machine-applicable diffs. |
+| **QA** | Test plans and gates. Reports up to the CEO. |
+| **CEO** | Routes work, paces spend, accepts QA, resolves by ledger precedent, kills redundant loops. |
+| **CoS** | Multi-team only. Human funnel; morning queue; P0/P1 triage. Does not invent policy or clear vetoes. |
+
+Folder ownership is the boundary: each bot writes only in its own epic folder and reads only upstream. Because the work lives in Git, every handoff is a commit by a named bot — an audit trail for the whole line at no extra cost.
+
+---
+
+## The engine
+
+The framework is **runtime-agnostic**. The same rules ship through:
+
+1. **MCP server** (`mcp/`) — review tools + the setup wizard for any MCP-capable client.
+2. **Local ticket system** (`scripts/ticket.py`) — file-based work items, `in_review` state, verdicts. No external tracker required.
+3. **Stuck-review watchdog** — flags reviews that stall (`paperclip`, file/stdin, or `none`).
+4. **Veto telemetry** — alerts from `runs/verdicts.jsonl`.
+5. **Optional Paperclip** — live agent-team wiring when you want it; not required for a vanilla install.
 
 ```bash
 # 1. Clone
@@ -56,8 +113,7 @@ uv sync
 uv run adversarial-mcp # stdio transport (default for MCP clients)
 ```
 
-Then wire the MCP server into your agent. See **[`docs/onboarding/`](docs/onboarding/)**
-for per-framework guides:
+Wire the MCP server into your agent, then run the wizard. Per-framework guides:
 
 - [Claude Code](docs/onboarding/claude-code.md)
 - [ChatGPT / Codex](docs/onboarding/chatgpt-codex.md)
@@ -66,74 +122,111 @@ for per-framework guides:
 - [Hermes](docs/onboarding/hermes.md)
 - [Other MCP clients](docs/onboarding/other-mcp-clients.md)
 
-## Adopting your agent (BYOA)
+---
 
-You do not start over. The **setup wizard** (exposed through the MCP server) walks you
-through declaring your roster, mapping each existing agent to a role, and reconciling
-its existing instructions against the harness — never layering one on top of the other.
+## Setup wizard (BYOA)
 
-- Run the wizard: `setup_wizard_start()` → `setup_wizard_answer(.)`
-- See **[`docs/onboarding/byoa.md`](docs/onboarding/byoa.md)** for the adoption walkthrough.
+The wizard is conversational, exposed through the MCP server — not a hand-edited config file.
+
+```
+setup_wizard_start() → setup_wizard_answer(.)
+```
+
+It asks for runtime, budget model, roster (`name | role | team | project`), whether adversaries are in play, escalation preferences, quiet hours, autonomy ladder, retry budgets, audit cadence, research bounds, irreversible-action protection, and where review/verdict data lives. Answers go to `config/setup.md` and `config/roster.md`; one persona block is generated per roster row under `config/personas/`.
+
+**Reconcile, never layer.** When you adopt an existing agent, the wizard sorts its current instructions against the harness: covered (drop), compatible (keep), or conflicting (you decide). When adoption finishes, the agent has **exactly one** set of instructions.
+
+**Re-runnable.** Later runs add to the roster rather than wiping it. An agent missing from the roster is outside governance — the framework cannot introspect your runtime, so it asks.
+
+Full walkthrough: [`docs/onboarding/byoa.md`](docs/onboarding/byoa.md).
+
+---
+
+## Repo layout (the Git shape)
+
+```
+agentic-governance/
+  constitution/           # governing law + vetoes
+  harnesses/              # role definitions (pm, ux, engineer, qa, ceo, researcher, …)
+  ledger/                 # calibration ledger + human queue
+  config/                 # setup.md, roster.md, personas/ (wizard output)
+  adversarial-<domain>/   # plugin source of truth (capability)
+  agents/ · skills/       # flat namespaced copies for Cursor/Claude
+  mcp/                    # MCP server + setup wizard
+  scripts/                # validate, tickets, watchdog, telemetry, consolidate
+  docs/                   # in-repo wiki + ADRs + ratified spec
+  runs/                   # local in_review + verdicts (gitignored)
+```
+
+**Governance repo** = rules everyone shares. **Project repos** = epic folders and artifacts only. A governance change and its docs update land in the same commit; the wiki lives in `docs/`, not a separate GitHub wiki that drifts.
+
+---
+
+## The adversaries (enforcement, not the org)
+
+Adversaries **judge** the chain and CEO rulings. They review **blind** — neutral facts, never the worker's rationale. A block sticks only if sustained **unanimously**. The CX / customer-harm veto is absolute; **only a human clears it**.
+
+### Four triple-agent domains
+
+| Domain | Agents |
+|---|---|
+| UX | critic · cx-advocate · evaluative-uxr |
+| Engineer | critic · ops-advocate · reliability-reviewer |
+| QA | critic · quality-advocate · edge-case-reviewer |
+| Researcher | critic · evidence-advocate · context-reviewer |
+
+### Eight single-adversary domains
+
+| Domain | Focus |
+|---|---|
+| Universal | Irrecoverable harm |
+| Prompt | Injection, drift, safety overrides |
+| Security | Vulns, secrets, supply chain |
+| Privacy | Consent, retention, transfer |
+| Compliance | Regulatory + policy gates |
+| Product | Unvalidated assumptions |
+| Ops | Rollback, DR, deployability |
+| Docs | Wrong / missing / misleading docs |
+
+### Counts
+
+| | |
+|---|---|
+| 20 | adversary agents (12 domains) |
+| 7 | role harnesses (pm, ux, engineer, qa, ceo, researcher, cos) |
+| 27 | personas in the framework |
+| ~50 | persona blocks generated from the roster (one per registered bot) |
+
+Adversaries can be `in-play` or `not-in-play` at setup. The chain and harnesses still govern either way.
+
+---
 
 ## Documentation
 
-The `docs/` folder is an Obsidian-able wiki (MOCs + pages): architecture, domains,
-constitution, vetoes, calibration, MCP, Paperclip wiring, tooling, and the roadmap.
-Start at [`docs/Home.md`](docs/Home.md). For remote deployment of the MCP server,
-see [`docs/deployment.md`](docs/deployment.md).
+| Doc | What |
+|---|---|
+| [`docs/Home.md`](docs/Home.md) | Wiki entry |
+| [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) | Ratified framework |
+| [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md) | Reversibility, autonomy, BYOA, open problems |
+| [`docs/Architecture.md`](docs/Architecture.md) | Review loop |
+| [`docs/MCP.md`](docs/MCP.md) | Engine surface |
+| [`docs/onboarding/byoa.md`](docs/onboarding/byoa.md) | Adoption walkthrough |
+| [`docs/deployment.md`](docs/deployment.md) | Remote MCP |
+| [`docs/adr/`](docs/adr/) | Architecture decisions |
+| [`AUDIT.md`](AUDIT.md) | Original gap analysis |
 
 ## Tooling & CI
 
-- `scripts/validate.py` — structure validator (frontmatter, namespacing, plugin skeleton).
-- `.github/workflows/validate.yml` — CI: validate + gitleaks secret scan on push/PR.
-- `scripts/consolidate-adversarial.py` — rebuild flat layer + re-symlink into Cursor/Claude.
-- `scripts/stuck-review-watchdog.py` — flags in_review tickets stuck with no verdict
-  (supports `--json` for machine-parseable output).
-- `scripts/veto-telemetry.py` — alerts on constitutional vetoes from the verdict ledger.
-- `scripts/messaging.py` — shared alert delivery (discord/whatsapp/imessage/generic).
-- `scripts/ticket.py` — **built-in local ticket/story system** (no external tracker
-  needed). Create work items, track review state, record verdicts. Writes
-  `runs/in_review.json` (feeds the watchdog) and `runs/verdicts.jsonl` (feeds
-  telemetry), so a vanilla install runs the whole loop with no Paperclip/Discord.
+- `scripts/validate.py` — structure validator (frontmatter, namespacing, plugin skeleton)
+- `.github/workflows/validate.yml` — validate + gitleaks on push/PR
+- `scripts/consolidate-adversarial.py` — rebuild flat layer + re-symlink into Cursor/Claude
+- `scripts/stuck-review-watchdog.py` — stuck `in_review` detection
+- `scripts/veto-telemetry.py` — constitutional veto alerts
+- `scripts/messaging.py` — shared alert delivery
+- `scripts/ticket.py` — built-in local ticket/story system
 
-## Vanilla handoff (ADR-0006, ADR-0007)
+## Governance of this repo
 
-The framework is **environment-agnostic** — handoffable to any team in any environment.
-Adopters take the constitution + harnesses as a **loadable contract** (no repo mirror)
-and load them into their own mode of operation.
-
-- **Constitution, harnesses, vetoes, calibration ledger, messaging** — all
-  environment-agnostic.
-- **Veto telemetry** — file-based (`runs/verdicts.jsonl`), portable.
-- **Stuck-review watchdog** — data-source-agnostic (ADR-0007): `--source paperclip`
-  (default), `--source file --issues-file <path>` (JSON file or stdin), or `--source none`
-  (disabled until an in_review backend exists). The setup wizard asks which source a
-  team uses and writes it to `config/setup.md`.
-
-First real-team adoption: **Ladders Grok Bot** (2026-09-06) — see
-[`docs/adr/0006-first-real-team-adoption.md`](docs/adr/0006-first-real-team-adoption.md)
-and [`docs/adr/0007-watchdog-data-source.md`](docs/adr/0007-watchdog-data-source.md).
-
-## Multi-team mode and the Chief of Staff (Cos)
-
-If you will run **more than one project or team at once**, the setup wizard
-requires a **Chief of Staff (Cos)** roster row. Cos is the human funnel:
-
-- Only Cos surfaces decisions to you (no scattered CEO pings)
-- Cos owns the morning queue in multi-team mode
-- Cos triages P0 / P1 and keeps daytime escalations inside a four-hour window
-- Cos watches for governance drift and drafts amendment proposals — you still
-  gate the constitution
-
-**Single-project / single-team** stays as today: the CEO presents the morning
-queue to you directly, and Cos is not required.
-
-CEOs still route and resolve by precedent inside their teams. In multi-team
-mode they escalate **via Cos**, not past Cos.
-
-## Governance
-
-- `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the repo root.
-- `AUDIT.md` — the original gap analysis that drove the enterprise expansion.
-- The **constitution** (`constitution/constitution.md`) is the governing law; it is
-  deliberately hard to change (amendment requires adversarial review + human approval).
+- `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the root
+- The **constitution** is the governing law; amendment requires adversarial review + human approval
+- Bots do not edit their own rules; a human applies framework diffs
