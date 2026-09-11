@@ -8,6 +8,9 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **OpenClaw bridge-guard false-clobber scar SoT** (docs only; structural vs
+  content check named) at
+  `projects/openclaw/scars/bridge-guard-false-clobber.md`.
 - **Dashboard public + admin split.** Same Vercel deploy (`dashboard/`): public
   marketing at `/` (KPI strip, Get AG CTA, traction gated by
   `data/traction.json`); admin at `/admin/*` behind Auth.js v5 Google SSO with
