@@ -7,4 +7,5 @@ draft (not Bridge paste).
 | Scar | Status | Note |
 |---|---|---|
 | [bridge-guard-false-clobber](bridge-guard-false-clobber.md) | CLOSED 2026-09-11 | desktop MCP byte drift → over-broad restore; structural entry check |
+| [morning-brief-cite-or-blank](morning-brief-cite-or-blank.md) | CLOSED 2026-09-12 | MORNING_BRIEF_CITE_OR_BLANK Rule 2 A; grounding fail-closed before Discord |
 | [pin-enforce-version-drift](pin-enforce-version-drift.md) | CLOSED 2026-09-11 | silent downgrade via nightly npm update vs pin |

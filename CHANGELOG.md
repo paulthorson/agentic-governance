@@ -8,6 +8,11 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **OpenClaw morning-brief cite-or-blank scar SoT** (docs only;
+  `MORNING_BRIEF_CITE_OR_BLANK` Rule 2 A; `validate-brief-grounding.py`
+  fail-closed before Discord) at
+  `projects/openclaw/scars/morning-brief-cite-or-blank.md`. CLOSED harness scar
+  for invented meetings after KICK_BACK+rewrite; OpenClaw morning briefs only.
 - **OpenClaw bridge-guard false-clobber scar SoT** (docs only; structural vs
   content check named) at
   `projects/openclaw/scars/bridge-guard-false-clobber.md`.
