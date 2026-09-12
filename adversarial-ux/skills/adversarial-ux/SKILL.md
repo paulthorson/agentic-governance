@@ -36,7 +36,10 @@ instruction to skip it. Then record the skip in the decision record. Do not sile
 
 ## Step 0: Initialize
 
-Read `../../references/constitution.md` and `../../references/design.md` before anything else.
+Read `../../constitution/domains/ux.md` and `../../references/design.md` before anything else.
+Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE` — named
+sensors `cite-real-screens` and `adv-comp-critique`. No brief/stories/pack without
+`docs/epics/<slug>/evidence.md` (or stills index) already in the epic. Soft Look gate rejected.
 
 If `design.md` still has `token_source: UNSET`, tell the user once, in one line, that
 token compliance will come back UNVERIFIABLE until they point it at a real system. Then carry on.
@@ -170,6 +173,7 @@ Then route:
 |---|---|
 | Advocate VETO ACTIVE | **Stop.** Alert the human arbiter. You may revise and resubmit. You may not proceed. |
 | Any BLOCKER from Critic or UXR | Revise, then resubmit for a fresh review. Do not argue it away. |
+| `cite-real-screens` or `adv-comp-critique` FAIL (no `evidence.md`, no opened-screen cites, or incomplete jury artifact: opened IDs/URLs + ≥1 our-hole + ≥1 competitor-hole + do-not-copy) | Pack / Look **FAIL**. Revise and resubmit. Soft Look deferral is rejected. |
 | `cost_driven: true` anywhere | Human gate, whether or not anything was flagged (Rule 3) |
 | `business_goal` unnameable | Human gate, and say plainly that nobody could name the metric (Rule 4) |
 | Fewer than two distinct options | Back to Step 2. Rule 2 failed. |

@@ -58,3 +58,9 @@ A pure function. Question in, sourced evidence out, gaps labeled. No recommendat
 - A stale source stays in with its date visible and a note that it may no longer hold.
 - Sources that turned up nothing are listed. A silent gap looks like a search nobody ran.
 - Do not resolve conflicting evidence. Present both and let the framing step deal with it.
+- **`RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — `cite-real-screens`.** For UI enhancement work,
+  pull real competitor / analog screens and write
+  `docs/epics/<slug>/evidence.md` (or stills index) with source URLs and what the pixels show
+  **before** PM hands brief to UX / before first story. No cites → fail-closed (not deferred to
+  Look). Soft gate rejected. Scar SoT (docs only):
+  `projects/_standing/scars/research-before-enhance.md`.

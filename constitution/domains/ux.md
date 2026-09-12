@@ -83,6 +83,40 @@ These apply to every run and need no adversary to raise them.
    record says it is missing. No invented numbers, users, quotes, or study results.
 5. **Uncertainty is labeled.** Any claim the worker is not confident of is marked as an
    estimate or an assumption in the record.
+6. **`RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE`.** One lock, two clauses.
+   Soft / deferred gates are **REJECTED**. Draft stories without cites are **forbidden**, not
+   deferred to Look. A scar or wiki page is documentation, **not** the gate — the named sensors
+   below are.
+
+   **Clause A — `RESEARCH_BEFORE_ENHANCE` (Rule 2 A, hard gate).** No `brief.md`, stories, or
+   pack without a cited real-screen artifact **already in the epic**. Research (or UX if no
+   Research seat) pulls real screens of relevant competitor / analog experiences, cites each
+   screen, and analyzes what those UIs do, what is strong, and the deltas vs the current UI.
+   **Required artifact (sensor input):** `docs/epics/<slug>/evidence.md` (or a stills index at
+   that path) listing real-screen source URLs and what the pixels show — present **before** PM
+   hands brief to UX and **before** the first story. Learnings go into the project knowledge
+   base; a stripped PII-free retro goes into this AG repo. **Named sensor
+   (`cite-real-screens`):** fail-closed. Missing cites → Adv FAIL; Cos / QA / CEO reject.
+   Secondary: `evidence.md` present before first story = **required**. Metric: enhancement
+   packs shipped without cited real-screen evidence = **0** (hold).
+
+   **Clause B — `ADV_COMP_CRITIQUE`.** Critic, CX-Quality Advocate, and Evaluative UXR (the
+   jury) must open the cited screens (operator's already-connected screenshot library / MCP —
+   same comps the worker used). Not a rubber stamp that "comps exist." They (1) cite-or-fail
+   that the worker opened real pixels, (2) poke holes in **our** design using those screens,
+   (3) **also** poke holes in **competitor** screens — gaps exist; call them out; do not copy a
+   hole because a big app has it, and (4) file do-not-copy gaps in the project knowledge backend
+   and a PII-free AG retro. Comps are not gospel. **Jury artifact (required before Pack /
+   Look):** must name the opened screen IDs or URLs (no secrets, keys, emails, or host paths)
+   **and** at least one hole in **our** UI **and** at least one hole in a **competitor** screen
+   **and** one do-not-copy gap. **Named sensor (`adv-comp-critique`):** fail-closed on Pack /
+   Look — Adv FAIL + Cos / QA / CEO reject if cites are missing, **or** the jury has no
+   opened-screen cites, **or** the jury artifact omits our-hole / competitor-hole /
+   do-not-copy, **or** the jury treated comps as uncriticizable gospel.
+
+   Scope: product UX / Research + adversarial UX jury (not OpenClaw morning-brief gate; not
+   Eng-only bugs with no UI). Scar SoT (docs only — not the gate):
+   `projects/_standing/scars/research-before-enhance.md`.
 
 ---
 

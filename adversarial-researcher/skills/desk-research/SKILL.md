@@ -34,3 +34,12 @@ Pure inventory. No verdict.
 ### Not researched
 - <what you did not cover>
 ```
+
+## `RESEARCH_BEFORE_ENHANCE` (Rule 2 A)
+
+For UI enhancement work: named sensor `cite-real-screens` is fail-closed. Required artifact
+`docs/epics/<slug>/evidence.md` (or stills index) must list real-screen source URLs and what
+the pixels show **before** PM hands brief to UX / before first story. Soft / deferred Look gate
+is REJECTED. When the pack hits adversarial UX, `ADV_COMP_CRITIQUE` also applies (jury opens
+screens; comps are not gospel). Scar SoT (docs only):
+`projects/_standing/scars/research-before-enhance.md`.

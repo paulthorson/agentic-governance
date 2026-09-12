@@ -8,6 +8,19 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **`RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE` standing lock** — hard gate
+  (soft / deferred Look gate REJECTED). Named sensors `cite-real-screens` +
+  `adv-comp-critique` fail-closed (a scar/wiki page is not the gate). Required artifact
+  `docs/epics/<slug>/evidence.md` (or stills index) with real-screen source URLs + what the
+  pixels show, before PM→UX brief / before first story. Jury (Critic, CX Advocate, Evaluative
+  UXR) must open cited screens; **jury artifact before Pack/Look** must name opened screen IDs
+  or URLs (no secrets/keys/emails/host paths) **and** ≥1 hole in our UI **and** ≥1 hole in a
+  competitor screen **and** one do-not-copy gap — Pack/Look FAIL if no opened-screen cites.
+  Comps are not gospel. Metric: enhancement packs without cited real-screen evidence = fail closed.
+  Scope: product UX/Research + adversarial UX jury (not OpenClaw morning-brief). SoT:
+  `constitution/domains/ux.md`, `constitution/domains/researcher.md`,
+  `projects/_standing/scars/research-before-enhance.md`, adversarial-ux agents + desk-research
+  pointers. P0: no keys, tokens, emails, PII, absolute host paths, or private operator data.
 - **OpenClaw morning-brief cite-or-blank scar SoT** (docs only;
   `MORNING_BRIEF_CITE_OR_BLANK` Rule 2 A; `validate-brief-grounding.py`
   fail-closed before Discord) at

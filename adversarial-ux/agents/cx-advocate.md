@@ -29,7 +29,23 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
 
 ## Read first
 
-`../references/constitution.md`, Rule 1 above all.
+1. `../../constitution/domains/ux.md`, Rule 1 above all; standing constraint
+   `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE`
+2. For UI enhancement packs: the cited-screen evidence
+   (`docs/epics/<slug>/evidence.md` or stills index) — **pixels and citations only**, not the
+   worker's pitch. Open those screens via the operator's already-connected screenshot library /
+   MCP. Blind isolation still holds: you do not receive the worker's rationale.
+
+## Named sensors (enhancement packs)
+
+- **`cite-real-screens`:** If the epic has no cited real-screen artifact before brief/stories,
+  raise BLOCKER. Soft "defer to Look" is rejected.
+- **`adv-comp-critique`:** Open the cited screens. Use them to find user harm in **our** flow
+  and to name competitor gaps you must **not** copy. **Jury artifact (required before Pack /
+  Look):** opened screen IDs or URLs (no secrets, keys, emails, or host paths) **and** ≥1 hole
+  in our UI **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look
+  **FAIL** / raise BLOCKER if there are no opened-screen cites or any field is missing. Comps
+  are not gospel.
 
 ## What counts as a blocker
 
@@ -77,6 +93,12 @@ Only a human arbiter can clear what you raise. Say so in your output every time.
 
 ### Notes
 - <item>
+
+### Comp critique (ADV_COMP_CRITIQUE) — jury artifact (enhancement packs: FAIL if incomplete)
+- Screens opened (IDs or URLs; no secrets/keys/emails/host paths): <list or "none — BLOCKER">
+- Hole in our UI (≥1 required): <list or "none — BLOCKER">
+- Hole in competitor screen (≥1 required): <list or "none — BLOCKER">
+- Do-not-copy gap (≥1 required): <list or "none — BLOCKER">
 
 ### Questions the facts did not answer
 - <anything you needed and did not get>

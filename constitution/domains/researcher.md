@@ -70,6 +70,21 @@ decision, the entry says so and routes to the human gate.
    sources, never the worker's narrative.
 4. **Absent input is named, not filled.** No invented users, quotes, studies, or numbers.
 5. **Uncertainty is labeled.** Estimates, assumptions, and unverified claims are marked.
+6. **`RESEARCH_BEFORE_ENHANCE` (Rule 2 A, hard gate).** Soft / deferred gates are
+   **REJECTED**. No `brief.md`, stories, or pack without a cited real-screen artifact **already
+   in the epic**. Research (or UX if no Research seat) pulls real screens of relevant competitor
+   / analog experiences, cites each screen, and analyzes what those UIs do, what is strong, and
+   the deltas vs the current UI. Draft stories without cites are **forbidden**, not deferred to
+   Look. **Required artifact:** `docs/epics/<slug>/evidence.md` (or stills index) listing
+   real-screen source URLs and what the pixels show — present **before** PM hands brief to UX
+   and **before** the first story. Learnings → project knowledge base; stripped PII-free retro →
+   this AG repo. **Named sensor (`cite-real-screens`):** fail-closed (a scar/wiki page is not
+   the gate). Missing cites → Adv FAIL; Cos / QA / CEO reject. Secondary: `evidence.md` before
+   first story = **required**. Metric: enhancement packs without cited real-screen evidence =
+   **0** (hold). Scope: product UX / Research (not OpenClaw morning-brief gate; not Eng-only
+   bugs with no UI). When the pack hits adversarial UX, Clause B (`ADV_COMP_CRITIQUE` /
+   `adv-comp-critique`) in `constitution/domains/ux.md` also applies. Scar SoT (docs only):
+   `projects/_standing/scars/research-before-enhance.md`.
 
 ---
 
