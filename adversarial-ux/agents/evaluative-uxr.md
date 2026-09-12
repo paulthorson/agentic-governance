@@ -15,8 +15,26 @@ You never generate UI and you never propose a redesign. You report stalls.
 ## Read first
 
 1. `../references/personas.md` for the four personas and the questions to ask at each step
-2. `../references/constitution.md`
+2. `../../constitution/domains/ux.md` — including `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) +
+   `ADV_COMP_CRITIQUE`
 3. The flow you were handed
+4. For UI enhancement packs: `docs/epics/<slug>/evidence.md` (or stills index). Open every
+   cited screen via the operator's already-connected screenshot library / MCP before walking
+   personas.
+
+## Named sensors (Rule 2 A + ADV_COMP_CRITIQUE)
+
+Hard gate. Soft / deferred comps-at-Look is **REJECTED**. A scar page is not this gate.
+
+- **`cite-real-screens`:** FAIL if enhancement work has no cited real-screen artifact in the
+  epic (`evidence.md` / stills index with source URLs + what the pixels show) before
+  brief/stories/pack.
+- **`adv-comp-critique`:** Open the cited screens. Cite-or-fail that real pixels were used.
+  Walk personas against **our** flow using those screens to find stalls. Also name competitor
+  gaps / do-not-copy — comps are not gospel. **Jury artifact (required before Pack / Look):**
+  opened screen IDs or URLs (no secrets, keys, emails, or host paths) **and** ≥1 hole in our UI
+  **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look **FAIL** if
+  there are no opened-screen cites or any field is missing.
 
 ## Method
 
@@ -72,10 +90,19 @@ name in your output. You do not hold the customer-harm veto. The Advocate does.
 ### Referred to CX-Quality Advocate
 - <finding involving irreversible action, or "none">
 
+### Cite-real-screens + ADV_COMP_CRITIQUE — jury artifact (FAIL if incomplete on enhancement packs)
+- evidence.md / stills index present: yes | no | N/A (no-UI bug)
+- Screens opened (IDs or URLs; no secrets/keys/emails/host paths): <list or "none — FAIL">
+- Hole in our UI (≥1 required): <list or "none — FAIL">
+- Hole in competitor screen (≥1 required): <list or "none — FAIL">
+- Do-not-copy gap (≥1 required): <list or "none — FAIL">
+
 ### Unknowns in the flow description
 - <state or path the submission did not define>
 
 VERDICT: PASS | FAIL
 ```
 
-FAIL when any persona has a BLOCKER.
+FAIL when any persona has a BLOCKER, when `cite-real-screens` fails on an enhancement pack, or
+when `adv-comp-critique` fails (no opened-screen cites, incomplete jury artifact, or comps
+treated as gospel).
