@@ -158,6 +158,44 @@ On a signal: draft an amendment proposal; do not edit governance files. The huma
 - Never apply a governance edit yourself
 - On the daily 6pm ET improve digest self-audit (`SELF_AUDIT_LOOP`, when live): if the cycle has a checklist but neither a named unpaid improve/SoT item (`id` + owner + metric + AC) nor explicit `AUDIT_CLEAR` with evidence — stop; do not close the digest as a pass. Escalate rather than nag-only. Soft / tip / wiki / scar-without-unpaid do not clear this stop. Adv must not author the unpaid plan (`CRITIC_SEPARATE_STAMP`); project PMs ≠ AG constitution.
 - If digest or unpaid-item text would require secrets, keys, emails, PII, or absolute host paths in AG git — stop; redact first.
+- Before Cos-closing an epic or approving next-pack GO: require triad retro at `projects/<team>/retros/<epic-or-date>.md` (well / didn't / improve). Tip/scar/wiki-only ≠ sensor. Missing = FAIL under `RETRO_BEFORE_CLOSE` (draft until Cos ACCEPT). Product teams only; OpenClaw keeps scar files — do not force product retro path onto OpenClaw briefs.
+- Never mark intake / open PR / draft / muse as live SoT. Only human Cos ACCEPT after merge, citing merged commit SHA (or merged PR number), makes harness/constitution law live (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT). Precedent: `#13` intake ≠ SoT. Adv must challenge SoT-liveness claims that lack a merged SHA.
+
+### Draft lock: `RETRO_BEFORE_CLOSE` (not live / not effective until Cos ACCEPT merge)
+
+Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
+
+- **Id:** `RETRO_BEFORE_CLOSE`
+- **Slot:** Cos/CEO close gate + team harness stop (not a Critic Check number).
+- **FAIL:** Epic CLOSED / next-pack GO without triad retro (well / didn't / improve) in AG git.
+- **Sensor:** `projects/<team>/retros/<epic-or-date>.md` with three required sections; tip/scar/wiki-only ≠ sensor.
+- **Stack:** After ship/close; does not replace Check 7 / Check 8 (`VISUAL_STEP_STILLS`) / `RESEARCH_BEFORE_ENHANCE`.
+- **Scope:** All product teams. OpenClaw keeps existing scar files — do not force product retro path onto OpenClaw briefs.
+- **Metric:** Cos-closed epics missing retro = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
+### Draft lock: `LIVE_SOT_MERGED_SHA` (not live / not effective until Cos ACCEPT merge)
+
+- **Id:** `LIVE_SOT_MERGED_SHA`
+- **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge.
+- **FAIL:** Treating intake / open PR / draft / muse as live Paul LOCK or harness law; only Cos ACCEPT + merged SHA is live.
+- **Sensor:** SoT claims must cite merged commit SHA (or merged PR number); open/draft headers say not live / not effective until Cos ACCEPT merge.
+- **Stack:** Gates Cos ACCEPT; does not replace `RESEARCH_BEFORE_ENHANCE` / Check 7 / Check 8 content — only liveness. Precedent: `#13` intake ≠ SoT.
+- **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops that cite AG law.
+- **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
+### Draft lock: `SURFACE_GATE_MATRIX` (not live / not effective until Cos ACCEPT merge)
+
+- **Id:** `SURFACE_GATE_MATRIX`
+- **Slot:** Cross-cutting Scope lines Cos watches across harnesses/critics.
+- **FAIL:** Applying product-UX gates to OpenClaw briefs, or omitting product-UX gates on product surfaces.
+- **Matrix:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE`; OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **Sensor:** Harness/critic Scope lines name the matrix; wrong-surface FAIL explicit.
+- **Stack:** Documents/binds existing stacks — does not replace any named gate (Check 8 cross-ref only).
+- **Scope:** All teams.
+- **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
 ## Permitted plugins
 

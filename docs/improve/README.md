@@ -23,21 +23,35 @@ a contribute CTA.
 
 **Never invent numbers.**
 
+### Draft lock: `TOKEN_SOURCE_OR_BLANK` (not live / not effective until Cos ACCEPT merge)
+
+- **Id:** `TOKEN_SOURCE_OR_BLANK`
+- **Slot:** Critic Check 1 Tokens + `adversarial-ux/references/design.md` `token_source` / this
+  improve-digest path.
+- **FAIL:** Check 1 PASSes while `token_source` UNSET; improve/report numbers lack a named
+  source; tokens invented; blank treated as measured = FAIL.
+- **Sensor:** Named source in the KPI table **or** explicit **BLANK** / `not measured yet`.
+  Soft / tip / wiki-scar-only ≠ sensor.
+- **Stack:** Does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
+- **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
+- **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
 | Allowed | Not allowed |
 |---|---|
-| **Measured** — taken from a tool, ledger, CI, token bill, or timer with a named source | Round numbers guessed to “look complete” |
+| **Measured** — taken from a tool, ledger, CI, token bill, or timer with a **named source** | Round numbers guessed to “look complete” |
 | **Method-estimated** — derived by a stated method (formula, sample, range) with the method written next to the number | Vague claims (“~faster”, “lots less tokens”) without a number *or* a method |
-| **Unknown / baseline** — say so explicitly when there is no measurement yet | Filling KPI cells with placeholders that look like real data |
+| **BLANK / unknown / baseline** — say so explicitly (`BLANK`, `not measured yet`) when there is no measurement yet | Filling KPI cells with placeholders that look like real data; treating blank as measured |
 
-If a KPI is blank on a baseline day, leave it blank or write `not measured yet`.
-Do not backfill fake history later.
+If a KPI is blank on a baseline day, leave it blank, write `BLANK`, or write `not measured yet`.
+Do not backfill fake history later. Token rows without a named source must be labeled **BLANK**.
 
 ### KPI fields we track
 
-- **Tokens** — prompt/completion/total for AG runs, with source (e.g. provider bill, engine log).
+- **Tokens** — prompt/completion/total for AG runs, with **named source** (e.g. provider bill, engine log) **or** label **BLANK**. Invented or blank-as-measured = FAIL under `TOKEN_SOURCE_OR_BLANK` (draft until Cos ACCEPT).
 - **Cycle time** — time from work start to allowed/merged (or veto cleared), with definition stated.
-- **Retros** — count and links for post-epic retros actually held.
-- **AG PRs** — PRs opened/merged that change governance itself (this repo).
+- **Retros** — count and links for post-epic retros actually held (`projects/<team>/retros/` under `RETRO_BEFORE_CLOSE`, draft until Cos ACCEPT).
+- **AG PRs** — PRs opened/merged that change governance itself (this repo). Cite merged SHA when claiming live SoT (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 - **Money** — optional. Only include when spend is attributed and sourced.
 
 ## Feedback and invites

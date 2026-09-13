@@ -41,6 +41,22 @@ Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE` 
 sensors `cite-real-screens` and `adv-comp-critique`. No brief/stories/pack without
 `docs/epics/<slug>/evidence.md` (or stills index) already in the epic. Soft Look gate rejected.
 
+### Draft locks (not live / not effective until Cos ACCEPT merge)
+
+Soft / tip / wiki-scar-only = **REJECTED**.
+
+- **`TOKEN_SOURCE_OR_BLANK`:** If `design.md` still has `token_source: UNSET`, tell the user
+  once that Check 1 is **UNVERIFIABLE** (never PASS) until pointed at a real system. Improve
+  digests must cite a named token source or label **BLANK** — blank-as-measured / invented =
+  FAIL. Does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
+- **`CRITIC_SEPARATE_STAMP`:** Checks 7–8 require a distinct **CRITIC**-labeled verdict
+  artifact/run separate from Adv. Silent dual-hat = FAIL. Metric: Adv-only stamps = **fail closed**.
+- **`SURFACE_GATE_MATRIX`:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8
+  (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE`; OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK`
+  only.
+- **`LIVE_SOT_MERGED_SHA`:** This draft is not live until Cos ACCEPT merge cites a merged SHA.
+  Intake / open PR / muse ≠ SoT (precedent `#13`).
+
 If `design.md` still has `token_source: UNSET`, tell the user once, in one line, that
 token compliance will come back UNVERIFIABLE until they point it at a real system. Then carry on.
 
@@ -159,6 +175,21 @@ is a weaker review and the record should say so.
 Never edit a returned verdict. Write each one to `verdicts/<agent>.md` exactly as returned, then
 paste all three into the decision record under **Verdicts**, verbatim, before you write a single
 word of your own response to them.
+
+### `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT — not live / not effective until merge)
+
+Soft / tip / wiki-scar-only = **REJECTED**. Stamp-isolation over Checks 7–8 — **not** a new
+Check number.
+
+- File the Critic template block as **CRITIC** under `verdicts/critic.md` (isolated pass).
+- Checks 7–8 (and Check 8 visual grades) **must** have that Critic-labeled artifact/run
+  separate from Adv. Silent dual-hat = FAIL. Adv-only stamps = **fail closed**.
+- If no Critic bot: Adv runs `../../agents/critic.md` as a **second pass labeled CRITIC** —
+  still a separate artifact; **not** folded into ADV prose.
+- Stack: on Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE` — Critic grades;
+  Adv challenges. Does not replace either. Roster seat unpaid note OK.
+- Scope: product UX jury; all product teams; **not** OpenClaw. P0: no secrets/keys/emails/PII/
+  host paths in AG git.
 
 ---
 
