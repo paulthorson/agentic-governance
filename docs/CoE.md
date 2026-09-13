@@ -4,7 +4,11 @@ Plain-English write-up of how Agentic Governance improves the standing standard 
 
 **Cos HOLD ACCEPT / Adv `COE_README_SOT`.** README and this page must name all seven checklist items below. Soft or marketing-only CoE copy that omits them = **FAIL**.
 
-**Status of this page.** Describes the **operating model**. It does **not** invent a new bot or persona, and it does **not** silently amend the constitution. `SELF_AUDIT_LOOP` is **LIVE** — Cos ACCEPT merged [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`. `RETRO_BEFORE_CLOSE` stays **not live** until Cos ACCEPT of [#17](https://github.com/paulthorson/agentic-governance/pull/17).
+**Status of this page.** Describes the **operating model**. It does **not** invent a new bot or persona, and it does **not** silently amend the constitution.
+
+`SELF_AUDIT_LOOP` is **LIVE** — Cos ACCEPT merged [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`.
+
+`RETRO_BEFORE_CLOSE` stays **not live** until Cos ACCEPT of [#17](https://github.com/paulthorson/agentic-governance/pull/17).
 
 ---
 
