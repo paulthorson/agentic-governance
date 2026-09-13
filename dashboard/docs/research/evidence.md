@@ -2,9 +2,9 @@
 
 **Gate:** `RESEARCH_BEFORE_ENHANCE` + `ADV_COMP_CRITIQUE` 
 **Cos GO:** 2026-09-13 — public dashboard FAIL on look; Research evidence SoT before Check 7/8 or Eng UI. 
-**Ownership:** AG Research owns this pack. AG UX owns Check 7 (flows/JTBD) and Check 8 (stills) after — not in this PR. 
+**Ownership:** AG Research owns evidence. Cos LOCK add-on 2026-09-13 folds light Check 7 delight ties + Check 8 motion-note requirement into the same epic/PR; AG UX owns full Check 7/8 craft after. 
 **Live surface audited:** https://agentic-governance-three.vercel.app 
-**Scope:** ADV_COMP evidence for the public marketing+ops face only (not OpenClaw briefs, not admin SSO, not Check 7/8 artifacts).
+**Scope:** ADV_COMP + motion/delight evidence for the public marketing+ops face (not OpenClaw briefs, not admin SSO, not Eng UI).
 
 ---
 
@@ -76,18 +76,34 @@ Dedicated Linear **Insights** product screens were sparse in Mobbin at pull time
 - Internal launch language ("Cos unlocks", private-repo asides) on the public face.
 - Component-gallery Astryx demos without product IA (Meta Astryx is UI SoT; the page must still be a product face, not a kit demo).
 
+### Motion do-not-copy (Cos LOCK add-on 2026-09-13)
+
+- **No fake ticker** — numbers must not scroll/tick for atmosphere.
+- **No invented pulse** — activity pulse only when a real improve / merge / retro event lands.
+- **No simulated live data / random chart jitter** — charts do not wiggle to look alive.
+- **Numbers only move from measured feeds:** improve MD, merged PRs, retros (and other named measured sources). Never invent motion from unpaid/baseline tiles.
+
 ---
 
-## 7. Motion / delight (evidence for UX Check 8 — not Eng yet)
+## 7. Motion / delight patterns
 
-Observed from opened comps; AG UX translates into Check 8 stills. No Eng motion in this PR.
+**Job:** Public `/` must feel like a **living enterprise ops board** (Stripe / Linear / Vercel / Datadog-equal live boards) — **not** a docs site.
 
-| Intent | Evidence cue | Mobbin cite | Adopt / do-not-copy |
+**Mobbin stills caveat:** Mobbin captures are **static screenshots**. Where motion is not visible in the still, the pattern is **inferred from the product UX of those live boards** (KPI cards with sparklines, progress rails, analytics pulse). Adv should open the cites; Eng must not invent motion Cos did not lock.
+
+| Pattern | When it fires | Comp cue (still vs inferred) | Mobbin cite |
 | --- | --- | --- | --- |
-| Presence on load | KPI cards and chart scaffolding appear as a composed product face even at zero/low volume — hierarchy reads before numbers do. | [Stripe overview](https://mobbin.com/screens/673e89af-fe9e-4ab9-ac27-435dedf21888), [Amplitude home](https://mobbin.com/screens/7ebf30d2-b1ea-4c85-b123-76f4347ba357) | **Adopt** staged reveal of card chrome → chart → secondary rail. **Do not copy** bounce/glow noise or fake count-up to invented totals. |
-| Honest null delight | Diagonal hatch / labeled inactive and illustrated empty with next-step links turn absence into a designed moment. | [Neon inactive hatch](https://mobbin.com/screens/a140f8f1-d12e-407f-81c8-e06186ce5350), [Mixpanel empty](https://mobbin.com/screens/bef3e439-48d3-42de-9b9d-d8f6eb6ff2cd) | **Adopt** hatch or labeled inactive for unpaid/baseline; illustration + recovery links. **Do not copy** query-builder empty as public marketing. |
-| Ops pulse without hype | Sparklines and small burn charts give temporal pulse without requiring hero animation or invented series. | [Cloudflare Workers](https://mobbin.com/screens/c2a81c26-677d-43c2-8f93-3fad6513e3bd), [Linear Progress rail](https://mobbin.com/screens/e88b6bd7-3d4b-4e1e-8cd7-a9d2a6852795) | **Adopt** quiet sparkline/burn motion tied to measured points only. **Do not copy** editable widget rearranging as delight. |
-| Low-volume calm | Dark/light analytics chrome keeps KPI→chart→tables readable when counts are tiny (~13 visitors). | [Vercel Analytics](https://mobbin.com/screens/900542f7-c157-4445-8f88-d79dca719c7a) | **Adopt** calm hierarchy that does not apologize for low volume. **Do not copy** filling gaps to look “alive.” |
+| **Count-up on KPI value** | Only when a **measured feed** updates (improve MD KPI, merged PR count, retros filed). | **Inferred** from live Stripe / Amplitude / Cloudflare KPI boards — stills show settled values + sparklines, not the tween. | [Stripe overview](https://mobbin.com/screens/673e89af-fe9e-4ab9-ac27-435dedf21888), [Amplitude home](https://mobbin.com/screens/7ebf30d2-b1ea-4c85-b123-76f4347ba357), [Cloudflare Workers](https://mobbin.com/screens/c2a81c26-677d-43c2-8f93-3fad6513e3bd) |
+| **Spark / sparkline flux on KPI cards** | Sparkline redraws only when measured series gains a real point; idle cards stay calm. | **Visible in stills** as sparkline chrome on KPI cards; flux itself is **inferred** from live ops boards. | [Stripe Gross volume sparkline](https://mobbin.com/screens/673e89af-fe9e-4ab9-ac27-435dedf21888), [Cloudflare Requests/CPU sparklines](https://mobbin.com/screens/c2a81c26-677d-43c2-8f93-3fad6513e3bd), [Vercel Analytics chart](https://mobbin.com/screens/900542f7-c157-4445-8f88-d79dca719c7a) |
+| **Activity pulse (subtle)** | When a **real improvement** lands (new improve entry / measured gain). | **Inferred** from Linear Latest Update + Progress rail live feel; still shows update card + burn, not the pulse. | [Linear Overview + Progress](https://mobbin.com/screens/e88b6bd7-3d4b-4e1e-8cd7-a9d2a6852795), [Better Stack Reporting](https://mobbin.com/screens/d4ecfb68-a860-41f6-9dc4-93f1b027c7c9) |
+| **Ship toast / moment** | When a **measured ship event** is recorded (e.g. merged PR counted into the feed). | **Inferred** from ops boards’ “something just shipped” moments; not a fake celebration ticker. Linear Latest Update is the closest still analog for a discrete ship narrative. | [Linear Latest Update](https://mobbin.com/screens/e88b6bd7-3d4b-4e1e-8cd7-a9d2a6852795) |
+
+**Still required (unchanged Cos locks):**
+
+- Designed empty / baseline for unpaid metrics (illustration, hatch, or labeled inactive — not limp "Baseline" text alone).
+- Traction stays gated (`data/traction.json`); no invented traction to animate.
+
+**Check 8 handoff:** Each primary VISUAL_STEP_STILL must carry a **motion note** (what animates, when, why) — stills to Cos before Eng. See `dashboard/docs/ux/README.md`.
 
 ---
 
@@ -110,14 +126,16 @@ Observed from opened comps; AG UX translates into Check 8 stills. No Eng motion 
 
 ---
 
-## 9. Constraints locked by Cos (2026-09-13)
+## 9. Constraints locked by Cos (2026-09-13 + add-on)
 
 - No invented KPI / token / money / visitor / revenue numbers.
-- Public `/` = marketing + ops face (not admin, not Studio PII, not OpenClaw brief chrome).
+- Public `/` = marketing + ops face — living ops board, not a docs site.
 - Daily improve: collapse on `/` or move to `/reports` — not fold hero dump.
 - Strip internal launch copy from public marketing ("Cos unlocks", private-repo asides).
-- UI SoT: Meta Astryx — Eng implements only after AG UX Check 8 `VISUAL_STEP_STILLS` → Adv PASS → stills to Cos.
-- This PR is **Research intake only** (`evidence.md`). AG UX owns Check 7/8 next. **Not live Eng UI yet.**
+- Motion only from measured feeds (improve MD, merged PRs, retros) — see motion do-not-copy.
+- Designed empty/baseline required; traction stays gated.
+- UI SoT: Meta Astryx — Eng implements only after Check 8 `VISUAL_STEP_STILLS` (with motion notes) → Adv PASS → stills to Cos.
+- Same epic/PR: evidence + light Check 7 delight ties. **Not live Eng UI yet.**
 
 ---
 
@@ -125,6 +143,6 @@ Observed from opened comps; AG UX translates into Check 8 stills. No Eng motion 
 
 | Field | Value |
 | --- | --- |
-| Received | Cos GO 2026-09-13: FAIL on look for public `/`; ADV_COMP evidence SoT before Check 7/8 or Eng |
-| Well-formed? | Yes — job, live holes, opened Mobbin cites, our-hole / competitor-hole / do-not-copy, motion/delight, keep/adopt, Cos constraints |
-| Proceed? | Yes — handoff to AG UX for Check 7 (flows/JTBD) then Check 8 stills; no UX artifacts in this PR |
+| Received | Cos GO 2026-09-13 + LOCK add-on: ADV_COMP + motion/delight patterns; light Check 7 delight ties; Check 8 motion notes required |
+| Well-formed? | Yes — job, live holes, Mobbin cites, our-hole / competitor-hole / do-not-copy (incl. motion), Motion / delight patterns, keep/adopt, Cos constraints |
+| Proceed? | Yes — same epic; AG UX deepens Check 7/8; Eng blocked until stills + Adv PASS |
