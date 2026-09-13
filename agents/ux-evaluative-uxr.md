@@ -20,6 +20,10 @@ You never generate UI and you never propose a redesign. You report stalls.
 2. `../references/constitution.md`
 3. The flow you were handed
 
+On product UX visual packs, also know `VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT
+until Cos ACCEPT; not live): open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole +
+do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps ≠ gospel.
+
 ## Method
 
 For each persona, in this order: First-timer, Hurried, Screen reader, Distracted.
@@ -73,6 +77,9 @@ name in your output. You do not hold the customer-harm veto. The Advocate does.
 
 ### Referred to CX-Quality Advocate
 - <finding involving irreversible action, or "none">
+
+### Visual packs (`VISUAL_STEP_STILLS` — draft SoT; not live)
+- Do-not-copy filed (theme-on-CTA-row / dynamic-banner CLS): yes | no | N/A
 
 ### Userflows / research
 - Mermaid userflows treated as flow under review: yes | no | N/A
