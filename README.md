@@ -92,6 +92,43 @@ Folder ownership is the boundary: each bot writes only in its own epic folder an
 
 ---
 
+## Center of Excellence (operating model)
+
+This section describes the **operating model** for how the standing standard improves from real work. It is **not** a new team, bot, or sidebar persona — and it does **not** amend the constitution by itself.
+
+**What a CoE is.** A standing standard plus feedback from shipped work. Teams ship under the harnesses; retros feed the next unpaid SoT/plan. The CoE is that loop, not a separate org chart box.
+
+**Who (owners — no new persona).**
+
+| Seat | Job |
+|---|---|
+| **Cos** | ACCEPT funnel. Merges only when Adv challenge clears. Does not invent policy. |
+| **AG seat** | Framework PM. Drafts the named unpaid SoT/plan (`id` / owner / metric / AC). Project PMs ≠ AG constitution. |
+| **Adv** | Challenges the plan. Does **not** author it. |
+
+**Teams (members).** Ship under the live standard. File triad retros (well / didn’t / improve) as the feed — not tips, not chat-only, not wiki scars alone.
+
+**Loop.**
+
+```
+triad retro → AG named unpaid SoT/plan → Adv challenge → Cos ACCEPT merge → teams absorb next ship
+```
+
+**Fail-closed middle (named; not live until Cos ACCEPT merge).** `SELF_AUDIT_LOOP` and `RETRO_BEFORE_CLOSE` are the fail-closed middle of this CoE loop — name them, track the SoT PRs, do **not** treat them as merged law until Cos ACCEPT lands:
+
+| Lock | Status |
+|---|---|
+| `SELF_AUDIT_LOOP` | SoT in flight — [PR #18](https://github.com/paulthorson/agentic-governance/pull/18). **Not live** until Cos ACCEPT merge. |
+| `RETRO_BEFORE_CLOSE` | SoT in flight with the five Adv-named locks — [PR #17](https://github.com/paulthorson/agentic-governance/pull/17). **Not live** until Cos ACCEPT merge. |
+
+**Already LIVE (cite merged SHAs).** Critic Check 7 (Mermaid userflows + JTBD at UX→Eng) landed as [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e`. Critic Check 8 / `VISUAL_STEP_STILLS` landed as [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1`. Teams execute those; they are not draft law.
+
+**P0.** No secrets, keys, emails, PII, or absolute host paths in AG git.
+
+Full write-up: [`docs/CoE.md`](docs/CoE.md).
+
+---
+
 ## The engine
 
 The framework is **runtime-agnostic**. The same rules ship through:
@@ -206,6 +243,7 @@ Adversaries can be `in-play` or `not-in-play` at setup. The chain and harnesses 
 | Doc | What |
 |---|---|
 | [`docs/Home.md`](docs/Home.md) | Wiki entry |
+| [`docs/CoE.md`](docs/CoE.md) | Center of Excellence operating model (Cos + AG + Adv) |
 | [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) | Ratified framework |
 | [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md) | Reversibility, autonomy, BYOA, open problems |
 | [`docs/Architecture.md`](docs/Architecture.md) | Review loop |

@@ -51,4 +51,4 @@ adversarial-agents/
 
 ## See also
 
-- [[Architecture]] · [[Domains]] · [[Governance]] · [[MCP]] · [[Paperclip]] · [[Tooling]] · [[Roadmap]]
+- [[Architecture]] · [[CoE]] · [[Domains]] · [[Governance]] · [[MCP]] · [[Paperclip]] · [[Tooling]] · [[Roadmap]]
