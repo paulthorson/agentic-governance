@@ -183,7 +183,7 @@ The harness is the **source of truth** at `harnesses/pm.md` (A23). The inline co
 
 ### 5.2 UX Harness
 
-The harness is the **source of truth** at `harnesses/ux.md` (A23). The inline copy is not maintained here; edit the harness file.
+The harness is the **source of truth** at `harnesses/ux.md` (A23). The inline copy is not maintained here; edit the harness file. Required Eng-handoff artifacts — stories, `rationale.md`, Mermaid `userflows.md`, and `jtbd.md` cited against Research — are defined only in the harness.
 
 ### 5.3 Engineer Harness
 
