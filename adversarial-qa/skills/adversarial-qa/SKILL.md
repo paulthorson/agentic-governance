@@ -109,6 +109,21 @@ Spawn all three in parallel:
 Never edit a returned verdict. Write each to `verdicts/<agent>.md` verbatim, then paste all
 three into the record before any response.
 
+### `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT — not live / not effective until merge)
+
+When QA gates (esp. product UX visual / Check 7–8 / stills sensor): file **QA CRITIC** as an
+isolated pass. Silent dual-hat / Adv-only stamp = FAIL. If no Critic bot: Adv runs critic.md
+second pass labeled **CRITIC** — not folded into ADV prose. Stacks on Check 7 + Check 8
+(`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; does not
+replace. Does not reopen Check 8. Scope: product UX; not OpenClaw.
+Soft / tip / wiki-scar-only = **REJECTED**. P0: no secrets/keys/emails/PII/host paths.
+
+### `SURFACE_GATE_MATRIX` (draft until Cos ACCEPT)
+
+Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE**
+via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK`
+only. Wrong-surface FAIL explicit. HOLD ACCEPT until Adv PASS.
+
 ---
 
 ## Step 5: Commit and route

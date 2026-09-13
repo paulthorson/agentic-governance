@@ -36,7 +36,27 @@ instruction to skip it. Then record the skip in the decision record. Do not sile
 
 ## Step 0: Initialize
 
-Read `../../references/constitution.md` and `../../references/design.md` before anything else.
+Read `../../constitution/domains/ux.md` and `../../references/design.md` before anything else.
+Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE` — named
+sensors `cite-real-screens` and `adv-comp-critique`. No brief/stories/pack without
+`docs/epics/<slug>/evidence.md` (or stills index) already in the epic. Soft Look gate rejected.
+
+### Draft locks (not live / not effective until Cos ACCEPT merge)
+
+Soft / tip / wiki-scar-only = **REJECTED**.
+
+- **`TOKEN_SOURCE_OR_BLANK`:** If `design.md` still has `token_source: UNSET`, tell the user
+  once that Check 1 is **UNVERIFIABLE** (never PASS) until pointed at a real system. Improve
+  digests must cite a named token source or label **BLANK** — blank-as-measured / invented =
+  FAIL. Does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
+- **`CRITIC_SEPARATE_STAMP`:** Checks 7–8 require a distinct **CRITIC**-labeled verdict
+  artifact/run separate from Adv. Silent dual-hat = FAIL. Metric: Adv-only stamps = **fail closed**.
+  Check 8 (`VISUAL_STEP_STILLS`) is **LIVE** via `#15` / `d61f4c1` — do not reopen.
+- **`SURFACE_GATE_MATRIX`:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8
+  (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; OpenClaw
+  briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **`LIVE_SOT_MERGED_SHA`:** These five locks are not live until Cos ACCEPT merge cites a
+  merged SHA. Intake / open PR / muse ≠ SoT (precedent `#13`). HOLD ACCEPT until Adv PASS.
 
 If `design.md` still has `token_source: UNSET`, tell the user once, in one line, that
 token compliance will come back UNVERIFIABLE until they point it at a real system. Then carry on.
@@ -157,6 +177,22 @@ Never edit a returned verdict. Write each one to `verdicts/<agent>.md` exactly a
 paste all three into the decision record under **Verdicts**, verbatim, before you write a single
 word of your own response to them.
 
+### `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT — not live / not effective until merge)
+
+Soft / tip / wiki-scar-only = **REJECTED**. Stamp-isolation over Checks 7–8 — **not** a new
+Check number.
+
+- File the Critic template block as **CRITIC** under `verdicts/critic.md` (isolated pass).
+- Checks 7–8 (and Check 8 visual grades) **must** have that Critic-labeled artifact/run
+  separate from Adv. Silent dual-hat = FAIL. Adv-only stamps = **fail closed**.
+- If no Critic bot: Adv runs `../../agents/critic.md` as a **second pass labeled CRITIC** —
+  still a separate artifact; **not** folded into ADV prose.
+- Stack: on Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) +
+  `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat
+  unpaid note OK. Does **not** reopen Check 8.
+- Scope: product UX jury; all product teams; **not** OpenClaw. P0: no secrets/keys/emails/PII/
+  host paths in AG git.
+
 ---
 
 ## Step 5: Commit and route
@@ -170,6 +206,7 @@ Then route:
 |---|---|
 | Advocate VETO ACTIVE | **Stop.** Alert the human arbiter. You may revise and resubmit. You may not proceed. |
 | Any BLOCKER from Critic or UXR | Revise, then resubmit for a fresh review. Do not argue it away. |
+| `cite-real-screens` or `adv-comp-critique` FAIL (no `evidence.md`, no opened-screen cites, or incomplete jury artifact: opened IDs/URLs + ≥1 our-hole + ≥1 competitor-hole + do-not-copy) | Pack / Look **FAIL**. Revise and resubmit. Soft Look deferral is rejected. |
 | `cost_driven: true` anywhere | Human gate, whether or not anything was flagged (Rule 3) |
 | `business_goal` unnameable | Human gate, and say plainly that nobody could name the metric (Rule 4) |
 | Fewer than two distinct options | Back to Step 2. Rule 2 failed. |

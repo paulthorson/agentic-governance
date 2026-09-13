@@ -9,6 +9,14 @@
 **Metric:** invented-meeting count on **shipped** Discord morning briefs = **0** (hold) 
 **Scope:** OpenClaw morning briefs only (not other Grimdor reports)
 
+### Draft lock cross-ref: `SURFACE_GATE_MATRIX` (not live / not effective until Cos ACCEPT merge)
+
+OpenClaw briefs = **`MORNING_BRIEF_CITE_OR_BLANK` only**. Product-UX gates
+(`RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 `VISUAL_STEP_STILLS` + `ADV_COMP_CRITIQUE`)
+must **not** be applied here. Wrong-surface FAIL: failing an OpenClaw brief for missing
+userflows/stills = counted under matrix metric (target **0** false-FAIL). Soft / tip /
+wiki-scar-only ≠ sensor. P0: no secrets/keys/emails/PII/host paths in AG git.
+
 ## Symptom
 
 Morning brief pipeline could Discord-ship a full “Meeting Synthesis / Activity” narrative after adversarial **KICK_BACK+rewrite**, even when evidence window had no grounded meetings (example: weekend brief listing multiple timed meetings with `source_meetings: 0`). Term whitelist caught misspellings, not invented meetings. KICK_BACK was treated as ship authority.

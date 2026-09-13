@@ -47,6 +47,57 @@ Stories follow the standard template: Title, User Story, Requirements, Accessibi
 
 **Scope.** Product UX epics only — **not** OpenClaw briefs. P0: no PII, secrets, keys, emails, or absolute host paths in AG git.
 
+### Draft locks (not live / not effective until Cos ACCEPT merge)
+
+Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A scar page is not a sensor.
+
+#### `SURFACE_GATE_MATRIX`
+
+- **Id:** `SURFACE_GATE_MATRIX`
+- **Slot:** Cross-cutting Scope lines in this harness, `harnesses/qa.md`, Critic Checks 6/7/8, OpenClaw brief sensor docs.
+- **FAIL:** Applying product-UX gates to OpenClaw briefs, **or** omitting product-UX gates on product surfaces.
+- **Matrix:** **Product UX** = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. **OpenClaw briefs** = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **Sensor:** Harness/critic Scope lines name this matrix; wrong-surface FAIL is explicit.
+- **Stack:** Documents/binds existing stacks — does **not** replace any named gate. Check 8 is **LIVE** via `#15` / `d61f4c1` — cross-ref only; do not reopen.
+- **Scope:** All teams.
+- **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
+#### `CRITIC_SEPARATE_STAMP`
+
+- **Id:** `CRITIC_SEPARATE_STAMP`
+- **Slot:** UX Critic output contract + adversarial-ux workflow (parallel QA Critic when QA gates). Stamp-isolation rule over Checks 7–8 — **not** a new Check number.
+- **FAIL:** Checks 7–8 (and Check 8 visual grades) lack a distinct Critic-labeled verdict artifact/run separate from Adv; silent dual-hat = FAIL.
+- **Sensor:** Critic template block filed as **CRITIC** (isolated pass). If no Critic bot: Adv runs `critic.md` second pass labeled **CRITIC** — not folded into ADV prose.
+- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) +
+  `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat
+  unpaid note OK. Does **not** reopen Check 8.
+- **Scope:** Product UX jury; all product teams; **not** OpenClaw briefs.
+- **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
+#### `TOKEN_SOURCE_OR_BLANK`
+
+- **Id:** `TOKEN_SOURCE_OR_BLANK`
+- **Slot:** Critic Check 1 Tokens + `adversarial-ux/references/design.md` `token_source` / improve-digest path.
+- **FAIL:** Check 1 PASSes while `token_source` UNSET; improve/report numbers lack a named source; tokens invented; blank treated as measured = FAIL.
+- **Sensor:** `design.md` `token_source`; Check 1 = **UNVERIFIABLE** (never PASS) when UNSET; digests cite a named source or label **BLANK**.
+- **Stack:** On Check 1 / `design.md` — does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
+- **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
+- **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
+#### `LIVE_SOT_MERGED_SHA`
+
+- **Id:** `LIVE_SOT_MERGED_SHA`
+- **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge (liveness only).
+- **FAIL:** Treating intake / open PR / draft / muse as live Paul LOCK or harness law. Only Cos ACCEPT + **merged SHA** is live. Precedent: `#13` intake ≠ SoT.
+- **Sensor:** SoT claims must cite a merged commit SHA (or merged PR number); open/draft headers say **not live / not effective until Cos ACCEPT merge**.
+- **Stack:** Gates Cos ACCEPT; does not replace `RESEARCH_BEFORE_ENHANCE` / Check 7 / Check 8 content — only liveness.
+- **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops that cite AG law.
+- **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
 **Acceptance record.** One line in `rationale.md` recording the acceptance decision: what was received (the brief), whether it was well-formed against the inputs rule (all five brief fields present, no placeholders, at least two genuinely different approaches), and if work proceeded despite a defect, why. (A18.1)
 
 ## Stop conditions
@@ -57,6 +108,9 @@ Stories follow the standard template: Title, User Story, Requirements, Accessibi
 - If `jtbd.md` is missing — stop; do not hand off to Eng.
 - If Research evidence is absent: do not invent JTBD or flows. Record explicit `NO_RESEARCH` and escalate to a human. Uncited FAIL alone is not the path.
 - If Research evidence exists but userflows/JTBD are uncited, contradict it, or cannot be traced to the evidence pack — stop; escalate or send back upstream rather than inventing alignment.
+- On product UX jury gates for Checks 7–8: if there is no distinct **CRITIC**-labeled verdict artifact/run separate from Adv (silent dual-hat) — stop; FAIL under `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT).
+- If Check 1 would PASS while `token_source` is UNSET, or an improve digest treats blank/invented tokens as measured — stop; FAIL under `TOKEN_SOURCE_OR_BLANK` (draft until Cos ACCEPT).
+- Do not execute draft / intake / open-PR headers as live harness law until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 
 ## Permitted plugins
 

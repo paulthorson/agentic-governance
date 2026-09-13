@@ -34,6 +34,48 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `harnesses/chief-of-staff.md`; digest pointer `docs/improve/README.md`; light Adv challenge
   pointer on universal-adversary.
 
+- **Draft SoT: five Adv-named locks — not live / not effective until Cos ACCEPT merge.**
+  Soft / deferred / tip / wiki-scar-only = **REJECTED**. P0: no secrets/keys/emails/PII/host
+  paths in AG git. **HOLD ACCEPT until Adv PASS.** Exactly these five Adv-named locks. No
+  invented tokens. No fan-out language. Check 8 / `VISUAL_STEP_STILLS` is already **LIVE** on
+  main via `#15` / `d61f4c1` — this PR only cross-references stacks; does **not** reopen or
+  rewrite Check 8.
+  1. **`CRITIC_SEPARATE_STAMP`** — Slot: UX Critic output + adversarial-ux workflow (parallel
+     QA Critic when QA gates); stamp-isolation over Checks 7–8 (**not** a new Check number).
+     FAIL: Checks 7–8 lack a distinct Critic-labeled verdict artifact/run separate from Adv;
+     silent dual-hat = FAIL. Sensor: Critic template filed as **CRITIC** (isolated); if no
+     Critic bot, Adv runs critic.md second pass labeled CRITIC — not folded into ADV prose.
+     Stack: Check 7 + Check 8 + `ADV_COMP_CRITIQUE` (Critic grades; Adv challenges). Scope:
+     product UX jury; all product teams; not OpenClaw. Metric: Adv-only stamps on Checks 7–8
+     = **fail closed**.
+  2. **`TOKEN_SOURCE_OR_BLANK`** — Slot: Critic Check 1 + `design.md` `token_source` /
+     improve-digest path. FAIL: Check 1 PASS while UNSET; invented tokens; blank-as-measured.
+     Sensor: Check 1 = UNVERIFIABLE (never PASS) when UNSET; digests cite named source or
+     **BLANK**. Stack: on Check 1 / design.md — does not invent token feed or replace
+     `RESEARCH_BEFORE_ENHANCE`. Scope: AG improve digests + product UX Check 1; not OpenClaw.
+     Metric: invented or blank-as-measured token reports = **fail closed**.
+  3. **`RETRO_BEFORE_CLOSE`** — Slot: Cos/CEO close gate (not a Critic Check). FAIL: epic
+     CLOSED / next-pack GO without triad retro in AG git. Sensor:
+     `projects/<team>/retros/<epic-or-date>.md` (well / didn't / improve); tip/scar/wiki ≠
+     sensor. Stack: after ship/close; does not replace Check 7/8 / `RESEARCH_BEFORE_ENHANCE`.
+     Scope: all product teams; OpenClaw keeps scars (do not force product retro path). Metric:
+     Cos-closed epics missing retro = **fail closed**.
+  4. **`LIVE_SOT_MERGED_SHA`** — Slot: Studio→AG→Cos ACCEPT + Adv challenge. FAIL: treating
+     intake / open PR / draft / muse as live Paul LOCK; only Cos ACCEPT + merged SHA is live
+     (precedent `#13` intake ≠ SoT). Sensor: cite merged SHA/PR; draft headers say not live /
+     not effective until Cos ACCEPT merge. Stack: liveness only — does not replace Check 7/8 /
+     `RESEARCH_BEFORE_ENHANCE` content. Scope: AG harness writes + all product teams + OpenClaw
+     ops citing AG law. Metric: teams executing unmerged intake as SoT = **fail closed**.
+  5. **`SURFACE_GATE_MATRIX`** — Slot: Scope lines in ux/qa harnesses, Critic Checks 6/7/8,
+     OpenClaw brief docs. FAIL: product-UX gates on OpenClaw briefs, or omitted on product
+     surfaces. Matrix: Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 +
+     `ADV_COMP_CRITIQUE`; OpenClaw = `MORNING_BRIEF_CITE_OR_BLANK` only. Sensor: named Scope
+     lines; wrong-surface FAIL explicit. Stack: binds existing stacks — replaces none. Scope:
+     all teams. Metric: OpenClaw briefs failed for missing userflows/stills = **fail closed**.
+  SoT: `harnesses/ux.md`, `harnesses/qa.md`, `harnesses/ceo.md`, `harnesses/chief-of-staff.md`;
+  adversarial-ux/qa critics + flat copies; `design.md`; improve README/template; workflow
+  skills; OpenClaw README + morning-brief scar cross-ref; Ladders retros README pointer.
+
 - **Draft SoT: `VISUAL_STEP_STILLS` (Critic Check 8) — not live / not effective until Cos
   ACCEPT merge.** Fail-closed visual step-stills sensor for product UX ship / Look / visual
   pack gates. Sensor: `docs/epics/<slug>/qa/visual-stills/` + index
