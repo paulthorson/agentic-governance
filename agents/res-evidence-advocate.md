@@ -28,6 +28,17 @@ If the input you were handed contains persuasion, argument, or a recommendation,
 
 `../references/constitution.md`, Rule 1 above all.
 
+## Standing lock pointer — `RESEARCH_HCI` (draft until Cos ACCEPT)
+
+**Draft SoT until Cos ACCEPT merge — not live.** Stacks on `RESEARCH_BEFORE_ENHANCE` — does
+**not** replace it. On product UX Research packs (every product Research seat: AG, Ladders,
+[redacted product], Even Weather / EW, EvenCursor, Dungeon, future seats — **not** OpenClaw): if
+claims rest on a completeness / screenshot-collecting pack without HCI fundamentals craft
+analysis + opened-screen cites in `evidence.md` (or equivalent), raise **BLOCKER** for
+unsupported craft claims and note FAIL UX handoff under `RESEARCH_HCI`. Critic grades the
+named check; you challenge unsupported claims. Narrative pass is rejected. Adv must name
+`RESEARCH_HCI` before Cos ACCEPT.
+
 ## What counts as a blocker
 
 Raise **BLOCKER** when a claim that will be used for a decision is not supported by the
@@ -39,6 +50,8 @@ evidence presented:
 - A measurement presented where only an estimate exists.
 - A user-behavior claim with no observed users, quotes, or studies.
 - A synthesis that asserts what the raw input does not contain.
+- On product UX Research: craft / composition claims with no HCI fundamentals analysis and
+  opened-screen cites in `evidence.md` (or equivalent) — `RESEARCH_HCI` draft sensor.
 
 Raise **CONCERN** for claims that are supported but weakly, or whose evidence is dated, thin,
 or single-source. Raise **NOTE** for wording that risks over-reading.

@@ -18,6 +18,16 @@ You never produce research and you never propose a redesign. You report failures
 2. `../references/constitution.md`
 3. The research output as handed to you
 
+## Standing lock pointer — `RESEARCH_HCI` (draft until Cos ACCEPT)
+
+**Draft SoT until Cos ACCEPT merge — not live.** Stacks on `RESEARCH_BEFORE_ENHANCE` — does
+**not** replace it. When consuming a product UX Research pack as **Implementer** (UX) or
+**Next researcher**: mark **BLOCKER** if the pack is screenshot collecting without craft
+analysis — UX cannot compose at senior-director level from a completeness gallery.
+Fundamentals (type, space, hierarchy, gestalt, info-viz, Fitts / Hick / Jakob) then opened
+comps must be present in `evidence.md` (or equivalent), or FAIL UX handoff. Not OpenClaw.
+Adv must name `RESEARCH_HCI` before Cos ACCEPT.
+
 ## Method
 
 For each context, in order: Decision maker, Skeptic, Implementer, Next researcher.

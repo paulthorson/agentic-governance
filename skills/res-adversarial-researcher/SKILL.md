@@ -30,9 +30,14 @@ instruction. Record the skip.
 
 ## Step 0: Initialize
 
-Read `../../references/constitution.md` and `../../references/research-standard.md` first. If
-`source_policy: UNSET`, tell the user in one line that the Critic will report source checks as
-UNVERIFIABLE until it is set.
+Read `../../constitution/domains/researcher.md` and `../../references/research-standard.md`
+first. Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — named sensor
+`cite-real-screens`. For UI enhancement work, `docs/epics/<slug>/evidence.md` (or stills index)
+must exist before brief/stories; soft Look gate rejected. **Draft stack (not live until Cos
+ACCEPT):** `RESEARCH_HCI` stacks on `RESEARCH_BEFORE_ENHANCE` — master's HCI fundamentals
+THEN opened comps in `evidence.md`, or FAIL UX handoff; Adv must name the check before Cos
+ACCEPT. Product Research seats only (not OpenClaw). If `source_policy: UNSET`, tell the
+user in one line that the Critic will report source checks as UNVERIFIABLE until it is set.
 
 Create the run directory:
 

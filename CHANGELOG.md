@@ -8,6 +8,25 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Draft SoT: `RESEARCH_HCI` — not live / not effective until Cos ACCEPT merge.** Master's
+  HCI craft bar for **every product Research seat** (AG, Ladders, [redacted product], Even Weather /
+  EW, EvenCursor, Dungeon, and future product Research seats) — **Product UX Research only;
+  not OpenClaw briefs; not AG-dashboard-only.** **Stack:** addition on
+  `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — **not** a replacement; cite-real-screens still
+  required. **Bar:** fundamentals **THEN** opened comps — type, space, hierarchy, gestalt,
+  info-viz, Fitts / Hick / Jakob with craft analysis; expert comps opened and cited (for
+  graph/splash work, Obsidian graph is first among equals when relevant); pack must **teach
+  UX** senior-director composition. **FAIL:** screenshot collecting / completeness pack
+  without craft analysis — no narrative pass. **Sensor (fail-closed):** `evidence.md` (or
+  equivalent) must cite HCI fundamentals + opened screens, or **FAIL UX handoff**. **Metric
+  (fail closed):** packs that hand off without that craft analysis = **0**. Soft / deferred / tip /
+  wiki-scar-only = **REJECTED**. **HOLD ACCEPT until Adv names the check** (`RESEARCH_HCI`)
+  then Cos ACCEPT merge. **P0:** no secrets/keys/emails/PII/host paths; no invented KPI
+  numbers. Out of scope for this SoT write: dashboard look/stills pixels; Obsidian splash pack
+  amendments. SoT: `harnesses/researcher.md`; adversarial-researcher critic Check 6 + Adv
+  pointers (evidence-advocate / context-reviewer) + flat `agents/res-*` copies; desk-research
+  / adversarial-researcher skill pointers; CoE + spec Section 5.0 index pointers.
+
 - **Draft SoT: `SELF_AUDIT_LOOP` — not live / not effective until Cos ACCEPT merge.** Cos 6pm
   ET improve digest + AG standing self-audit routine (not a product UX Critic Check number; **no
   new sidebar persona**). **Cos CoE ownership (Paul/Cos LOCK; Adv confirm):** Team triad

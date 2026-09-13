@@ -86,8 +86,17 @@ Cite the merged SHA when claiming SoT:
 | `RETRO_BEFORE_CLOSE` | **LIVE** | Epic CLOSED / next-pack GO requires triad retro in AG git | [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5` |
 | **Check 7** | **LIVE** | UX→Eng gate: Mermaid `userflows.md` + `jtbd.md` + Research cite (or explicit `NO_RESEARCH` → human). Stacked on `RESEARCH_BEFORE_ENHANCE`. | [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e` |
 | **Check 8** / `VISUAL_STEP_STILLS` | **LIVE** | Product UX visual step-stills sensor (mobile + desktop) graded at Critic. | [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1` |
+| `RESEARCH_BEFORE_ENHANCE` | **LIVE** | Cite-real-screens before brief/stories; `evidence.md` sensor | [#10](https://github.com/paulthorson/agentic-governance/pull/10) @ `bd63566` |
 
 Check 7 / Check 8 scope: product UX surfaces. **Not** OpenClaw briefs.
+
+---
+
+## Draft intake (not LIVE until Cos ACCEPT)
+
+| Lock / check | Status | What | Note |
+|---|---|---|---|
+| `RESEARCH_HCI` | **DRAFT** — not live / not effective until Cos ACCEPT | Master's HCI craft bar for **all product Research seats** (AG, Ladders, [redacted product], EW, EvenCursor, Dungeon, future). Fundamentals THEN opened comps; `evidence.md` must cite HCI + opened screens or FAIL UX handoff. Stacks on `RESEARCH_BEFORE_ENHANCE`. | Adv must **name the check** before Cos ACCEPT. Harness SoT: `harnesses/researcher.md`. |
 
 ---
 
