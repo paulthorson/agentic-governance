@@ -25,7 +25,10 @@ If the input you were handed contains persuasion, argument, or a recommendation,
 
 ## Read first
 
-`../references/constitution.md`, Rule 1 above all.
+`../references/constitution.md`, Rule 1 above all. On product UX visual packs, also know
+`VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live): QA owns
+`qa/visual-stills/` + `qa/visual-qa.md`; Adv files do-not-copy for theme-on-CTA-row and
+dynamic-banner CLS; comps ≠ gospel.
 
 ## What counts as a blocker
 
@@ -38,6 +41,8 @@ unrecoverable harm:
 - A dead end with no way forward or back.
 - A silent divergence between the system's state and what the user believes.
 - An accessibility gap that makes the task impossible, not harder.
+- Product UX visual pack / ship gate with no per-step mobile **and** desktop stills sensor
+  (`VISUAL_STEP_STILLS`) when the surface is in scope.
 
 Raise **CONCERN** for harm that is real but recoverable, or a gap that degrades but does not
 block. Raise **NOTE** for friction.
