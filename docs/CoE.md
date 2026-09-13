@@ -2,23 +2,26 @@
 
 Plain-English write-up of how Agentic Governance improves the standing standard from real work.
 
-**Status of this page.** Describes the **operating model**. It does **not** invent a new bot or persona, and it does **not** silently amend the constitution. Named locks below that are still in-flight SoT stay **not live** until Cos ACCEPT merge.
+**Cos HOLD ACCEPT / Adv `COE_README_SOT`.** README and this page must name all seven checklist items below. Soft or marketing-only CoE copy that omits them = **FAIL**.
+
+**Status of this page.** Describes the **operating model**. It does **not** invent a new bot or persona, and it does **not** silently amend the constitution. Named locks that are still in-flight SoT stay **not live** until Cos ACCEPT merge.
 
 ---
 
-## What a CoE is
+## 1. What — framework CoE, not a delivery team
 
-A **standing standard** plus **feedback from shipped work** — not a new team, not a new sidebar persona, not a separate bot.
+A **framework CoE**: standing standard + feedback from shipped work.
 
+- **Not** a delivery team, not a new org-chart box, not a new sidebar persona, not a separate bot.
 - The standard lives in this repo: constitution, harnesses, adversary checks, ledger.
 - The feed is real work: teams ship, file triad retros, and those retros drive unpaid SoT/plans.
-- Improvement is mechanical: named unpaid items with `id` / owner / metric / AC — not vibes, tips, or chat-only retros.
+- Improvement is mechanical: named unpaid items with `id` / owner / metric / AC — not vibes or tips.
 
 ---
 
-## Who (owners)
+## 2. Who — Cos + AG + Adv; no new bot
 
-No new persona. Three existing seats own the CoE loop:
+No new bot. Three existing seats own the CoE loop. **Project PMs are not constitution owners.**
 
 | Seat | Job |
 |---|---|
@@ -34,28 +37,34 @@ No new persona. Three existing seats own the CoE loop:
 
 ---
 
-## The loop
+## 3. Loop
 
 ```
 triad retro
-    →  AG seat drafts named unpaid SoT/plan (id / owner / metric / AC)
-    →  Adv challenges (does not author)
-    →  Cos ACCEPT merge
-    →  teams absorb on next ship
+    →  AG unpaid SoT/plan (id / owner / metric / AC)
+    →  Adv challenge (does not author)
+    →  Cos ACCEPT
+    →  teams absorb
 ```
-
-Soft “we should…”, tip-only notes, wiki scars without an unpaid item, or open/draft PRs treated as live SoT — **rejected** by this operating model.
 
 ---
 
-## Fail-closed middle (named; not live yet)
+## 4. Fail-closed middle — `SELF_AUDIT_LOOP` (unpaid item or `AUDIT_CLEAR`)
 
-Two Adv-named locks sit in the middle of the CoE loop. **Name them. Do not claim they are merged law until Cos ACCEPT merge.**
+`SELF_AUDIT_LOOP` is the fail-closed middle of the CoE loop: each audit cycle must produce a **named unpaid SoT/improve item** **or** explicit **`AUDIT_CLEAR`** with evidence. Nag-only digests (no unpaid item and no `AUDIT_CLEAR`) = **FAIL**.
 
-| Lock | Role in the CoE | Live? |
-|---|---|---|
-| `SELF_AUDIT_LOOP` | Periodic AG self-audit that fail-closes into a named unpaid SoT/improve item (or explicit `AUDIT_CLEAR` with evidence) — not nag theater. | **Not live.** SoT PR in flight: [#18](https://github.com/paulthorson/agentic-governance/pull/18). |
-| `RETRO_BEFORE_CLOSE` | Cos/CEO close gate: epic CLOSED / next-pack GO requires a triad retro in AG git. | **Not live.** SoT PR in flight with the five Adv-named locks: [#17](https://github.com/paulthorson/agentic-governance/pull/17). |
+`RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin (epic CLOSED / next-pack GO requires a triad retro in AG git).
+
+---
+
+## 7. Not merged law yet (SoT PRs in flight)
+
+Do **not** claim `SELF_AUDIT_LOOP` or `RETRO_BEFORE_CLOSE` are live harness/constitution law until Cos ACCEPT merge.
+
+| Lock | Live? |
+|---|---|
+| `SELF_AUDIT_LOOP` | **Not live.** SoT PR in flight: [#18](https://github.com/paulthorson/agentic-governance/pull/18). |
+| `RETRO_BEFORE_CLOSE` | **Not live.** SoT PR in flight with the five Adv-named locks: [#17](https://github.com/paulthorson/agentic-governance/pull/17). |
 
 Until those merges land, teams still file retros and Cos still tracks close discipline as operating practice — but harness/constitution law for those two ids waits on Cos ACCEPT.
 
@@ -74,15 +83,21 @@ Scope for both: product UX surfaces. **Not** OpenClaw briefs.
 
 ---
 
-## P0
+## 5. P0 — no secrets
 
 No secrets, keys, emails, PII, absolute host paths, or private operator data in AG git. No invented tokens.
 
 ---
 
+## 6. Soft / marketing-only = FAIL
+
+Tips, vibes, chat-only retros, wiki scars without an unpaid item, open/draft PRs treated as live SoT, or a marketing CoE blurb missing owners / loop / fail-closed middle (`SELF_AUDIT_LOOP` unpaid-or-`AUDIT_CLEAR`) — **FAIL** under `COE_README_SOT`. Soft “we should…” language is **rejected**.
+
+---
+
 ## See also
 
-- README CoE section (same owners + loop + fail-closed middle)
+- README CoE section (same seven checklist items)
 - [`docs/improve/`](improve/) — daily Cos/AG improve digests
 - [`docs/agentic-governance-spec.md`](agentic-governance-spec.md) — ratified framework
 - Triad retros under `projects/<team>/retros/`

@@ -94,11 +94,11 @@ Folder ownership is the boundary: each bot writes only in its own epic folder an
 
 ## Center of Excellence (operating model)
 
-This section describes the **operating model** for how the standing standard improves from real work. It is **not** a new team, bot, or sidebar persona — and it does **not** amend the constitution by itself.
+Cos HOLD ACCEPT / Adv `COE_README_SOT` checklist — all seven named here. Soft or marketing-only CoE copy that omits them = **FAIL**.
 
-**What a CoE is.** A standing standard plus feedback from shipped work. Teams ship under the harnesses; retros feed the next unpaid SoT/plan. The CoE is that loop, not a separate org chart box.
+**1. What.** A **framework CoE**: standing standard + feedback from real work. **Not** a delivery team, not a new org box, not a new bot or sidebar persona. Does **not** amend the constitution by itself.
 
-**Who (owners — no new persona).**
+**2. Who (owners — no new bot).** Cos + AG seat + Adv only. Project PMs are **not** constitution owners.
 
 | Seat | Job |
 |---|---|
@@ -106,24 +106,28 @@ This section describes the **operating model** for how the standing standard imp
 | **AG seat** | Framework PM. Drafts the named unpaid SoT/plan (`id` / owner / metric / AC). Project PMs ≠ AG constitution. |
 | **Adv** | Challenges the plan. Does **not** author it. |
 
-**Teams (members).** Ship under the live standard. File triad retros (well / didn’t / improve) as the feed — not tips, not chat-only, not wiki scars alone.
+**Teams (members).** Ship under the live standard. File triad retros (well / didn’t / improve) as the feed.
 
-**Loop.**
+**3. Loop.**
 
 ```
-triad retro → AG named unpaid SoT/plan → Adv challenge → Cos ACCEPT merge → teams absorb next ship
+triad retro → AG unpaid SoT/plan → Adv challenge (does not author) → Cos ACCEPT → teams absorb
 ```
 
-**Fail-closed middle (named; not live until Cos ACCEPT merge).** `SELF_AUDIT_LOOP` and `RETRO_BEFORE_CLOSE` are the fail-closed middle of this CoE loop — name them, track the SoT PRs, do **not** treat them as merged law until Cos ACCEPT lands:
+**4. Fail-closed middle.** `SELF_AUDIT_LOOP` — each audit cycle fail-closes to a **named unpaid SoT/improve item** **or** explicit **`AUDIT_CLEAR`** with evidence (nag-only = FAIL). `RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin.
+
+**7. Not merged law yet.** Do **not** claim `SELF_AUDIT_LOOP` or `RETRO_BEFORE_CLOSE` are live harness/constitution law. SoT PRs in flight:
 
 | Lock | Status |
 |---|---|
-| `SELF_AUDIT_LOOP` | SoT in flight — [PR #18](https://github.com/paulthorson/agentic-governance/pull/18). **Not live** until Cos ACCEPT merge. |
-| `RETRO_BEFORE_CLOSE` | SoT in flight with the five Adv-named locks — [PR #17](https://github.com/paulthorson/agentic-governance/pull/17). **Not live** until Cos ACCEPT merge. |
+| `SELF_AUDIT_LOOP` | [PR #18](https://github.com/paulthorson/agentic-governance/pull/18) — **not live** until Cos ACCEPT merge. |
+| `RETRO_BEFORE_CLOSE` | [PR #17](https://github.com/paulthorson/agentic-governance/pull/17) (five Adv-named locks) — **not live** until Cos ACCEPT merge. |
 
-**Already LIVE (cite merged SHAs).** Critic Check 7 (Mermaid userflows + JTBD at UX→Eng) landed as [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e`. Critic Check 8 / `VISUAL_STEP_STILLS` landed as [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1`. Teams execute those; they are not draft law.
+**Already LIVE (cite merged SHAs).** Critic Check 7 [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e`. Critic Check 8 / `VISUAL_STEP_STILLS` [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1`.
 
-**P0.** No secrets, keys, emails, PII, or absolute host paths in AG git.
+**5. P0.** No secrets, keys, emails, PII, or absolute host paths in AG git.
+
+**6. Soft/marketing-only = FAIL.** Tips, vibes, chat-only retros, wiki scars without unpaid items, or a marketing CoE blurb missing owners / loop / fail-closed middle — **FAIL** under `COE_README_SOT`.
 
 Full write-up: [`docs/CoE.md`](docs/CoE.md).
 
