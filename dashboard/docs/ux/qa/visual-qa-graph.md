@@ -20,3 +20,5 @@
 ## FAIL
 
 Layout-shift on graph stage. Chrome inconsistency public↔admin (except names + Get AG). Hick: second Get AG on admin. Invented nodes or stamp counts. Force-graph toy / Grafana. Fake idle pulse.
+
+**Retip after Cos FAIL 8da2c43:** not a pill row. SVG graph: loop nodes+edges, 7 anonymized fleet feeds, hatched unpaid Cycle/LOC/Stamps (no invented numbers). Inspect = zoom on canvas. Admin = same graph with names.
