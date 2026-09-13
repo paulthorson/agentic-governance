@@ -67,8 +67,6 @@ Do **not** claim `RETRO_BEFORE_CLOSE` is live harness/constitution law until Cos
 |---|---|
 | `RETRO_BEFORE_CLOSE` | **Not live.** SoT PR in flight with the five Adv-named locks: [#17](https://github.com/paulthorson/agentic-governance/pull/17). |
 
-`SELF_AUDIT_LOOP` is **not** in this table — it is already **LIVE** (#18 @ `5c10194`).
-
 Teams still file retros and Cos still tracks close discipline as operating practice; harness/constitution law for `RETRO_BEFORE_CLOSE` waits on Cos ACCEPT of #17.
 
 ---
