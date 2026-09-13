@@ -8,6 +8,17 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **UX harness lock: Mermaid userflows + JTBD before Eng handoff (Cos ACCEPT B).**
+  Named Critic Check 7 at UX→Eng gate: require `userflows.md` (Mermaid: entry, success,
+  key error/empty, exits) + `jtbd.md` + Research cite, **or** explicit `NO_RESEARCH` →
+  escalate to human (do not invent). Check 7 is **stacked on `RESEARCH_BEFORE_ENHANCE`**,
+  not a replacement. Metric: UX epics missing those at Critic = **fail closed**. Scope:
+  product UX epics only — **not** OpenClaw briefs. P0: no PII/secrets in AG git. Stop
+  conditions for missing/misaligned artifacts; CX Advocate + Evaluative UXR treat Mermaid
+  flows as the flow under review and note when not checked vs research. SoT:
+  `harnesses/ux.md`; adversarial-ux critic/advocates + flat `agents/ux-*` copies.
+  (Unrelated to PR #13 intake.)
+
 - **`RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE` standing lock** — hard gate
   (soft / deferred Look gate REJECTED). Named sensors `cite-real-screens` +
   `adv-comp-critique` fail-closed (a scar/wiki page is not the gate). Required artifact
