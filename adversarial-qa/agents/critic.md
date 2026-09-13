@@ -49,8 +49,9 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
   separate from Adv; silent dual-hat = FAIL.
 - **Sensor:** This **QA CRITIC** template filed as an isolated pass. If no Critic bot: Adv runs
   critic.md second pass labeled **CRITIC** — not folded into ADV prose.
-- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE` — Critic grades;
-  Adv challenges. Does not replace either. Roster seat unpaid note OK.
+- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` /
+  `d61f4c1`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either.
+  Roster seat unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury / QA gates; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -62,10 +63,12 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
   OpenClaw brief sensor docs.
 - **FAIL:** Applying product-UX gates (incl. this stills sensor) to OpenClaw briefs, or omitting
   them on product surfaces.
-- **Matrix:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`)
-  + `ADV_COMP_CRITIQUE`; OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **Matrix:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`,
+  **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; OpenClaw briefs =
+  `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Scope lines name the matrix; wrong-surface FAIL explicit.
-- **Stack:** Does not replace Check 8 SoT (`#15`) — cross-ref / routing only.
+- **Stack:** Does not replace Check 8 SoT — Check 8 is **LIVE** via `#15` / `d61f4c1`; this lock
+  is routing only. Do not reopen Check 8.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -106,10 +109,9 @@ teams; **not** OpenClaw briefs). Skip only when out of scope and say so.
 
 **Scope (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT):** product UX only. OpenClaw briefs =
 `MORNING_BRIEF_CITE_OR_BLANK` only. Wrong-surface FAIL = applying this sensor to OpenClaw, or
-omitting it on product UX.
-
-**Cross-ref only (do not reopen Check 8 SoT from `#15`):** `CRITIC_SEPARATE_STAMP` — sensor /
-Check 8 grades require a distinct Critic-labeled verdict separate from Adv.
+omitting it on product UX. Check 8 (`VISUAL_STEP_STILLS`) grades are **LIVE** via `#15` /
+`d61f4c1` — do not reopen. `CRITIC_SEPARATE_STAMP` (draft) requires a Critic-labeled verdict
+separate from Adv on those grades.
 
 **Stack:** addition on `RESEARCH_BEFORE_ENHANCE` + UX Critic Check 7 + `ADV_COMP_CRITIQUE` —
 not a replacement. After Check 7 Eng-handoff artifacts exist when applicable.
@@ -172,5 +174,7 @@ VERDICT: PASS | FAIL
 A FAIL on any check fails the verdict. You do not round up. Missing visual stills sensor on
 an in-scope product UX gate is FAIL. UX Critic Check 8 is the grader for named FAIL bullets;
 this check fails closed on sensor absence. Draft SoT until Cos ACCEPT — not live.
-`CRITIC_SEPARATE_STAMP` / `SURFACE_GATE_MATRIX` / `LIVE_SOT_MERGED_SHA` are draft until Cos
-ACCEPT — not live / not effective until merge cites a merged SHA.
+`CRITIC_SEPARATE_STAMP` / `SURFACE_GATE_MATRIX` / `LIVE_SOT_MERGED_SHA` (and sibling five
+locks) are draft until Cos ACCEPT — not live / not effective until merge cites a merged SHA.
+HOLD ACCEPT until Adv PASS. Check 8 (`VISUAL_STEP_STILLS`) is already **LIVE** via `#15` /
+`d61f4c1` — do not reopen.

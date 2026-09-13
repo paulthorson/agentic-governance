@@ -51,11 +51,12 @@ Soft / tip / wiki-scar-only = **REJECTED**.
   FAIL. Does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
 - **`CRITIC_SEPARATE_STAMP`:** Checks 7–8 require a distinct **CRITIC**-labeled verdict
   artifact/run separate from Adv. Silent dual-hat = FAIL. Metric: Adv-only stamps = **fail closed**.
+  Check 8 (`VISUAL_STEP_STILLS`) is **LIVE** via `#15` / `d61f4c1` — do not reopen.
 - **`SURFACE_GATE_MATRIX`:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8
-  (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE`; OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK`
-  only.
-- **`LIVE_SOT_MERGED_SHA`:** This draft is not live until Cos ACCEPT merge cites a merged SHA.
-  Intake / open PR / muse ≠ SoT (precedent `#13`).
+  (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; OpenClaw
+  briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **`LIVE_SOT_MERGED_SHA`:** These five locks are not live until Cos ACCEPT merge cites a
+  merged SHA. Intake / open PR / muse ≠ SoT (precedent `#13`). HOLD ACCEPT until Adv PASS.
 
 If `design.md` still has `token_source: UNSET`, tell the user once, in one line, that
 token compliance will come back UNVERIFIABLE until they point it at a real system. Then carry on.
@@ -186,8 +187,9 @@ Check number.
   separate from Adv. Silent dual-hat = FAIL. Adv-only stamps = **fail closed**.
 - If no Critic bot: Adv runs `../../agents/critic.md` as a **second pass labeled CRITIC** —
   still a separate artifact; **not** folded into ADV prose.
-- Stack: on Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE` — Critic grades;
-  Adv challenges. Does not replace either. Roster seat unpaid note OK.
+- Stack: on Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) +
+  `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat
+  unpaid note OK. Does **not** reopen Check 8.
 - Scope: product UX jury; all product teams; **not** OpenClaw. P0: no secrets/keys/emails/PII/
   host paths in AG git.
 

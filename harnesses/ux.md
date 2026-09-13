@@ -56,9 +56,9 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Id:** `SURFACE_GATE_MATRIX`
 - **Slot:** Cross-cutting Scope lines in this harness, `harnesses/qa.md`, Critic Checks 6/7/8, OpenClaw brief sensor docs.
 - **FAIL:** Applying product-UX gates to OpenClaw briefs, **or** omitting product-UX gates on product surfaces.
-- **Matrix:** **Product UX** = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE`. **OpenClaw briefs** = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **Matrix:** **Product UX** = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. **OpenClaw briefs** = `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Harness/critic Scope lines name this matrix; wrong-surface FAIL is explicit.
-- **Stack:** Documents/binds existing stacks — does **not** replace any named gate (including Check 8 — cross-ref only; SoT for stills remains `#15` / `VISUAL_STEP_STILLS`).
+- **Stack:** Documents/binds existing stacks — does **not** replace any named gate. Check 8 is **LIVE** via `#15` / `d61f4c1` — cross-ref only; do not reopen.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -69,7 +69,9 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Slot:** UX Critic output contract + adversarial-ux workflow (parallel QA Critic when QA gates). Stamp-isolation rule over Checks 7–8 — **not** a new Check number.
 - **FAIL:** Checks 7–8 (and Check 8 visual grades) lack a distinct Critic-labeled verdict artifact/run separate from Adv; silent dual-hat = FAIL.
 - **Sensor:** Critic template block filed as **CRITIC** (isolated pass). If no Critic bot: Adv runs `critic.md` second pass labeled **CRITIC** — not folded into ADV prose.
-- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat unpaid note OK.
+- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) +
+  `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat
+  unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.

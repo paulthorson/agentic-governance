@@ -56,8 +56,9 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 - **Sensor:** This template block filed as **CRITIC** (isolated pass) under
   `verdicts/critic.md` (or equivalent). If no Critic bot: Adv runs this `critic.md` second pass
   labeled **CRITIC** — not folded into ADV prose.
-- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE` — Critic grades;
-  Adv challenges. Does not replace either. Roster seat unpaid note OK.
+- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` /
+  `d61f4c1`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either.
+  Roster seat unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -87,7 +88,8 @@ not new Critic Check numbers unless named below as stacking on an existing Check
   + `ADV_COMP_CRITIQUE`; OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Scope lines below name the matrix; wrong-surface FAIL explicit.
 - **Stack:** Documents/binds existing stacks — does not replace any named gate. Check 8
-  content remains `#15` SoT — cross-ref only.
+  (`VISUAL_STEP_STILLS`) is **LIVE** via `#15` / `d61f4c1` — cross-ref / routing only; do not
+  reopen.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL).
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -100,8 +102,8 @@ not new Critic Check numbers unless named below as stacking on an existing Check
   + merged SHA is live. Precedent: `#13` intake ≠ SoT.
 - **Sensor:** Cite merged SHA / merged PR when claiming live SoT; this file's draft headers say
   not live / not effective until Cos ACCEPT merge.
-- **Stack:** Does not replace Check 7 / Check 8 / `RESEARCH_BEFORE_ENHANCE` content — only
-  liveness.
+- **Stack:** Does not replace Check 7 / Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` /
+  `d61f4c1`) / `RESEARCH_BEFORE_ENHANCE` content — only liveness.
 - **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops
   that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
@@ -216,12 +218,6 @@ sensor.
 an addition, not a replacement.** QA owns producing the stills sensor; UX Critic Check 8
 grades presence + FAIL criteria. Adv opens best-in-class comps and files ≥1 OUR hole + ≥1
 COMP hole + do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps are not gospel.
-
-**Cross-ref only (do not reopen Check 8 SoT from `#15`):** `CRITIC_SEPARATE_STAMP` — Check 8
-visual grades require a distinct **CRITIC**-labeled verdict separate from Adv (Adv challenges;
-does not replace Critic). `SURFACE_GATE_MATRIX` — product UX only; OpenClaw briefs =
-`MORNING_BRIEF_CITE_OR_BLANK` only. `LIVE_SOT_MERGED_SHA` — this draft is not live until Cos
-ACCEPT merge cites a merged SHA.
 
 **When:** QA ship / Look / visual pack gates on product UX surfaces (after Check 7
 Eng-handoff artifacts exist when applicable). Skip only when the work is not a product UX
@@ -346,8 +342,10 @@ are listed above — no etc. Check 8 is stacked on `RESEARCH_BEFORE_ENHANCE` + C
 marketing/dashboard layout-shift Highs = **fail closed**. Scope: all product UX teams;
 not OpenClaw. P0: no secrets/keys/emails/PII/host paths in AG git.
 
-**Draft until Cos ACCEPT (not live):** `CRITIC_SEPARATE_STAMP` — Adv-only stamps on Checks
-7–8 = **fail closed**. `TOKEN_SOURCE_OR_BLANK` — Check 1 never PASS when UNSET; blank-as-measured
-= FAIL. `SURFACE_GATE_MATRIX` — product UX gates vs OpenClaw `MORNING_BRIEF_CITE_OR_BLANK`
-only; false-FAIL OpenClaw for missing userflows/stills = **fail closed**. `LIVE_SOT_MERGED_SHA` —
-this draft is not effective until Cos ACCEPT merge cites a merged SHA.
+**Draft until Cos ACCEPT (not live) — these five locks only:** `CRITIC_SEPARATE_STAMP` —
+Adv-only stamps on Checks 7–8 = **fail closed**. `TOKEN_SOURCE_OR_BLANK` — Check 1 never PASS when
+UNSET; blank-as-measured = FAIL. `SURFACE_GATE_MATRIX` — product UX gates vs OpenClaw
+`MORNING_BRIEF_CITE_OR_BLANK` only; false-FAIL OpenClaw for missing userflows/stills = **fail closed**. `LIVE_SOT_MERGED_SHA` — this draft is not effective until Cos ACCEPT merge cites a
+merged SHA. `RETRO_BEFORE_CLOSE` — Cos/CEO close gate (harness SoT). Check 8
+(`VISUAL_STEP_STILLS`) is already **LIVE** on main via `#15` / `d61f4c1` — do not reopen.
+HOLD ACCEPT on these five until Adv PASS.

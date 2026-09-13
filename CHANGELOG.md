@@ -36,8 +36,10 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - **Draft SoT: five Adv-named locks — not live / not effective until Cos ACCEPT merge.**
   Soft / deferred / tip / wiki-scar-only = **REJECTED**. P0: no secrets/keys/emails/PII/host
-  paths in AG git. Check 8 / `VISUAL_STEP_STILLS` (`#15`) is **separate** — this PR only
-  cross-references where new locks stack on it; does not reopen Check 8 FAIL criteria.
+  paths in AG git. **HOLD ACCEPT until Adv PASS.** Exactly these five locks — no
+  `SELF_AUDIT_LOOP` / self-audit / self-heal in this PR. No invented tokens. No fan-out
+  language. Check 8 / `VISUAL_STEP_STILLS` is already **LIVE** on main via `#15` /
+  `d61f4c1` — this PR only cross-references stacks; does **not** reopen or rewrite Check 8.
   1. **`CRITIC_SEPARATE_STAMP`** — Slot: UX Critic output + adversarial-ux workflow (parallel
      QA Critic when QA gates); stamp-isolation over Checks 7–8 (**not** a new Check number).
      FAIL: Checks 7–8 lack a distinct Critic-labeled verdict artifact/run separate from Adv;

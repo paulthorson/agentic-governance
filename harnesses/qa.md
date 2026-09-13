@@ -51,9 +51,9 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Id:** `SURFACE_GATE_MATRIX`
 - **Slot:** Cross-cutting Scope lines in `harnesses/ux.md`, this harness, Critic Checks 6/7/8, OpenClaw brief sensor docs.
 - **FAIL:** Applying product-UX gates to OpenClaw briefs, **or** omitting product-UX gates on product surfaces.
-- **Matrix:** **Product UX** = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE`. **OpenClaw briefs** = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **Matrix:** **Product UX** = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. **OpenClaw briefs** = `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Harness/critic Scope lines name this matrix; wrong-surface FAIL is explicit.
-- **Stack:** Documents/binds existing stacks — does **not** replace any named gate. Check 8 (`VISUAL_STEP_STILLS`) content remains owned by `#15` — this lock only binds surface routing.
+- **Stack:** Documents/binds existing stacks — does **not** replace any named gate. Check 8 is **LIVE** via `#15` / `d61f4c1` — this lock only binds surface routing; do not reopen Check 8.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -64,7 +64,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Slot:** Parallel QA Critic when QA gates (with UX Critic on product UX jury). Stamp-isolation over Checks 7–8 / QA sensor Check 6 — **not** a new Check number.
 - **FAIL:** Visual / Check 7–8 gates lack a distinct Critic-labeled verdict artifact/run separate from Adv; silent dual-hat = FAIL.
 - **Sensor:** QA Critic template block filed as **QA CRITIC** / **CRITIC** (isolated pass). If no Critic bot: Adv runs critic.md second pass labeled **CRITIC** — not folded into ADV prose.
-- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat unpaid note OK.
+- **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury / QA gates; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -75,7 +75,8 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge (liveness only).
 - **FAIL:** Treating intake / open PR / draft / muse as live Paul LOCK or harness law. Only Cos ACCEPT + merged SHA is live. Precedent: `#13` intake ≠ SoT.
 - **Sensor:** SoT claims cite merged commit SHA (or merged PR number); open/draft headers say **not live / not effective until Cos ACCEPT merge**.
-- **Stack:** Gates Cos ACCEPT; does not replace Check 8 content — only liveness.
+- **Stack:** Gates Cos ACCEPT; does not replace Check 8 content (**LIVE** via `#15` /
+  `d61f4c1`) — only liveness of *these five* locks. Do not reopen Check 8.
 - **Scope:** AG harness writes + team execution; all product teams + OpenClaw ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -83,8 +84,6 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 ### Visual step-stills (`VISUAL_STEP_STILLS` — Critic Check 8)
 
 **Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A scar page is not this sensor.
-
-**Cross-ref only (do not reopen Check 8 here):** `CRITIC_SEPARATE_STAMP` requires a Critic-labeled verdict separate from Adv on Check 8 grades; `SURFACE_GATE_MATRIX` routes this check to product UX surfaces only (not OpenClaw briefs); `LIVE_SOT_MERGED_SHA` governs when this draft becomes live.
 
 - **Named check:** `VISUAL_STEP_STILLS` = Critic Check 8 (UX Critic grades; this harness owns the sensor).
 - **Sensor (fail-closed):** `docs/epics/<slug>/qa/visual-stills/` with per-step **mobile and desktop** screenshots, indexed by `docs/epics/<slug>/qa/visual-qa.md` (step id → mobile path + desktop path + notes). Missing directory, missing index, or any step missing mobile **or** desktop → FAIL.

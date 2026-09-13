@@ -169,7 +169,8 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
 - **Slot:** Cos/CEO close gate + team harness stop (not a Critic Check number).
 - **FAIL:** Epic CLOSED / next-pack GO without triad retro (well / didn't / improve) in AG git.
 - **Sensor:** `projects/<team>/retros/<epic-or-date>.md` with three required sections; tip/scar/wiki-only ≠ sensor.
-- **Stack:** After ship/close; does not replace Check 7 / Check 8 (`VISUAL_STEP_STILLS`) / `RESEARCH_BEFORE_ENHANCE`.
+- **Stack:** After ship/close; does not replace Check 7 / Check 8 (`VISUAL_STEP_STILLS`,
+  **LIVE** via `#15` / `d61f4c1`) / `RESEARCH_BEFORE_ENHANCE`. Does not reopen Check 8.
 - **Scope:** All product teams. OpenClaw keeps existing scar files — do not force product retro path onto OpenClaw briefs.
 - **Metric:** Cos-closed epics missing retro = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -180,7 +181,9 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge.
 - **FAIL:** Treating intake / open PR / draft / muse as live Paul LOCK or harness law; only Cos ACCEPT + merged SHA is live.
 - **Sensor:** SoT claims must cite merged commit SHA (or merged PR number); open/draft headers say not live / not effective until Cos ACCEPT merge.
-- **Stack:** Gates Cos ACCEPT; does not replace `RESEARCH_BEFORE_ENHANCE` / Check 7 / Check 8 content — only liveness. Precedent: `#13` intake ≠ SoT.
+- **Stack:** Gates Cos ACCEPT; does not replace `RESEARCH_BEFORE_ENHANCE` / Check 7 / Check 8
+  (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) content — only liveness of *these*
+  locks. Precedent: `#13` intake ≠ SoT. Do not reopen Check 8.
 - **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
@@ -190,9 +193,12 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
 - **Id:** `SURFACE_GATE_MATRIX`
 - **Slot:** Cross-cutting Scope lines Cos watches across harnesses/critics.
 - **FAIL:** Applying product-UX gates to OpenClaw briefs, or omitting product-UX gates on product surfaces.
-- **Matrix:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) + `ADV_COMP_CRITIQUE`; OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **Matrix:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`,
+  **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; OpenClaw briefs =
+  `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Harness/critic Scope lines name the matrix; wrong-surface FAIL explicit.
-- **Stack:** Documents/binds existing stacks — does not replace any named gate (Check 8 cross-ref only).
+- **Stack:** Documents/binds existing stacks — does not replace any named gate. Check 8 is
+  **LIVE** via `#15` / `d61f4c1` — cross-ref only; do not reopen.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
