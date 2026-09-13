@@ -1,30 +1,33 @@
 # Check 8 — VISUAL_STEP_STILLS index
 
-**Epic:** Public AG dashboard (`/`) — Cos GO 2026-09-13
-**Sensor:** `dashboard/docs/ux/qa/visual-stills/` + this index (dashboard-local; same contract as `docs/epics/<slug>/qa/`).
-**Stacked on:** `RESEARCH_BEFORE_ENHANCE` + Check 7 (`userflows.md` / `jtbd.md`) + `ADV_COMP` LIVE #20 @ `9721af1` (Adv PASS `b868672`).
-**Research:** [`dashboard/docs/research/evidence.md`](../../research/evidence.md).
-**Baseline (raw live, not this pack):** AG PM live `/` captures; used only to name current FAILs.
-**UI SoT:** Meta Astryx as product face — these stills are the IA/chrome target, not an Eng implementation.
+**Epic:** Public AG dashboard (`/`) — Cos GO 2026-09-13, look HOLD 2026-09-13
+**Rev:** look retip NEW PR off main. Cos ACCEPT MERGED #21 @ `b2d703e` is LIVE IA SoT — do not amend #21. Adv PASS `4ecb309` was completeness, not craft.
+**Sensor:** `dashboard/docs/ux/qa/visual-stills/` + this index.
+**Stacked on:** `RESEARCH_BEFORE_ENHANCE` + Check 7 IA LIVE #21 @ `b2d703e` + `ADV_COMP` LIVE #20 @ `9721af1` (Adv PASS `b868672`).
+**Research:** [`dashboard/docs/research/evidence.md`](../../research/evidence.md) — adopt Stripe KPI+spark, Linear update+rail, Datadog-equal (Better Stack / Neon / Cloudflare) board density. Do not copy Stripe widget soup, Better Stack wholesale dark-as-internal, or fake fill.
+**UI SoT:** Meta Astryx as implementation system; these stills are the **product face**, not a component scaffold.
 **P0:** no secrets, keys, emails, PII, or absolute host paths.
+**Live QA:** #22 — Fitts/Hick FAIL on live `/` (competing primaries; mobile Get AG must stay reserved-width, not clipped).
 
-Stills are **proposed** product chrome. Numbers are the live measured set only (Daily improve 4, Retros 2, AG PRs 2, Cycle time Baseline, Tokens unpaid, 5 traction metrics gated).
+Numbers remain the live measured set only (Daily improve 4, Retros 2, AG PRs 2, Cycle time Baseline, Tokens unpaid, 5 traction gated, two measured days).
+
+Voice: marketing, not harness. No “measured honestly” / “never invented” constitution copy on the fold.
 
 ## Steps
 
 | Step | Flow | Desktop | Mobile | Motion (what / when / why) |
 | --- | --- | --- | --- | --- |
-| F1-land | F1 Land & scan | [f1-land-desktop.png](./visual-stills/f1-land-desktop.png) | [f1-land-mobile.png](./visual-stills/f1-land-mobile.png) | **What:** KPI values sit static on first paint; sparklines are already-drawn measured series (no jitter). **When:** only if a feed adds a point after load. **Why:** living board, not a fake ticker. |
-| F1-chart | F1 chart | [f1-chart-desktop.png](./visual-stills/f1-chart-desktop.png) | [f1-chart-mobile.png](./visual-stills/f1-chart-mobile.png) | **What:** null-day hatch is static; new point may ease in. **When:** a measured day lands. **Why:** Neon hatch / Stripe designed zero. |
-| F2-update | F2 Latest update | [f2-update-desktop.png](./visual-stills/f2-update-desktop.png) | [f2-update-mobile.png](./visual-stills/f2-update-mobile.png) | **What:** card + rail only. **When:** n/a. **Why:** reports stay secondary. |
-| F3-empty | F3 Baseline | [f3-empty-desktop.png](./visual-stills/f3-empty-desktop.png) | [f3-empty-mobile.png](./visual-stills/f3-empty-mobile.png) | **What:** hatch/label only; no count-up. **When:** never until a ledger exists. **Why:** designed empty; do not invent Cycle time or Tokens. |
-| F4-cta | F4 Get AG | [f4-cta-desktop.png](./visual-stills/f4-cta-desktop.png) | [f4-cta-mobile.png](./visual-stills/f4-cta-mobile.png) | **What:** header Get AG reserved-width; no layout shift. **When:** hover/focus only. **Why:** one primary; live mobile clip is a FAIL we close. |
-| F5-toast | F5 Ship toast | [f5-toast-desktop.png](./visual-stills/f5-toast-desktop.png) | [f5-toast-mobile.png](./visual-stills/f5-toast-mobile.png) | **What:** one quiet toast + optional count-up on the KPI that changed. **When:** a measured merge/ship/retro is recorded. **Why:** never on load; no invented pulse. |
+| F1-land | F1 Land & scan | [f1-land-desktop.png](./visual-stills/f1-land-desktop.png) | [f1-land-mobile.png](./visual-stills/f1-land-mobile.png) | **What:** KPI values static; sparklines already drawn; “Live board” pill is status chrome, not a pulse. **When:** pill/count-up only if a measured feed updates. **Why:** Stripe/Cloudflare card density; no invented pulse. |
+| F1-chart | F1 chart | [f1-chart-desktop.png](./visual-stills/f1-chart-desktop.png) | [f1-chart-mobile.png](./visual-stills/f1-chart-mobile.png) | **What:** hatch + grid + companion table sit static; a new day may ease in. **When:** a measured day lands. **Why:** board, not 2-dot scaffold. Neon hatch / Stripe designed zero. No invented points. |
+| F2-update | F2 Latest ship | [f2-update-desktop.png](./visual-stills/f2-update-desktop.png) | [f2-update-mobile.png](./visual-stills/f2-update-mobile.png) | **What:** card + traction empty. **When:** n/a. **Why:** Linear analog — reports secondary. |
+| F3-empty | F3 Baseline | [f3-empty-desktop.png](./visual-stills/f3-empty-desktop.png) | [f3-empty-mobile.png](./visual-stills/f3-empty-mobile.png) | **What:** hatch + Unpaid pill; no count-up. **When:** never until a ledger exists. **Why:** Mixpanel/Amplitude/Neon designed empty. |
+| F4-cta | F4 Get AG (QA #22 Fitts) | [f4-cta-desktop.png](./visual-stills/f4-cta-desktop.png) | [f4-cta-mobile.png](./visual-stills/f4-cta-mobile.png) | **What:** reserved header Get AG; no CLS. **When:** hover/focus. **Why:** one primary; live Fitts FAIL closed. |
+| F5-toast | F5 Ship toast | [f5-toast-desktop.png](./visual-stills/f5-toast-desktop.png) | [f5-toast-mobile.png](./visual-stills/f5-toast-mobile.png) | **What:** present confirmation card (check + title + source line). **When:** a measured merge/ship/retro is recorded. **Why:** Apollo/Canny toast with presence. Never on load. No fake ticker. |
 
-## Check 8 FAIL review (UX self-check — Critic still stamps separately)
+## Check 8 FAIL review (UX self-check — Critic stamps separately)
 
-Per-step mobile AND desktop: yes. CLS/Fitts/Hick designed PASS (one Get AG; theme slot reserved not in CTA cluster). Jakob: mobile menu exception documented in userflows.md. Miller NOTE.
+Per-step mobile AND desktop: yes. CLS/Fitts/Hick designed PASS (one Get AG reserved-width; theme slot not in CTA cluster). Jakob: mobile menu exception. Look: dark ops density; board chart; present toast; marketing headline. Numbers: measured set only.
 
 ## Next
 
-Stills → AG PM → Cos before Eng. No Eng GO from UX alone.
+Stills → AG PM → Cos before Eng. No Eng GO from UX. Check 7 IA SoT remains #21 @ `b2d703e`. Evidence #20 @ `9721af1`. This pack is craft-only stills.
