@@ -6,5 +6,6 @@ ADV_COMP / live-comps evidence for the Cos GO dashboard epic. AG Research owns t
 | --- | --- | --- |
 | ADV_COMP evidence (Mobbin) | [`evidence.md`](./evidence.md) | LIVE SoT — merged **#20** @ `9721af1` |
 | LIVE comps cite (Stripe.com + Linear.app) | [`live-comps-2026-09-13.md`](./live-comps-2026-09-13.md) | Additive live marketing + AG fold cites for Cos HOLD **#24** look retip |
+| Motion / micro / finish (Mobbin-first) | [`motion-finish-2026-09-13.md`](./motion-finish-2026-09-13.md) | Additive Mobbin motion/finish pack for Cos LOCK **#26** polish — Eng HOLD |
 
-`evidence.md` stays the Mobbin ADV_COMP SoT. The live-comps file adds public marketing / AG fold pixels and AUTH_REQUIRED notes — it does not rewrite evidence.md or write `look.md`.
+`evidence.md` stays the Mobbin ADV_COMP SoT. The live-comps file adds public marketing / AG fold pixels and AUTH_REQUIRED notes — it does not rewrite evidence.md or write `look.md`. The motion-finish pack adds Apple/Linear/Stripe finish + quiet-toast vocabulary and live apple.com / linear.app motion notes — it does not rewrite #20/#25 or write `look.md`.
