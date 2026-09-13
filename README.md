@@ -114,16 +114,17 @@ Cos HOLD ACCEPT / Adv `COE_README_SOT` checklist — all seven named here. Soft 
 triad retro → AG unpaid SoT/plan → Adv challenge (does not author) → Cos ACCEPT → teams absorb
 ```
 
-**4. Fail-closed middle.** `SELF_AUDIT_LOOP` — each audit cycle fail-closes to a **named unpaid SoT/improve item** **or** explicit **`AUDIT_CLEAR`** with evidence (nag-only = FAIL). `RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin.
+**4. Fail-closed middle.** `SELF_AUDIT_LOOP` — each audit cycle fail-closes to a **named unpaid SoT/improve item** **or** explicit **`AUDIT_CLEAR`** with evidence (nag-only = FAIL). **LIVE** via Cos ACCEPT [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`. `RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin — **named, not merged law yet**.
 
-**7. Not merged law yet.** Do **not** claim `SELF_AUDIT_LOOP` or `RETRO_BEFORE_CLOSE` are live harness/constitution law. SoT PRs in flight:
+**7. Not merged law yet.** Do **not** claim `RETRO_BEFORE_CLOSE` is live harness/constitution law. SoT still in flight on the five Adv-named locks — [PR #17](https://github.com/paulthorson/agentic-governance/pull/17). **Not live** until Cos ACCEPT merge.
 
-| Lock | Status |
+**Already LIVE (cite merged SHAs).**
+
+| Lock / check | Merged |
 |---|---|
-| `SELF_AUDIT_LOOP` | [PR #18](https://github.com/paulthorson/agentic-governance/pull/18) — **not live** until Cos ACCEPT merge. |
-| `RETRO_BEFORE_CLOSE` | [PR #17](https://github.com/paulthorson/agentic-governance/pull/17) (five Adv-named locks) — **not live** until Cos ACCEPT merge. |
-
-**Already LIVE (cite merged SHAs).** Critic Check 7 [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e`. Critic Check 8 / `VISUAL_STEP_STILLS` [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1`.
+| `SELF_AUDIT_LOOP` | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
+| Critic Check 7 | [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e` |
+| Critic Check 8 / `VISUAL_STEP_STILLS` | [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1` |
 
 **5. P0.** No secrets, keys, emails, PII, or absolute host paths in AG git.
 

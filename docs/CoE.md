@@ -53,33 +53,36 @@ triad retro
 
 `SELF_AUDIT_LOOP` is the fail-closed middle of the CoE loop: each audit cycle must produce a **named unpaid SoT/improve item** **or** explicit **`AUDIT_CLEAR`** with evidence. Nag-only digests (no unpaid item and no `AUDIT_CLEAR`) = **FAIL**.
 
-`RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin (epic CLOSED / next-pack GO requires a triad retro in AG git).
+**LIVE** via Cos ACCEPT [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`.
+
+`RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin (epic CLOSED / next-pack GO requires a triad retro in AG git). **Named; not merged law yet** — still on the five Adv-named locks SoT [#17](https://github.com/paulthorson/agentic-governance/pull/17).
 
 ---
 
-## 7. Not merged law yet (SoT PRs in flight)
+## 7. Not merged law yet — `RETRO_BEFORE_CLOSE` only
 
-Do **not** claim `SELF_AUDIT_LOOP` or `RETRO_BEFORE_CLOSE` are live harness/constitution law until Cos ACCEPT merge.
+Do **not** claim `RETRO_BEFORE_CLOSE` is live harness/constitution law until Cos ACCEPT merge.
 
 | Lock | Live? |
 |---|---|
-| `SELF_AUDIT_LOOP` | **Not live.** SoT PR in flight: [#18](https://github.com/paulthorson/agentic-governance/pull/18). |
+| `SELF_AUDIT_LOOP` | **LIVE.** Cos ACCEPT [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`. |
 | `RETRO_BEFORE_CLOSE` | **Not live.** SoT PR in flight with the five Adv-named locks: [#17](https://github.com/paulthorson/agentic-governance/pull/17). |
 
-Until those merges land, teams still file retros and Cos still tracks close discipline as operating practice — but harness/constitution law for those two ids waits on Cos ACCEPT.
+Teams still file retros and Cos still tracks close discipline as operating practice; harness/constitution law for `RETRO_BEFORE_CLOSE` waits on Cos ACCEPT of #17.
 
 ---
 
 ## Already LIVE (cite merged SHAs)
 
-These Critic checks are **live** on `main`. Teams may execute them; cite the merged SHA when claiming SoT:
+Cite the merged SHA when claiming SoT:
 
-| Check | What | Merged |
+| Lock / check | What | Merged |
 |---|---|---|
+| `SELF_AUDIT_LOOP` | Fail-closed AG self-audit → unpaid SoT/improve item or `AUDIT_CLEAR` | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
 | **Check 7** | UX→Eng gate: Mermaid `userflows.md` + `jtbd.md` + Research cite (or explicit `NO_RESEARCH` → human). Stacked on `RESEARCH_BEFORE_ENHANCE`. | [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e` |
 | **Check 8** / `VISUAL_STEP_STILLS` | Product UX visual step-stills sensor (mobile + desktop) graded at Critic. | [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1` |
 
-Scope for both: product UX surfaces. **Not** OpenClaw briefs.
+Check 7 / Check 8 scope: product UX surfaces. **Not** OpenClaw briefs.
 
 ---
 
