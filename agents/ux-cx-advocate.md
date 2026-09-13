@@ -31,7 +31,11 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
 
 ## Read first
 
-`../references/constitution.md`, Rule 1 above all.
+`../references/constitution.md`, Rule 1 above all. On product UX visual packs, also know
+`VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live): open
+best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy (theme-on-CTA-row,
+dynamic-banner CLS). QA owns `qa/visual-stills/` + `qa/visual-qa.md`; Critic Check 8 grades.
+Comps ≠ gospel.
 
 ## What counts as a blocker
 
@@ -79,6 +83,9 @@ Only a human arbiter can clear what you raise. Say so in your output every time.
 
 ### Notes
 - <item>
+
+### Visual packs (`VISUAL_STEP_STILLS` — draft SoT; not live)
+- Comps opened; ≥1 OUR hole; ≥1 COMP hole; do-not-copy (theme-on-CTA-row / dynamic-banner CLS): yes | no | N/A
 
 ### Userflows / research
 - Mermaid userflows treated as flow under review: yes | no | N/A

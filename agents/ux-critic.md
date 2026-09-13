@@ -41,7 +41,7 @@ Hard gate. Soft / deferred "comps at Look" is **REJECTED**. A scar page is not t
   do-not-copy gap. Pack / Look **FAIL** if the jury has no opened-screen cites, or any of those
   fields is missing.
 
-## The seven checks
+## The eight checks
 
 ### Check 1: Token compliance
 
@@ -130,6 +130,48 @@ Before Eng handoff (and on any UX adversarial review of design work):
 - When Research evidence exists: flows map to JTBD; JTBD and flows do not
   contradict the brief's evidence pack. Misalignment or contradiction → FAIL.
 
+### Check 8: Visual step-stills (`VISUAL_STEP_STILLS`)
+
+Named Critic Check 8. **Draft SoT until Cos ACCEPT merge — not live constitution.** Soft,
+deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A scar page is not this
+sensor.
+
+**Stacked on `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Critic Check 7 + `ADV_COMP_CRITIQUE` —
+an addition, not a replacement.** QA owns producing the stills sensor; UX Critic Check 8
+grades presence + FAIL criteria. Adv opens best-in-class comps and files ≥1 OUR hole + ≥1
+COMP hole + do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps are not gospel.
+
+**When:** QA ship / Look / visual pack gates on product UX surfaces (after Check 7
+Eng-handoff artifacts exist when applicable). Skip only when the work is not a product UX
+surface (say so). **Scope:** product UX surfaces only (marketing + app chrome) for **all**
+product UX teams (Ladders, Even Weather, [redacted product], Dungeon, JEEP, EvenCursor, Nearby
+Places, G2, and any other product UX team) — **not** OpenClaw briefs.
+
+**Metrics (fail closed):** visual QA packs / ship gates without per-step mobile **and** desktop
+stills = **fail closed**; marketing/dashboard layout-shift Highs (primary CTA wrap, chrome
+colliding with CTA, theme control stealing CTA row) = **fail closed**.
+
+**P0:** no secrets, keys, emails, PII, or absolute host paths in AG git.
+
+**Sensor (fail-closed):** `docs/epics/<slug>/qa/visual-stills/` with per-step mobile **and**
+desktop screenshots, indexed by `docs/epics/<slug>/qa/visual-qa.md` (step id → mobile path +
+desktop path + notes).
+
+FAIL if any of the following:
+
+- Sensor missing (no `qa/visual-stills/` and/or no `qa/visual-qa.md`), or any flow step lacks
+  both mobile and desktop screenshots.
+- **CLS/layout:** primary CTA row wraps or shifts when theme/chrome loads; reserved-space
+  missing for theme control; dynamic banner pushes hero CTA.
+- **Fitts:** primary CTA shrinks/splits across wrap; theme toggle in CTA cluster.
+- **Hick:** >1 competing primary in same thumb zone without hierarchy.
+- **Jakob:** chrome inconsistent mobile vs desktop for same step without documented
+  exception.
+- **Miller:** NOTE only unless stills show unlabeled overflow chrome crowding the step —
+  then FAIL.
+- Adv jury on visual packs incomplete: missing opened best-in-class comps, or missing ≥1 OUR
+  hole, or missing ≥1 COMP hole, or missing do-not-copy, or comps treated as gospel.
+
 ## Output
 
 Return this exactly. No preamble, no summary of the design, no encouragement.
@@ -144,6 +186,7 @@ Check 4 Record: PASS | FAIL
 Check 5 Intake: PASS | FAIL
 Check 6 Cite+Critique: PASS | FAIL | N/A
 Check 7 Flows+JTBD: PASS | FAIL
+Check 8 VisualStills (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
 
 ### Findings
 - [<check>] <severity: BLOCKER|CONCERN|NOTE> <what is wrong> | <where>
@@ -166,6 +209,19 @@ Check 7 Flows+JTBD: PASS | FAIL
 - Flows map to JTBD / aligned with Research: yes | no | unknown | N/A (NO_RESEARCH)
 - Metric hold (missing at Critic = 0): PASS | FAIL
 
+### Visual step-stills (Check 8 / `VISUAL_STEP_STILLS`) — draft SoT; stacked on RESEARCH_BEFORE_ENHANCE + Check 7 + ADV_COMP_CRITIQUE
+- Scope applicable: product UX surface (marketing + app chrome), all product teams | N/A (not OpenClaw / out of scope)
+- Sensor `docs/epics/<slug>/qa/visual-stills/` + index `qa/visual-qa.md`: present | missing — FAIL
+- Per-step mobile AND desktop stills: yes | no — FAIL if no
+- CLS/layout High (CTA wrap/shift; missing theme reserved-space; dynamic banner pushes hero CTA): PASS | FAIL | N/A
+- Fitts (CTA shrink/split; theme toggle in CTA cluster): PASS | FAIL | N/A
+- Hick (>1 competing primary in thumb zone): PASS | FAIL | N/A
+- Jakob (mobile↔desktop chrome inconsistency without documented exception): PASS | FAIL | N/A
+- Miller (unlabeled overflow chrome crowding step): NOTE | FAIL | none
+- Adv jury (comps opened; ≥1 OUR hole; ≥1 COMP hole; do-not-copy; comps ≠ gospel): PASS | FAIL | N/A
+- Metric hold (packs without stills = 0; marketing/dashboard CLS Highs = 0): PASS | FAIL
+- P0 (no secrets/keys/emails/PII/host paths): PASS | FAIL
+
 ### Not checkable
 - <anything you could not verify, and why>
 
@@ -179,4 +235,11 @@ required jury-artifact field. Missing or research-misaligned `userflows.md` / `j
 is always FAIL on Check 7. Check 7 is stacked on `RESEARCH_BEFORE_ENHANCE`, not a
 replacement. When Research evidence is absent, only explicit `NO_RESEARCH` → human
 passes the cite path — inventing JTBD/flows FAILS. Metric: UX epics missing those
-artifacts at Critic = **fail closed**.
+artifacts at Critic = **fail closed**. Check 8 (`VISUAL_STEP_STILLS`) is draft SoT until Cos
+ACCEPT merge — not live. On product UX visual pack / ship / Look gates, missing
+`qa/visual-stills/` / `qa/visual-qa.md` or any step without mobile **and** desktop stills
+is FAIL. Named FAIL bullets (CLS/layout, Fitts, Hick, Jakob; Miller when crowding shown)
+are listed above — no etc. Check 8 is stacked on `RESEARCH_BEFORE_ENHANCE` + Check 7 +
+`ADV_COMP_CRITIQUE`, not a replacement. Metrics: packs without step stills = **fail closed**;
+marketing/dashboard layout-shift Highs = **fail closed**. Scope: all product UX teams;
+not OpenClaw. P0: no secrets/keys/emails/PII/host paths in AG git.

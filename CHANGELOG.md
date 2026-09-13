@@ -8,6 +8,30 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Draft SoT: `VISUAL_STEP_STILLS` (Critic Check 8) — not live / not effective until Cos
+  ACCEPT merge.** Fail-closed visual step-stills sensor for product UX ship / Look / visual
+  pack gates. Sensor: `docs/epics/<slug>/qa/visual-stills/` + index
+  `docs/epics/<slug>/qa/visual-qa.md` with per-step **mobile and desktop** screenshots (scar
+  page ≠ sensor). QA owns sensor; UX Critic Check 8 grades presence + named FAIL bullets;
+  QA Critic verifies sensor before gate; Adv opens best-in-class comps and files ≥1 OUR hole
+  + ≥1 COMP hole + do-not-copy (theme-on-CTA-row, dynamic-banner CLS) — comps ≠ gospel.
+  **Stack:** addition on `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Critic Check 7 +
+  `ADV_COMP_CRITIQUE` — not a replacement. **Metrics (fail closed):** visual QA packs / ship gates
+  without step stills (mobile+desktop) = **0**; marketing/dashboard layout-shift Highs
+  (primary CTA wrap, chrome colliding with CTA, theme control stealing CTA row) = **0**.
+  **Scope:** product UX surfaces only (marketing + app chrome); **all** product UX teams
+  (Ladders, Even Weather, [redacted product], Dungeon, JEEP, EvenCursor, Nearby Places, G2, and any
+  other product UX team) — **not** OpenClaw briefs. **P0:** no secrets/keys/emails/PII/host
+  paths in AG git. **Named FAIL (no etc.):** CLS/layout (CTA wrap/shift when theme/chrome
+  loads; reserved-space missing for theme control; dynamic banner pushes hero CTA); Fitts
+  (CTA shrinks/splits; theme toggle in CTA cluster); Hick (>1 competing primary in same thumb
+  zone without hierarchy); Jakob (mobile↔desktop chrome inconsistency without documented
+  exception); Miller (NOTE only unless stills show unlabeled overflow chrome crowding the
+  step). Soft / deferred / tip / wiki-scar-only = REJECTED. SoT: `harnesses/qa.md`;
+  adversarial-ux critic Check 8 + flat `agents/ux-critic.md`; adversarial-qa critic sensor
+  check + flat `agents/qa-critic.md`; light Adv pointers (cx-advocate / evaluative-uxr /
+  quality-advocate).
+
 - **UX harness lock: Mermaid userflows + JTBD before Eng handoff (Cos ACCEPT B).**
   Named Critic Check 7 at UX→Eng gate: require `userflows.md` (Mermaid: entry, success,
   key error/empty, exits) + `jtbd.md` + Research cite, **or** explicit `NO_RESEARCH` →

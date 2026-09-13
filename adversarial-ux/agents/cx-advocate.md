@@ -48,6 +48,10 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
   in our UI **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look
   **FAIL** / raise BLOCKER if there are no opened-screen cites or any field is missing. Comps
   are not gospel.
+- **`VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live):** On product
+  UX visual packs, open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy.
+  Named do-not-copy themes: **theme-on-CTA-row**, **dynamic-banner CLS**. QA owns
+  `qa/visual-stills/` + `qa/visual-qa.md`; Critic Check 8 grades. Comps ≠ gospel.
 
 ## What counts as a blocker
 
@@ -101,6 +105,7 @@ Only a human arbiter can clear what you raise. Say so in your output every time.
 - Hole in our UI (≥1 required): <list or "none — BLOCKER">
 - Hole in competitor screen (≥1 required): <list or "none — BLOCKER">
 - Do-not-copy gap (≥1 required): <list or "none — BLOCKER">
+- Visual packs (`VISUAL_STEP_STILLS`): theme-on-CTA-row / dynamic-banner CLS do-not-copy filed: yes | no | N/A
 
 ### Userflows / research
 - Mermaid userflows treated as flow under review: yes | no | N/A

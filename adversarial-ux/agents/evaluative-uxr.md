@@ -37,6 +37,10 @@ Hard gate. Soft / deferred comps-at-Look is **REJECTED**. A scar page is not thi
   opened screen IDs or URLs (no secrets, keys, emails, or host paths) **and** ≥1 hole in our UI
   **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look **FAIL** if
   there are no opened-screen cites or any field is missing.
+- **`VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live):** On product
+  UX visual packs, open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy
+  (theme-on-CTA-row, dynamic-banner CLS). Comps ≠ gospel. QA owns the stills sensor; Critic
+  Check 8 grades.
 
 ## Method
 
@@ -98,6 +102,7 @@ name in your output. You do not hold the customer-harm veto. The Advocate does.
 - Hole in our UI (≥1 required): <list or "none — FAIL">
 - Hole in competitor screen (≥1 required): <list or "none — FAIL">
 - Do-not-copy gap (≥1 required): <list or "none — FAIL">
+- Visual packs (`VISUAL_STEP_STILLS`) do-not-copy (theme-on-CTA-row / dynamic-banner CLS): yes | no | N/A
 
 ### Userflows / research
 - Mermaid userflows treated as flow under review: yes | no | N/A
