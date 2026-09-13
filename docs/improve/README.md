@@ -49,19 +49,21 @@ Do not backfill fake history later.
 
 **Draft SoT until Cos ACCEPT merge — not live / not effective until ACCEPT.** Soft “we
 should…”, wiki tip, or scar-without-unpaid = **REJECTED**. SoT lives in
-[`harnesses/chief-of-staff.md`](../../harnesses/chief-of-staff.md). **No new Auditor
-persona.** Adv challenges Cos ACCEPT on that write (Adv does not write the unpaid plan).
+[`harnesses/chief-of-staff.md`](../../harnesses/chief-of-staff.md). **No new sidebar
+persona.**
 
-**CoE ownership (Paul/Cos LOCK):** Teams file retros (feed) → Agentic Governance (framework
-PM) drafts the named unpaid SoT/plan from retro+audit → Adv challenges the plan (does not
-write it) → Cos ACCEPT → Teams absorb. Project PMs do **not** own harness writes.
+**Cos CoE ownership (Paul/Cos LOCK; Adv confirm):** Team triad retro (feed) → AG seat drafts
+named unpaid SoT/plan (`id` / owner / metric / AC; project PMs ≠ AG constitution) → Adv
+challenges (does **not** author; `CRITIC_SEPARATE_STAMP`) → Cos ACCEPT → teams absorb next
+ship. Sensor remains unpaid item or `AUDIT_CLEAR`.
 
 When live, each Cos 6pm ET improve digest cycle must record **BOTH**:
 
 1. A checklist vs live scars/locks (stills / `token_source` / retros / `LIVE_SOT` /
    `SURFACE_GATE` / Critic stamp), and
-2. ≥1 named unpaid improve/SoT item (`id` + owner + metric) **OR** explicit `AUDIT_CLEAR`
-   with evidence — drafted by AG (framework PM / CoE), not Adv, not a project PM.
+2. ≥1 named unpaid improve/SoT item (`id` + owner + metric + AC) **OR** explicit
+   `AUDIT_CLEAR` with evidence — drafted by the AG seat, not authored by Adv, not written by
+   a project PM into AG constitution/harness.
 
 Nag-only digests FAIL. This loop is an addition on the daily digest + `RETRO_BEFORE_CLOSE`,
 not a replacement. Scope: AG harness + Cos improve / self-heal — not OpenClaw briefs. P0: no
