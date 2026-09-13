@@ -9,6 +9,7 @@ touch the relevant page here.
 
 - [[Home]] — entry point
 - [[Architecture]] — the governed review loop, end to end
+- [[CoE]] — Center of Excellence operating model (Cos + AG + Adv)
 - [[Domains]] — the 5 domains and their agents
 - [[Governance]] — constitution, vetoes, calibration, amendments
 - [[MCP]] — the MCP server reference
@@ -22,6 +23,7 @@ touch the relevant page here.
 |------|---------|
 | [[Home]] | What this is, quick start |
 | [[Architecture]] | The review loop: produce → in_review → adversary → kick back / allow |
+| [[CoE]] | CoE operating model: standing standard + retro feed; Cos ACCEPT / AG drafts / Adv challenges |
 | [[Domains]] | ux, engineer, qa, researcher, universal — agents + skills per domain |
 | [[Constitution]] | The four constitutional rules and the amendment procedure |
 | [[Vetoes]] | Hard vetoes per domain; only a human clears one |
