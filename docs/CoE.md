@@ -8,7 +8,7 @@ Plain-English write-up of how Agentic Governance improves the standing standard 
 
 `SELF_AUDIT_LOOP` is **LIVE** — Cos ACCEPT merged [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`.
 
-`RETRO_BEFORE_CLOSE` stays **not live** until Cos ACCEPT of [#17](https://github.com/paulthorson/agentic-governance/pull/17).
+`RETRO_BEFORE_CLOSE` is **LIVE** — Cos ACCEPT merged [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5`.
 
 ---
 
@@ -59,19 +59,20 @@ triad retro
 
 **Status: LIVE.** Cos ACCEPT merged [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`. Teams execute it.
 
-`RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin (epic CLOSED / next-pack GO requires a triad retro in AG git). **Named; not merged law yet** — still on the five Adv-named locks SoT [#17](https://github.com/paulthorson/agentic-governance/pull/17).
+`RETRO_BEFORE_CLOSE` is the close-gate twin (epic CLOSED / next-pack GO requires a triad retro in AG git).
+
+**Status: LIVE.** Cos ACCEPT merged [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5`. Teams execute it.
 
 ---
 
-## 7. Not merged law yet — `RETRO_BEFORE_CLOSE` only
+## 7. Fail-closed locks LIVE
 
-Do **not** claim `RETRO_BEFORE_CLOSE` is live harness/constitution law until Cos ACCEPT merge of [#17](https://github.com/paulthorson/agentic-governance/pull/17).
+Both CoE fail-closed locks are merged law:
 
-| Lock | Status |
-|---|---|
-| `RETRO_BEFORE_CLOSE` | **Not live.** SoT PR in flight with the five Adv-named locks: [#17](https://github.com/paulthorson/agentic-governance/pull/17). |
-
-Teams still file retros and Cos still tracks close discipline as operating practice; harness/constitution law for `RETRO_BEFORE_CLOSE` waits on Cos ACCEPT of #17.
+| Lock | Status | Merged |
+|---|---|---|
+| `SELF_AUDIT_LOOP` | **LIVE** | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
+| `RETRO_BEFORE_CLOSE` | **LIVE** | [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5` |
 
 ---
 
@@ -82,6 +83,7 @@ Cite the merged SHA when claiming SoT:
 | Lock / check | Status | What | Merged |
 |---|---|---|---|
 | `SELF_AUDIT_LOOP` | **LIVE** | Fail-closed AG self-audit → unpaid SoT/improve item or `AUDIT_CLEAR` | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
+| `RETRO_BEFORE_CLOSE` | **LIVE** | Epic CLOSED / next-pack GO requires triad retro in AG git | [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5` |
 | **Check 7** | **LIVE** | UX→Eng gate: Mermaid `userflows.md` + `jtbd.md` + Research cite (or explicit `NO_RESEARCH` → human). Stacked on `RESEARCH_BEFORE_ENHANCE`. | [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e` |
 | **Check 8** / `VISUAL_STEP_STILLS` | **LIVE** | Product UX visual step-stills sensor (mobile + desktop) graded at Critic. | [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1` |
 
@@ -100,6 +102,8 @@ No secrets, keys, emails, PII, absolute host paths, or private operator data in 
 Tips, vibes, chat-only retros, wiki scars without an unpaid item, open/draft PRs treated as live SoT, or a marketing CoE blurb missing owners / loop / fail-closed middle — **FAIL** under `COE_README_SOT`. Soft “we should…” language is **rejected**.
 
 Fail-closed middle must cite `SELF_AUDIT_LOOP` as **LIVE** Cos ACCEPT [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` (unpaid item or `AUDIT_CLEAR`).
+
+`RETRO_BEFORE_CLOSE` must cite **LIVE** Cos ACCEPT [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5`.
 
 ---
 

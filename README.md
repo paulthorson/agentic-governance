@@ -116,21 +116,27 @@ triad retro → AG unpaid SoT/plan → Adv challenge (does not author) → Cos A
 
 **4. Fail-closed middle.** `SELF_AUDIT_LOOP` is **LIVE** — Cos ACCEPT merged [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`. Each audit cycle fail-closes to a **named unpaid SoT/improve item** **or** explicit **`AUDIT_CLEAR`** with evidence (nag-only = FAIL).
 
-`RETRO_BEFORE_CLOSE` sits beside it as the close-gate twin — **named, not merged law yet** (still on [#17](https://github.com/paulthorson/agentic-governance/pull/17)).
+`RETRO_BEFORE_CLOSE` is **LIVE** — Cos ACCEPT merged [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5`. Close-gate twin: epic CLOSED / next-pack GO requires a triad retro in AG git.
 
-**7. Not merged law yet — `RETRO_BEFORE_CLOSE` only.** Do **not** claim `RETRO_BEFORE_CLOSE` is live harness/constitution law. SoT still in flight on the five Adv-named locks — [PR #17](https://github.com/paulthorson/agentic-governance/pull/17). **Not live** until Cos ACCEPT merge.
+**7. Fail-closed locks LIVE.** Both CoE fail-closed locks are merged law:
+
+| Lock | Status | Merged |
+|---|---|---|
+| `SELF_AUDIT_LOOP` | **LIVE** | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
+| `RETRO_BEFORE_CLOSE` | **LIVE** | [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5` |
 
 **Already LIVE (cite merged SHAs).**
 
 | Lock / check | Status | Merged |
 |---|---|---|
 | `SELF_AUDIT_LOOP` | **LIVE** | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
+| `RETRO_BEFORE_CLOSE` | **LIVE** | [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5` |
 | Critic Check 7 | **LIVE** | [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e` |
 | Critic Check 8 / `VISUAL_STEP_STILLS` | **LIVE** | [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1` |
 
 **5. P0.** No secrets, keys, emails, PII, or absolute host paths in AG git.
 
-**6. Soft/marketing-only = FAIL.** Tips, vibes, chat-only retros, wiki scars without unpaid items, or a marketing CoE blurb missing owners / loop / fail-closed middle (`SELF_AUDIT_LOOP` **LIVE** [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`) — **FAIL** under `COE_README_SOT`.
+**6. Soft/marketing-only = FAIL.** Tips, vibes, chat-only retros, wiki scars without unpaid items, or a marketing CoE blurb missing owners / loop / fail-closed middle (`SELF_AUDIT_LOOP` **LIVE** [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`; `RETRO_BEFORE_CLOSE` **LIVE** [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5`) — **FAIL** under `COE_README_SOT`.
 
 Full write-up: [`docs/CoE.md`](docs/CoE.md).
 
