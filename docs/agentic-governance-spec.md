@@ -177,6 +177,13 @@ A research question asks the researcher to **establish what is true** — it doe
 
 The harness is the **source of truth** at `harnesses/researcher.md` (A23). The inline copy is not maintained here; edit the harness file.
 
+**Standing locks indexed on the Research harness (cite status carefully):**
+
+| Lock | Status | Notes |
+|---|---|---|
+| `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) | **LIVE** | Cite-real-screens; constitution + scar SoT. |
+| `RESEARCH_HCI` | **DRAFT** — not live / not effective until Cos ACCEPT | Master's HCI craft bar for every product Research seat. Stacks on `RESEARCH_BEFORE_ENHANCE` (addition, not replacement). Adv must name the check before Cos ACCEPT. See harness + Research Critic Check 6. |
+
 ### 5.1 Product Manager Harness
 
 The harness is the **source of truth** at `harnesses/pm.md` (A23). The inline copy is not maintained here; edit the harness file.
