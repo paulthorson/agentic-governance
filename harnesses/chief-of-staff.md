@@ -156,7 +156,7 @@ On a signal: draft an amendment proposal; do not edit governance files. The huma
 - If two CEOs disagree, do not pick a winner; package for the human
 - If four hours pass in open hours with neither delivery nor an explicit deferral log, stop and P0 the missed SLA (timeout = wizard-configured SLA, not hardcoded)
 - Never apply a governance edit yourself
-- On the daily 6pm ET improve digest self-audit (`SELF_AUDIT_LOOP`, when live): if the cycle has a checklist but neither a named unpaid improve/SoT item (`id` + owner + metric) nor explicit `AUDIT_CLEAR` with evidence — stop; do not close the digest as a pass. Escalate rather than nag-only. Soft / tip / wiki / scar-without-unpaid do not clear this stop.
+- On the daily 6pm ET improve digest self-audit (`SELF_AUDIT_LOOP`, when live): if the cycle has a checklist but neither a named unpaid improve/SoT item (`id` + owner + metric + AC) nor explicit `AUDIT_CLEAR` with evidence — stop; do not close the digest as a pass. Escalate rather than nag-only. Soft / tip / wiki / scar-without-unpaid do not clear this stop. Adv must not author the unpaid plan (`CRITIC_SEPARATE_STAMP`); project PMs ≠ AG constitution.
 - If digest or unpaid-item text would require secrets, keys, emails, PII, or absolute host paths in AG git — stop; redact first.
 
 ## Permitted plugins
