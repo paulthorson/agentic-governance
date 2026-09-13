@@ -8,6 +8,32 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Draft SoT: `SELF_AUDIT_LOOP` — not live / not effective until Cos ACCEPT merge.** Cos 6pm
+  ET improve digest + AG standing self-audit routine (not a product UX Critic Check number; **no
+  new Auditor persona**). **CoE ownership (Paul/Cos LOCK):** Teams file retros (feed) →
+  Agentic Governance (this bot) = framework PM drafts the named unpaid SoT/plan from
+  retro+audit → Adv challenges the plan (does **not** write it) → Cos ACCEPT → Teams absorb.
+  Project PMs do **not** own harness writes. **One-line FAIL:** FAIL if the periodic AG
+  self-audit only nags (missing stills, `UNSET` `token_source`, missing retros, draft-as-law,
+  wrong-surface gates) without opening a fail-closed named unpaid SoT/improve item; Paul/Cos
+  having to hand-list meta-gaps = FAIL of this loop. **Why retro-only insufficient:**
+  `RETRO_BEFORE_CLOSE` is post-epic/team-scoped — cannot catch standing AG gate drift between
+  epics; digest-without-unpaid = nag theater. **Sensor (fail-closed):** each audit cycle
+  produces BOTH (1) checklist vs live scars/locks (stills / `token_source` / retros /
+  `LIVE_SOT` / `SURFACE_GATE` / Critic stamp) and (2) ≥1 named unpaid improve/SoT item
+  (`id` + owner + metric) OR explicit `AUDIT_CLEAR` with evidence — drafted by AG (framework
+  PM / CoE). Soft “we should…” / wiki tip / scar-without-unpaid = **REJECTED**. **Stack:**
+  addition on daily improve digest + `RETRO_BEFORE_CLOSE` — not a replacement; audits the
+  other five locks (`CRITIC_SEPARATE_STAMP`, `TOKEN_SOURCE_OR_BLANK`, `RETRO_BEFORE_CLOSE`,
+  `LIVE_SOT_MERGED_SHA`, `SURFACE_GATE_MATRIX`) once SoT-live — this PR does **not** define
+  those five. **Scope:** AG harness + Cos improve digest / self-heal — **not** OpenClaw
+  briefs. **Metrics (fail closed):** Cos/Paul hand-recommended AG meta-gaps the last audit should
+  have fail-closed = **0**; nag-only cycles (no unpaid item and no `AUDIT_CLEAR`) = **0**.
+  **P0:** no secrets/keys/emails/PII/host paths in AG git or digest artifacts; no invented
+  tokens. Soft / deferred / tip / wiki-scar-only = REJECTED. SoT:
+  `harnesses/chief-of-staff.md`; digest pointer `docs/improve/README.md`; light Adv challenge
+  pointer on universal-adversary.
+
 - **Draft SoT: `VISUAL_STEP_STILLS` (Critic Check 8) — not live / not effective until Cos
   ACCEPT merge.** Fail-closed visual step-stills sensor for product UX ship / Look / visual
   pack gates. Sensor: `docs/epics/<slug>/qa/visual-stills/` + index

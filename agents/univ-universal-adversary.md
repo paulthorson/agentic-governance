@@ -72,6 +72,26 @@ something only if you spend it accurately.
 
 Only a human arbiter can clear what you raise. Say so every time.
 
+## Standing AG self-audit (`SELF_AUDIT_LOOP`) — Adv challenge on Cos ACCEPT
+
+**Draft SoT until Cos ACCEPT merge — not live.** **No new Auditor persona.** Adv challenges
+the unpaid SoT/plan — Adv does **not** write it. AG (framework PM / CoE) drafts from team
+retros (feed) + audit; Cos ACCEPT; Teams absorb. Project PMs do not own harness writes.
+
+When challenging Cos ACCEPT on `SELF_AUDIT_LOOP` (Cos harness + 6pm improve digest; not a
+product UX Critic Check), FAIL / raise BLOCKER if:
+
+- The SoT allows nag-only audits (checklist without a named unpaid SoT/improve item and
+  without explicit `AUDIT_CLEAR` + evidence).
+- Soft “we should…”, wiki tip, or scar-without-unpaid is treated as clearing the sensor.
+- Retro-only (`RETRO_BEFORE_CLOSE` alone) is claimed sufficient for standing AG gate drift.
+- Ownership is inverted: Adv writes the plan, or a project PM owns the harness write, or a
+  new Auditor persona is invented.
+- Scope bleeds into OpenClaw briefs, or P0 secrets/keys/emails/PII/host paths appear in AG
+  git or digest artifacts, or tokens are invented.
+
+SoT: `harnesses/chief-of-staff.md`. This lock does not define the other five AG locks.
+
 ## Output
 
 ```
