@@ -1,39 +1,30 @@
-# Visual QA — public `/` (Check 8 `VISUAL_STEP_STILLS`)
+# Check 8 — VISUAL_STEP_STILLS index
 
-**Gate:** Critic Check 8 — per-step mobile + desktop stills + motion note.
-**Research SoT:** [`../../research/evidence.md`](../../research/evidence.md) — LIVE Cos ACCEPT MERGED AG #20 @ `9721af1` on main. Adv PASS tip `b868672` (challenge), secondary.
-**Flows:** [`../userflows.md`](../userflows.md) F1–F5 · **Jobs:** [`../jtbd.md`](../jtbd.md) J1–J6.
-**Stills dir:** [`visual-stills/`](./visual-stills/) — PNGs land in a follow-up on this branch. Do not invent pixels.
+**Epic:** Public AG dashboard (`/`) — Cos GO 2026-09-13
+**Sensor:** `dashboard/docs/ux/qa/visual-stills/` + this index (dashboard-local; same contract as `docs/epics/<slug>/qa/`).
+**Stacked on:** `RESEARCH_BEFORE_ENHANCE` + Check 7 (`userflows.md` / `jtbd.md`) + `ADV_COMP` LIVE #20 @ `9721af1` (Adv PASS `b868672`).
+**Research:** [`dashboard/docs/research/evidence.md`](../../research/evidence.md).
+**Baseline (raw live, not this pack):** AG PM live `/` captures; used only to name current FAILs.
+**UI SoT:** Meta Astryx as product face — these stills are the IA/chrome target, not an Eng implementation.
+**P0:** no secrets, keys, emails, PII, or absolute host paths.
 
-Measured numbers on stills (live `/` audit only): Daily improve **4**, Retros **2**, AG PRs **2**, Cycle time **Baseline**, Tokens **Baseline**, chart points 2026-09-11 → 2026-09-12, traction **5 metrics gated**. No invented KPI / token / money.
+Stills are **proposed** product chrome. Numbers are the live measured set only (Daily improve 4, Retros 2, AG PRs 2, Cycle time Baseline, Tokens unpaid, 5 traction metrics gated).
 
-## Stills index
+## Steps
 
-| Step | Desktop | Mobile | Flow / job |
-| --- | --- | --- | --- |
-| F1-land | [`visual-stills/f1-land-desktop.png`](./visual-stills/f1-land-desktop.png) | [`visual-stills/f1-land-mobile.png`](./visual-stills/f1-land-mobile.png) | F1 · J1, J2 |
-| F1-chart | [`visual-stills/f1-chart-desktop.png`](./visual-stills/f1-chart-desktop.png) | [`visual-stills/f1-chart-mobile.png`](./visual-stills/f1-chart-mobile.png) | F1 · J1 |
-| F2-update | [`visual-stills/f2-update-desktop.png`](./visual-stills/f2-update-desktop.png) | [`visual-stills/f2-update-mobile.png`](./visual-stills/f2-update-mobile.png) | F2 · J4 |
-| F3-empty | [`visual-stills/f3-empty-desktop.png`](./visual-stills/f3-empty-desktop.png) | [`visual-stills/f3-empty-mobile.png`](./visual-stills/f3-empty-mobile.png) | F3 · J5 |
-| F4-cta | [`visual-stills/f4-cta-desktop.png`](./visual-stills/f4-cta-desktop.png) | [`visual-stills/f4-cta-mobile.png`](./visual-stills/f4-cta-mobile.png) | F4 · J3 |
-| F5-toast | [`visual-stills/f5-toast-desktop.png`](./visual-stills/f5-toast-desktop.png) | [`visual-stills/f5-toast-mobile.png`](./visual-stills/f5-toast-mobile.png) | F5 · J6 |
+| Step | Flow | Desktop | Mobile | Motion (what / when / why) |
+| --- | --- | --- | --- | --- |
+| F1-land | F1 Land & scan | [f1-land-desktop.png](./visual-stills/f1-land-desktop.png) | [f1-land-mobile.png](./visual-stills/f1-land-mobile.png) | **What:** KPI values sit static on first paint; sparklines are already-drawn measured series (no jitter). **When:** only if a feed adds a point after load. **Why:** living board, not a fake ticker. |
+| F1-chart | F1 chart | [f1-chart-desktop.png](./visual-stills/f1-chart-desktop.png) | [f1-chart-mobile.png](./visual-stills/f1-chart-mobile.png) | **What:** null-day hatch is static; new point may ease in. **When:** a measured day lands. **Why:** Neon hatch / Stripe designed zero. |
+| F2-update | F2 Latest update | [f2-update-desktop.png](./visual-stills/f2-update-desktop.png) | [f2-update-mobile.png](./visual-stills/f2-update-mobile.png) | **What:** card + rail only. **When:** n/a. **Why:** reports stay secondary. |
+| F3-empty | F3 Baseline | [f3-empty-desktop.png](./visual-stills/f3-empty-desktop.png) | [f3-empty-mobile.png](./visual-stills/f3-empty-mobile.png) | **What:** hatch/label only; no count-up. **When:** never until a ledger exists. **Why:** designed empty; do not invent Cycle time or Tokens. |
+| F4-cta | F4 Get AG | [f4-cta-desktop.png](./visual-stills/f4-cta-desktop.png) | [f4-cta-mobile.png](./visual-stills/f4-cta-mobile.png) | **What:** header Get AG reserved-width; no layout shift. **When:** hover/focus only. **Why:** one primary; live mobile clip is a FAIL we close. |
+| F5-toast | F5 Ship toast | [f5-toast-desktop.png](./visual-stills/f5-toast-desktop.png) | [f5-toast-mobile.png](./visual-stills/f5-toast-mobile.png) | **What:** one quiet toast + optional count-up on the KPI that changed. **When:** a measured merge/ship/retro is recorded. **Why:** never on load; no invented pulse. |
 
-## Motion notes (what / when / why)
+## Check 8 FAIL review (UX self-check — Critic still stamps separately)
 
-| Step | What | When | Why |
-| --- | --- | --- | --- |
-| F1-land | Static fold; optional KPI spark only from measured feed | On load — no celebrate-on-load | Trust honest board (J1); idle stays calm (`§7`/`§6`) |
-| F1-chart | Plot measured points; null days = intentional gap/hatch | When series has feed points | Measured-points-only; axes stay (`§8`/`§9`) |
-| F2-update | Latest Update card + Progress rail settle; no MD dump hero | After fold scan / Reports | Scan improve health without archive (J4) |
-| F3-empty | Hatch / labeled Baseline + recovery; no fill invent | Unpaid Cycle time / Tokens or gated traction | Designed empty product chrome (J5) |
-| F4-cta | One primary **Get AG**; reserved header width | Header + in-page same destination | Hick/Fitts — no twin primaries; no mobile clip (J3) |
-| F5-toast | Quiet one-shot ship toast; optional count-up on that KPI; spark takes new point | Only when measured ship/merge/retro lands | Notice real ship, not atmosphere (J6); idle = no toast |
+Per-step mobile AND desktop: yes. CLS/Fitts/Hick designed PASS (one Get AG; theme slot reserved not in CTA cluster). Jakob: mobile menu exception documented in userflows.md. Miller NOTE.
 
-## Acceptance (Check 8 — stills pending)
+## Next
 
-| Field | Value |
-| --- | --- |
-| Index | Six steps × desktop+mobile paths listed; motion what/when/why present |
-| Research | LIVE Cos ACCEPT MERGED AG #20 @ `9721af1`; Adv PASS tip `b868672` (challenge), secondary |
-| PNGs | Not yet — follow-up on this branch. No invented stills |
-| Next | Capture stills → AG PM → Cos before Eng. Eng HOLD |
+Stills → AG PM → Cos before Eng. No Eng GO from UX alone.
