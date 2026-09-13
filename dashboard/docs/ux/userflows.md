@@ -1,160 +1,125 @@
-# Userflows — Living graph splash + admin twin
+# Userflows — Public AG dashboard (`/`)
 
-**Gate:** Critic Check 7 — Mermaid (entry, success, empty/error, exits). 
-**Jobs:** [`jtbd.md`](./jtbd.md) J1–J7. 
-**Splash SoT:** #28 @ `f9f38ff` [`living-graph-splash-2026-09-13.md`](../research/living-graph-splash-2026-09-13.md). 
-**Motion SoT:** #27 @ `235610e`. Honesty SoT: #20 @ `9721af1`. 
-**Supersedes:** F1 “Land & scan KPIs” strip. Land is **explore-the-graph**. 
-**Chrome (Jakob):** Brand + one **Get AG** on public desk and mobile. Graph is the product. Mobile: no CLS on graph (reserved stage height). Admin: same graph chrome, no Get AG.
+**Gate:** Critic Check 7 — Mermaid required (entry, success, error/empty, exits).
+**Research SoT:** [`dashboard/docs/research/evidence.md`](../research/evidence.md) — LIVE Cos ACCEPT MERGED AG #20 @ `9721af1` on main. Adv PASS tip `b868672` (challenge), secondary.
+**Jobs:** [`jtbd.md`](./jtbd.md) J1–J6.
+**Chrome (Jakob):** Same primary chrome on desktop and mobile: brand, Overview, Reports, one **Get AG** primary. Mobile collapses Overview/Reports into a menu; **Get AG** stays a reserved-width header control (no clip, no wrap). Documented exception: secondary nav labels hide behind the menu at mobile — primary + brand stay visible.
 
-**Measured on frames (do not invent):** Daily improve **4**, Retros **2**, Merged PRs **2** (12 Sep). Cycle unpaid → hatch/omit. Role nodes are the locked loop, not invented projects. Fleet names omitted on public.
+Hierarchy (evidence `§8`): brand + one job headline → KPI cards → primary chart → Latest Update + Progress rail → CTA. Reports are secondary.
 
----
+Measured numbers on stills (live `/` audit, not invented): Daily improve **4**, Retros **2**, AG PRs **2**, Cycle time **Baseline**, Tokens **Baseline**, chart points 2026-09-11 → 2026-09-12, traction **5 metrics gated**.
 
-## F1 — Land default graph (J1)
+## F1 — Land & scan KPIs (J1, J2)
 
-Entry: open `/`. Success: they see the loop graph, idle still. Empty: unpaid edges hatched/omitted. Exit: hover (F2), click (F3), Get AG (F6), leave.
+Entry: visitor opens `/`. Success: they trust the board and know the job. Empty: unpaid tiles use designed empty (F3). Exit: scroll to update (F2), Get AG (F4), or leave.
 
 ```mermaid
 flowchart TD
-  E1[Entry: open public /] --> G1[Reserved graph stage — no CLS]
-  G1 --> L1[Role nodes: Research → PM → UX → Eng → QA → Adv → Cos]
-  L1 --> M1{Edge or flux measured?}
-  M1 -->|yes: improve 4 / retros 2 / PRs 2| M2[Draw edge or count from store]
-  M1 -->|unpaid: cycle / unknown fleet| M3[Hatch or omit — no invented node]
-  M2 --> I1[Idle still — no pulse]
-  M3 --> I1
-  I1 --> X1[Exit: hover F2]
-  I1 --> X2[Exit: click F3]
-  I1 --> X3[Exit: Get AG F6]
-  I1 --> X4[Exit: leave]
+  E1[Entry: open public /] --> H1[Brand + one job headline]
+  H1 --> K1[KPI card system: label + value + source/method + optional spark]
+  K1 --> C1{Metric measured?}
+  C1 -->|yes: Gains 4, Retros 2, AG PRs 2| M1[Show measured value + spark from feed]
+  C1 -->|no: Cycle time, Tokens| E3[Designed empty: hatch or labeled Baseline + recovery]
+  M1 --> CH[Primary chart: measured points only]
+  E3 --> CH
+  CH --> N1{Null day in series?}
+  N1 -->|yes| N2[Intentional gap / hatch — axes stay]
+  N1 -->|no| N3[Plot measured point]
+  N2 --> T1[Traction strip: hide below threshold]
+  N3 --> T1
+  T1 --> X1[Exit: scroll to Latest Update F2]
+  T1 --> X2[Exit: Get AG F4]
+  T1 --> X3[Exit: leave]
 ```
 
-**Cite:** #28 §1–2, §5 do-not-copy strip / force-graph / fake pulse. Fitness paused = idle still.
+**Cite:** `§2` limp tiles + sparse chart; `§3` Stripe / Cloudflare / Amplitude cards, Vercel KPI→chart, Neon hatch; `§8` hierarchy; `§9` no invented numbers.
 
----
+## F2 — Latest update / reports (J4)
 
-## F2 — Hover / focus readout (J2)
-
-Entry: pointer or keyboard focus on a node or edge. Success: one quiet tooltip (date / count / stamp family). Empty: unpaid → hatch label, no number. Exit: blur back to idle graph.
+Entry: from F1 fold or Reports nav. Success: visitor gets “what shipped” from a card + rail. Empty: no report yet → designed empty card (not a blank hole). Exit: expand one report, go `/reports`, or back to fold.
 
 ```mermaid
 flowchart TD
-  E2[Entry: hover or focus node/edge] --> Q1{Paid fact in store?}
-  Q1 -->|yes| T1[Quiet tooltip: date + count or stamp family]
-  Q1 -->|no| T2[Hatch / omit label — never invent]
-  T1 --> X1[Exit: blur — tooltip gone, graph idle]
-  T2 --> X1
+  E2[Entry: fold scroll or Reports] --> U1[Latest Update card — summary not full MD]
+  U1 --> P1[Progress rail: scope / shipped / retros from measured feeds]
+  P1 --> R1{Want full archive?}
+  R1 -->|no| X1[Exit: back to KPIs or Get AG]
+  R1 -->|yes| R2[Expand one card or open /reports]
+  R2 --> R3{Reports exist?}
+  R3 -->|yes| R4[Secondary list — not fold hero]
+  R3 -->|no| R5[Empty: no reports yet + link to improve docs]
+  R4 --> X2[Exit: back /]
+  R5 --> X2
 ```
 
-**Cite:** #28 §3b Stripe / Arcade hover. Public: no project name in tooltip.
+**Cite:** `§2` MD dump as hero; `§3` Linear Latest-Update + Progress rail; `§6`/`§9` collapse reports on `/`.
 
----
+## F3 — Baseline / unpaid (J5)
 
-## F3 — Click → inspect seat (J3)
-
-Entry: click a role node. Success: zoom/inspect — ROLE + shipped work. Error: no shipped facts → designed empty inspect. Exit: close inspect, back to land.
+Entry: visitor hits Cycle time or Tokens (live unpaid) or a traction-gated slot. Success: empty reads as product. Error: feed missing — BLANK / unpaid labeled, never a fake number. Exit: recovery next step or ignore and continue F1.
 
 ```mermaid
 flowchart TD
-  E3[Entry: click role node] --> Z1[Zoom / inspect panel]
-  Z1 --> Z2[Show persona ROLE — not a human name]
-  Z2 --> Z3{Shipped work in store?}
-  Z3 -->|yes| Z4[List measured ships only]
-  Z3 -->|no| Z5[Empty inspect: hatch + why unpaid]
-  Z4 --> X1[Exit: close — return to land graph]
-  Z5 --> X1
-  Z1 --> Z6[Error: refuse secrets / paths / Studio]
-  Z6 --> X1
+  E3[Entry: unpaid KPI or gated traction] --> S1{Feed has a measured value?}
+  S1 -->|yes| S2[Render card with value + source line]
+  S1 -->|no / below threshold| S3[Designed empty]
+  S3 --> S4[Keep card chrome + axes]
+  S4 --> S5[Hatch or labeled inactive / Baseline]
+  S5 --> S6[Recovery: why unpaid + next step — not invent]
+  S6 --> X1[Exit: continue scan F1]
+  S2 --> X1
+  S3 --> S7[Error: source unset → label BLANK — never invent]
+  S7 --> X1
 ```
 
-**Cite:** #28 §3a Cofounder / Railway / Twenty inspect. Competitor-hole: n8n / LangSmith IDE. Public: no project names.
+**Cite:** `§2` Baseline text only; `§3` Mixpanel / Amplitude recovery, Neon hatch, Stripe Radar zero; `§6` no fake fill; traction gate keep.
 
----
+## F4 — Get AG (J3)
 
-## F4 — Mobile graph (J1, Jakob)
-
-Entry: open `/` on a phone. Success: same graph, reserved height, no layout shift. Inspect is a sheet, not a new chrome family. Exit: same as F1–F3.
+Entry: header **Get AG** or in-page CTA (same destination). Success: visitor reaches GitHub clone. Error: repo/link unavailable → supporting text, no second fake primary. Exit: GitHub, Quick start (secondary), or back.
 
 ```mermaid
 flowchart TD
-  E4[Entry: mobile /] --> H1[Brand + reserved Get AG]
-  H1 --> S1[Graph stage reserved height — no CLS]
-  S1 --> S2{Gesture}
-  S2 -->|hover analog: tap-hold| F2[Readout F2]
-  S2 -->|tap node| F3[Inspect as sheet F3]
-  S2 -->|none| I1[Idle still]
-  I1 --> X1[Exit: leave or Get AG]
+  E4[Entry: header Get AG or in-page Get AG] --> A1[One primary: Get AG → GitHub]
+  A1 --> A2[Secondary text: Quick start]
+  A2 --> A3{Link available?}
+  A3 -->|yes| A4[Exit: GitHub clone]
+  A3 -->|no| A5[Error: CTA stays, copy says source unavailable — no invented mirror]
+  A5 --> X1[Exit: back to board]
+  A4 --> X2[Done]
+  A2 --> X1
 ```
 
-**Cite:** #28 mobile stills required; Check 8 FAIL = CLS / chrome inconsistency.
+**Hick / Fitts lock:** One primary in the thumb/header zone. No GitHub + Quick start as twin primaries. No theme toggle in the CTA cluster. Header CTA has reserved width so it does not clip or wrap (live mobile FAIL). PR “View” links are supporting, not primaries.
 
----
+**Cite:** live `/` competing CTAs + clipped sticky; `§8` primary toward Get AG / GitHub; Check 8 Fitts/Hick.
 
-## F5 — Toast-on-ship, then node stays (J6)
+## F5 — Measured ship toast (J6)
 
-Entry: measured ship/merge/retro written to the store. Success: quiet toast + one node/edge twitch + count remains. Idle: nothing. Exit: toast dismisses; new count stays.
+Entry: a measured ship/merge/retro is recorded in a feed. Success: one quiet toast. Empty/idle: no toast. Exit: toast dismisses; board values update only from the feed.
 
 ```mermaid
 flowchart TD
-  E5[Entry: store records a ship] --> Q1{Real measured event?}
-  Q1 -->|no| Q2[Idle still — no toast, no twitch]
-  Q1 -->|yes| Q3[Quiet toast]
-  Q3 --> Q4[Micro-anim: that node or edge only]
-  Q4 --> Q5[Count / node updates and STAYS]
-  Q5 --> X1[Exit: toast gone; graph calm with new fact]
+  E5[Entry: measured ship / merge / retro lands] --> Q1{Event in measured feed?}
+  Q1 -->|no| Q2[Idle: no toast, no pulse, no ticker]
+  Q1 -->|yes| Q3[Quiet ship toast — one shot]
+  Q3 --> Q4[Optional count-up on that KPI only]
+  Q4 --> Q5[Spark takes the new point]
+  Q5 --> X1[Exit: toast gone; board calm]
   Q2 --> X2[Exit: stay calm]
 ```
 
-**Cite:** #28 §2 rules 6–7; Linear toast; #27 toast; Fitness idle still. No fake ticker.
-
----
-
-## F6 — Get AG (J4)
-
-Entry: header Get AG. Success: GitHub. Admin: this control does not exist.
-
-```mermaid
-flowchart TD
-  E6[Entry: public header Get AG] --> A1[One primary → GitHub]
-  A1 --> A2{Link up?}
-  A2 -->|yes| X1[Exit: clone]
-  A2 -->|no| A3[Error: CTA stays — no invented mirror]
-  A3 --> X2[Exit: back to graph]
-```
-
-**Hick / Fitts:** Graph nodes are not CTAs. One Get AG, reserved width. Admin: zero Get AG.
-
----
-
-## F7 — Admin twin (J7)
-
-Entry: signed-in `/admin`. Success: same dark graph language; project names allowed in inspect. Empty: unpaid hatch. Exit: stay in admin; never leak names to public `/`.
-
-```mermaid
-flowchart TD
-  E7[Entry: /admin] --> G1[Same graph chrome as public]
-  G1 --> N1[Inspect MAY name projects]
-  N1 --> N2[No Get AG]
-  N2 --> X1[Exit: stay admin]
-  N2 --> X2[Error: do not publish names to /]
-```
-
-**Cite:** #28 §1 admin; Cos same board language.
-
----
+**Cite:** `§7` Canny / Workable / Apollo / Amplitude toast + StackAI spark; live `/` evidence of absence (no count-up/pulse/toast today); `§6` no fake ticker / invented pulse / simulated live.
 
 ## Mobile vs desktop (Jakob)
 
-Same graph, same loop, same Get AG on public. Mobile inspect = sheet. Graph stage has reserved height (no CLS). Documented exception: desktop may show a side inspect rail (Twenty / Databricks); mobile uses a sheet.
-
----
+Same steps, same primary chrome. Mobile: single column; chart title does not wrap into a broken heading (live FAIL); reports stay collapsed; **Get AG** reserved in header (not clipped). Desktop nav labels may collapse — documented exception above.
 
 ## Acceptance (Check 7)
 
 | Field | Value |
 | --- | --- |
-| Mermaid | F1–F7 entry / success / empty-error / exits |
-| Map | F1→J1, F2→J2, F3→J3, F4→J1 mobile, F5→J6, F6→J4, F7→J7 |
-| Research | #28 @ `f9f38ff` + #27 @ `235610e` + #20 @ `9721af1` |
-| Next | Check 8 GO after LIVE #28 @ f9f38ff. Then phone-first: default land, live-update twitch, zoomed inspect, mobile land+inspect, admin twin |
+| Mermaid | F1–F5 each have entry, success, empty/error, exits |
+| Map to JTBD | F1→J1/J2, F2→J4, F3→J5, F4→J3, F5→J6 |
+| Research | Cited to LIVE Cos ACCEPT MERGED AG #20 @ `9721af1` evidence.md on main; Adv PASS tip `b868672` (challenge), secondary — no contradiction, no invented jobs |
+| Next | Check 8 `VISUAL_STEP_STILLS` per step mobile+desktop + motion note. Stills → AG PM → Cos before Eng |
