@@ -106,6 +106,8 @@ Initiative sequence reminder (LIVE named gates): Research Scope → hunt → Bra
 **Get AG / download (plain English):** 
 Agentic Governance is free because operators share anonymous improve signals that help the framework get better. You can turn basics off. Richer diagnostic logs are optional and off until you opt in. We never collect secrets, tokens, or personal data.
 
+**Get AG download gate (Class A — Cos LOCK Paul 2026-09-14):** Download / Get AG CTA is **gated on acceptance gate ToS** (checkbox before download — **FAIL [redacted]**). Product outline (DRAFT — [redacted]; [redacted] required before production ToS): [``](../legal/).
+
 **Brand beat (headline / voice — OK):** 
 “Worker bees need to feed the hive.”
 
@@ -171,6 +173,7 @@ This tip is accepted as the Initiative epic plan when:
 | [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f` | `DESIGN_SYSTEM_FIRST` LIVE |
 | [`docs/improve/`](../improve/) | Cos daily AG digest / improve loop destination |
 | [`dashboard/README.md`](../../dashboard/README.md) | Public `/` + `/admin/*` twin surfaces |
+| [``](../legal/) | Get AG OUTLINE — acceptance gate gate; DRAFT |
 
 ---
 

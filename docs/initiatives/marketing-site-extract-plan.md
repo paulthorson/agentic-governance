@@ -17,7 +17,7 @@ Cos must **ACCEPT this Eng extract plan** — then **MUST-merge** this PR when C
 **Eng execute** (file moves + site Vercel wire) only after this Eng plan is MERGED. 
 **Eng HOLD look pixels** until Paul yes (and stills / #39 craft clear). This tip does **not** authorize pixel work or `dashboard/src` look changes on AG.
 
-**Paul LOCK 2026-09-14 — Get AG T&Cs:** T&Cs gate before download. **Eng HOLD Get AG CTA pixels** until the T&Cs path is clear (stacked on #39 look HOLD). Class A extract docs / ops remain OK — this HOLD is pixels only.
+**Paul LOCK 2026-09-14 — Get AG T&Cs:** T&Cs gate before download (**acceptance gate** — FAIL [redacted]). Outline SoT: [``](../legal/) (DRAFT product outline — [redacted]; [redacted] before production ToS). **Eng HOLD Get AG CTA pixels** until the T&Cs path is clear (stacked on #39 look HOLD). Class A extract docs / ops remain OK — this HOLD is pixels only.
 
 ---
 
@@ -142,7 +142,7 @@ Rationale: one site product face (public + admin twin craft); AG remains framewo
 | **Get AG / download** | [`https://github.com/paulthorson/agentic-governance`](https://github.com/paulthorson/agentic-governance) (or AG release assets) | Site repo as product download |
 | Stars / clone links in traction | Product repo (as measured in feed) | Invented counts |
 
-**Paul LOCK 2026-09-14:** Get AG requires a **T&Cs gate before download**. Eng HOLD Get AG CTA **pixels** until that path is clear (stacked on #39 look HOLD). Extract Class A docs/ops OK.
+**Paul LOCK 2026-09-14:** Get AG requires a **acceptance gate T&Cs gate before download** (outline: [``](../legal/) — DRAFT, ). Eng HOLD Get AG CTA **pixels** until that path is clear (stacked on #39 look HOLD). Extract Class A docs/ops OK.
 
 ---
 
