@@ -1,9 +1,18 @@
 # Agentic Governance — improve dashboard
 
-Next.js app with two surfaces on the **same Vercel deploy** (route-split):
+> **Marketing face is moving.** Cos ACCEPT MERGED Eng extract plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) @ `e7bb36e` — execute **GO**. 
+> Public marketing / living board / admin twin **UI** → [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site) (site face + Vercel `agentic-governance-site`). 
+> **This repo stays** feed/corpus **publisher** + framework **download** — not the marketing host of record. 
+> Keep `data/traction.json` + `npm run sync-improve` as publisher sources. **Do not delete** them. 
+> UI below remains in-tree for **rollback** until the site PR lands and serves the extracted face — then retire/redirect legacy Vercel **agentic-governance-three** (do **not** break three yet). 
+> **HOLD:** #39 look pixels; Get AG requires **acceptance gate** T&Cs — DRAFT outline SoT **LIVE** [#57](https://github.com/paulthorson/agentic-governance/pull/57) @ `9b5bcd9` (lawyer-review banner; **never ship production ToS without counsel**; Get AG CTA pixels HOLD until acceptance gate path). Extract execute continues on site repo **in parallel**. Status: [`docs/initiatives/marketing-site-extract-execute.md`](../docs/initiatives/marketing-site-extract-execute.md).
+
+Next.js app with two surfaces on the **same Vercel deploy** (route-split) — **legacy / rollback host** until site extract is live:
 
 1. **Public marketing** (`/`) — KPIs/charts, Get AG CTA, supporting content, traction widgets gated by `data/traction.json`.
 2. **Admin backend** (`/admin/*`) — Google SSO (personal email) + email allowlist for Cos/Paul. Sensitive/internal KPI views.
+
+**Publisher (stays in AG):** measured traction (`data/traction.json`), improve corpus (`docs/improve/`), and sync (`scripts/sync-improve.mjs`). Site consumes feeds **read-only**.
 
 **UI source of truth: Meta Astryx** (`@astryxdesign/core` + `@astryxdesign/theme-neutral` + `@astryxdesign/cli`). Not a custom/Tailwind/shadcn primary UI.
 
