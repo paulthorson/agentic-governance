@@ -7,6 +7,13 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- **AG website UX Canvas (initiative SoT):** Filled Gothelf Lean UX Canvas v2 for the AG
+  marketing/website initiative — Cos LOCK with Paul 2026-09-14; screens gated after this
+  canvas. Includes admin twin definition (one product, two doors). Path:
+  `docs/initiatives/ag-website-ux-canvas.md`. Pointer from `adversarial-ux/README.md`
+  Initiative sequence. **Not** the constitution Gothelf box-definitions tip.
+
 ### Changed
 - **UX Canvas named next gate (Paul/Cos LOCK — no new check id):** **UX Canvas** is the
   **separate** next Initiative gate **after** Brand & Design Setup — **not** an alias of Brand
