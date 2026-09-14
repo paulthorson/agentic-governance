@@ -20,6 +20,15 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
 
 ### Added
+- **Marketing site split (extract epic PRD — tip for Cos ACCEPT / MUST-merge):** Paul
+  LOCK 2026-09-14 + Cos craft PASS — extract public marketing/`dashboard` surface into
+  locked repo [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site);
+  AG stays framework download face; **Vercel project create CRITICAL PATH** (do **not**
+  wait on #39/#26); Cos owns Paul notify when Vercel is up (domain setup); stay-vs-move
+  LOCKs: admin twin UI + living board UI + Anonymous Improve public UX/consent move with
+  site; AG owns measured data/feeds, improve corpus, feed publisher (read-only consume);
+  Get AG CTA → AG git; conflict cleanup #42/#35/#34/#49 GO separately; Class A ≠ Class B
+  look — never #39/#26. Path: `docs/initiatives/marketing-site-split.md` (+ index).
 - **Initiative epic plan: Anonymous Improve Feedback (PRD / flows — Eng HOLD).** Paul LOCK
   2026-09-14 bake anonymous improve telemetry into the AG product. **Value exchange:** AG is
   free because operators share anonymous basics (default on); richer diagnostic logs remain

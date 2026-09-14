@@ -9,6 +9,7 @@ These are not shipped-evidence folders (those stay under [`docs/proof/initiative
 |---|---|---|---|
 | AG website UX Canvas | AG website UX Canvas (Gothelf v2 filled) | **Initiative SoT** — Cos LOCK Paul; LIVE [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4bc` (gate named [#48](https://github.com/paulthorson/agentic-governance/pull/48) @ `e9b4827`) | [`ag-website-ux-canvas.md`](./ag-website-ux-canvas.md) |
 | Anonymous Improve Feedback | Anonymous Improve Feedback | **PRD / flows** — Paul LOCK 2026-09-14; Eng HOLD; Cos craft before Adv | [`anonymous-improve-feedback.md`](./anonymous-improve-feedback.md) |
+| Marketing site split | Marketing site split (extract epic) | **Tip for Cos ACCEPT / MUST-merge** — Paul LOCK 2026-09-14; Cos craft PASS; Vercel project **CRITICAL PATH** (do not wait on #39/#26); stay-vs-move LOCKs (admin twin UI + living board UI + Anon Improve public UX on site; AG owns measured data/feeds/corpus/publisher); Get AG → AG git; never #39/#26 | [`marketing-site-split.md`](./marketing-site-split.md) |
 
 ## Rules
 
