@@ -36,7 +36,12 @@ first. Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — named senso
 must exist before brief/stories; soft Look gate rejected. **Draft stack (not live until Cos
 ACCEPT):** `RESEARCH_HCI` stacks on `RESEARCH_BEFORE_ENHANCE` — master's HCI fundamentals
 THEN opened comps in `evidence.md`, or FAIL UX handoff; Adv must name the check before Cos
-ACCEPT. Product Research seats only (not OpenClaw). If `source_policy: UNSET`, tell the
+ACCEPT. Product Research seats only (not OpenClaw). **Also draft:** `DESIGN_SYSTEM_FIRST`
+stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 —
+Design/Experience/Branding paramount (Eng follows signed craft); design system is FIRST
+Initiative deliverable (Cos-signed `design-system.md` incl. Experience principles + Brand
+Voice + Audience/promise + info-design + Research cite before pixels / stills / Eng handoff);
+Adv must name before Cos ACCEPT; cite #43 @ `7e9e0b6`; #38 @ `214ed5b`; not OpenClaw. If `source_policy: UNSET`, tell the
 user in one line that the Critic will report source checks as UNVERIFIABLE until it is set.
 
 Create the run directory:

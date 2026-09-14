@@ -101,6 +101,6 @@ adversarial-ux/
 ├── agents/ critic, cx-advocate, evaluative-uxr
 ├── skills/ adversarial-ux (worker) + 9 stateless skills
 ├── references/ constitution.md, design.md, personas.md, calibration-ledger.md
-├── assets/templates/ decision-record.md, calibration-entry.md
+├── assets/templates/ decision-record.md, calibration-entry.md, design-system.md
 └── commands/ adversarial-ux, adversary-review
 ```

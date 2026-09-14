@@ -66,6 +66,21 @@ Soft / tip / wiki-scar-only = **REJECTED**.
   quiet option. Adv must **name `DESIGN_AGENCY_BAR`** before Cos ACCEPT. Do not mark LIVE until
   Cos ACCEPT MERGED SHA. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Scar:
   #39 tip `9b1bba2`. Not OpenClaw. Metric: **fail closed**.
+- **`DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — Cos LOCK Paul):** Every product UX +
+  Research seat — **Design, Experience, and Branding are paramount**; engineering follows
+  signed craft. Design system is the FIRST Initiative deliverable before any web / UI pixels /
+  stills / screens. Research + UX collaborate; Cos signoff on `design-system.md` (tokens /
+  type / space / motion / brand / do-not + Experience principles + **Brand Voice** [tone,
+  lexicon, headline patterns, narrative drill-down] + **Audience/promise** +
+  **Information-design rules** [measured-only; marks stay marks] + Research cite) before Check
+  7 / Check 8 stills / Eng handoff. Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` +
+  `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a replacement. Agency design thinking stacks
+  `DESIGN_AGENCY_BAR` as permanent UX brain (not a splash tip). FAIL: pixels without signed
+  DS; solo-ship Initiative look; completeness stills without system; Eng-led chrome before
+  craft; missing Brand Voice / Audience/promise / Experience principles / info-design. Adv
+  must **name `DESIGN_SYSTEM_FIRST`** before Cos ACCEPT. Do not mark LIVE until Cos ACCEPT
+  MERGED SHA. Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`.
+  Template: `adversarial-ux/assets/templates/design-system.md`. Not OpenClaw. Metric: **fail closed**.
 
 If `design.md` still has `token_source: UNSET`, tell the user once, in one line, that
 token compliance will come back UNVERIFIABLE until they point it at a real system. Then carry on.

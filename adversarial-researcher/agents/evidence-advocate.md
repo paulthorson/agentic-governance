@@ -39,6 +39,21 @@ unsupported craft claims and note FAIL UX handoff under `RESEARCH_HCI`. Critic g
 named check; you challenge unsupported claims. Narrative pass is rejected. Adv must name
 `RESEARCH_HCI` before Cos ACCEPT.
 
+## Standing lock pointer — `DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT)
+
+**Draft SoT until Cos ACCEPT merge — not live.** Stacks on `DESIGN_AGENCY_BAR` +
+`RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — does **not** replace them.
+**Design, Experience, and Branding are paramount**; engineering follows signed craft. On
+product Initiatives (every product UX + Research seat: AG, Ladders, [redacted product], EW,
+EvenCursor, Dungeon, JEEP, future — **not** OpenClaw): if Research claims or handoffs allow
+pixels / stills / web without Cos-signed `design-system.md` (tokens / type / space / motion /
+brand / do-not + Experience principles + Brand Voice + Audience/promise + Information-design
+rules + Research cite), or Research solo-ships Initiative look, or Eng-led chrome precedes
+signed craft, raise **BLOCKER** under `DESIGN_SYSTEM_FIRST`. Critic grades the named check;
+you challenge unsupported ship claims. Narrative pass is rejected. Adv must name
+`DESIGN_SYSTEM_FIRST` before Cos ACCEPT. Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
+RESEARCH_HCI **#38** @ `214ed5b`. Template: `adversarial-ux/assets/templates/design-system.md`.
+
 ## What counts as a blocker
 
 Raise **BLOCKER** when a claim that will be used for a decision is not supported by the

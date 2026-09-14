@@ -117,6 +117,27 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
 - **Out of scope for this SoT write:** dashboard pixel implementation; amending #39 stills PNGs.
 
+#### `DESIGN_SYSTEM_FIRST`
+
+**Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv may rename later; use id `DESIGN_SYSTEM_FIRST` in this draft. Adv must **name this check** (`DESIGN_SYSTEM_FIRST`) before Cos ACCEPT. Do **not** treat this draft / open PR as live Paul LOCK (`LIVE_SOT_MERGED_SHA`). Cite prior locks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`.
+
+- **Id / named check:** `DESIGN_SYSTEM_FIRST` (Cos LOCK Paul)
+- **Paramount (state explicitly):** **Design, Experience, and Branding are paramount** — not optional polish after Eng. Design system + Experience + Branding **lead** Initiative; **engineering follows signed craft**.
+- **Who / scope:** Every **product team UX + Research** seat — AG, Ladders, [redacted product], Even Weather (EW), EvenCursor, Dungeon, JEEP, and future product seats. **Not** OpenClaw.
+- **Bar / order (load-bearing):** The **design system is the FIRST deliverable of Initiative** — baked before any web / UI pixels / stills / screens. Research and UX **collaborate**; Cos signoff on the design system in **early Initiative phase**. Agency design thinking (restraint, hierarchy, type, space, **one strong quiet option**) is **permanent UX brain** for every product UX seat — stacks `DESIGN_AGENCY_BAR`; **not** a one-off splash tip.
+- **Stack:** Addition on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Critic Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — **not** a replacement. Does not reopen Check 7/8; gates pixels until signed DS exists.
+- **Named FAIL (no narrative pass):**
+  - Shipping screens / stills / web without signed `design-system.md`
+  - Research **or** UX **solo-shipping** Initiative look (no joint DS + Cos stamp)
+  - Completeness stills without a system
+  - Eng-led chrome / scaffolding **before** signed craft (DS + Experience + Branding)
+  - Missing required sections: **Experience principles**, **Brand Voice**, **Audience/promise**, or **Information-design rules**
+  - Information-design violated: invented / blank-as-measured numbers, or **marks used as decoration** (marks must stay marks)
+- **Sensor (fail-closed):** Initiative packet includes `design-system.md` covering **tokens / type / space / motion / brand / do-not** **plus** **Experience principles** **plus** **Brand Voice** (tone, lexicon — words we use/never use — headline patterns, narrative drill-down voice; name **Brand Voice** explicitly) **plus** **Audience/promise** **plus** **Information-design rules** (measured-only; marks stay marks) **plus** Research cite; **Cos signoff stamp** before Check 7 / Check 8 stills / Eng handoff. Template: `adversarial-ux/assets/templates/design-system.md`. A scar/wiki page alone is not this sensor.
+- **Metrics (fail closed):** Holds where pixels shipped without DS signoff = **fail closed**. Do not treat a narrative pass as acceptance.
+- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **Out of scope for this SoT write:** inventing a token feed; filling a concrete product Initiative `design-system.md` with real tokens/copy; OpenClaw briefs; amending prior stills PNGs.
+
 **Acceptance record.** One line in `rationale.md` recording the acceptance decision: what was received (the brief), whether it was well-formed against the inputs rule (all five brief fields present, no placeholders, at least two genuinely different approaches), and if work proceeded despite a defect, why. (A18.1)
 
 ## Stop conditions
@@ -131,6 +152,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - If Check 1 would PASS while `token_source` is UNSET, or an improve digest treats blank/invented tokens as measured — stop; FAIL under `TOKEN_SOURCE_OR_BLANK` (draft until Cos ACCEPT).
 - Do not execute draft / intake / open-PR headers as live harness law until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 - On product UX stills / public marketing faces (`DESIGN_AGENCY_BAR`, draft until Cos ACCEPT): if stills lack a written craft defense, or use spectacle-as-craft patterns (beads / marble pulses / confetti / glow-as-craft / wallpaper rain over labels / jargon scoreboards / cheesy “alive” stacking) — stop; Cos craft **FAIL before Adv**. Prefer one strong quiet option. Do not apply to OpenClaw. Do not treat this draft as live until Cos ACCEPT merge cites a merged SHA. Do not use superseded id `SPECTACLE_NOT_CRAFT` as a competing lock.
+- On product Initiatives (`DESIGN_SYSTEM_FIRST`, draft until Cos ACCEPT): if web / UI pixels / stills / screens ship without Cos-signed `design-system.md` (tokens / type / space / motion / brand / do-not + Experience principles + Brand Voice [tone, lexicon, headline patterns, narrative drill-down] + Audience/promise + Information-design rules [measured-only; marks stay marks] + Research cite), or Research/UX solo-ships Initiative look, or completeness stills lack a system, or Eng-led chrome precedes signed craft — stop; **FAIL**. Design, Experience, and Branding are paramount; engineering follows signed craft. Design system is first deliverable; Cos stamp before Check 7 / Check 8 stills / Eng handoff. Agency brain stacks `DESIGN_AGENCY_BAR` permanently — not a splash tip. Do not apply to OpenClaw. Do not treat this draft as live until Cos ACCEPT merge cites a merged SHA.
 
 ## Permitted plugins
 

@@ -60,6 +60,19 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
   `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a replacement. Adv must name `DESIGN_AGENCY_BAR`
   before Cos ACCEPT. Alias `SPECTACLE_NOT_CRAFT` is superseded (not a competing lock). Scar:
   #39 tip `9b1bba2`. Not OpenClaw.
+- **`DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — Cos LOCK Paul):** On product Initiatives,
+  **Design, Experience, and Branding are paramount**; engineering follows signed craft. Design
+  system is the FIRST deliverable — before web / UI pixels / stills / screens. Research + UX
+  must collaborate with Cos signoff on `design-system.md` (tokens / type / space / motion /
+  brand / do-not + Experience principles + Brand Voice + Audience/promise + Information-design
+  rules + Research cite) before Check 7 / stills / Eng handoff. FAIL: pixels without signed DS;
+  Research or UX solo-shipping Initiative look; completeness stills without a system; Eng-led
+  chrome before craft; missing Brand Voice / Audience/promise / Experience principles /
+  info-design. Agency brain stacks `DESIGN_AGENCY_BAR` permanently (not a splash tip). Stacks
+  on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a
+  replacement. Adv must name `DESIGN_SYSTEM_FIRST` before Cos ACCEPT. Cite #43 @ `7e9e0b6`;
+  #38 @ `214ed5b`. Template: `adversarial-ux/assets/templates/design-system.md`. Not OpenClaw.
+  Metric: **fail closed**.
 
 ## What counts as a blocker
 

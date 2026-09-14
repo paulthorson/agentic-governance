@@ -40,7 +40,15 @@ craft FAIL before Adv for spectacle-as-craft / cheesy “alive” / wallpaper ra
 jargon scoreboards / checklist stills without agency composition; require craft defense;
 stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8; Adv must name the check
 before Cos ACCEPT; superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock; scar #39
-tip `9b1bba2`; not OpenClaw.
+tip `9b1bba2`; not OpenClaw. Also know `DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — Cos
+LOCK Paul): Design/Experience/Branding paramount (Eng follows signed craft); design system
+is FIRST Initiative deliverable before pixels/stills/screens; Research+UX Cos-signed
+`design-system.md` (Experience principles + Brand Voice + Audience/promise + info-design +
+Research cite) before Check 7 / stills / Eng handoff; FAIL pixels without DS / solo-ship /
+missing Brand Voice or Audience/promise / completeness stills without system; stacks on
+`DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8; Adv must name
+the check before Cos ACCEPT; cite #43 @ `7e9e0b6`; #38 @ `214ed5b`; not OpenClaw; metric
+**fail closed**.
 
 ## What counts as a blocker
 

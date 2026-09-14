@@ -47,6 +47,14 @@ Hard gate. Soft / deferred comps-at-Look is **REJECTED**. A scar page is not thi
   one quiet strong option; require craft defense. Stacks on `RESEARCH_HCI` +
   `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Adv must name the check before Cos ACCEPT. Superseded
   alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Scar: #39 tip `9b1bba2`. Not OpenClaw.
+- **`DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — Cos LOCK Paul):** On product Initiatives,
+  Design/Experience/Branding paramount (Eng follows signed craft); DS is first deliverable
+  before pixels/stills/screens; Research+UX collaborate with Cos signoff on `design-system.md`
+  (Experience principles + Brand Voice + Audience/promise + info-design + Research cite)
+  before Check 7 / stills / Eng handoff. FAIL: pixels without signed DS; solo-ship Initiative
+  look; completeness stills without system; missing Brand Voice / Audience/promise. Stacks on
+  `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Adv must name
+  the check before Cos ACCEPT. Cite #43 @ `7e9e0b6`; #38 @ `214ed5b`. Not OpenClaw.
 
 ## Method
 

@@ -8,6 +8,38 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Draft SoT: `DESIGN_SYSTEM_FIRST` — not live / not effective until Cos ACCEPT merge.** Cos
+  LOCK Paul — **Design, Experience, and Branding are paramount** (not optional polish after
+  Eng; design system + Experience + Branding lead Initiative; **engineering follows signed
+  craft**). Design system is the **FIRST Initiative deliverable** for **every product UX +
+  Research seat** (AG, Ladders, [redacted product], Even Weather / EW, EvenCursor, Dungeon, JEEP, and
+  future) — **not OpenClaw.** **Bar / order:** bake DS before any web / UI pixels / stills /
+  screens; Research + UX collaborate; Cos signoff in early Initiative. Agency design thinking
+  (restraint, hierarchy, type, space, one strong quiet option) is **permanent UX brain** —
+  stacks `DESIGN_AGENCY_BAR`; not a one-off splash tip. **Required `design-system.md`
+  sections:** tokens / type / space / motion / brand / do-not + **Experience principles** +
+  **Brand Voice** (tone, lexicon — words we use/never use — headline patterns, narrative
+  drill-down voice; name Brand Voice explicitly) + **Audience/promise** +
+  **Information-design rules** (measured-only; marks stay marks) + Research cite. Template:
+  `adversarial-ux/assets/templates/design-system.md`. **Stack:** addition on
+  `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Critic Check 7
+  + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — **not** a replacement.
+  **FAIL:** shipping screens/stills/web without signed `design-system.md`; Research or UX
+  solo-shipping Initiative look; completeness stills without a system; Eng-led chrome before
+  signed craft; missing Experience principles / Brand Voice / Audience/promise / info-design;
+  invented/blank-as-measured; marks-as-decoration. **Sensor (fail-closed):** Initiative packet
+  includes complete `design-system.md` (not tokens/type/space/motion/do-not only) + Research
+  cite; Cos signoff stamp before Check 7 / Check 8 stills / Eng handoff. **Metric (fail closed):**
+  pixels shipped without DS signoff = **0**. Soft / deferred / tip / wiki-scar-only =
+  **REJECTED**. **HOLD ACCEPT until Adv names the check** (`DESIGN_SYSTEM_FIRST`) then Cos
+  ACCEPT merge. Do **not** mark LIVE until Cos ACCEPT MERGED SHA. Cite prior locks:
+  DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. **P0:** no
+  secrets/keys/emails/PII/host paths. Out of scope: inventing a token feed; filling a concrete
+  product Initiative `design-system.md`; OpenClaw briefs; amending prior stills PNGs. SoT:
+  `harnesses/ux.md` + `harnesses/researcher.md`; template; adversarial-ux /
+  adversarial-researcher critic tables + Adv pointers + flat `agents/*` copies; skill
+  pointers; CoE + spec Section 5.0 / 5.2 index pointers.
+
 - **Draft SoT: `DESIGN_AGENCY_BAR` — not live / not effective until Cos ACCEPT merge.** Cos
   LOCK Paul agency craft bar for **every product UX seat** (AG, Ladders, [redacted product], Even
   Weather / EW, EvenCursor, Dungeon, JEEP, and future) — **product UX stills / public marketing

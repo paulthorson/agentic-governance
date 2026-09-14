@@ -54,3 +54,22 @@ gestalt, info-viz, Fitts / Hick / Jakob) with craft analysis **THEN** opened exp
 (Obsidian graph first among equals when graph/splash is relevant). Screenshot collecting
 without craft analysis = FAIL UX handoff. Metric: fail closed. Adv must name `RESEARCH_HCI`
 before Cos ACCEPT. Harness SoT: `harnesses/researcher.md`.
+
+## `DESIGN_SYSTEM_FIRST` (draft SoT until Cos ACCEPT — stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8)
+
+**Not live / not effective until Cos ACCEPT.** Soft / deferred / tip-only = REJECTED.
+**Design, Experience, and Branding are paramount**; engineering follows signed craft. For
+product Initiatives (every product UX + Research seat — AG, Ladders, [redacted product], Even
+Weather / EW, EvenCursor, Dungeon, JEEP, future — **not** OpenClaw): design system is the
+FIRST deliverable before any web / UI pixels / stills / screens. Research + UX collaborate;
+Initiative packet must include Cos-signed `design-system.md` (tokens / type / space / motion
+/ brand / do-not + Experience principles + **Brand Voice** [tone, lexicon, headline patterns,
+narrative drill-down] + **Audience/promise** + **Information-design rules** [measured-only;
+marks stay marks] + Research cite) before Check 7 / Check 8 stills / Eng handoff. FAIL:
+pixels without signed DS; Research or UX solo-shipping Initiative look; completeness stills
+without a system; Eng-led chrome before craft; missing Brand Voice / Audience/promise /
+Experience principles / info-design. Agency brain stacks `DESIGN_AGENCY_BAR` permanently
+(not a splash tip). Metric: fail closed. Adv must name `DESIGN_SYSTEM_FIRST` before Cos ACCEPT.
+Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. Template:
+`adversarial-ux/assets/templates/design-system.md`. Harness SoT: `harnesses/researcher.md` +
+`harnesses/ux.md`.

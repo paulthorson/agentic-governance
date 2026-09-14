@@ -139,6 +139,39 @@ conditions here; do **not** ship a second competing lock id.
 - **Metric:** Cos craft FAIL holds for listed spectacle patterns = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
+### `DESIGN_SYSTEM_FIRST` (gates pixels before Check 7/8 — Cos LOCK Paul)
+
+**Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft,
+deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv may rename later; use id
+`DESIGN_SYSTEM_FIRST` in this draft. Adv must **name this check** (`DESIGN_SYSTEM_FIRST`) before
+Cos ACCEPT. Cite prior locks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @
+`214ed5b`.
+
+- **Id:** `DESIGN_SYSTEM_FIRST`
+- **Paramount:** **Design, Experience, and Branding are paramount** — not optional polish after
+  Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
+- **Slot:** Initiative packet — design system **before** web / UI pixels / stills / screens; Cos
+  stamp before Check 7 / Check 8 stills / Eng handoff.
+- **Who / scope:** Every product team UX + Research (AG, Ladders, [redacted product], EW, EvenCursor,
+  Dungeon, JEEP, future) — **not** OpenClaw.
+- **Bar / order:** Design system is the FIRST Initiative deliverable. Research + UX collaborate;
+  Cos signoff in early Initiative. Agency design thinking (restraint, hierarchy, type, space, one
+  strong quiet option) is permanent UX brain — stacks `DESIGN_AGENCY_BAR`; not a splash tip.
+- **FAIL:** shipping screens/stills/web without signed `design-system.md`; Research or UX
+  solo-shipping Initiative look; completeness stills without a system; Eng-led chrome before
+  signed craft; missing **Experience principles**, **Brand Voice**, **Audience/promise**, or
+  **Information-design rules**; invented/blank-as-measured; marks-as-decoration.
+- **Sensor:** Initiative packet includes `design-system.md` (tokens / type / space / motion /
+  brand / do-not + Experience principles + Brand Voice [tone, lexicon, headline patterns,
+  narrative drill-down; name Brand Voice explicitly] + Audience/promise + Information-design
+  rules [measured-only; marks stay marks]) + Research cite; Cos signoff stamp before Check 7 /
+  stills / Eng handoff. Template: `adversarial-ux/assets/templates/design-system.md`. Scar page
+  ≠ sensor.
+- **Stack:** On `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7 +
+  Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — addition, **not** replacement.
+- **Metric:** pixels shipped without DS signoff = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
 ## The eight checks
 
 ### Check 1: Token compliance (`TOKEN_SOURCE_OR_BLANK`)
@@ -285,6 +318,18 @@ FAIL if any of the following:
   stills without agency-level composition, or stacked effects instead of one quiet craft choice.
   Missing written craft defense (what rejected) on the stills PR → FAIL. Superseded alias
   `SPECTACLE_NOT_CRAFT` is not a separate lock.
+- **`DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — stack before this Check; Adv must name):**
+  FAIL when Initiative stills / web / screens ship without Cos-signed `design-system.md`
+  (tokens / type / space / motion / brand / do-not + Experience principles + Brand Voice
+  [tone, lexicon, headline patterns, narrative drill-down] + Audience/promise +
+  Information-design rules [measured-only; marks stay marks] + Research cite), or Research/UX
+  solo-ship Initiative look, or completeness stills lack a system, or Eng-led chrome before
+  signed craft, or missing Brand Voice / Audience/promise / Experience principles /
+  info-design. Design, Experience, and Branding are paramount; engineering follows signed
+  craft. Design system is first deliverable; Cos stamp before Check 7 / Check 8 stills / Eng
+  handoff. Agency brain stacks `DESIGN_AGENCY_BAR` permanently. Cite DESIGN_AGENCY_BAR **#43**
+  @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. Template:
+  `adversarial-ux/assets/templates/design-system.md`.
 
 ## Output
 
@@ -308,6 +353,7 @@ Check 6 Cite+Critique: PASS | FAIL | N/A
 Check 7 Flows+JTBD: PASS | FAIL
 Check 8 VisualStills (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
 DESIGN_AGENCY_BAR (draft; stacks on Check 8): PASS | FAIL | N/A
+DESIGN_SYSTEM_FIRST (draft; before Check 7/8 pixels): PASS | FAIL | N/A
 
 ### Stamp isolation (`CRITIC_SEPARATE_STAMP`) — draft until Cos ACCEPT; not a new Check number
 - Critic-labeled artifact/run separate from Adv: yes | no — FAIL if no
@@ -366,6 +412,28 @@ DESIGN_AGENCY_BAR (draft; stacks on Check 8): PASS | FAIL | N/A
 - Metric hold (Cos craft FAIL for listed patterns = 0): PASS | FAIL
 - Not live until Cos ACCEPT merged SHA (`LIVE_SOT_MERGED_SHA`): acknowledged | violated
 
+### DESIGN_SYSTEM_FIRST (draft until Cos ACCEPT; stacks on DESIGN_AGENCY_BAR + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE + Check 7/8)
+- Adv named check `DESIGN_SYSTEM_FIRST`: yes | no — HOLD ACCEPT if no
+- Scope applicable: product Initiative UX+Research | N/A (not OpenClaw) | wrong-surface FAIL
+- Design / Experience / Branding paramount (Eng follows signed craft): held | violated — FAIL if violated
+- `design-system.md` present (tokens / type / space / motion / brand / do-not): yes | no — FAIL if no
+- Experience principles: present | missing — FAIL if missing
+- Brand Voice (tone; lexicon; headline patterns; narrative drill-down): present | missing — FAIL
+- Audience / promise: present | missing — FAIL
+- Information-design rules (measured-only; marks stay marks): present | missing — FAIL
+- Measured-only held (no invented / blank-as-measured): yes | no | N/A — FAIL if no
+- Marks stay marks (not decoration/spectacle): yes | no | N/A — FAIL if no
+- Research cite on DS packet: yes | no — FAIL if no
+- Cos signoff stamp before Check 7 / Check 8 stills / Eng handoff: yes | no — FAIL if no
+- Research+UX collaborated (not solo-ship Initiative look): yes | no — FAIL if no
+- Pixels / stills / web before signed DS: none | present — FAIL if present
+- Completeness stills without system: none | present — FAIL if present
+- Eng-led chrome before signed craft: none | present — FAIL if present
+- Agency brain stacks `DESIGN_AGENCY_BAR` (permanent, not splash tip): held | violated
+- Cite prior locks (#43 @ `7e9e0b6`; #38 @ `214ed5b`): acknowledged | missing
+- Metric hold (pixels without DS signoff = 0): PASS | FAIL
+- Not live until Cos ACCEPT merged SHA (`LIVE_SOT_MERGED_SHA`): acknowledged | violated
+
 ### Token source (`TOKEN_SOURCE_OR_BLANK`) — Check 1
 - design.md token_source: SET | UNSET | BLANK
 - Check 1 never PASS when UNSET: held | violated — FAIL if violated
@@ -406,3 +474,14 @@ every product UX seat. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Ch
 replacement. Adv must **name `DESIGN_AGENCY_BAR`** before Cos ACCEPT. Do not mark LIVE until Cos
 ACCEPT MERGED SHA. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Metric: Cos
 craft FAIL for listed spectacle patterns = **fail closed**.
+
+**Draft until Cos ACCEPT (not live) — `DESIGN_SYSTEM_FIRST`:** Cos LOCK Paul —
+**Design, Experience, and Branding are paramount**; engineering follows signed craft. Design
+system is the FIRST Initiative deliverable for every product UX + Research seat. Required
+sections: tokens/type/space/motion/brand/do-not + Experience principles + **Brand Voice** +
+**Audience/promise** + **Information-design rules** (measured-only; marks stay marks) +
+Research cite. Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` +
+Check 7/8 — not a replacement. Adv must **name `DESIGN_SYSTEM_FIRST`** before Cos ACCEPT. Do
+not mark LIVE until Cos ACCEPT MERGED SHA. Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
+RESEARCH_HCI **#38** @ `214ed5b`. Metric: pixels shipped without DS signoff = **fail closed**.
+Template: `adversarial-ux/assets/templates/design-system.md`.

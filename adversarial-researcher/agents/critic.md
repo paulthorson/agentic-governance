@@ -82,6 +82,44 @@ teach senior-director composition. Metric: such packs at Critic = **fail closed*
 
 **P0:** no secrets, keys, emails, PII, or absolute host paths; no invented KPI numbers.
 
+### Named lock: Design system first (`DESIGN_SYSTEM_FIRST`)
+
+Named Research Critic lock (not a new Check number; grades Initiative DS gate). **Draft SoT
+until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft, deferred,
+tip-only, or wiki/scar-page-only language is **REJECTED**. Adv may rename later; use id
+`DESIGN_SYSTEM_FIRST` in this draft. Adv must **name this check** (`DESIGN_SYSTEM_FIRST`)
+before Cos ACCEPT. Cite prior locks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI
+**#38** @ `214ed5b`.
+
+**Stacked on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) +
+Critic Check 7 + Check 8 — an addition, not a replacement.**
+
+**Paramount:** **Design, Experience, and Branding are paramount** — not optional polish after
+Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
+
+**When / scope:** Product Initiatives for **every product UX + Research seat** (AG, Ladders,
+[redacted product], Even Weather / EW, EvenCursor, Dungeon, JEEP, and future). **Not** OpenClaw.
+Skip only when the work is not a product Initiative (say so → N/A).
+
+**Bar / order:** Design system is the FIRST Initiative deliverable — before web / UI pixels /
+stills / screens. Research + UX collaborate; Cos signoff in early Initiative. Agency design
+thinking stacks `DESIGN_AGENCY_BAR` as permanent UX brain (not a splash tip).
+
+**Sensor (fail-closed):** Initiative packet includes `design-system.md` covering **tokens /
+type / space / motion / brand / do-not** **plus** **Experience principles** **plus** **Brand
+Voice** (tone, lexicon, headline patterns, narrative drill-down; name Brand Voice explicitly)
+**plus** **Audience/promise** **plus** **Information-design rules** (measured-only; marks stay
+marks) **plus** Research cite; Cos signoff stamp before Check 7 / Check 8 stills / Eng
+handoff. Missing any → **FAIL**. Template: `adversarial-ux/assets/templates/design-system.md`.
+
+**FAIL (fail closed; no narrative pass):** shipping screens/stills/web without signed `design-system.md`;
+Research or UX solo-shipping Initiative look; completeness stills without a system; Eng-led
+chrome before signed craft; missing Experience principles / Brand Voice / Audience/promise /
+info-design; invented/blank-as-measured; marks-as-decoration. Metric: pixels without DS
+signoff = **fail closed**.
+
+**P0:** no secrets, keys, emails, PII, or absolute host paths; no invented KPI numbers.
+
 ## Output
 
 ```
@@ -93,6 +131,7 @@ Check 3 Sources sound: PASS | FAIL | UNVERIFIABLE
 Check 4 Synthesis honest: PASS | FAIL
 Check 5 Intake: PASS | FAIL
 Check 6 RESEARCH_HCI: PASS | FAIL | N/A
+DESIGN_SYSTEM_FIRST (draft): PASS | FAIL | N/A
 
 ### RESEARCH_HCI (draft SoT until Cos ACCEPT; stacked on RESEARCH_BEFORE_ENHANCE)
 - Surface: product UX Research | OpenClaw / non-product → N/A | wrong-surface FAIL
@@ -102,6 +141,25 @@ Check 6 RESEARCH_HCI: PASS | FAIL | N/A
 - Graph/splash: Obsidian graph first-among-equals when relevant: yes | n/a | no
 - Teaches UX senior-director composition (not screenshot completeness): yes | no — FAIL if no
 - Metric hold (completeness-without-craft packs = 0): PASS | FAIL
+
+### DESIGN_SYSTEM_FIRST (draft SoT until Cos ACCEPT; stacked on DESIGN_AGENCY_BAR + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE + Check 7/8)
+- Adv named check `DESIGN_SYSTEM_FIRST`: yes | no — HOLD ACCEPT if no
+- Surface: product Initiative UX+Research | OpenClaw / non-product → N/A | wrong-surface FAIL
+- Design / Experience / Branding paramount (Eng follows signed craft): held | violated — FAIL if violated
+- `design-system.md` (tokens / type / space / motion / brand / do-not): yes | no — FAIL if no
+- Experience principles: present | missing — FAIL
+- Brand Voice (tone; lexicon; headline patterns; narrative drill-down): present | missing — FAIL
+- Audience / promise: present | missing — FAIL
+- Information-design rules (measured-only; marks stay marks): present | missing — FAIL
+- Measured-only held (no invented / blank-as-measured): yes | no | N/A — FAIL if no
+- Marks stay marks (not decoration/spectacle): yes | no | N/A — FAIL if no
+- Research cite: yes | no — FAIL if no
+- Cos signoff before Check 7 / stills / Eng handoff: yes | no — FAIL if no
+- Research+UX collaborated (not solo-ship): yes | no — FAIL if no
+- Pixels/stills/web before signed DS: none | present — FAIL if present
+- Eng-led chrome before signed craft: none | present — FAIL if present
+- Cite prior locks (#43 @ `7e9e0b6`; #38 @ `214ed5b`): acknowledged | missing
+- Metric hold (pixels without DS signoff = 0): PASS | FAIL
 
 ### Findings
 - [<check>] <severity: BLOCKER|CONCERN|NOTE> <what is wrong> | <where>
@@ -118,4 +176,10 @@ VERDICT: PASS | FAIL
 ```
 
 A FAIL on any check fails the verdict. You do not round up. `RESEARCH_HCI` is draft SoT until
-Cos ACCEPT merge — not live. Stack remains on `RESEARCH_BEFORE_ENHANCE`.
+Cos ACCEPT merge — not live. Stack remains on `RESEARCH_BEFORE_ENHANCE`. `DESIGN_SYSTEM_FIRST`
+is draft SoT until Cos ACCEPT merge — not live. **Design, Experience, and Branding are
+paramount**; engineering follows signed craft. Sensor requires Experience principles + Brand
+Voice + Audience/promise + Information-design rules (not tokens/type/space/motion/do-not only).
+Stack remains on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8.
+Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. Template:
+`adversarial-ux/assets/templates/design-system.md`.
