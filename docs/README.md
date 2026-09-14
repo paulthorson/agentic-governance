@@ -34,5 +34,5 @@ touch the relevant page here.
 | [[Tooling]] | validate.py, CI workflow, consolidate script |
 | [[Roadmap]] | Gaps, planned agents, enterprise hardening |
 | [Initiatives](./initiatives/) | Product Initiative epic plans (PRD / flows) — e.g. Anonymous Improve Feedback |
-| [Get AG](./legal/) | DRAFT product ToS outline () — LIVE tip [#60](https://github.com/paulthorson/agentic-governance/pull/60) @ `86e98081`; acceptance gate; Apache-2.0; opt-in telemetry; party blank |
-| [Get AG](./legal/) | Fuller LICENSE for Counsel/Adv tear-through (; not production ToS) — LIVE tip [#60](https://github.com/paulthorson/agentic-governance/pull/60) @ `86e98081` |
+| [Capability report](./capability-report.md) | What code actually does (release claims SoT) |
+| [Pre-merge review pack](./pre-merge-review.md) | Author review artifact for release hardening |

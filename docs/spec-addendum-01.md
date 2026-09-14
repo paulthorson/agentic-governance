@@ -284,9 +284,9 @@ The wizard is re-runnable, and a later run adds to the roster rather than replac
 
 Section 10.4 has the CEO bot watch a number and escalate when an epic crosses its threshold. The number is an aggregate, which means an overrun is visible but its cause is not.
 
-Spend is recorded per bot, not only per epic. When a budget is crossed, the report names which bots consumed what.
+**As implemented:** the framework records framework-visible units (gated MCP operations) with a source tag. It does **not** yet attribute model-provider tokens or dollars per bot. Per-bot dollar attribution remains a goal where a runtime exposes that data.
 
-This matters for two reasons beyond accounting. A single misbehaving bot in a retry cycle looks identical to a genuinely expensive epic when all you have is a total, and A3's retry budgets cannot be tuned without knowing which role exhausts them. Attribution turns both from guesses into readings.
+This matters for two reasons beyond accounting. A single misbehaving bot in a retry cycle looks identical to a genuinely expensive epic when all you have is a total, and A3's retry budgets cannot be tuned without knowing which role exhausts them. Attribution turns both from guesses into readings — when the runtime actually exposes the numbers.
 
 Where a runtime does not expose per-bot usage, the framework records what it can and marks the rest unattributed rather than distributing it evenly. An invented number is worse than a gap, because a gap is visible.
 
@@ -653,7 +653,7 @@ Section 4 is not optional and is not a formality. A gap named is a gap the PM ca
 
 Research is the one part of this chain that fans out. Sources are independent, they run in parallel, and some will fail. That shape needs rules the linear roles do not.
 
-The loop stops on the first of: no new findings across a configured number of rounds, the round budget reached, or the spend budget reached. The bounds come from config, per A3.2. A researcher does not extend its own bound, and a loop with no stopping rule is not a method, it is a leak.
+The loop is instructed to stop on the first of: no new findings across a configured number of rounds, the round budget reached, or the configured spend ceiling reached. Those stop conditions are **advisory** to the researcher role unless a runtime control refuses the next call. The bounds come from config, per A3.2. A researcher does not extend its own bound, and a loop with no stopping rule is not a method, it is a leak.
 
 ### A12.5 Reduce before reasoning
 

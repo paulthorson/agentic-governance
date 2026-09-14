@@ -67,6 +67,7 @@ class WatchdogJsonTest(unittest.TestCase):
         self._env = dict(os.environ)
         self._env["PAPERCLIP_COMPANY_ID"] = "company-1"
         self._env["STUCK_STATE_FILE"] = str(self._state)
+        self._env["AG_APPROVAL"] = "1"  # tests intentionally invoke paperclipai subprocess
         self._env["PATH"] = str(self._bindir) + os.pathsep + self._env.get("PATH", "")
 
     def tearDown(self):

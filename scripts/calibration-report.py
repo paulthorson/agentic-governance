@@ -99,11 +99,23 @@ def emit(text: str, output: str | None) -> None:
     D1 fix: the file content is byte-identical to stdout (trailing newline
     included). D2 fix: the file is written to a temp file then atomically
     renamed, so a mid-write failure never leaves a partial file.
+    Outside-repo writes require operator approval.
     """
     if output is None:
         sys.stdout.write(text)
         return
     out = Path(output)
+    scripts_dir = str(Path(__file__).resolve().parent)
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    from approval import ApprovalRequired, is_outside_repo, require_approval
+
+    if is_outside_repo(out, REPO_ROOT):
+        try:
+            require_approval("outside_write", REPO_ROOT)
+        except ApprovalRequired as e:
+            print(f"error: {e}", file=sys.stderr)
+            sys.exit(1)
     if not out.parent.exists():
         print(f"error: output directory does not exist: {out.parent}", file=sys.stderr)
         sys.exit(1)

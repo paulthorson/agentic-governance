@@ -75,3 +75,13 @@ The MCP `query_verdicts(domain, limit)` tool returns recent verdicts. The
 **Action:** implemented in `scripts/stuck-review-watchdog.py`; recorded as ADR-0007.
 
 **Citation:** ADR-0007 · 2026-09-06.
+
+## 2026-09-14 — COUNSEL_GATE
+
+**Case:** A production-facing acceptance path shipped without a recorded human counsel clearance.
+
+**Finding:** Draft legal artifacts are not production SoT until a named human records clearance.
+
+**Decision:** Record `COUNSEL_GATE` as a scar. Apache-2.0 LICENSE is the only use governor. No acceptance gate.
+
+**Citation:** 2026-09-14.

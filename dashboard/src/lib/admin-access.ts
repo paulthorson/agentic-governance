@@ -1,16 +1,18 @@
 /**
- * Admin allowlist for Gmail SSO.
- * Hardcoded operator + optional ADMIN_EMAILS env (comma-separated) override/extension.
- * Never invent additional operators from Studio or chat context.
+ * Admin allowlist for Google SSO.
+ *
+ * Sole source: ADMIN_EMAILS env (comma-separated). There is no hardcoded
+ * operator address. Empty / missing ADMIN_EMAILS → empty allowlist → nobody
+ * can sign in (fail closed). Deployer must supply real Google account emails
+ * via env. GitHub noreply addresses are not Google accounts and will not work
+ * as Google OAuth login identities.
  */
-
-const HARDCODED_ADMIN_EMAILS = ["noreply address"] as const;
 
 function normalizeEmail(email: string): string {
   return email.trim().toLowerCase();
 }
 
-/** Parsed ADMIN_EMAILS env — empty/missing means use hardcoded only. */
+/** Parsed ADMIN_EMAILS env — empty/missing → []. */
 export function envAdminEmails(): string[] {
   const raw = process.env.ADMIN_EMAILS;
   if (!raw || !raw.trim()) return [];
@@ -20,19 +22,20 @@ export function envAdminEmails(): string[] {
     .filter((email) => email.length > 0 && email.includes("@"));
 }
 
-/** Effective allowlist: hardcoded ∪ ADMIN_EMAILS. */
+/** Effective allowlist: ADMIN_EMAILS only. Empty → nobody. */
 export function adminAllowlist(): string[] {
-  const fromEnv = envAdminEmails();
-  const set = new Set<string>([
-    ...HARDCODED_ADMIN_EMAILS.map(normalizeEmail),
-    ...fromEnv,
-  ]);
-  return [...set];
+  return [...new Set<string>(envAdminEmails())];
 }
 
 export function isAdminEmail(email: string | null | undefined): boolean {
   if (!email) return false;
-  return adminAllowlist().includes(normalizeEmail(email));
+  const list = adminAllowlist();
+  if (list.length === 0) return false; // fail closed
+  return list.includes(normalizeEmail(email));
 }
 
-export const PRIMARY_ADMIN_EMAIL = HARDCODED_ADMIN_EMAILS[0];
+/** Hint string for login UI when at least one allowlisted email exists. */
+export function primaryAdminEmailHint(): string | null {
+  const list = adminAllowlist();
+  return list[0] ?? null;
+}

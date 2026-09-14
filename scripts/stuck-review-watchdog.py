@@ -43,8 +43,11 @@ Machine-parseable output:
 
 Config (env):
   PAPERCLIP_COMPANY_ID   company id (default: auto-detect; paperclip source only)
-  DISCORD_WEBHOOK_URL    webhook for alerts (optional; falls back to post-to-discord.py)
   STUCK_STATE_FILE       path to dedupe state (default: runs/stuck-watchdog.json)
+
+Alerts (via scripts/messaging.py, not read directly here):
+  ALERT_CHANNEL / ALERT_WEBHOOK_URL / ALERT_COMMAND / ALERT_TO
+  NETWORK_PERMISSION   optional override: allow | deny | unknown
 """
 import argparse
 import json
@@ -108,6 +111,16 @@ def query_in_review(company_id: str) -> tuple[list[dict], dict | None]:
         "--status", "in_review",
         "--json",
     ]
+    scripts_dir = str(Path(__file__).resolve().parent)
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    from approval import ApprovalRequired, require_approval
+
+    try:
+        require_approval("paperclip_subprocess", REPO_ROOT)
+    except ApprovalRequired as e:
+        print(f"WARN: paperclipai blocked without approval: {e}", file=sys.stderr)
+        return [], {"reason": "approval_required", "message": str(e)}
     try:
         out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
     except (subprocess.TimeoutExpired, FileNotFoundError) as e:

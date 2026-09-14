@@ -8,7 +8,6 @@ import {VStack} from '@astryxdesign/core/Layout';
 import {Heading, Text} from '@astryxdesign/core/Text';
 import {LockClosedIcon} from '@heroicons/react/20/solid';
 import {signInWithGoogle} from '@/app/admin/actions';
-import {PRIMARY_ADMIN_EMAIL} from '@/lib/admin-access';
 
 export default async function AdminLoginPage({
   searchParams,
@@ -28,8 +27,9 @@ export default async function AdminLoginPage({
               AG Admin
             </Heading>
             <Text type="body" color="secondary">
-              Google SSO for Cos/Paul only. Allowlist starts at{' '}
-              {PRIMARY_ADMIN_EMAIL}; override with ADMIN_EMAILS on Vercel.
+              Google SSO for allowlisted operators only. Set ADMIN_EMAILS to
+              one or more Google account emails (empty = nobody). GitHub
+              noreply addresses cannot sign in via Google OAuth.
             </Text>
           </VStack>
 

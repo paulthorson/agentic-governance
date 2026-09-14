@@ -48,6 +48,7 @@ def _valid_answers():
         "research_rounds_without_findings": "3",
         "research_round_budget": "5",
         "irreversible_action_protection": "2",
+        "network_permission": "deny",
         "alert_channel": "generic",
         "alert_command": "/tmp/alert.sh",
         "issue_source": "file",

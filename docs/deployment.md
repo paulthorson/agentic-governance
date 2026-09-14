@@ -70,7 +70,7 @@ bearer auth, the client sends the token in the `Authorization` header. See
   manager, not in the repo.
 - mTLS (Option A) is the strongest auth for machine-to-machine; use it when the
   client supports client certificates.
-- The server binds `0.0.0.0` by default for HTTP; bind to a private interface
-  when behind a proxy.
+- The server binds `127.0.0.1` by default for HTTP. LAN exposure requires an
+  explicit `--host 0.0.0.0` (prints a warning). Prefer loopback behind a proxy.
 - Verdicts append to `runs/verdicts.jsonl` (gitignored) — real review history
   is never committed.

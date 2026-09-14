@@ -2,47 +2,68 @@
 
 ## Reporting a vulnerability
 
-This is a personal AI-infrastructure project. If you find a security issue, do not open a public
-issue. Contact the maintainer directly via the GitHub repository's security advisory or the
-contact method listed in the repository profile.
+This is an unpaid personal project. If you find a security issue, do **not** open a
+public issue.
 
-Please include: a description of the issue, the affected plugin/file, a minimal reproduction,
-and suggested impact.
+Contact: **security@agenticgovernance.app**
 
-## Security model
+You can also report privately via GitHub: open a
+[private vulnerability report](https://github.com/paulthorson/agentic-governance/security/advisories/new)
+on this repository.
 
-The adversarial framework is built on a few non-negotiable guarantees. A vulnerability is any
-defect that breaks one of these:
+Please include: a description of the issue, the affected path, a minimal
+reproduction, and suggested impact.
 
-1. **Blind-review isolation.** An advocate agent must never receive the worker's rationale.
-   A leak that lets a judge see the pitch it is judging defeats the entire system.
-2. **Human-only veto clearing.** No AI in the system may clear a veto, downgrade a blocker, or
-   mark a review passed. Only a named human arbiter, with a stated reason in the decision
-   record, clears one.
-3. **Append-only records.** Decision records and calibration ledgers are never edited after
-   commit. A correction is a new entry referencing the old one.
-4. **No secret exfiltration.** Agents never read or commit credentials. Secrets live only in
-   the operator's local credentials store / environment, never in code, config, logs, or git
-   history.
-5. **Prompt-injection resistance.** The review checks include flagging injected instructions
-   that would override safety or clear a veto.
+## Operator responsibility
+
+You run the agents, the model provider account, the network, and the secrets.
+This repository does not replace provider billing caps, OS firewalls, or human
+review. See [`docs/capability-report.md`](docs/capability-report.md).
+
+**This software does not provide a safety guarantee.**
+
+## Security model (honest)
+
+These are design goals and process rules. Only some have code gates today
+([capability report §12.8](docs/capability-report.md#128-code-vs-instruction-controls-summary)).
+
+1. **Blind-review isolation (instruction).** Advocates are instructed not to
+   receive the worker’s rationale. There is **no** runtime wall that makes that
+   impossible if a caller pastes rationale into a tool.
+2. **Human-only veto clearing (process).** Constitutions say only a human clears
+   a veto. Files remain writable; discipline is procedural.
+3. **Append-only records (process).** Decision records should be appended, not
+   rewritten. Ordinary filesystem writes are still possible.
+4. **No secret exfiltration (instruction + operator hygiene).** Do not commit
+   credentials. Secrets belong in the operator environment.
+5. **Prompt-injection resistance (review checks / skills).** Skills and reviews
+   flag override attempts; this is not a complete defense.
+
+### Code gates that do exist
+
+| Gate | Behavior | Cite |
+|---|---|---|
+| Spend (framework units) | Gated MCP reviews refuse at configured numeric cap | capability report §12.1 |
+| Network permission | Messaging egress only if `allow`; unknown/deny = no egress | §12.3 |
+| Approval checkpoints | Listed subprocess/outbound/outside-write sites refuse without `AG_APPROVAL=1`, `AG_APPROVAL_TOKEN`+`runs/approval.token`, or `runs/approval.ok` | §12.2 |
+| HTTP bind | Default `127.0.0.1`; LAN requires explicit `--host` | §12.3 |
+
+### Unchecked (operator must assume open)
+
+- Agent runtimes and tools **not** calling the gated scripts/MCP entrypoints
+- Dashboard Google OAuth / admin SSO deploy surface ([§7.2–7.4](docs/capability-report.md#126-secrets-dashboard-site))
+- Model-provider token and dollar spend
+- Absolute paths the operator points outside the repo when a helper does not gate them
+- Blind-review / veto / append-only as technical impossibilities (they are not)
 
 ## Secret handling
 
-- Never commit `.env`, `*.pem`, or credential files. `.gitignore` excludes them.
-- Agent keys live in the operator's local key store (600 perms), never in the repo.
-- Service credentials live only in the operator's local credentials store — never in any
-  agent config or memory.
+- Never commit `.env`, `*.pem`, or credential files. `.gitignore` excludes common patterns.
+- `dashboard/.env.example` ships **empty** `AUTH_*` placeholders ([§7.1](docs/capability-report.md#71-history--credentials)).
+- Rotate any token you place in `MCP_AUTH_TOKEN` or alert webhooks.
 
-## Supported / supported surfaces
+## Supported surface
 
-The repository is a framework of markdown definitions + an MCP server. The security surface is
-the MCP server's tool boundary and the frontmatter that agents load. Keep the MCP server's
-tools read-only unless an explicit write tool is authorized.
-
-## Security improvement roadmap
-
-- [ ] Add a `shared/skills/security-review` that every reviewer can run (prompt-injection,
-  secrets, threat model, supply chain).
-- [ ] Add CI secret-scan (gitleaks/trufflehog) to `.github/workflows/`.
-- [ ] Add prompt-injection test fixtures under `tests/fixtures/`.
+Markdown harnesses/constitutions + MCP server tools + helper scripts. Treat remote
+HTTP MCP as hostile-network exposure unless you terminate TLS and auth in front of
+loopback ([`docs/deployment.md`](docs/deployment.md)).

@@ -2,256 +2,129 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 
-A **bring-your-own-agent (BYOA)** governance framework: role harnesses, a directed production chain, a constitution, a calibration ledger, and a setup wizard — so you can run **any** AI agent (Claude, ChatGPT/Codex, Hermes, Cursor, OpenClaw, or a custom client) under verifiable rules.
+This project is free and open source under the [Apache License 2.0](LICENSE). No acceptance of any terms is required to use it. The Apache License is the only thing governing use of the software. See also [NOTICE](NOTICE).
 
-You do not start over. You bring the agents you already have. The wizard maps them to roles, reconciles their instructions against the harness (never layers a second rulebook on top), and writes the config your team will actually run.
+A **bring-your-own-agent (BYOA)** governance **framework**: role harnesses, a directed production chain, constitutions, a calibration ledger, an MCP server, and a setup wizard. You bring agents you already run; the wizard maps them to roles and writes config.
 
-> **Marketing face → site repo.** After Eng extract plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) @ `e7bb36e`, public marketing / living board / admin twin UI move to [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site) (**extract execute continues there in parallel**). **This repo** stays the framework **download** face and owns / publishes measured feeds + improve corpus (`data/traction.json`, `docs/improve/`). Get AG points here — **acceptance gate** T&Cs required; LICENSE SoT **LIVE tip [#60](https://github.com/paulthorson/agentic-governance/pull/60) @ `86e98081`** (Apache-2.0; lawyer-review banner; **never ship production ToS without counsel**). Status: [`docs/initiatives/marketing-site-extract-execute.md`](docs/initiatives/marketing-site-extract-execute.md).
-
----
-
-## Why it exists
-
-Most agent setups are governed by vibes: a prompt says "be careful," and nothing checks whether the agent was. This framework makes governance **mechanical** — harness stop conditions, required artifact shapes, a constitution with hard vetoes, and a ledger that turns human answers into precedent.
-
-It is designed to be adopted **incrementally**, one agent at a time, without stopping work that is already running.
+Claims in this file trace to the [`docs/capability-report.md`](docs/capability-report.md); if you find a discrepancy, open an issue.
 
 ---
 
-## How it came to be
+## Governance limits
 
-1. **Adversarial review plugins** — domain reviewers with blind facts, constitutions, and hard vetoes (UX, engineering, QA, research, plus cross-cutting domains).
-2. **Enterprise gap audit** — `AUDIT.md` drove the expansion from review loops into a full governance product.
-3. **Harnesses + one master governance repo** — ratified in `docs/agentic-governance-spec.md`: constitution, role harnesses, calibration ledger, config, and in-repo wiki live here; project repos hold work product only. Git handoffs (named bot commits, folder ownership, no sideways writes) are the audit trail.
-4. **Governance layout** — constitution, harnesses, ledger, and config landed in one master repo (`agentic-governance` on GitHub).
-5. **Setup wizard** — conversational BYOA via the MCP server (`setup_wizard_start` / `setup_wizard_answer`), writing `config/setup.md`, `config/roster.md`, and persona blocks.
-6. **Vanilla handoff** — first real-team adoption (Ladders, 2026-09-06): adopters load constitution + harnesses as a **contract**, not a repo fork (ADR-0006). Local tickets + portable watchdog/telemetry so a vanilla install needs no Paperclip (ADR-0007).
+This project is a set of **instructions, review tools, and a few code gates**. It is not a sandbox, not a compliance certification, and not a guarantee that agents will obey harness text. See [what “governance” does not mean](docs/capability-report.md#127-what-governance-does-not-mean).
 
-The full design lives in [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) and [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md). Start the wiki at [`docs/Home.md`](docs/Home.md).
+## Operational warning
 
----
+Running AI agents can spend money, exfiltrate data, modify systems, and cause harm. Operators are responsible for provider billing limits, network controls, secrets, and human oversight. **This software does not provide a safety guarantee.**
 
-## The framework (what you actually run)
+## Code vs instruction controls
 
-| Layer | Job |
+| Kind | Examples (see capability report) |
 |---|---|
-| **Constitution** (`constitution/`) | Governing law and hard vetoes. Deliberately hard to change. |
-| **Harnesses** (`harnesses/`) | Who each role is, what it owns, what it never does, inputs/outputs, artifact format, stop conditions. |
-| **The chain** | Directed edges only. Research → PM → UX → Engineer → QA → CEO. No sideways traffic. |
-| **Calibration ledger** (`ledger/`) | Case law: escalations, resolutions, promotions. CEOs resolve by precedent only — they never invent policy. |
-| **Config** (`config/`) | Operator answers from the wizard: roster, budget, quiet hours, autonomy ladder, data sources. |
-| **Plugins** (`adversarial-*/`) | Capability packs the harnesses may allowlist. Plugins never assert a role. |
-| **Engine** (`mcp/` + `scripts/`) | MCP server, wizard, local tickets, stuck-review watchdog, veto telemetry. |
+| **Code** | Framework-unit spend refuse on gated MCP reviews; messaging egress only when `network_permission=allow`; approval checkpoints on listed subprocess/outbound/outside-write sites; MCP HTTP default bind `127.0.0.1` |
+| **Instruction / process** | CEO pacing language; blind-review isolation; human-only veto clearing; append-only ledger norms |
 
-**Plugins vs harnesses.** Plugins are capability (what a thing can do). Harnesses are role definition (who a bot is). A harness may name which plugins a role may use. A plugin must never claim a role.
+Detail: [`docs/capability-report.md` §12.8](docs/capability-report.md#128-code-vs-instruction-controls-summary).
 
-**One governance repo.** Every bot on every team reads the same constitution, harnesses, changelog, and ledger. Project repos hold epics and artifacts only — no forked copies of the rules.
+## Independent personal project
+
+This is an independent personal project. It is not a product of, or endorsed by, any employer or cloud vendor unless separately stated by that party in writing.
 
 ---
 
-## Who is who
+## What you get
+
+| Layer | Job | Evidence |
+|---|---|---|
+| **Constitution** (`constitution/`) | Written veto rules and domain law | Files in tree |
+| **Harnesses** (`harnesses/`) | Role instructions (own / never / stop conditions) | Files in tree |
+| **Chain** | Directed edges Research → PM → UX → Engineer → QA → CEO (documented) | Spec + harnesses |
+| **Calibration ledger** (`ledger/`) | Precedent records (ordinary files) | Files in tree |
+| **Config** (`config/`) | Wizard output: roster, budget units, network permission, alerts | Wizard writes; see capability report §12.1–12.3 |
+| **Plugins** (`adversarial-*/`) | Adversary agents and skills | Files in tree |
+| **Engine** (`mcp/` + `scripts/`) | MCP tools, wizard, tickets, watchdog, telemetry, messaging | capability report |
+
+Telemetry and alerts are local unless the operator configures a destination; no destination ships configured; nothing is sent to the project author, ever.
+
+**Plugins vs harnesses.** Plugins add adversary capabilities. Harnesses define roles. A plugin must not claim a role.
+
+---
+
+## Who is who (documented roles)
 
 ```
-HUMAN (Paul or You)
-│ last resort: novel cases, veto clearance, CEO/adversary deadlock,
-│ governance amendments, applying framework diffs
+HUMAN
+│ clears vetoes; applies governance diffs; owns provider billing
 │
-└── CHIEF OF STAFF (CoS) [multi-team mode only]
-    │  the only bot allowed to reach the human
-    │  merges + dedupes CEO queues · triages P0/P1 · decision-ready only
-    │  daytime window · quiet hours · may NOT bypass its own funnel
-    │
-    ├── CEO BOT — team A
-    ├── CEO BOT — team B
-    └── CEO BOT — team C .
-        │  resolves escalations by precedent from the Calibration Ledger
-        │  never invents policy · may kill redundant loops
-        │
-        └── THE CHAIN (directed edges only, no sideways traffic)
-            │
-            RESEARCH ──> PM ──> UX ──> ENGINEER ──> QA ──> back to CEO
-              │          │      │        │          │
-              │          │      │        │          └─ test plans, gates
-              │          │      │        └─ code, diffs
-              │          │      └─ user stories, rationale.md
-              │          └─ problem brief, 2+ real options
-              └─ evidence pack, never recommends
-
-Single-team mode: no CoS. CEO talks to the human directly.
+└── CHIEF OF STAFF (multi-team mode only) — human funnel (instruction)
+    └── CEO BOT(s) — route, advise pacing, resolve by ledger precedent (instruction)
+        └── RESEARCH → PM → UX → ENGINEER → QA
 ```
 
-### Role harnesses (7)
-
-| Role | Owns |
+| Role | Owns (harness text) |
 |---|---|
-| **Researcher** | Evidence pack. Establishes what is true. Never recommends. |
-| **PM** | Problem brief with **two or more real options**. |
-| **UX** | User stories + `rationale.md`. |
-| **Engineer** | Code and machine-applicable diffs. |
-| **QA** | Test plans and gates. Reports up to the CEO. |
-| **CEO** | Routes work, paces spend, accepts QA, resolves by ledger precedent, kills redundant loops. |
-| **CoS** | Multi-team only. Human funnel; morning queue; P0/P1 triage. Does not invent policy or clear vetoes. |
+| Researcher | Evidence; does not recommend |
+| PM | Problem brief with options |
+| UX | User stories + rationale |
+| Engineer | Code / diffs |
+| QA | Test plans / gates |
+| CEO | Routing, advisory resource pacing, precedent resolutions |
+| Chief of Staff | Multi-team human funnel |
 
-Folder ownership is the boundary: each bot writes only in its own epic folder and reads only upstream. Because the work lives in Git, every handoff is a commit by a named bot — an audit trail for the whole line at no extra cost.
+CEO “pacing” is **advisory** unless a gated MCP path refuses under the framework-unit meter ([§12.1](docs/capability-report.md#121-spend)).
 
 ---
 
-## Center of Excellence (operating model)
+## Spend (honest limits)
 
-Cos HOLD ACCEPT / Adv `COE_README_SOT` checklist — all seven named here. Soft or marketing-only CoE copy that omits them = **FAIL**.
-
-**1. What.** A **framework CoE**: standing standard + feedback from real work. **Not** a delivery team, not a new org box, not a new bot or sidebar persona. Does **not** amend the constitution by itself.
-
-**2. Who (owners — no new bot).** Cos + AG seat + Adv only. Project PMs are **not** constitution owners.
-
-| Seat | Job |
-|---|---|
-| **Cos** | ACCEPT funnel. Merges only when Adv challenge clears. Does not invent policy. |
-| **AG seat** | Framework PM. Drafts the named unpaid SoT/plan (`id` / owner / metric / AC). Project PMs ≠ AG constitution. |
-| **Adv** | Challenges the plan. Does **not** author it. |
-
-**Teams (members).** Ship under the live standard. File triad retros (well / didn’t / improve) as the feed.
-
-**3. Loop.**
-
-```
-triad retro → AG unpaid SoT/plan → Adv challenge (does not author) → Cos ACCEPT → teams absorb
-```
-
-**4. Fail-closed middle.** `SELF_AUDIT_LOOP` is **LIVE** — Cos ACCEPT merged [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`. Each audit cycle fail-closes to a **named unpaid SoT/improve item** **or** explicit **`AUDIT_CLEAR`** with evidence (nag-only = FAIL).
-
-`RETRO_BEFORE_CLOSE` is **LIVE** — Cos ACCEPT merged [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5`. Close-gate twin: epic CLOSED / next-pack GO requires a triad retro in AG git.
-
-**7. Fail-closed locks LIVE.** Both CoE fail-closed locks are merged law:
-
-| Lock | Status | Merged |
-|---|---|---|
-| `SELF_AUDIT_LOOP` | **LIVE** | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
-| `RETRO_BEFORE_CLOSE` | **LIVE** | [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5` |
-
-**Already LIVE (cite merged SHAs).**
-
-| Lock / check | Status | Merged |
-|---|---|---|
-| `SELF_AUDIT_LOOP` | **LIVE** | [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194` |
-| `RETRO_BEFORE_CLOSE` | **LIVE** | [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5` |
-| Critic Check 7 | **LIVE** | [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e` |
-| Critic Check 8 / `VISUAL_STEP_STILLS` | **LIVE** | [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1` |
-
-**5. P0.** No secrets, keys, emails, PII, or absolute host paths in AG git.
-
-**6. Soft/marketing-only = FAIL.** Tips, vibes, chat-only retros, wiki scars without unpaid items, or a marketing CoE blurb missing owners / loop / fail-closed middle (`SELF_AUDIT_LOOP` **LIVE** [#18](https://github.com/paulthorson/agentic-governance/pull/18) @ `5c10194`; `RETRO_BEFORE_CLOSE` **LIVE** [#17](https://github.com/paulthorson/agentic-governance/pull/17) @ `bd3afa5`) — **FAIL** under `COE_README_SOT`.
-
-Full write-up: [`docs/CoE.md`](docs/CoE.md).
+The framework can refuse gated MCP operations when recorded framework-visible units meet a wizard-configured numeric ceiling ([`spend.py`](mcp/adversarial_mcp/spend.py); [§12.1](docs/capability-report.md#121-spend)). This framework cannot see or limit what you spend with your model provider. Set a hard spending cap in your provider's billing console. This cap counts framework units only.
 
 ---
 
-## The engine
+## Network and bind
 
-The framework is **runtime-agnostic**. The same rules ship through:
+- Wizard asks `network_permission`: `allow` | `deny` | `unknown`. **Unknown = no egress** ([§12.3](docs/capability-report.md#123-network-and-bind)).
+- `scripts/messaging.py` delivers alerts only when permission is `allow` (and approval is present).
+- MCP HTTP transport defaults to **`127.0.0.1`**. LAN bind requires explicit `--host` and prints a warning ([§12.3](docs/capability-report.md#123-network-and-bind)).
 
-1. **MCP server** (`mcp/`) — review tools + the setup wizard for any MCP-capable client.
-2. **Local ticket system** (`scripts/ticket.py`) — file-based work items, `in_review` state, verdicts. No external tracker required.
-3. **Stuck-review watchdog** — flags reviews that stall (`paperclip`, file/stdin, or `none`).
-4. **Veto telemetry** — alerts from `runs/verdicts.jsonl`.
-5. **Optional Paperclip** — live agent-team wiring when you want it; not required for a vanilla install.
+---
+
+## Approval checkpoints
+
+Listed subprocess / outbound / outside-write call sites refuse without `AG_APPROVAL=1`, `AG_APPROVAL_TOKEN` matching `runs/approval.token`, or `runs/approval.ok` ([§12.2](docs/capability-report.md#122-approval-checkpoints)). The operator creates `runs/approval.token`; the framework only reads it. On a successful token match, the framework best-effort `chmod 0600`s the file and prints a stderr warning if that chmod fails ([§12.10](docs/capability-report.md#1210-runsapprovaltoken-write--permissions)). Own-directory framework writes and agent runtimes outside these scripts remain **unchecked**.
+
+---
+
+## Install (framework)
 
 ```bash
-# 1. Clone
 git clone https://github.com/paulthorson/agentic-governance.git
 cd agentic-governance
-
-# 2. Install the MCP server (requires uv)
-cd mcp
-uv sync
-uv run adversarial-mcp # stdio transport (default for MCP clients)
+cd mcp && uv sync && uv run adversarial-mcp # stdio (default)
 ```
 
-Wire the MCP server into your agent, then run the wizard. Per-framework guides:
+Wire the MCP server into your agent, then run `setup_wizard_start` / `setup_wizard_answer`.
 
-- [Claude Code](docs/onboarding/claude-code.md)
-- [ChatGPT / Codex](docs/onboarding/chatgpt-codex.md)
-- [Cursor](docs/onboarding/cursor.md)
-- [OpenClaw](docs/onboarding/openclaw.md)
-- [Hermes](docs/onboarding/hermes.md)
-- [Other MCP clients](docs/onboarding/other-mcp-clients.md)
+Onboarding guides: [`docs/onboarding/`](docs/onboarding/).
+
+The optional Next.js `dashboard/` app is **not required** to use the framework ([§7.3](docs/capability-report.md#73-dashboard-required)).
 
 ---
 
 ## Setup wizard (BYOA)
 
-The wizard is conversational, exposed through the MCP server — not a hand-edited config file.
+Conversational via MCP tools. Asks runtime, engine, budget model (framework units), roster, adversaries, escalation, quiet hours, autonomy, retries, research bounds, irreversible-action protection level, **network permission**, alert channel, and data-source paths. Writes `config/setup.md`, `config/roster.md`, and persona blocks.
 
-```
-setup_wizard_start() → setup_wizard_answer(.)
-```
-
-It asks for runtime, budget model, roster (`name | role | team | project`), whether adversaries are in play, escalation preferences, quiet hours, autonomy ladder, retry budgets, audit cadence, research bounds, irreversible-action protection, and where review/verdict data lives. Answers go to `config/setup.md` and `config/roster.md`; one persona block is generated per roster row under `config/personas/`.
-
-**Reconcile, never layer.** When you adopt an existing agent, the wizard sorts its current instructions against the harness: covered (drop), compatible (keep), or conflicting (you decide). When adoption finishes, the agent has **exactly one** set of instructions.
-
-**Re-runnable.** Later runs add to the roster rather than wiping it. An agent missing from the roster is outside governance — the framework cannot introspect your runtime, so it asks.
-
-Full walkthrough: [`docs/onboarding/byoa.md`](docs/onboarding/byoa.md).
+**Reconcile, never layer** when adopting existing agents. **Re-runnable.** Agents absent from the roster are outside this framework’s config — the framework cannot introspect arbitrary runtimes.
 
 ---
 
-## Repo layout (the Git shape)
+## Adversaries (judges)
 
-```
-agentic-governance/
-  constitution/           # governing law + vetoes
-  harnesses/              # role definitions (pm, ux, engineer, qa, ceo, researcher, …)
-  ledger/                 # calibration ledger + human queue
-  config/                 # setup.md, roster.md, personas/ (wizard output)
-  adversarial-<domain>/   # plugin source of truth (capability)
-  agents/ · skills/       # flat namespaced copies for Cursor/Claude
-  mcp/                    # MCP server + setup wizard
-  scripts/                # validate, tickets, watchdog, telemetry, consolidate
-  docs/                   # in-repo wiki + ADRs + ratified spec
-  runs/                   # local in_review + verdicts (gitignored)
-```
+Adversaries are instructed to review **blind** (neutral facts, not the worker’s pitch) and to treat customer-harm vetoes as human-cleared only. That isolation is **process/instruction**, not a cryptographic wall ([§12.7](docs/capability-report.md#127-what-governance-does-not-mean)).
 
-**Governance repo** = rules everyone shares. **Project repos** = epic folders and artifacts only. A governance change and its docs update land in the same commit; the wiki lives in `docs/`, not a separate GitHub wiki that drifts.
-
----
-
-## The adversaries (enforcement, not the org)
-
-Adversaries **judge** the chain and CEO rulings. They review **blind** — neutral facts, never the worker's rationale. A block sticks only if sustained **unanimously**. The CX / customer-harm veto is absolute; **only a human clears it**.
-
-### Four triple-agent domains
-
-| Domain | Agents |
-|---|---|
-| UX | critic · cx-advocate · evaluative-uxr |
-| Engineer | critic · ops-advocate · reliability-reviewer |
-| QA | critic · quality-advocate · edge-case-reviewer |
-| Researcher | critic · evidence-advocate · context-reviewer |
-
-### Eight single-adversary domains
-
-| Domain | Focus |
-|---|---|
-| Universal | Irrecoverable harm |
-| Prompt | Injection, drift, safety overrides |
-| Security | Vulns, secrets, supply chain |
-| Privacy | Consent, retention, transfer |
-| Compliance | Regulatory + policy gates |
-| Product | Unvalidated assumptions |
-| Ops | Rollback, DR, deployability |
-| Docs | Wrong / missing / misleading docs |
-
-### Counts
-
-| | |
-|---|---|
-| 20 | adversary agents (12 domains) |
-| 7 | role harnesses (pm, ux, engineer, qa, ceo, researcher, cos) |
-| 27 | personas in the framework |
-| ~50 | persona blocks generated from the roster (one per registered bot) |
-
-Adversaries can be `in-play` or `not-in-play` at setup. The chain and harnesses still govern either way.
+Domains ship under `adversarial-*/` (UX, engineer, QA, researcher, universal, prompt, security, privacy, compliance, product, ops, docs). Counts change as plugins are added; trust the tree and `scripts/validate.py`, not a marketing number.
 
 ---
 
@@ -259,30 +132,28 @@ Adversaries can be `in-play` or `not-in-play` at setup. The chain and harnesses 
 
 | Doc | What |
 |---|---|
+| [`docs/capability-report.md`](docs/capability-report.md) | **What code actually does** (source of truth for capability claims) |
+| [`docs/claim-alignment-plan.md`](docs/claim-alignment-plan.md) | Claim alignment plan |
 | [`docs/Home.md`](docs/Home.md) | Wiki entry |
-| [`docs/CoE.md`](docs/CoE.md) | Center of Excellence operating model (Cos + AG + Adv) |
-| [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) | Ratified framework |
-| [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md) | Reversibility, autonomy, BYOA, open problems |
-| [`docs/Architecture.md`](docs/Architecture.md) | Review loop |
-| [`docs/MCP.md`](docs/MCP.md) | Engine surface |
-| [`docs/onboarding/byoa.md`](docs/onboarding/byoa.md) | Adoption walkthrough |
+| [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) | Framework spec (includes advisory sections) |
+| [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md) | Addendum |
 | [`docs/deployment.md`](docs/deployment.md) | Remote MCP |
 | [`docs/adr/`](docs/adr/) | Architecture decisions |
-| [`AUDIT.md`](AUDIT.md) | Original gap analysis |
+| [`SECURITY.md`](SECURITY.md) | Reporting + security model (honest) |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | DCO + contribution rules |
+
+---
 
 ## Tooling & CI
 
-- `scripts/validate.py` — structure validator (frontmatter, namespacing, plugin skeleton)
-- `.github/workflows/validate.yml` — validate + gitleaks on push/PR
-- `scripts/consolidate-adversarial.py` — rebuild flat layer + re-symlink into Cursor/Claude
-- `scripts/stuck-review-watchdog.py` — stuck `in_review` detection
-- `scripts/veto-telemetry.py` — constitutional veto alerts
-- `scripts/messaging.py` — shared alert delivery
-- `scripts/ticket.py` — built-in local ticket/story system
+- `scripts/validate.py` — structure validator; `git apply --check` on patches requires approval when patches exist
+- `.github/workflows/validate.yml` — validate + tests + gitleaks
+- `scripts/messaging.py` — alerts (network permission + approval)
+- `scripts/approval.py` — approval checkpoints
+- `mcp/adversarial_mcp/spend.py` — framework-unit meter
 
-## Governance of this repo
+---
 
-- **License:** [Apache License 2.0](LICENSE) (`Apache-2.0`) — public framework license for fork / remix / contribute
-- `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the root
-- The **constitution** is the governing law; amendment requires adversarial review + human approval
-- Bots do not edit their own rules; a human applies framework diffs
+## License
+
+[Apache License 2.0](LICENSE). See also [NOTICE](NOTICE).
