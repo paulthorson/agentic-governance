@@ -91,10 +91,12 @@ Do not rewrite #37. Elevate look **without** dropping: point+connection marks; s
 
 ### 2.2 Mobbin / peer stills (Adv must open — fill exact URLs from Research capture)
 
+**Adv CONCERN (cheap absorb):** No Matrix/Tron-**named** Mobbin `/screens/.` pixels this session. Research locked discover queries only (login wall). Adjacent cyberpunk / Greptile (#37) named for density — **not** a Matrix-named substitute. Adv with Mobbin session may open Matrix/Tron discover → concrete screens later; unpaid screens do **not** block LOOK compose teach (RESEARCH_HCI).
+
 | Comp | URL | Craft teach | Conf |
 | --- | --- | --- | --- |
-| Mobbin discover Matrix | https://mobbin.com/discover?query=Matrix | Research opened → **login wall** (no `/screens/.` pixels this pass). Adv with Mobbin session: open same query; flag wallpaper vs readable-label. RESEARCH_HCI: collect alone ≠ evidence. | medium (URL locked; pixels gated) |
-| Mobbin discover Tron | https://mobbin.com/discover?query=Tron | Same login wall this pass. Adv open. | medium (URL locked; pixels gated) |
+| Mobbin discover Matrix | https://mobbin.com/discover?query=Matrix | Login wall this pass — **no Matrix-named `/screens/.`**. Adv CONCERN. Discover URL locked for later session open. | low–medium (query locked; screens unpaid) |
+| Mobbin discover Tron | https://mobbin.com/discover?query=Tron | Login wall — **no Tron-named `/screens/.`**. Adv CONCERN. | low–medium (query locked; screens unpaid) |
 | Mobbin discover cyberpunk | https://mobbin.com/discover?query=cyberpunk | Same login wall this pass. Adv open. | medium (URL locked; pixels gated) |
 | Mobbin discover network graph dark | https://mobbin.com/discover?query=network%20graph%20dark | Same login wall this pass. Adv open for dark graph peers. | medium (URL locked; pixels gated) |
 | Greptile dense codegraph (prior) | https://mobbin.com/screens/8d56eed4-8a7f-4052-ada5-ced89aa4ae48 (#37 cite) | Density aspiration under neon risk — competitor-hole 3D spectacle | high (#37) |
@@ -103,16 +105,11 @@ Do not rewrite #37. Elevate look **without** dropping: point+connection marks; s
 
 ---
 
-### 2.3 Research desktop stills (local only — not committed)
+### 2.3 Local desktop stills — DROPPED (Adv CONCERN)
 
-Captured for Adv challenge review on Research box (do not paste into AG git; scrub identity):
+Prior §2.3 listed Research-box PNG paths (`thegridcn-home.png`, `gmunk-tron-ares-*.png`). Those paths are **unreproducible** off Research box and are **not** SoT.
 
-| File | Source |
-| --- | --- |
-| `thegridcn-home.png` | https://thegridcn.com/ |
-| `gmunk-tron-ares-01.png` / `gmunk-tron-ares-02.png` | https://gmunk.com/TRON-Ares-Computer-Vision |
-
-Craft note from open: GridCN = readable cyan-on-black grid/glow. GMUNK = dense HUD/CV spectacle with micro-labels — peer for organized density; competitor-hole when spectacle drowns governance readability. Avoid blob/rain over labels.
+**Adv-omit:** Do not require local stills. Reproducible evidence = opened live URLs in §2.1 (thegridcn, GMUNK, dsh-matrix-skin, matrix.hexly.ai, NN/g, WebAIM/WCAG). Craft note retained verbally: GridCN = readable cyan-on-black grid/glow; GMUNK = dense HUD/CV spectacle with micro-labels — elevation peer; competitor-hole when spectacle drowns governance readability.
 
 ## 3. Compose elevated readable AG KG (senior-director brief)
 
@@ -213,8 +210,8 @@ Stills FAIL unless they show:
 
 | Field | Value |
 | --- | --- |
-| Received | Cos LOCK #39 + Cos ADDITIVE Matrix retip — full Paul LOOK stack (1 readable node context, 2 more polish, 3 elevated futuristic MATRIX, 4 vertical DATA STREAM phase in/out glyphs/codes atmosphere only — not fake KPI ticker); cite #38 @ `214ed5b` + #37 @ `cefb5f1`; FAIL wallpaper+blob; Eng HOLD; chatbot out |
+| Received | Cos LOCK #39 + Cos ADDITIVE LOOK 1–4; Adv PASS tip; cheap CONCERNs amended (Mobbin Matrix/Tron screens unpaid named; §2.3 local stills DROPPED / Adv-omit); cite #38 @ `214ed5b` + #37 @ `cefb5f1`; Eng HOLD |
 | Well-formed? | Yes — LOOK stack 1–4 + fundamentals + live opens + vertical DATA STREAM rules + holes + stills; RESEARCH_HCI not tile dump |
 | Additive on | #37 @ `cefb5f1`; #38 @ `214ed5b`; #28/#27 cite only |
 | PII | None |
-| Tip | Frozen SHA → PM; Adv challenge; LOOK stack 1–4 confirmed in pack; UX after Cos merge LIVE |
+| Tip | Adv PASS + cheap CONCERNs amended; Cos ACCEPT → LIVE; UX after Cos merge; Eng HOLD |
