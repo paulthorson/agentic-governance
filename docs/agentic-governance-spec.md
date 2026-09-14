@@ -183,6 +183,7 @@ The harness is the **source of truth** at `harnesses/researcher.md` (A23). The i
 |---|---|---|
 | `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) | **LIVE** | Cite-real-screens; constitution + scar SoT. |
 | `RESEARCH_HCI` | **DRAFT** — not live / not effective until Cos ACCEPT | Master's HCI craft bar for every product Research seat. Stacks on `RESEARCH_BEFORE_ENHANCE` (addition, not replacement). Adv must name the check before Cos ACCEPT. See harness + Research Critic Check 6. |
+| `DESIGN_SYSTEM_FIRST` | **DRAFT** — not live / not effective until Cos ACCEPT | Cos LOCK Paul — Design, Experience, and Branding are paramount; Eng follows signed craft. Design system is FIRST Initiative deliverable for every product UX + Research seat. Sensor requires Experience principles + Brand Voice + Audience/promise + Information-design rules (not tokens-only) + Research cite + Cos signoff. Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 (addition, not replacement). Adv must name the check before Cos ACCEPT. Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. Template: `adversarial-ux/assets/templates/design-system.md`. See harness + Research Critic lock. |
 
 ### 5.1 Product Manager Harness
 
@@ -199,6 +200,7 @@ The harness is the **source of truth** at `harnesses/ux.md` (A23). The inline co
 | Check 7 (flows + JTBD) | **LIVE** | UX→Eng gate; stacked on `RESEARCH_BEFORE_ENHANCE`. |
 | Check 8 / `VISUAL_STEP_STILLS` | **LIVE** | Product UX visual step-stills; `#15` / `d61f4c1`. |
 | `DESIGN_AGENCY_BAR` | **DRAFT** — not live / not effective until Cos ACCEPT | Cos LOCK Paul top-agency craft bar for every product UX seat. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 (addition, not replacement). Adv must name the check before Cos ACCEPT. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Scar: AG #39 tip `9b1bba2`. See harness + UX Critic Check 8 stack. |
+| `DESIGN_SYSTEM_FIRST` | **DRAFT** — not live / not effective until Cos ACCEPT | Cos LOCK Paul — Design, Experience, and Branding are paramount; Eng follows signed craft. Design system is FIRST Initiative deliverable for every product UX + Research seat. Sensor requires Experience principles + Brand Voice + Audience/promise + Information-design rules (not tokens-only) + Research cite + Cos signoff. Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 (addition, not replacement). Adv must name the check before Cos ACCEPT. Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. Template: `adversarial-ux/assets/templates/design-system.md`. See harness + UX Critic gate. |
 
 ### 5.3 Engineer Harness
 
