@@ -8,6 +8,14 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Changed
+- **UX Canvas named next gate (Paul/Cos LOCK — no new check id):** **UX Canvas** is the
+  **separate** next Initiative gate **after** Brand & Design Setup — **not** an alias of Brand
+  & Design Setup. Sequence: Research Scope → hunt → Brand & Design Setup → **UX Canvas**
+  (before screens; contents TBD) → Check 7/8 stills / Eng. Name the gate only; do not invent
+  canvas contents or a new Critic Check. Absorb into harness + design-system sensor + CoE/spec
+  pointers under LIVE `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
+  @ `ead012f` + Brand & Design Setup docs [#46](https://github.com/paulthorson/agentic-governance/pull/46)
+  @ `cdf1c41`.
 - **Adv CONCERN absorb (`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — no new check id):**
   Research cites must be **diverse** + **business-model-matched per project**; **FAIL** fixed AG
   comps (Pentagram/500/AXM) as all-teams default / copy-paste across teams; sensor requires cites
