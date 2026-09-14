@@ -4,6 +4,8 @@ A **bring-your-own-agent (BYOA)** governance framework: role harnesses, a direct
 
 You do not start over. You bring the agents you already have. The wizard maps them to roles, reconciles their instructions against the harness (never layers a second rulebook on top), and writes the config your team will actually run.
 
+> **Marketing face → site repo.** After Eng extract plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) @ `e7bb36e`, public marketing / living board / admin twin UI move to [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site) (**extract execute continues there in parallel**). **This repo** stays the framework **download** face and owns / publishes measured feeds + improve corpus (`data/traction.json`, `docs/improve/`). Get AG points here — **acceptance gate** T&Cs required; DRAFT outline SoT **LIVE** [#57](https://github.com/paulthorson/agentic-governance/pull/57) @ `9b5bcd9` (lawyer-review banner; **never ship production ToS without counsel**). Status: [`docs/initiatives/marketing-site-extract-execute.md`](docs/initiatives/marketing-site-extract-execute.md).
+
 ---
 
 ## Why it exists

@@ -7,6 +7,9 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- **Eng extract execute status (Class A companion):** After Eng plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) **Cos ACCEPT MERGED LIVE** @ `e7bb36e` — extract execute **GO** (site-repo extract continues **in parallel**). Rebased post–Get AG ToS outline [#57](https://github.com/paulthorson/agentic-governance/pull/57) @ `9b5bcd9` (**DRAFT LIVE** — production ToS **NOT** until [redacted]). Site face → `paulthorson/agentic-governance-site`; this repo remains feed/corpus publisher + framework download. Keeps `data/traction.json` + improve sync; leaves `dashboard/` UI for rollback; documents retire/redirect of **agentic-governance-three** after site serves. Get AG requires **acceptance gate** T&Cs; **never ship production ToS without counsel**; lawyer-review banner on drafts; Eng HOLD Get AG CTA pixels until acceptance gate path (stacked on #39 look HOLD). Path: `docs/initiatives/marketing-site-extract-execute.md`.
+
 ### Changed
 - **Adv CONCERN absorb (AG website UX Canvas SoT — unpaid from merged [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b`):** Amend
   `docs/initiatives/ag-website-ux-canvas.md` without inventing product policy: (1) cite
