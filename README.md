@@ -1,5 +1,7 @@
 # Agentic Governance
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 A **bring-your-own-agent (BYOA)** governance framework: role harnesses, a directed production chain, a constitution, a calibration ledger, and a setup wizard — so you can run **any** AI agent (Claude, ChatGPT/Codex, Hermes, Cursor, OpenClaw, or a custom client) under verifiable rules.
 
 You do not start over. You bring the agents you already have. The wizard maps them to roles, reconciles their instructions against the harness (never layers a second rulebook on top), and writes the config your team will actually run.
@@ -280,6 +282,7 @@ Adversaries can be `in-play` or `not-in-play` at setup. The chain and harnesses 
 
 ## Governance of this repo
 
+- **License:** [Apache License 2.0](LICENSE) (`Apache-2.0`) — public framework license for fork / remix / contribute
 - `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md` at the root
 - The **constitution** is the governing law; amendment requires adversarial review + human approval
 - Bots do not edit their own rules; a human applies framework diffs

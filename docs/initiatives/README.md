@@ -27,5 +27,6 @@ These are not shipped-evidence folders (those stay under [`docs/proof/initiative
 - Improve digest / living board feed: [`docs/improve/`](../improve/)
 - Proof of shipped Initiatives: [`docs/proof/initiatives/`](../proof/initiatives/)
 - Anonymous Improve consent HCI Research pack: [`dashboard/docs/research/anonymous-improve-consent-2026-09-14.md`](../../dashboard/docs/research/anonymous-improve-consent-2026-09-14.md) — LIVE [#53](https://github.com/paulthorson/agentic-governance/pull/53) @ `eaa2efa2`
-- Get AG OUTLINE (acceptance gate gate; DRAFT — ): [``](../legal/)
+- Get AG OUTLINE (acceptance gate gate; Apache-2.0; opt-in telemetry; DRAFT — ): [``](../legal/)
+- Get AG (Counsel/Adv tear-through; DRAFT — ): [``](../legal/)
 - Dashboard UX packet (DS / look tip): `dashboard/docs/ux/` (on look tip until Cos ACCEPT)
