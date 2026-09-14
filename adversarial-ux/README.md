@@ -104,3 +104,9 @@ adversarial-ux/
 ├── assets/templates/ decision-record.md, calibration-entry.md, design-system.md
 └── commands/ adversarial-ux, adversary-review
 ```
+
+**Initiative sequence pointer (LIVE):** Research Scope → hunt → **Brand & Design Setup**
+(`DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f`;
+docs [#46](https://github.com/paulthorson/agentic-governance/pull/46) @ `cdf1c41`) → **UX Canvas**
+(before screens; contents TBD — **separate** next gate, **not** an alias) → Check 7/8 stills / Eng.
+Sensor template: `assets/templates/design-system.md`. No new check id.

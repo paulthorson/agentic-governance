@@ -5,9 +5,12 @@
 `DESIGN_SYSTEM_FIRST`.
 
 Copy this template into the Initiative packet as `design-system.md`. Research × UX fill it
-together. Complete **Research Scope** (Q1–Q8) **before** the comps hunt. **Cos signs before
-Check 7 / Eng** and **before any web/UI pixels, stills, or screens.** Engineering follows
-signed craft — not the reverse.
+together. Complete **Research Scope** (Q1–Q8) **before** the comps hunt. **Cos signs Brand &
+Design Setup** before any web/UI pixels, stills, or screens. Next gate after Brand & Design
+Setup: **UX Canvas** (before screens; contents TBD — **separate** gate, **not** an alias of
+Brand & Design Setup; no new check id). Then Check 7/8 stills / Eng. Engineering follows
+signed craft — not the reverse. Cite [#46](https://github.com/paulthorson/agentic-governance/pull/46)
+@ `cdf1c41` + [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f`.
 
 **Paramount:** Design, Experience, and Branding are paramount — not optional polish after Eng.
 Design system + Experience + Branding **lead** Initiative; engineering follows signed craft.
@@ -184,5 +187,7 @@ copy-paste across teams. Cites are **internal only** — never public chrome.
 
 ## Cos stamp
 
-- Cos ACCEPT of this `design-system.md` before Check 7 / Eng: **yes | no**
+- Cos ACCEPT of this Brand & Design Setup `design-system.md`: **yes | no**
+- Next gate after this stamp: **UX Canvas** (before screens; contents TBD — not an alias)
+- Then Check 7/8 stills / Eng
 - Stamp note:
