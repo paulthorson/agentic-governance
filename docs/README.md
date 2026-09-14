@@ -16,6 +16,7 @@ touch the relevant page here.
 - [[Paperclip]] — how the framework is wired into the Paperclip agent team
 - [[Tooling]] — validator, CI, consolidation script
 - [[Roadmap]] — open work and known gaps
+- [Initiatives](./initiatives/) — product Initiative epic plans (PRD / flows)
 
 ## Page index
 
@@ -32,3 +33,4 @@ touch the relevant page here.
 | [[Paperclip]] | Agent roster, routing, mandatory-review rule |
 | [[Tooling]] | validate.py, CI workflow, consolidate script |
 | [[Roadmap]] | Gaps, planned agents, enterprise hardening |
+| [Initiatives](./initiatives/) | Product Initiative epic plans (PRD / flows) — e.g. Anonymous Improve Feedback |

@@ -20,11 +20,24 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
 
 ### Added
+- **Initiative epic plan: Anonymous Improve Feedback (PRD / flows — Eng HOLD).** Paul LOCK
+  2026-09-14 bake anonymous improve telemetry into the AG product. **Value exchange:** AG is
+  free because operators share anonymous basics (default on); richer diagnostic logs remain
+  opt-in. **Brand beat:** “Worker bees need to feed the hive.” (Get AG + consent headline/voice;
+  chrome stays plain English). Privacy floor: never secrets/tokens/PII/absolute paths/product
+  sauce. Lanes 1–4 (basics / bugs / ideas / richer opt-in) feed improve loop / living board /
+  Cos daily digest — measured only. Sequencing: after UX Canvas filled SoT [#50](https://github.com/paulthorson/agentic-governance/pull/50)
+  @ `6b24c4bc` (gate named [#48](https://github.com/paulthorson/agentic-governance/pull/48) @
+  `e9b4827`) → Research HCI consent pack [#53](https://github.com/paulthorson/agentic-governance/pull/53)
+  @ `eaa2efa2` → Check 7 when stories exist → Eng pixels only after Cos craft + Paul yes on #39
+  look. ADMIN TWIN framing noted. Path: `docs/initiatives/anonymous-improve-feedback.md` (+
+  index README).
 - **AG website UX Canvas (initiative SoT):** Filled Gothelf Lean UX Canvas v2 for the AG
   marketing/website initiative — Cos LOCK with Paul 2026-09-14; screens gated after this
   canvas. Includes admin twin definition (one product, two doors). Path:
   `docs/initiatives/ag-website-ux-canvas.md`. Pointer from `adversarial-ux/README.md`
-  Initiative sequence. **Not** the constitution Gothelf box-definitions tip.
+  Initiative sequence. **Not** the constitution Gothelf box-definitions tip. LIVE via
+  [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4bc`.
 
 ### Changed
 - **UX Canvas named next gate (Paul/Cos LOCK — no new check id):** **UX Canvas** is the
