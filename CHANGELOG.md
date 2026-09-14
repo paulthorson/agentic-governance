@@ -7,8 +7,29 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+- **Adv CONCERN absorb (`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — no new check id):**
+  Research cites must be **diverse** + **business-model-matched per project**; **FAIL** fixed AG
+  comps (Pentagram/500/AXM) as all-teams default / copy-paste across teams; sensor requires cites
+  that **state why this set matches this product’s model** and **why it is diverse** (not one
+  peer); name walkthrough **Brand & Design Setup** once in harness heading. Also: **Research
+  Scope** (Paul LOCK plain-English) Q1–Q8 wizard before comps hunt — no new check id.
+- **LIVE tidy:** `DESIGN_SYSTEM_FIRST` (**LIVE** `#45` / `ead012f`), `DESIGN_AGENCY_BAR`
+  (**LIVE** `#43` / `7e9e0b6`), `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) — remove stale
+  “draft until Cos ACCEPT” labels; move to CoE Already LIVE.
+- **`DESIGN_SYSTEM_FIRST` plain-English name (Paul LOCK):** **Brand & Design Setup** — early
+  Initiative Cos walkthrough. Map that human/agent name onto the check in `harnesses/ux.md`,
+  `adversarial-ux/assets/templates/design-system.md`, CoE + Critic table rows. Check id
+  unchanged (`DESIGN_SYSTEM_FIRST`).
+- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — fresh comps (Paul LOCK):** Research gathers
+  a **FRESH diverse** comps set for **each** project’s Brand & Design Setup, **matched to that
+  project’s business model**. Do **not** treat Pentagram / 500 / AXM as an all-teams default
+  (AG-site-specific). Comp cites **internal only** (never public chrome). Absorbed into
+  `harnesses/ux.md` + `harnesses/researcher.md`, design-system template, CoE + Critic rows.
+  Check id unchanged (`DESIGN_SYSTEM_FIRST`).
+
 ### Added
-- **Draft SoT: `DESIGN_SYSTEM_FIRST` — not live / not effective until Cos ACCEPT merge.** Cos
+- **SoT: `DESIGN_SYSTEM_FIRST` (Brand & Design Setup) — LIVE via `#45` / `ead012f`.** Cos
   LOCK Paul — **Design, Experience, and Branding are paramount** (not optional polish after
   Eng; design system + Experience + Branding lead Initiative; **engineering follows signed
   craft**). Design system is the **FIRST Initiative deliverable** for **every product UX +

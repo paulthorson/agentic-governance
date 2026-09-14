@@ -1,19 +1,28 @@
-# Design System — Initiative packet (`DESIGN_SYSTEM_FIRST`)
+# Brand & Design Setup — Initiative packet (`DESIGN_SYSTEM_FIRST`)
 
-**Draft gate until Cos ACCEPT of `DESIGN_SYSTEM_FIRST` — not live constitution.** Soft /
-deferred / tip / wiki-scar-only = **REJECTED**. Cos LOCK Paul. Id: `DESIGN_SYSTEM_FIRST`.
+**LIVE** — Cos ACCEPT merged [#45](https://github.com/paulthorson/agentic-governance/pull/45)
+@ `ead012f`. Soft / deferred / tip / wiki-scar-only = **REJECTED**. Cos LOCK Paul. Check id:
+`DESIGN_SYSTEM_FIRST`.
 
 Copy this template into the Initiative packet as `design-system.md`. Research × UX fill it
-together. **Cos signs before Check 7 / Eng** and **before any web/UI pixels, stills, or
-screens.** Engineering follows signed craft — not the reverse.
+together. Complete **Research Scope** (Q1–Q8) **before** the comps hunt. **Cos signs before
+Check 7 / Eng** and **before any web/UI pixels, stills, or screens.** Engineering follows
+signed craft — not the reverse.
 
 **Paramount:** Design, Experience, and Branding are paramount — not optional polish after Eng.
 Design system + Experience + Branding **lead** Initiative; engineering follows signed craft.
 
-**Stack:** `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7 +
-Check 8 — addition, not replacement. Agency design thinking (`DESIGN_AGENCY_BAR`) remains
-the permanent UX brain for every product UX seat. Cite DESIGN_AGENCY_BAR **#43** @
-`7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`.
+**Fresh comps (Paul LOCK — Research owns):** Research cites must be **diverse** and
+**business-model-matched per project**. Gather a **FRESH** set for **this** project — **not**
+one peer, **not** a fixed AG comps list copy-pasted across teams. Do **not** reuse
+Pentagram / 500 / AXM as an all-teams default — those were **AG-site-specific**. Comp cites
+are **internal only** (never public chrome). Cites must **state why this set matches this
+product’s business model** and **why the set is diverse**.
+
+**Stack:** `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) + `RESEARCH_HCI` (**LIVE** `#38` /
+`214ed5b`) + `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 — addition, not replacement.
+Agency design thinking (`DESIGN_AGENCY_BAR`) remains the permanent UX brain for every product
+UX seat.
 
 **P0:** No secrets, keys, emails, PII, or absolute host paths.
 
@@ -22,9 +31,28 @@ initiative: UNSET
 cos_signed: no
 cos_signed_at: UNSET
 research_cite: UNSET
+research_scope_complete: no
 ux_owners: []
 research_owners: []
 ```
+
+---
+
+## 0. Research Scope (required — before comps hunt)
+
+Plain-English name: **Research Scope**. Folded into `DESIGN_SYSTEM_FIRST` (no new check id).
+Missing answers = FAIL. Copy-pasting another team’s Scope = FAIL.
+
+| # | Question | Answer |
+|---|---|---|
+| Q1 | Business model | |
+| Q2 | Category | |
+| Q3 | Audience | |
+| Q4 | Offer / promise | |
+| Q5 | Craft bar (what good looks like) | |
+| Q6 | Anti-patterns | |
+| Q7 | How many comps + diversity bar | |
+| Q8 | Where to look (if blank, Research suggests: Mobbin, live sites, apps, …) | |
 
 ---
 
@@ -134,6 +162,25 @@ solo Research look = FAIL.
 
 - Research cite:
 - Research × UX collab note:
+
+## 11. Fresh comps (required — Research owns)
+
+**FRESH diverse** comps for **this** project, matched to **this** project’s business model.
+**Not** one peer. **Not** fixed AG comps (Pentagram / 500 / AXM) as all-teams default or
+copy-paste across teams. Cites are **internal only** — never public chrome.
+
+- Business model (one line):
+- **Why this set matches this product’s model** (required):
+- **Why this set is diverse** (required — not one peer):
+- Comps (diverse; opened + craft-read):
+
+| Comp | URL / ID (internal) | Business-model fit | Diversity role | Craft note |
+|---|---|---|---|---|
+| | | | | |
+
+- Not AG-site default / not copy-paste across teams (Pentagram / 500 / AXM): **held**
+- Cites internal-only (not public chrome): **held**
+- Research Scope complete before hunt: **held**
 
 ## Cos stamp
 
