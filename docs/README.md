@@ -34,4 +34,5 @@ touch the relevant page here.
 | [[Tooling]] | validate.py, CI workflow, consolidate script |
 | [[Roadmap]] | Gaps, planned agents, enterprise hardening |
 | [Initiatives](./initiatives/) | Product Initiative epic plans (PRD / flows) — e.g. Anonymous Improve Feedback |
-| [Get AG](./legal/) | DRAFT product ToS outline () — acceptance gate gate before download |
+| [Get AG](./legal/) | DRAFT product ToS outline () — acceptance gate; Apache-2.0; opt-in telemetry only |
+| [Get AG](./legal/) | Fuller LICENSE for Counsel/Adv tear-through (; not production ToS) |
