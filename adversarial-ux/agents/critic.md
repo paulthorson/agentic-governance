@@ -111,10 +111,10 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 
 ### `DESIGN_AGENCY_BAR` (stacks on Check 8 — Cos LOCK Paul)
 
-**Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft,
-deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **name this check**
-(`DESIGN_AGENCY_BAR`) before Cos ACCEPT. Alias / superseded: `SPECTACLE_NOT_CRAFT` — absorb FAIL
-conditions here; do **not** ship a second competing lock id.
+**LIVE** — Cos ACCEPT merged [#43](https://github.com/paulthorson/agentic-governance/pull/43) @
+`7e9e0b6`. Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Alias /
+superseded: `SPECTACLE_NOT_CRAFT` — absorb FAIL conditions here; do **not** ship a second
+competing lock id.
 
 - **Id:** `DESIGN_AGENCY_BAR`
 - **Slot:** Product UX stills / public marketing faces — Cos craft gate **before** Adv; Critic
@@ -127,48 +127,54 @@ conditions here; do **not** ship a second competing lock id.
   marble pulses / confetti / glow-as-craft / cheesy “alive”); wallpaper rain over labels; jargon
   scoreboards; checklist stills without agency-level composition; stacking effects to prove
   “alive.”
-- **Do-not-copy (named LIVE prohibition content):** particle beads / marble pulses / cheesy
-  “alive” as status. Scar: AG **#39** tip `9b1bba2` pulse FAIL — correct = faint white
-  colorization **within** the thin line (no beads/dots/marble pulses). Cite RESEARCH_HCI **#38**
-  @ `214ed5b`.
+- **Do-not-copy (named LIVE prohibition):** particle beads / marble pulses / cheesy “alive” as
+  status. Scar: AG **#39** tip `9b1bba2` pulse FAIL — correct = faint white colorization
+  **within** the thin line (no beads/dots/marble pulses). Cite RESEARCH_HCI **#38** @ `214ed5b`.
 - **Sensor:** Craft brief (restraint SoT + what NOT to do) before stills; stills PR includes
   **written craft defense** (why clean; what rejected as cheesy). Scar page ≠ sensor.
-- **Stack:** On `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8
-  (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — addition, **not** replacement. Does
-  not reopen Check 8.
+- **Stack:** On `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) + `RESEARCH_BEFORE_ENHANCE` + Check 7
+  + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — addition, **not**
+  replacement. Does not reopen Check 8.
 - **Metric:** Cos craft FAIL holds for listed spectacle patterns = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
-### `DESIGN_SYSTEM_FIRST` (gates pixels before Check 7/8 — Cos LOCK Paul)
+### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (gates pixels before Check 7/8 — Cos LOCK Paul)
 
-**Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft,
-deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv may rename later; use id
-`DESIGN_SYSTEM_FIRST` in this draft. Adv must **name this check** (`DESIGN_SYSTEM_FIRST`) before
-Cos ACCEPT. Cite prior locks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @
-`214ed5b`.
+**LIVE** — Cos ACCEPT merged [#45](https://github.com/paulthorson/agentic-governance/pull/45) @
+`ead012f`. Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Check id
+stays `DESIGN_SYSTEM_FIRST`. Cite stacks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI
+**#38** @ `214ed5b`.
 
 - **Id:** `DESIGN_SYSTEM_FIRST`
 - **Paramount:** **Design, Experience, and Branding are paramount** — not optional polish after
   Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
 - **Slot:** Initiative packet — design system **before** web / UI pixels / stills / screens; Cos
-  stamp before Check 7 / Check 8 stills / Eng handoff.
+  stamp before Check 7 / Check 8 stills / Eng handoff. **Research Scope** before comps hunt.
 - **Who / scope:** Every product team UX + Research (AG, Ladders, [redacted product], EW, EvenCursor,
   Dungeon, JEEP, future) — **not** OpenClaw.
 - **Bar / order:** Design system is the FIRST Initiative deliverable. Research + UX collaborate;
   Cos signoff in early Initiative. Agency design thinking (restraint, hierarchy, type, space, one
   strong quiet option) is permanent UX brain — stacks `DESIGN_AGENCY_BAR`; not a splash tip.
+- **Fresh comps (Paul LOCK):** Research cites must be **diverse** + **business-model-matched per
+  project**. **FAIL** fixed AG comps (Pentagram/500/AXM) as all-teams default / copy-paste across
+  teams. Cites **internal only**. Cites must **state why this set matches this product’s model**
+  and **why the set is diverse** (not one peer).
 - **FAIL:** shipping screens/stills/web without signed `design-system.md`; Research or UX
   solo-shipping Initiative look; completeness stills without a system; Eng-led chrome before
   signed craft; missing **Experience principles**, **Brand Voice**, **Audience/promise**, or
-  **Information-design rules**; invented/blank-as-measured; marks-as-decoration.
+  **Information-design rules**; invented/blank-as-measured; marks-as-decoration; fixed AG comps
+  as all-teams default / copy-paste; non-diverse / single-peer / non-model-matched comps; public
+  chrome cites; missing Research Scope.
 - **Sensor:** Initiative packet includes `design-system.md` (tokens / type / space / motion /
   brand / do-not + Experience principles + Brand Voice [tone, lexicon, headline patterns,
   narrative drill-down; name Brand Voice explicitly] + Audience/promise + Information-design
-  rules [measured-only; marks stay marks]) + Research cite; Cos signoff stamp before Check 7 /
-  stills / Eng handoff. Template: `adversarial-ux/assets/templates/design-system.md`. Scar page
-  ≠ sensor.
-- **Stack:** On `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7 +
-  Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — addition, **not** replacement.
+  rules [measured-only; marks stay marks]) + Research cite + fresh diverse comps with
+  model-fit + diversity rationale + Research Scope (Q1–Q8); Cos signoff stamp before Check 7 /
+  stills / Eng handoff. Comp cites internal-only. Template:
+  `adversarial-ux/assets/templates/design-system.md`. Scar page ≠ sensor.
+- **Stack:** On `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) + `RESEARCH_HCI` (**LIVE**
+  `#38` / `214ed5b`) + `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`,
+  **LIVE** via `#15` / `d61f4c1`) — addition, **not** replacement.
 - **Metric:** pixels shipped without DS signoff = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
@@ -312,24 +318,22 @@ FAIL if any of the following:
   then FAIL.
 - Adv jury on visual packs incomplete: missing opened best-in-class comps, or missing ≥1 OUR
   hole, or missing ≥1 COMP hole, or missing do-not-copy, or comps treated as gospel.
-- **`DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — stack on this Check; Adv must name):** Cos
-  craft FAIL before Adv when stills show spectacle-as-craft (beads / marble pulses / confetti /
-  glow-as-craft / cheesy “alive”), wallpaper rain over labels, jargon scoreboards, checklist
-  stills without agency-level composition, or stacked effects instead of one quiet craft choice.
-  Missing written craft defense (what rejected) on the stills PR → FAIL. Superseded alias
+- **`DESIGN_AGENCY_BAR` (LIVE `#43` / `7e9e0b6` — stack on this Check):** Cos craft FAIL before
+  Adv when stills show spectacle-as-craft (beads / marble pulses / confetti / glow-as-craft /
+  cheesy “alive”), wallpaper rain over labels, jargon scoreboards, checklist stills without
+  agency-level composition, or stacked effects instead of one quiet craft choice. Missing
+  written craft defense (what rejected) on the stills PR → FAIL. Superseded alias
   `SPECTACLE_NOT_CRAFT` is not a separate lock.
-- **`DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — stack before this Check; Adv must name):**
-  FAIL when Initiative stills / web / screens ship without Cos-signed `design-system.md`
-  (tokens / type / space / motion / brand / do-not + Experience principles + Brand Voice
-  [tone, lexicon, headline patterns, narrative drill-down] + Audience/promise +
-  Information-design rules [measured-only; marks stay marks] + Research cite), or Research/UX
-  solo-ship Initiative look, or completeness stills lack a system, or Eng-led chrome before
-  signed craft, or missing Brand Voice / Audience/promise / Experience principles /
-  info-design. Design, Experience, and Branding are paramount; engineering follows signed
-  craft. Design system is first deliverable; Cos stamp before Check 7 / Check 8 stills / Eng
-  handoff. Agency brain stacks `DESIGN_AGENCY_BAR` permanently. Cite DESIGN_AGENCY_BAR **#43**
-  @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. Template:
-  `adversarial-ux/assets/templates/design-system.md`.
+- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup (LIVE `#45` / `ead012f` — stack before this
+  Check):** FAIL when Initiative stills / web / screens ship without Cos-signed
+  `design-system.md` (tokens / type / space / motion / brand / do-not + Experience principles +
+  Brand Voice + Audience/promise + Information-design rules + Research cite + fresh diverse
+  business-model-matched comps with cites that state model-fit + diversity), or Research Scope
+  skipped, or Research/UX solo-ship Initiative look, or completeness stills lack a system, or
+  Eng-led chrome before signed craft, or fixed AG comps (Pentagram/500/AXM) as all-teams
+  default / copy-paste across teams. Design, Experience, and Branding are paramount;
+  engineering follows signed craft. Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI
+  **#38** @ `214ed5b`. Template: `adversarial-ux/assets/templates/design-system.md`.
 
 ## Output
 
@@ -352,8 +356,8 @@ Check 5 Intake: PASS | FAIL
 Check 6 Cite+Critique: PASS | FAIL | N/A
 Check 7 Flows+JTBD: PASS | FAIL
 Check 8 VisualStills (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
-DESIGN_AGENCY_BAR (draft; stacks on Check 8): PASS | FAIL | N/A
-DESIGN_SYSTEM_FIRST (draft; before Check 7/8 pixels): PASS | FAIL | N/A
+DESIGN_AGENCY_BAR (LIVE #43 / 7e9e0b6; stacks on Check 8): PASS | FAIL | N/A
+DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8 pixels): PASS | FAIL | N/A
 
 ### Stamp isolation (`CRITIC_SEPARATE_STAMP`) — draft until Cos ACCEPT; not a new Check number
 - Critic-labeled artifact/run separate from Adv: yes | no — FAIL if no
@@ -398,8 +402,7 @@ DESIGN_SYSTEM_FIRST (draft; before Check 7/8 pixels): PASS | FAIL | N/A
 - Critic stamp separate from Adv (`CRITIC_SEPARATE_STAMP`): yes | no — FAIL if no
 - P0 (no secrets/keys/emails/PII/host paths): PASS | FAIL
 
-### DESIGN_AGENCY_BAR (draft until Cos ACCEPT; stacks on Check 8 + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE)
-- Adv named check `DESIGN_AGENCY_BAR` (not competing `SPECTACLE_NOT_CRAFT`): yes | no — HOLD ACCEPT if no
+### DESIGN_AGENCY_BAR (LIVE #43 / 7e9e0b6; stacks on Check 8 + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE)
 - Scope applicable: product UX stills / public marketing | N/A (not OpenClaw) | wrong-surface FAIL
 - Craft brief (restraint SoT + what NOT to do) before stills: present | missing — FAIL
 - Written craft defense on stills PR (why clean; what rejected): present | missing — FAIL
@@ -410,12 +413,11 @@ DESIGN_SYSTEM_FIRST (draft; before Check 7/8 pixels): PASS | FAIL | N/A
 - Do-not-copy scar (#39 tip `9b1bba2`): within-line faint white flow (no beads/dots/marble): PASS | FAIL | N/A
 - Cos craft stamp before Adv: yes | no | N/A — FAIL if Adv ran first on craft FAIL patterns
 - Metric hold (Cos craft FAIL for listed patterns = 0): PASS | FAIL
-- Not live until Cos ACCEPT merged SHA (`LIVE_SOT_MERGED_SHA`): acknowledged | violated
 
-### DESIGN_SYSTEM_FIRST (draft until Cos ACCEPT; stacks on DESIGN_AGENCY_BAR + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE + Check 7/8)
-- Adv named check `DESIGN_SYSTEM_FIRST`: yes | no — HOLD ACCEPT if no
+### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (LIVE #45 / ead012f; stacks on DESIGN_AGENCY_BAR + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE + Check 7/8)
 - Scope applicable: product Initiative UX+Research | N/A (not OpenClaw) | wrong-surface FAIL
 - Design / Experience / Branding paramount (Eng follows signed craft): held | violated — FAIL if violated
+- Research Scope (Q1–Q8) before comps hunt: complete | missing — FAIL if missing
 - `design-system.md` present (tokens / type / space / motion / brand / do-not): yes | no — FAIL if no
 - Experience principles: present | missing — FAIL if missing
 - Brand Voice (tone; lexicon; headline patterns; narrative drill-down): present | missing — FAIL
@@ -424,15 +426,19 @@ DESIGN_SYSTEM_FIRST (draft; before Check 7/8 pixels): PASS | FAIL | N/A
 - Measured-only held (no invented / blank-as-measured): yes | no | N/A — FAIL if no
 - Marks stay marks (not decoration/spectacle): yes | no | N/A — FAIL if no
 - Research cite on DS packet: yes | no — FAIL if no
+- Fresh diverse comps (per-project; business-model matched; not one peer): yes | no — FAIL if no
+- Cites state why set matches this product’s model: yes | no — FAIL if no
+- Cites state why set is diverse: yes | no — FAIL if no
+- Not fixed AG comps / not copy-paste across teams (Pentagram / 500 / AXM): held | violated — FAIL if violated
+- Comp cites internal-only (never public chrome): held | violated — FAIL if violated
 - Cos signoff stamp before Check 7 / Check 8 stills / Eng handoff: yes | no — FAIL if no
 - Research+UX collaborated (not solo-ship Initiative look): yes | no — FAIL if no
 - Pixels / stills / web before signed DS: none | present — FAIL if present
 - Completeness stills without system: none | present — FAIL if present
 - Eng-led chrome before signed craft: none | present — FAIL if present
 - Agency brain stacks `DESIGN_AGENCY_BAR` (permanent, not splash tip): held | violated
-- Cite prior locks (#43 @ `7e9e0b6`; #38 @ `214ed5b`): acknowledged | missing
+- Cite LIVE stacks (#43 @ `7e9e0b6`; #38 @ `214ed5b`): acknowledged | missing
 - Metric hold (pixels without DS signoff = 0): PASS | FAIL
-- Not live until Cos ACCEPT merged SHA (`LIVE_SOT_MERGED_SHA`): acknowledged | violated
 
 ### Token source (`TOKEN_SOURCE_OR_BLANK`) — Check 1
 - design.md token_source: SET | UNSET | BLANK
@@ -469,19 +475,16 @@ merged SHA. `RETRO_BEFORE_CLOSE` — Cos/CEO close gate (harness SoT). Check 8
 (`VISUAL_STEP_STILLS`) is already **LIVE** on main via `#15` / `d61f4c1` — do not reopen.
 HOLD ACCEPT on these five until Adv PASS.
 
-**Draft until Cos ACCEPT (not live) — `DESIGN_AGENCY_BAR`:** Cos LOCK Paul agency craft bar for
-every product UX seat. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a
-replacement. Adv must **name `DESIGN_AGENCY_BAR`** before Cos ACCEPT. Do not mark LIVE until Cos
-ACCEPT MERGED SHA. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Metric: Cos
+**LIVE — `DESIGN_AGENCY_BAR`:** Cos LOCK Paul agency craft bar for every product UX seat.
+**LIVE** via `#43` / `7e9e0b6`. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8
+— not a replacement. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Metric: Cos
 craft FAIL for listed spectacle patterns = **fail closed**.
 
-**Draft until Cos ACCEPT (not live) — `DESIGN_SYSTEM_FIRST`:** Cos LOCK Paul —
-**Design, Experience, and Branding are paramount**; engineering follows signed craft. Design
-system is the FIRST Initiative deliverable for every product UX + Research seat. Required
-sections: tokens/type/space/motion/brand/do-not + Experience principles + **Brand Voice** +
-**Audience/promise** + **Information-design rules** (measured-only; marks stay marks) +
-Research cite. Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` +
-Check 7/8 — not a replacement. Adv must **name `DESIGN_SYSTEM_FIRST`** before Cos ACCEPT. Do
-not mark LIVE until Cos ACCEPT MERGED SHA. Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
-RESEARCH_HCI **#38** @ `214ed5b`. Metric: pixels shipped without DS signoff = **fail closed**.
-Template: `adversarial-ux/assets/templates/design-system.md`.
+**LIVE — Brand & Design Setup (`DESIGN_SYSTEM_FIRST`):** Cos LOCK Paul — Design, Experience, and
+Branding are paramount; engineering follows signed craft. **LIVE** via `#45` / `ead012f`.
+Research Scope (Q1–Q8) before comps hunt. Fresh diverse business-model-matched comps; cites
+state model-fit + diversity (not one peer); FAIL fixed AG comps (Pentagram/500/AXM) as
+all-teams default / copy-paste; cites internal-only. Stacks on `DESIGN_AGENCY_BAR` +
+`RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a replacement. Cite #43 @
+`7e9e0b6`; #38 @ `214ed5b`. Metric: pixels shipped without DS signoff = **fail closed**. Template:
+`adversarial-ux/assets/templates/design-system.md`.
