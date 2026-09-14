@@ -20,7 +20,16 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
 
 ### Added
-- **Marketing site split (extract epic PRD — tip for Cos ACCEPT / MUST-merge):** Paul
+- **Eng extract plan (Class A ops): Marketing site split.** Companion to PRODUCT epic
+  [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` (**MERGED LIVE**) —
+  `docs/initiatives/marketing-site-split.md` (do not overwrite). Path:
+  `docs/initiatives/marketing-site-extract-plan.md`. Cos OPEN Q LOCKs folded: admin twin UI,
+  Anonymous Improve public UX, living board UI → `agentic-governance-site`; AG owns
+  feeds/corpus/publisher (site read-only pull). Vercel project `agentic-governance-site`
+  already created + Git-linked. Get AG CTA → AG git only. **PLAN ONLY** — Eng HOLD look
+  pixels until Paul yes. Cos ACCEPT + MUST-merge this Eng plan when CI green; Eng execute
+  after this plan MERGED.
+- **Marketing site split (extract epic PRD — MERGED LIVE [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f`):** Paul
   LOCK 2026-09-14 + Cos craft PASS — extract public marketing/`dashboard` surface into
   locked repo [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site);
   AG stays framework download face; **Vercel project create CRITICAL PATH** (do **not**
