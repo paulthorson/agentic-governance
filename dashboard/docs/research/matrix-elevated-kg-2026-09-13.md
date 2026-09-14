@@ -68,7 +68,7 @@ Do not rewrite #37. Elevate look **without** dropping: point+connection marks; s
 | --- | --- | --- | --- |
 | https://gmunk.com/TRON-Ares-Computer-Vision | Yes | Opened: “Density was never decoration…”; scan→track→connect→populate; fibrous connections; grid as analysis lattice; timer as measured urgency (maps to measured-event twitch, not fake pulse / continuous rain) | high |
 | https://thegridcn.com/ | Yes | Tron theme system: deep dark + neon accents, HUD/data-card language, glow/scanline utilities | high (marketing/registry) |
-| https://thegridcn.com/components | Cite Adv open | Component gallery for HUD density — Adv confirm pixels | medium until Adv open |
+| https://thegridcn.com/components | Yes (Research desktop open) | Component gallery for HUD density / glow utilities. Scrub any demo identity fields from stills notes. | high |
 | https://matrix.hexly.ai | Yes (opened via README cite → live SPA) | nocoo/matrix green-on-black dashboard kit: panel tokens, monospace, MatrixRain background — **competitor-hole:** rain + maximalist cyber can drown readable KG; adapt tokens not wallpaper | high (live demo URL) |
 | https://github.com/nocoo/matrix | Yes (opened README) | Token stack: `--matrix-bg #050505`, primary `#00FF41`, muted/dim greens, panel rgba greens — useful elevated palette reference; rain is ambience feature | high |
 | https://www.typeui.sh/design-skills/matrix | Attempted open (bot challenge) | Restrained Matrix skill: dark-only, hairline, single brand-green, **not** neon spectacle — peer for elevated restraint. Adv open past challenge | medium |
@@ -82,12 +82,26 @@ Do not rewrite #37. Elevate look **without** dropping: point+connection marks; s
 
 | Comp | URL | Craft teach | Conf |
 | --- | --- | --- | --- |
-| Mobbin Matrix / Tron / cyber HUD | Adv must open Mobbin search: Matrix, Tron, cyber HUD, phosphor dashboard (Research desktop capture in parallel — amend tip if concrete `/screens/.` land) | Flag wallpaper vs readable-label examples. Scrub PII. Screenshot collecting alone ≠ evidence (RESEARCH_HCI #38). | medium until Adv open |
+| Mobbin discover Matrix | https://mobbin.com/discover?query=Matrix | Research opened → **login wall** (no `/screens/.` pixels this pass). Adv with Mobbin session: open same query; flag wallpaper vs readable-label. RESEARCH_HCI: collect alone ≠ evidence. | medium (URL locked; pixels gated) |
+| Mobbin discover Tron | https://mobbin.com/discover?query=Tron | Same login wall this pass. Adv open. | medium (URL locked; pixels gated) |
+| Mobbin discover cyberpunk | https://mobbin.com/discover?query=cyberpunk | Same login wall this pass. Adv open. | medium (URL locked; pixels gated) |
+| Mobbin discover network graph dark | https://mobbin.com/discover?query=network%20graph%20dark | Same login wall this pass. Adv open for dark graph peers. | medium (URL locked; pixels gated) |
 | Greptile dense codegraph (prior) | https://mobbin.com/screens/8d56eed4-8a7f-4052-ada5-ced89aa4ae48 (#37 cite) | Density aspiration under neon risk — competitor-hole 3D spectacle | high (#37) |
 | #28 Railway / Linear dark ops | cite living-graph pack #28 | Elevated dark board air — not Matrix; supporting dark depth only | high (#28) |
 | Greptile dense sphere | #37 cite | Density aspiration — 3D spectacle competitor-hole under neon too | high (#37) |
 
 ---
+
+### 2.3 Research desktop stills (local only — not committed)
+
+Captured for Adv challenge review on Research box (do not paste into AG git; scrub identity):
+
+| File | Source |
+| --- | --- |
+| `thegridcn-home.png` | https://thegridcn.com/ |
+| `gmunk-tron-ares-01.png` / `gmunk-tron-ares-02.png` | https://gmunk.com/TRON-Ares-Computer-Vision |
+
+Craft note from open: GridCN = readable cyan-on-black grid/glow. GMUNK = dense HUD/CV spectacle with micro-labels — peer for organized density; competitor-hole when spectacle drowns governance readability. Avoid blob/rain over labels.
 
 ## 3. Compose elevated readable AG KG (senior-director brief)
 
@@ -185,4 +199,4 @@ Stills FAIL unless they show:
 | Well-formed? | Yes — fundamentals + live opens + compose layer model + holes + stills acceptance; RESEARCH_HCI not tile dump |
 | Additive on | #37 @ `cefb5f1`; #38 @ `214ed5b`; #28/#27 cite only |
 | PII | None |
-| Tip | Frozen SHA → PM; Adv challenge; UX after Cos merge LIVE |
+| Tip | Frozen SHA → PM; Adv challenge; Mobbin discover URLs locked (login wall — Adv session for pixels); local stills for Adv only; UX after Cos merge LIVE |
