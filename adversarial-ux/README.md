@@ -110,3 +110,4 @@ adversarial-ux/
 docs [#46](https://github.com/paulthorson/agentic-governance/pull/46) @ `cdf1c41`) → **UX Canvas**
 (before screens; contents TBD — **separate** next gate, **not** an alias) → Check 7/8 stills / Eng.
 Sensor template: `assets/templates/design-system.md`. No new check id.
+AG website filled UX Canvas (initiative SoT): [`docs/initiatives/ag-website-ux-canvas.md`](../docs/initiatives/ag-website-ux-canvas.md) (Cos LOCK Paul 2026-09-14; screens gated after).
