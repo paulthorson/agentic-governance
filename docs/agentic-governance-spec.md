@@ -26,7 +26,7 @@ The agent should:
 
 Work moves along directed edges: PM defines the problem, UX designs the solution, engineer implements, QA verifies against the story. Each role writes only in its own folder in Git and reads only from the one upstream. Cross-team traffic routes through CEO bots.
 
-CEO bots route, pace spend, and resolve escalations **by precedent only**, drawing on a calibration ledger that functions as case law. They never invent policy. Their rulings are reviewed by the adversarial agents, and any objection blocks a ruling.
+CEO bots route, advise on resource pacing, and resolve escalations **by precedent only**, drawing on a calibration ledger that functions as case law. They never invent policy. Their rulings are reviewed by the adversarial agents, and any objection blocks a ruling. Resource pacing in this role is **advisory** unless a runtime control (for example the framework-unit spend meter) actually refuses an operation.
 
 The human is the last resort: deadlocks, veto clearing, and novel cases. Everything else resolves without them, and every ruling they do make becomes precedent, so the queue shrinks over time.
 
@@ -260,10 +260,12 @@ mode-conditional:
 
 The CEO bot watches a number. It does not judge whether spend is reasonable.
 
-- Escalate when an epic crosses the escalation threshold in the config (default 75 percent of its per-epic budget) before the work is complete.
-- Enforce a hard stop where bots halt rather than continue.
-- In metered mode, reserve the configured headroom for in-flight work so a ceiling hit does not strand partial work across every team.
-- In billed mode, escalate earlier, since the consequence is cost rather than a stall.
+Resource pacing instructions below are **advisory** to the CEO role. Separately, the MCP server may **refuse gated framework operations** when recorded framework-visible units meet a configured numeric cap (`mcp/adversarial_mcp/spend.py`). This framework cannot see or limit what you spend with your model provider. Set a hard spending cap in your provider's billing console. This cap counts framework units only.
+
+- Advise escalation when an epic crosses the escalation threshold in the config (default 75 percent of its per-epic budget) before the work is complete. This framework cannot see or limit what you spend with your model provider. Set a hard spending cap in your provider's billing console. This cap counts framework units only.
+- Advise bots to halt rather than continue when the configured ceiling is reached; where the framework-unit meter is wired, gated MCP entrypoints refuse at that cap. This framework cannot see or limit what you spend with your model provider. Set a hard spending cap in your provider's billing console. This cap counts framework units only.
+- In metered mode, advise reserving the configured headroom for in-flight work so a ceiling hit does not strand partial work across every team.
+- In billed mode, advise escalating earlier, since the consequence is cost rather than a stall.
 
 ### 10.5 Loop killing
 
@@ -381,9 +383,9 @@ A case that exhausts its retry budget three or more times across separate runs i
 
 Section 10.4 has the CEO bot watch a number and escalate when an epic crosses its threshold. The number is an aggregate, which means an overrun is visible but its cause is not.
 
-Spend is recorded per bot, not only per epic. When a budget is crossed, the report names which bots consumed what.
+**As implemented:** the framework records **framework-visible units** (for example gated MCP reviews) in `runs/spend-ledger.jsonl` with a source tag. It does **not** attribute model-provider tokens or dollars per bot. Per-bot dollar attribution remains an open goal where a runtime exposes that data.
 
-This matters for two reasons beyond accounting. A single misbehaving bot in a retry cycle looks identical to a genuinely expensive epic when all you have is a total, and A3's retry budgets cannot be tuned without knowing which role exhausts them. Attribution turns both from guesses into readings.
+When a configured framework-unit cap is crossed, gated MCP entrypoints refuse. CEO/harness text that asks bots to halt is still advisory for agents outside those entrypoints.
 
 Where a runtime does not expose per-bot usage, the framework records what it can and marks the rest unattributed rather than distributing it evenly. An invented number is worse than a gap, because a gap is visible.
 

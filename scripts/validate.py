@@ -138,19 +138,36 @@ def main():
     #    The engineer's diff is its primary deliverable; a diff that cannot be
     #    applied is a defect. Verify every .diff/.patch applies cleanly with
     #    `git apply --check` (stricter than `patch`, returns non-zero on failure).
+    #    Subprocess gate: require operator approval before invoking git apply.
     import subprocess
+    scripts_dir = os.path.join(root, "scripts")
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    from approval import ApprovalRequired, require_approval
+
+    patch_files = []
     for dp, dn, fn in os.walk(root):
         if ".git" in dp or ".venv" in dp or "node_modules" in dp:
             continue
         for f in fn:
             if f.endswith(".diff") or f.endswith(".patch"):
-                p = os.path.join(dp, f)
-                r = subprocess.run(
-                    ["git", "apply", "--check", p],
-                    capture_output=True, text=True, cwd=root,
-                )
-                if r.returncode != 0:
-                    errors.append(f"[{p}] diff does not apply cleanly (git apply rejected it): {r.stderr.strip()[:120]}")
+                patch_files.append(os.path.join(dp, f))
+    if patch_files:
+        try:
+            require_approval("git_apply", Path(root))
+        except ApprovalRequired as e:
+            errors.append(f"[git apply] blocked without approval: {e}")
+            print(f"VALIDATION FAILED ({len(errors)} issue(s)):\n")
+            for err in errors:
+                print(f"  - {err}")
+            sys.exit(1)
+        for p in patch_files:
+            r = subprocess.run(
+                ["git", "apply", "--check", p],
+                capture_output=True, text=True, cwd=root,
+            )
+            if r.returncode != 0:
+                errors.append(f"[{p}] diff does not apply cleanly (git apply rejected it): {r.stderr.strip()[:120]}")
 
     if errors:
         print(f"VALIDATION FAILED ({len(errors)} issue(s)):\n")

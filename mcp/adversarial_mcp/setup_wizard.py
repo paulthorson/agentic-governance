@@ -37,6 +37,14 @@ from typing import Any
 BUDGET_MODELS = ["metered", "billed", "not-yet-known"]
 ADVERSARIAL_STATES = ["in-play", "not-in-play"]
 MULTI_TEAM_CHOICES = ["yes", "no"]
+NETWORK_PERMISSIONS = ["allow", "deny", "unknown"]
+
+# Shown next to every operator-facing spend/budget number (same surface).
+SPEND_UNIT_QUALIFIER = (
+    "This framework cannot see or limit what you spend with your model provider. "
+    "Set a hard spending cap in your provider's billing console. "
+    "This cap counts framework units only."
+)
 
 # The question flow. Each entry:
 #   id        – stable key under which the answer is stored
@@ -56,14 +64,23 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     },
     {
         "id": "budget_model",
-        "question": "How do you want to control how much work the agents can do? (metered = a set allowance that resets on a schedule; billed = a hard spend cap; not-yet-known = you'll decide later)",
+        "question": (
+            "How do you want to control how much work the agents can do? "
+            "(metered = a set allowance of framework-visible units that resets on a schedule; "
+            "billed = a numeric ceiling on those same units; not-yet-known = you'll decide later). "
+            + SPEND_UNIT_QUALIFIER
+        ),
         "options": BUDGET_MODELS,
     },
     # conditional sub-questions (only presented when budget_model == their key)
     {
         "id": "metered_allowance",
         "if_budget": "metered",
-        "question": "Metered: how much work is allowed per cycle? (A number that resets on the schedule you set below.)",
+        "question": (
+            "Metered: how many framework-visible units are allowed per cycle? "
+            "(A number that resets on the schedule you set below.) "
+            + SPEND_UNIT_QUALIFIER
+        ),
         "options": None,
     },
     {
@@ -75,24 +92,40 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     {
         "id": "metered_headroom",
         "if_budget": "metered",
-        "question": "Metered: how much of the allowance should be held back for work already in progress, so it doesn't get cut off mid-task?",
+        "question": (
+            "Metered: how much of the allowance should be held back for work already "
+            "in progress, so it doesn't get cut off mid-task? "
+            + SPEND_UNIT_QUALIFIER
+        ),
         "options": None,
     },
     {
         "id": "billed_cap",
         "if_budget": "billed",
-        "question": "Billed: what is the total spend limit?",
+        "question": (
+            "Billed: what numeric ceiling of framework-visible units should gated MCP "
+            "operations refuse at? "
+            + SPEND_UNIT_QUALIFIER
+        ),
         "options": None,
     },
     {
         "id": "billed_escalation_threshold",
         "if_budget": "billed",
-        "question": "Billed: at what percentage of the limit should the system warn you before it's reached?",
+        "question": (
+            "Billed: at what percentage of the framework-unit ceiling should the system "
+            "warn you before it's reached? "
+            + SPEND_UNIT_QUALIFIER
+        ),
         "options": None,
     },
     {
         "id": "per_epic_budget",
-        "question": "How much work is a single project (an 'epic') allowed to use? (A number; the system warns when a project gets close to it.)",
+        "question": (
+            "How many framework-visible units may a single project (an 'epic') use "
+            "before the system warns? "
+            + SPEND_UNIT_QUALIFIER
+        ),
         "options": None,
     },
     {
@@ -189,16 +222,23 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     },
     {
         "id": "irreversible_action_protection",
-        "question": "For actions that can't be undone (sending, publishing, deleting, spending money), how protected should they be? (1 = agents can't reach them; 2 = a human must approve; 3 = agents are told to be careful but can do them)",
+        "question": "For actions that can't be undone (sending, publishing, deleting, spending money), what protection level should config record? (1 = intent: agents should not reach them; 2 = intent: a human must approve; 3 = intent: agents are told to be careful but can do them). This answer is written to config only — it is not a full technical wall. Only listed script/MCP sites with approval or network gates enforce anything in code; other agent runtimes remain unchecked.",
         "options": None,
+    },
+    # --- Network permission (explicit; UNKNOWN = no egress) ---
+    {
+        "id": "network_permission",
+        "question": "May framework scripts make outbound network calls (Discord webhooks, remote alerts, and similar)? Choose: 'allow' (egress permitted when other gates pass), 'deny' (no egress), or 'unknown' (treat as no egress — safest default until you decide).",
+        "options": NETWORK_PERMISSIONS,
     },
     # --- Messaging: the operator's alert channel, baked into the scripts ---
     # The framework sends alerts (veto telemetry, stuck-review watchdog) to the
     # operator's messaging system. This is configured here and read by the
     # scripts via ALERT_CHANNEL / ALERT_WEBHOOK_URL / ALERT_COMMAND.
+    # Alerts also require network_permission=allow; unknown/deny = no egress.
     {
         "id": "alert_channel",
-        "question": "Where should the framework send alerts (like 'a review is stuck' or 'a veto fired')? (discord, whatsapp, imessage, or a custom command)",
+        "question": "Where should the framework send alerts (like 'a review is stuck' or 'a veto fired')? (discord, whatsapp, imessage, or a custom command). Only used when network_permission is allow.",
         "options": ["discord", "whatsapp", "imessage", "generic"],
     },
     {
@@ -360,6 +400,10 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Budget model",
         f"- {answers.get('budget_model', '') or '(unset)'}",
+        "",
+        "## Spend honesty",
+        f"- {SPEND_UNIT_QUALIFIER}",
+        "- Gated MCP operations may refuse when recorded framework units meet the configured numeric ceiling.",
     ]
     model = answers.get("budget_model")
     if model == "metered":
@@ -367,20 +411,25 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
             "",
             "### Metered",
             f"- allowance per cycle: {answers.get('metered_allowance', '') or '(unset)'}",
+            f"- {SPEND_UNIT_QUALIFIER}",
             f"- reset cadence: {answers.get('metered_reset_cadence', '') or '(unset)'}",
             f"- headroom reserved for in-flight work: {answers.get('metered_headroom', '') or '(unset)'}",
+            f"- {SPEND_UNIT_QUALIFIER}",
         ]
     elif model == "billed":
         lines += [
             "",
             "### Billed",
             f"- total spend cap: {answers.get('billed_cap', '') or '(unset)'}",
+            f"- {SPEND_UNIT_QUALIFIER}",
             f"- escalation threshold (% of cap): {answers.get('billed_escalation_threshold', '') or '(unset)'}",
+            f"- {SPEND_UNIT_QUALIFIER}",
         ]
     lines += [
         "",
         "## Per-epic budget",
         f"- {answers.get('per_epic_budget', '') or '(unset)'}",
+        f"- {SPEND_UNIT_QUALIFIER}",
         "",
         "## Adversarial agents",
         f"- in play: {answers.get('adversarial_agents', '') or '(unset)'}",
@@ -425,6 +474,11 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Irreversible action protection (A14)",
         f"- per action class: {answers.get('irreversible_action_protection', '') or '(unset)'}",
+        "- config-recorded intent only — not a full technical wall; see approval/network gates for code enforcement",
+        "",
+        "## Network permission",
+        f"- {answers.get('network_permission', '') or '(unset)'}",
+        "- unknown or unset is treated as no egress (not unrestricted)",
         "",
         "## Messaging (alert channel)",
         f"- channel: {answers.get('alert_channel', '') or '(unset)'}",

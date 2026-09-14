@@ -5,12 +5,12 @@
 > **This repo stays** feed/corpus **publisher** + framework **download** — not the marketing host of record. 
 > Keep `data/traction.json` + `npm run sync-improve` as publisher sources. **Do not delete** them. 
 > UI below remains in-tree for **rollback** until the site PR lands and serves the extracted face — then retire/redirect legacy Vercel **agentic-governance-three** (do **not** break three yet). 
-> **HOLD:** #39 look pixels; Get AG requires **acceptance gate** T&Cs — DRAFT outline SoT **LIVE** [#57](https://github.com/paulthorson/agentic-governance/pull/57) @ `9b5bcd9` (lawyer-review banner; **never ship production ToS without counsel**; Get AG CTA pixels HOLD until acceptance gate path). Extract execute continues on site repo **in parallel**. Status: [`docs/initiatives/marketing-site-extract-execute.md`](../docs/initiatives/marketing-site-extract-execute.md).
+> **HOLD:** #39 look pixels; Get AG CTA pixels HOLD on look craft. Settled release posture: Apache-2.0 only; **no acceptance gate**; Get AGs removed. Extract execute continues on site repo **in parallel**. Status: [`docs/initiatives/marketing-site-extract-execute.md`](../docs/initiatives/marketing-site-extract-execute.md).
 
 Next.js app with two surfaces on the **same Vercel deploy** (route-split) — **legacy / rollback host** until site extract is live:
 
 1. **Public marketing** (`/`) — KPIs/charts, Get AG CTA, supporting content, traction widgets gated by `data/traction.json`.
-2. **Admin backend** (`/admin/*`) — Google SSO (personal email) + email allowlist for Cos/Paul. Sensitive/internal KPI views.
+2. **Admin backend** (`/admin/*`) — Google SSO + `ADMIN_EMAILS` allowlist (empty = nobody). Sensitive/internal KPI views.
 
 **Publisher (stays in AG):** measured traction (`data/traction.json`), improve corpus (`docs/improve/`), and sync (`scripts/sync-improve.mjs`). Site consumes feeds **read-only**.
 
@@ -45,7 +45,8 @@ Without Google env vars, public pages still work; admin sign-in will fail until 
 
 - Package: `next-auth@beta` (Auth.js v5).
 - Provider: Google only.
-- Allowlist: hardcoded `noreply address`, plus optional `ADMIN_EMAILS` (comma-separated) as override/extension.
+- Allowlist: `ADMIN_EMAILS` only (comma-separated Google account emails). Empty / unset = **nobody** (fail closed). No hardcoded addresses.
+- `*@users.noreply.github.com` cannot authenticate via Google OAuth (not a Google account). Deployer must supply a real Google email.
 - Middleware (`src/middleware.ts`) protects `/admin/*` except `/admin/login`.
 - Sign-out control lives in admin chrome.
 
@@ -56,18 +57,18 @@ Without Google env vars, public pages still work; admin sign-in will fail until 
 | `AUTH_SECRET` | Auth.js encryption secret (`npx auth secret`) |
 | `AUTH_GOOGLE_ID` | Google OAuth client ID |
 | `AUTH_GOOGLE_SECRET` | Google OAuth client secret |
-| `ADMIN_EMAILS` | Optional comma list of extra allowlisted emails |
+| `ADMIN_EMAILS` | Required for any admin login: comma list of Google emails. Empty = nobody. Placeholder in `.env.example` is `you@example.com` only. |
 
 Never commit real secrets. `.env*.local` is gitignored.
 
-## Vercel setup (Cos / Paul)
+## Vercel setup
 
 1. **Root Directory** = `dashboard` (see `vercel.json`).
 2. **Environment variables** (Production + Preview as needed):
-   - `AUTH_SECRET`
-   - `AUTH_GOOGLE_ID`
-   - `AUTH_GOOGLE_SECRET`
-   - `ADMIN_EMAILS` (optional; defaults still include `noreply address`)
+ - `AUTH_SECRET`
+ - `AUTH_GOOGLE_ID`
+ - `AUTH_GOOGLE_SECRET`
+ - `ADMIN_EMAILS` (Google account email(s); empty = nobody can sign in)
 3. Build command: `npm run build` (syncs improve markdown when parent tree is present).
 4. Deploy the marketing surface publicly when Cos unlocks launch (repo may stay private; site can be a public Vercel project).
 
@@ -77,8 +78,8 @@ Never commit real secrets. `.env*.local` is gitignored.
 2. Configure OAuth consent screen (External or Internal as appropriate for your Google Cloud org).
 3. **Authorized JavaScript origins**: `https://<your-vercel-host>` (and `http://localhost:3000` for local).
 4. **Authorized redirect URIs**:
-   - `https://<your-vercel-host>/api/auth/callback/google`
-   - `http://localhost:3000/api/auth/callback/google` (local)
+ - `https://<your-vercel-host>/api/auth/callback/google`
+ - `http://localhost:3000/api/auth/callback/google` (local)
 5. Copy Client ID → `AUTH_GOOGLE_ID`, Client secret → `AUTH_GOOGLE_SECRET`.
 
 Auth.js auto-detects `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` for the Google provider.

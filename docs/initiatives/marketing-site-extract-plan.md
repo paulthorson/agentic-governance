@@ -3,7 +3,7 @@
 **Plain-English name:** Marketing site extract (Eng plan) 
 **Type:** Class A ops / Eng extract plan — **PLAN ONLY** (no file moves, no pixels in this tip) 
 **Status:** **MERGED LIVE** — Cos ACCEPT [#56](https://github.com/paulthorson/agentic-governance/pull/56) @ `e7bb36e` (2026-09-14). PRODUCT [#55](https://github.com/paulthorson/agentic-governance/pull/55) **MERGED LIVE** @ `19e451f`. Extract execute **GO** — see companion status [`marketing-site-extract-execute.md`](./marketing-site-extract-execute.md). 
-**Owner seat:** Eng (+ Ops for Vercel); look pixels HOLD; Get AG T&Cs HOLD (lawyer before ship) 
+**Owner seat:** Eng (+ Ops for Vercel); look pixels HOLD; Get AG acceptance-gate HOLD **superseded** (Apache-only settle) 
 **Companion PRODUCT epic (AG PM owns — do not overwrite):** [`docs/initiatives/marketing-site-split.md`](./marketing-site-split.md) — [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` (**MERGED LIVE**) 
 **Companion execute status:** [`marketing-site-extract-execute.md`](./marketing-site-extract-execute.md)
 
@@ -17,7 +17,7 @@
 
 **Eng HOLD look pixels** until Paul yes (and stills / #39 craft clear). This plan does **not** authorize pixel work or `dashboard/src` look changes on AG.
 
-**Paul LOCK 2026-09-14 — Get AG T&Cs:** **[redacted]** T&Cs before download (**liability** + **anonymous basics**; FAIL [redacted]). DRAFT outline SoT **LIVE** [#57](https://github.com/paulthorson/agentic-governance/pull/57) @ `9b5bcd9` — [``](../legal/) (product outline only — [redacted]; **never ship production ToS without counsel** / [redacted]). **Eng HOLD Get AG CTA pixels** until acceptance gate path clear (stacked on #39 look HOLD). Class A extract docs / ops remain OK — this HOLD is pixels only; site-repo extract continues **in parallel**.
+**Paul LOCK 2026-09-14 — Get AG (superseded by release settle):** Prior acceptance-gate language is **void**. Settled posture: Apache-2.0 only; **no acceptance gate**; [redacted] Get AG files removed. **Eng HOLD Get AG CTA pixels** remains on #39 look craft only. Class A extract docs / ops OK; site-repo extract continues **in parallel**.
 
 ---
 
@@ -142,7 +142,7 @@ Rationale: one site product face (public + admin twin craft); AG remains framewo
 | **Get AG / download** | [`https://github.com/paulthorson/agentic-governance`](https://github.com/paulthorson/agentic-governance) (or AG release assets) | Site repo as product download |
 | Stars / clone links in traction | Product repo (as measured in feed) | Invented counts |
 
-**Paul LOCK 2026-09-14:** Get AG requires **acceptance gate** T&Cs before download. DRAFT outline SoT **LIVE** [#57](https://github.com/paulthorson/agentic-governance/pull/57) @ `9b5bcd9` — [``](../legal/) (lawyer-review banner; **never ship production ToS without counsel**). Eng HOLD Get AG CTA **pixels** until acceptance gate path clear (stacked on #39 look HOLD). Extract Class A docs/ops OK; site extract continues in parallel.
+**Paul LOCK (public release, settled):** Get AG / download has **no acceptance gate**. Apache-2.0 LICENSE only. Eng HOLD Get AG CTA **pixels** on #39 look craft. Extract Class A docs/ops OK; site extract continues in parallel.
 
 ---
 

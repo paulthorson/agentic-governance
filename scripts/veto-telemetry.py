@@ -13,8 +13,11 @@ Usage:
 
 Config (env):
   VERDICT_LOG          path to the verdict ledger (default: runs/verdicts.jsonl)
-  DISCORD_WEBHOOK_URL  webhook for alerts (optional; falls back to post-to-discord.py)
   VETO_STATE_FILE      state file for --watch dedupe (default: runs/veto-telemetry-state.json)
+
+Alerts (via scripts/messaging.py, not read directly here):
+  ALERT_CHANNEL / ALERT_WEBHOOK_URL / ALERT_COMMAND / ALERT_TO
+  NETWORK_PERMISSION   optional override: allow | deny | unknown
 """
 import argparse
 import json

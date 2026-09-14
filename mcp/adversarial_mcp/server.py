@@ -31,6 +31,8 @@ from typing import Any
 from mcp.server.fastmcp import FastMCP
 
 from . import setup_wizard
+from . import spend as spend_meter
+from .spend import SpendCapExceeded
 
 # ---------------------------------------------------------------------------
 # Framework discovery
@@ -378,6 +380,11 @@ def run_review(domain: str, work: str, context: str = "", source: str = "app") -
     Returns a structured verdict: structural scan, veto status, and the review
     prompt assembled for the domain's adversary agents.
     """
+    try:
+        spend_meter.refuse_if_over_cap(REPO_ROOT, pending_units=1.0)
+    except SpendCapExceeded as e:
+        return {"status": "refused", "reason": "spend_cap", "error": str(e)}
+    spend_meter.record_usage(1.0, source="run_review", note=domain, repo_root=REPO_ROOT)
     structural = _run_structural_review(domain, work)
     agents = _agents_for(domain)
     constitution = _constitution(domain)
@@ -429,7 +436,18 @@ DEEP_MODEL = os.environ.get("ADVERSARIAL_DEEP_MODEL", "gemma3:12b")
 
 def _ollama_generate(prompt: str, model: str | None = None) -> str:
     """Call Ollama to run the adversary agents on the assembled prompt."""
+    import sys
     import urllib.request
+
+    scripts = str(REPO_ROOT / "scripts")
+    if scripts not in sys.path:
+        sys.path.insert(0, scripts)
+    from approval import ApprovalRequired, require_approval
+
+    try:
+        require_approval("ollama_generate", REPO_ROOT)
+    except ApprovalRequired as e:
+        return f"ERROR: {e}"
 
     payload = json.dumps(
         {
@@ -459,6 +477,9 @@ def run_review_deep(domain: str, work: str, context: str = "", model: str = "") 
     Unlike run_review (which assembles the prompt), this actually calls the LLM
     to execute the domain's adversary agents and returns their findings.
 
+    Gated by framework-visible spend metering: refuses when recorded units meet
+    the configured cap. Does not observe model-provider dollars.
+
     Args:
         domain: one of the adversarial domains.
         work: the artifact/decision/claim to review.
@@ -467,6 +488,11 @@ def run_review_deep(domain: str, work: str, context: str = "", model: str = "") 
 
     Returns the structural scan plus the LLM-generated verdict and findings.
     """
+    try:
+        spend_meter.refuse_if_over_cap(REPO_ROOT, pending_units=1.0)
+    except SpendCapExceeded as e:
+        return {"status": "refused", "reason": "spend_cap", "error": str(e)}
+    spend_meter.record_usage(1.0, source="run_review_deep", note=domain, repo_root=REPO_ROOT)
     structural = _run_structural_review(domain, work)
     agents = _agents_for(domain)
     constitution = _constitution(domain)
@@ -614,6 +640,7 @@ def framework_status() -> dict[str, Any]:
         "skills_per_domain": {d: len(_skills_for(d)) for d in DOMAINS},
         "verdict_log": str(VERDICT_LOG),
         "verdict_count": sum(1 for _ in VERDICT_LOG.open() if _.strip()) if VERDICT_LOG.exists() else 0,
+        "spend": spend_meter.spend_status(REPO_ROOT),
     }
 
 
@@ -630,6 +657,12 @@ def main() -> None:
                     default="stdio", help="MCP transport (default stdio)")
     ap.add_argument("--port", type=int, default=8000, help="HTTP port (streamable-http/sse)")
     ap.add_argument("--mount-path", default="/mcp", help="HTTP mount path (streamable-http/sse)")
+    ap.add_argument(
+        "--host",
+        default="127.0.0.1",
+        help="HTTP bind address (default 127.0.0.1). Use --host 0.0.0.0 only when "
+             "you intentionally expose the server on the LAN; that prints a warning.",
+    )
     args = ap.parse_args()
 
     if args.transport == "stdio":
@@ -637,6 +670,7 @@ def main() -> None:
     else:
         # streamable-http / sse: run the server over HTTP. FastMCP's run()
         # with a non-stdio transport serves the server on the given port.
+        import sys
         import uvicorn
         # Optional bearer-token auth for remote deployments (MCP_AUTH_TOKEN).
         # When set, every HTTP request must carry Authorization: Bearer <token>.
@@ -644,7 +678,15 @@ def main() -> None:
         app = mcp.streamable_http_app() if args.transport == "streamable-http" else mcp.sse_app()
         if auth_token:
             app = _auth_middleware(app, auth_token)
-        uvicorn.run(app, host="0.0.0.0", port=args.port)
+        # Default bind is loopback only. LAN exposure requires an explicit --host.
+        if args.host in ("0.0.0.0", "::", "[::]"):
+            print(
+                "WARNING: binding MCP HTTP transport to "
+                f"{args.host} exposes it on all interfaces (LAN/WAN reachable if "
+                "the host is). Prefer 127.0.0.1 behind a reverse proxy.",
+                file=sys.stderr,
+            )
+        uvicorn.run(app, host=args.host, port=args.port)
 
 
 def _auth_middleware(app, token: str):
