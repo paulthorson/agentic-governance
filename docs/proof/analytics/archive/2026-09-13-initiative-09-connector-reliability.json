@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-13",
+  "superseded_by": "initiative-09-connector-reliability",
+  "runs": [
+    {"name": "design-system-monorepo", "agents": 57, "domains_allow": "7/7"},
+    {"name": "roadmap-p0-scope", "agents": 20, "seats_allow": "4/4", "kick_backs_resolved": 5},
+    {"name": "phone-access", "agents": 12, "reviews_allow": "3/3"},
+    {"name": "initiative-07-mentor-matching", "agents": 1, "reviews_allow": "6/6", "tests": 82}
+  ],
+  "test_suite": {"passed": 1034, "failed": 0, "skipped": 8},
+  "tickets": 19,
+  "verdicts": {"allow": 51, "kick_back": 32, "rounds_opened": 89},
+  "veto_overrides": 0
+}
