@@ -2,7 +2,8 @@
 
 Current as of 2026-09-13 (updated by the Initiative 01 outcomes-capture run;
 Initiative 09 connector-reliability + Initiative 05 application-studio evidence
-rows added / F3-corrected).
+rows added / F3-corrected; Initiative 11 governed-extension-platform evidence
+row added).
 This file is always the latest: update it in place as new data lands.
 Superseded versions are kept in `archive/`.
 
@@ -36,6 +37,7 @@ Superseded versions are kept in `archive/`.
 | Veto outcome-min-v0 capture (Initiative 01: event schema, append-only store, migration contract, coverage gate) | 1 coordinator (depth-limited, no subagent spawn) | 1/1 reviews ALLOW (9 findings fixed pre-verdict), 58 new tests green, shipped + pushed same session |
 | Veto Initiative 09 connector reliability & coverage (contract kit, ATS deepening, session rescue, channels, calendar, scorecard) | 1 coordinator (depth-limited, no subagent spawn) | 7/7 review tickets ALLOW, 105 new tests green, shipped + pushed same session |
 | Veto application studio (Initiative 05: versioned resumes, evidence library, ATS check, diff, packet, earned feedback) | multi-agent build, blind re-review rounds | 16 verdicts: 12 ALLOW / 4 KICK_BACK, every KICK_BACK closed by rework + fresh blind re-review, 137/137 i05 tests green, shipped 2026-09-13 |
+| Veto governed extension platform (Initiative 11: manifest, sandbox, policy kit, scaffold, Ed25519 signing, curated registry, reference extension) | 1 coordinator (depth-limited, no subagent spawn) | 2/3 review tickets ALLOW after 1 security KICK_BACK (5 demonstrated bypasses, all fixed + re-verified), 68 new tests + 14/14 adversarial attacks blocked, shipped + pushed same session |
 
 ## Quality
 
@@ -49,6 +51,9 @@ Superseded versions are kept in `archive/`.
 - Initiative 05: **137/137 i05 tests green** on the committed tree (F3-corrected
   evidence); see its EVIDENCE.md for the full KICK_BACK → rework → fresh blind
   re-review arc and disclosed caveats.
+- Initiative 11: 68 new tests + 14/14 adversarial attacks blocked; full-tree
+  caveats and the `test_crew::test_register_cli` extension CLI fix are in
+  EVIDENCE.md.
 - Design-system packages: 88 design tokens + component CSS modules + terminal theme,
   all with passing test suites; sync script byte-verifies every publish.
 

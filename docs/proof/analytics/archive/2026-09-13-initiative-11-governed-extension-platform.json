@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-13",
+  "superseded_by": "initiative-11-governed-extension-platform",
+  "note": "Snapshot of the evergreen analytics README as it stood after the Initiative 05 run, archived before the Initiative 11 refresh.",
+  "verdicts": {
+    "allow": 56,
+    "kick_back": 32,
+    "rounds_opened": 94
+  },
+  "tickets": 24,
+  "veto_overrides": 0,
+  "runs": [
+    {"name": "design-system-monorepo", "agents": 57, "reviews_allow": "7/7"},
+    {"name": "roadmap-p0-scope", "agents": 20, "seats_allow": "4/4", "kick_backs_resolved": 5},
+    {"name": "phone-access", "agents": 12, "reviews_allow": "3/3"},
+    {"name": "initiative-07-mentor-matching", "agents": 1, "reviews_allow": "6/6"},
+    {"name": "outcome-min-v0-capture", "agents": 1, "reviews_allow": "1/1", "findings_fixed_pre_verdict": 9},
+    {"name": "initiative-05-application-studio", "agents": 1, "reviews_allow": "5/5", "findings_fixed_pre_verdict": 14}
+  ],
+  "test_suite": {
+    "total": 1760,
+    "failed": 5,
+    "errors": 0,
+    "skipped": 8,
+    "note": "Failures confined to other teams' in-flight uncommitted modules at that time."
+  }
+}
