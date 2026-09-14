@@ -96,6 +96,7 @@ Check 7 / Check 8 scope: product UX surfaces. **Not** OpenClaw briefs.
 
 | Lock / check | Status | What | Note |
 |---|---|---|---|
+| `DESIGN_AGENCY_BAR` | **DRAFT** — not live / not effective until Cos ACCEPT | Cos LOCK Paul top-agency craft bar for **all product UX seats** (AG, Ladders, [redacted product], EW, EvenCursor, Dungeon, JEEP, future). Restraint / hierarchy / type / space / micro-interaction; Cos craft FAIL before Adv for spectacle-as-craft (beads / marble pulses / confetti / glow-as-craft / cheesy “alive”), wallpaper rain over labels, jargon scoreboards, checklist stills without agency composition. Sensor: craft brief + written craft defense on stills PR. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Scar: #39 tip `9b1bba2`. Alias `SPECTACLE_NOT_CRAFT` superseded (not a competing lock). | Adv must **name the check** before Cos ACCEPT. Harness SoT: `harnesses/ux.md`. Do not mark LIVE until Cos ACCEPT MERGED SHA. |
 | `RESEARCH_HCI` | **DRAFT** — not live / not effective until Cos ACCEPT | Master's HCI craft bar for **all product Research seats** (AG, Ladders, [redacted product], EW, EvenCursor, Dungeon, future). Fundamentals THEN opened comps; `evidence.md` must cite HCI + opened screens or FAIL UX handoff. Stacks on `RESEARCH_BEFORE_ENHANCE`. | Adv must **name the check** before Cos ACCEPT. Harness SoT: `harnesses/researcher.md`. |
 
 ---

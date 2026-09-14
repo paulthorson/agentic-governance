@@ -98,6 +98,25 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
+#### `DESIGN_AGENCY_BAR`
+
+**Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **name this check** (`DESIGN_AGENCY_BAR`) before Cos ACCEPT. Do **not** treat this draft / open PR as live Paul LOCK (`LIVE_SOT_MERGED_SHA`). Alias / superseded name: `SPECTACLE_NOT_CRAFT` — do **not** ship as a second competing lock id; absorb its FAIL conditions under this id.
+
+- **Id / named check:** `DESIGN_AGENCY_BAR` (Cos LOCK Paul)
+- **Who / scope:** Every **product UX seat** — AG, Ladders, [redacted product], Even Weather (EW), EvenCursor, Dungeon, JEEP, and future product UX seats. Product UX stills / public marketing faces only — **not** OpenClaw briefs.
+- **Bar:** Design as if from a **top agency** — restraint, hierarchy, type, space, micro-interaction. Prefer **one strong quiet option** (Apple / Linear restraint SoT) over stacking effects to prove “alive.”
+- **Stack:** Addition on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — **not** a replacement. Does not reopen Check 8; raises the craft bar on stills / public faces.
+- **Named FAIL (Cos craft FAIL before Adv when present):**
+  - Spectacle as craft: particle **beads** / marble pulses / confetti / glow-as-design / cheesy “alive” status effects
+  - Wallpaper rain over labels; jargon scoreboards
+  - Checklist stills without agency-level composition
+  - Stacking effects to prove the surface is “alive” instead of one restrained craft choice
+- **Do-not-copy (named LIVE prohibition content of this draft SoT):** particle beads / marble pulses / cheesy “alive” effects as status. Scar trigger: AG **#39** tip `9b1bba2` pulse craft FAIL (big green dots/beads along lines). Correct pattern: **faint white colorization WITHIN the thin line** — no beads / dots / marble pulses. Cite RESEARCH_HCI **#38** @ `214ed5b` for the Research craft stack this sits on.
+- **Sensor (fail-closed):** Before stills → Cos craft: a craft brief naming restraint SoT + **what NOT to do**. Stills PR must include a **written craft defense** (why clean; what was rejected as cheesy / spectacle). A scar/wiki page alone is not this sensor. Cos craft stamp **before** Adv.
+- **Metrics (fail closed):** Cos craft FAIL holds for the listed spectacle / cheesy-alive patterns = **fail closed**. Do not treat a narrative pass as acceptance.
+- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **Out of scope for this SoT write:** dashboard pixel implementation; amending #39 stills PNGs.
+
 **Acceptance record.** One line in `rationale.md` recording the acceptance decision: what was received (the brief), whether it was well-formed against the inputs rule (all five brief fields present, no placeholders, at least two genuinely different approaches), and if work proceeded despite a defect, why. (A18.1)
 
 ## Stop conditions
@@ -111,6 +130,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - On product UX jury gates for Checks 7–8: if there is no distinct **CRITIC**-labeled verdict artifact/run separate from Adv (silent dual-hat) — stop; FAIL under `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT).
 - If Check 1 would PASS while `token_source` is UNSET, or an improve digest treats blank/invented tokens as measured — stop; FAIL under `TOKEN_SOURCE_OR_BLANK` (draft until Cos ACCEPT).
 - Do not execute draft / intake / open-PR headers as live harness law until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
+- On product UX stills / public marketing faces (`DESIGN_AGENCY_BAR`, draft until Cos ACCEPT): if stills lack a written craft defense, or use spectacle-as-craft patterns (beads / marble pulses / confetti / glow-as-craft / wallpaper rain over labels / jargon scoreboards / cheesy “alive” stacking) — stop; Cos craft **FAIL before Adv**. Prefer one strong quiet option. Do not apply to OpenClaw. Do not treat this draft as live until Cos ACCEPT merge cites a merged SHA. Do not use superseded id `SPECTACLE_NOT_CRAFT` as a competing lock.
 
 ## Permitted plugins
 

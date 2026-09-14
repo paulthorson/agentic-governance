@@ -57,6 +57,15 @@ Soft / tip / wiki-scar-only = **REJECTED**.
   briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **`LIVE_SOT_MERGED_SHA`:** These five locks are not live until Cos ACCEPT merge cites a
   merged SHA. Intake / open PR / muse ≠ SoT (precedent `#13`). HOLD ACCEPT until Adv PASS.
+- **`DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — Cos LOCK Paul):** Every product UX seat —
+  design as top-agency craft (restraint, hierarchy, type, space, micro-interaction). Stacks on
+  `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a replacement. Cos craft FAIL
+  before Adv for spectacle-as-craft (beads / marble pulses / confetti / glow-as-craft / cheesy
+  “alive”), wallpaper rain over labels, jargon scoreboards, checklist stills without agency
+  composition. Sensor: craft brief + written craft defense on stills PR. Prefer one strong
+  quiet option. Adv must **name `DESIGN_AGENCY_BAR`** before Cos ACCEPT. Do not mark LIVE until
+  Cos ACCEPT MERGED SHA. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Scar:
+  #39 tip `9b1bba2`. Not OpenClaw. Metric: **fail closed**.
 
 If `design.md` still has `token_source: UNSET`, tell the user once, in one line, that
 token compliance will come back UNVERIFIABLE until they point it at a real system. Then carry on.

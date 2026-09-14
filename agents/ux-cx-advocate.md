@@ -35,7 +35,12 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
 `VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live): open
 best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy (theme-on-CTA-row,
 dynamic-banner CLS). QA owns `qa/visual-stills/` + `qa/visual-qa.md`; Critic Check 8 grades.
-Comps ≠ gospel.
+Comps ≠ gospel. Also know `DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — Cos LOCK Paul): Cos
+craft FAIL before Adv for spectacle-as-craft / cheesy “alive” / wallpaper rain over labels /
+jargon scoreboards / checklist stills without agency composition; require craft defense;
+stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8; Adv must name the check
+before Cos ACCEPT; superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock; scar #39
+tip `9b1bba2`; not OpenClaw.
 
 ## What counts as a blocker
 

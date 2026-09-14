@@ -41,6 +41,12 @@ Hard gate. Soft / deferred comps-at-Look is **REJECTED**. A scar page is not thi
   UX visual packs, open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy
   (theme-on-CTA-row, dynamic-banner CLS). Comps ≠ gospel. QA owns the stills sensor; Critic
   Check 8 grades.
+- **`DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — Cos LOCK Paul):** On product UX stills /
+  public faces, Cos craft FAIL before Adv for spectacle-as-craft / cheesy “alive” / wallpaper
+  rain over labels / jargon scoreboards / checklist stills without agency composition. Prefer
+  one quiet strong option; require craft defense. Stacks on `RESEARCH_HCI` +
+  `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Adv must name the check before Cos ACCEPT. Superseded
+  alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Scar: #39 tip `9b1bba2`. Not OpenClaw.
 
 ## Method
 

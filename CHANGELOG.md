@@ -8,6 +8,31 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **Draft SoT: `DESIGN_AGENCY_BAR` — not live / not effective until Cos ACCEPT merge.** Cos
+  LOCK Paul agency craft bar for **every product UX seat** (AG, Ladders, [redacted product], Even
+  Weather / EW, EvenCursor, Dungeon, JEEP, and future) — **product UX stills / public marketing
+  faces only; not OpenClaw briefs.** **Bar:** design as if from a top agency — restraint,
+  hierarchy, type, space, micro-interaction; prefer **one strong quiet option** (Apple / Linear
+  restraint SoT) over stacking effects. **Stack:** addition on `RESEARCH_HCI` +
+  `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via
+  `#15` / `d61f4c1`) — **not** a replacement; does not reopen Check 8. **FAIL (Cos craft before
+  Adv):** cheesy effects; spectacle as craft (particle beads / marble pulses / confetti /
+  glow-as-craft / cheesy “alive”); wallpaper rain over labels; jargon scoreboards; checklist
+  stills without agency-level composition; stacking effects to prove “alive.” **Do-not-copy
+  (named LIVE prohibition content):** particle beads / marble pulses / cheesy “alive” as status
+  — scar AG **#39** tip `9b1bba2` pulse craft FAIL; correct = faint white colorization **within**
+  the thin line. Cite RESEARCH_HCI **#38** @ `214ed5b`. **Sensor (fail-closed):** craft brief
+  (restraint SoT + what NOT to do) before stills; stills PR must include **written craft
+  defense** (why clean; what rejected as cheesy). **Metric (fail closed):** Cos craft FAIL holds for
+  listed spectacle patterns = **0**. Soft / deferred / tip / wiki-scar-only = **REJECTED**.
+  **HOLD ACCEPT until Adv names the check** (`DESIGN_AGENCY_BAR`) then Cos ACCEPT merge. Do
+  **not** mark LIVE until Cos ACCEPT MERGED SHA. Superseded alias `SPECTACLE_NOT_CRAFT` —
+  absorb FAIL conditions under this id; do not ship a competing lock. **P0:** no
+  secrets/keys/emails/PII/host paths. Out of scope: dashboard pixel implementation; amending
+  #39 stills PNGs. SoT: `harnesses/ux.md`; adversarial-ux critic + CX / Evaluative pointers +
+  flat `agents/ux-*` copies; adversarial-ux skill pointer; CoE + spec Section 5.2 index
+  pointers.
+
 - **Draft SoT: `RESEARCH_HCI` — not live / not effective until Cos ACCEPT merge.** Master's
   HCI craft bar for **every product Research seat** (AG, Ladders, [redacted product], Even Weather /
   EW, EvenCursor, Dungeon, and future product Research seats) — **Product UX Research only;

@@ -109,6 +109,36 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
+### `DESIGN_AGENCY_BAR` (stacks on Check 8 — Cos LOCK Paul)
+
+**Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft,
+deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **name this check**
+(`DESIGN_AGENCY_BAR`) before Cos ACCEPT. Alias / superseded: `SPECTACLE_NOT_CRAFT` — absorb FAIL
+conditions here; do **not** ship a second competing lock id.
+
+- **Id:** `DESIGN_AGENCY_BAR`
+- **Slot:** Product UX stills / public marketing faces — Cos craft gate **before** Adv; Critic
+  grades under Check 8 stack.
+- **Who / scope:** Every product UX seat (AG, Ladders, [redacted product], EW, EvenCursor, Dungeon,
+  JEEP, future) — **not** OpenClaw briefs.
+- **Bar:** Top-agency craft — restraint, hierarchy, type, space, micro-interaction. Prefer **one
+  strong quiet option** (Apple / Linear restraint SoT) over stacking effects.
+- **FAIL (Cos craft FAIL before Adv):** cheesy effects; spectacle as craft (particle beads /
+  marble pulses / confetti / glow-as-craft / cheesy “alive”); wallpaper rain over labels; jargon
+  scoreboards; checklist stills without agency-level composition; stacking effects to prove
+  “alive.”
+- **Do-not-copy (named LIVE prohibition content):** particle beads / marble pulses / cheesy
+  “alive” as status. Scar: AG **#39** tip `9b1bba2` pulse FAIL — correct = faint white
+  colorization **within** the thin line (no beads/dots/marble pulses). Cite RESEARCH_HCI **#38**
+  @ `214ed5b`.
+- **Sensor:** Craft brief (restraint SoT + what NOT to do) before stills; stills PR includes
+  **written craft defense** (why clean; what rejected as cheesy). Scar page ≠ sensor.
+- **Stack:** On `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8
+  (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — addition, **not** replacement. Does
+  not reopen Check 8.
+- **Metric:** Cos craft FAIL holds for listed spectacle patterns = **fail closed**.
+- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+
 ## The eight checks
 
 ### Check 1: Token compliance (`TOKEN_SOURCE_OR_BLANK`)
@@ -249,6 +279,12 @@ FAIL if any of the following:
   then FAIL.
 - Adv jury on visual packs incomplete: missing opened best-in-class comps, or missing ≥1 OUR
   hole, or missing ≥1 COMP hole, or missing do-not-copy, or comps treated as gospel.
+- **`DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — stack on this Check; Adv must name):** Cos
+  craft FAIL before Adv when stills show spectacle-as-craft (beads / marble pulses / confetti /
+  glow-as-craft / cheesy “alive”), wallpaper rain over labels, jargon scoreboards, checklist
+  stills without agency-level composition, or stacked effects instead of one quiet craft choice.
+  Missing written craft defense (what rejected) on the stills PR → FAIL. Superseded alias
+  `SPECTACLE_NOT_CRAFT` is not a separate lock.
 
 ## Output
 
@@ -271,6 +307,7 @@ Check 5 Intake: PASS | FAIL
 Check 6 Cite+Critique: PASS | FAIL | N/A
 Check 7 Flows+JTBD: PASS | FAIL
 Check 8 VisualStills (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
+DESIGN_AGENCY_BAR (draft; stacks on Check 8): PASS | FAIL | N/A
 
 ### Stamp isolation (`CRITIC_SEPARATE_STAMP`) — draft until Cos ACCEPT; not a new Check number
 - Critic-labeled artifact/run separate from Adv: yes | no — FAIL if no
@@ -315,6 +352,20 @@ Check 8 VisualStills (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
 - Critic stamp separate from Adv (`CRITIC_SEPARATE_STAMP`): yes | no — FAIL if no
 - P0 (no secrets/keys/emails/PII/host paths): PASS | FAIL
 
+### DESIGN_AGENCY_BAR (draft until Cos ACCEPT; stacks on Check 8 + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE)
+- Adv named check `DESIGN_AGENCY_BAR` (not competing `SPECTACLE_NOT_CRAFT`): yes | no — HOLD ACCEPT if no
+- Scope applicable: product UX stills / public marketing | N/A (not OpenClaw) | wrong-surface FAIL
+- Craft brief (restraint SoT + what NOT to do) before stills: present | missing — FAIL
+- Written craft defense on stills PR (why clean; what rejected): present | missing — FAIL
+- Spectacle-as-craft (beads / marble pulses / confetti / glow-as-craft / cheesy “alive”): PASS | FAIL | N/A
+- Wallpaper rain over labels / jargon scoreboards: PASS | FAIL | N/A
+- Checklist stills without agency-level composition: PASS | FAIL | N/A
+- Prefer 1 strong quiet option over stacking effects: held | violated — FAIL if violated
+- Do-not-copy scar (#39 tip `9b1bba2`): within-line faint white flow (no beads/dots/marble): PASS | FAIL | N/A
+- Cos craft stamp before Adv: yes | no | N/A — FAIL if Adv ran first on craft FAIL patterns
+- Metric hold (Cos craft FAIL for listed patterns = 0): PASS | FAIL
+- Not live until Cos ACCEPT merged SHA (`LIVE_SOT_MERGED_SHA`): acknowledged | violated
+
 ### Token source (`TOKEN_SOURCE_OR_BLANK`) — Check 1
 - design.md token_source: SET | UNSET | BLANK
 - Check 1 never PASS when UNSET: held | violated — FAIL if violated
@@ -349,3 +400,9 @@ UNSET; blank-as-measured = FAIL. `SURFACE_GATE_MATRIX` — product UX gates vs O
 merged SHA. `RETRO_BEFORE_CLOSE` — Cos/CEO close gate (harness SoT). Check 8
 (`VISUAL_STEP_STILLS`) is already **LIVE** on main via `#15` / `d61f4c1` — do not reopen.
 HOLD ACCEPT on these five until Adv PASS.
+
+**Draft until Cos ACCEPT (not live) — `DESIGN_AGENCY_BAR`:** Cos LOCK Paul agency craft bar for
+every product UX seat. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a
+replacement. Adv must **name `DESIGN_AGENCY_BAR`** before Cos ACCEPT. Do not mark LIVE until Cos
+ACCEPT MERGED SHA. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Metric: Cos
+craft FAIL for listed spectacle patterns = **fail closed**.

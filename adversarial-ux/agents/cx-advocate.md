@@ -52,6 +52,14 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
   UX visual packs, open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy.
   Named do-not-copy themes: **theme-on-CTA-row**, **dynamic-banner CLS**. QA owns
   `qa/visual-stills/` + `qa/visual-qa.md`; Critic Check 8 grades. Comps ≠ gospel.
+- **`DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — Cos LOCK Paul):** On product UX stills /
+  public marketing faces, raise Cos craft FAIL before Adv for spectacle-as-craft (beads /
+  marble pulses / confetti / glow-as-craft / cheesy “alive”), wallpaper rain over labels,
+  jargon scoreboards, or checklist stills without agency-level composition. Prefer one strong
+  quiet option. Require written craft defense. Stacks on `RESEARCH_HCI` +
+  `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a replacement. Adv must name `DESIGN_AGENCY_BAR`
+  before Cos ACCEPT. Alias `SPECTACLE_NOT_CRAFT` is superseded (not a competing lock). Scar:
+  #39 tip `9b1bba2`. Not OpenClaw.
 
 ## What counts as a blocker
 

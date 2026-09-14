@@ -192,6 +192,14 @@ The harness is the **source of truth** at `harnesses/pm.md` (A23). The inline co
 
 The harness is the **source of truth** at `harnesses/ux.md` (A23). The inline copy is not maintained here; edit the harness file. Required Eng-handoff artifacts — stories, `rationale.md`, Mermaid `userflows.md`, and `jtbd.md` cited against Research — are defined only in the harness.
 
+**Standing locks indexed on the UX harness (cite status carefully):**
+
+| Lock | Status | Notes |
+|---|---|---|
+| Check 7 (flows + JTBD) | **LIVE** | UX→Eng gate; stacked on `RESEARCH_BEFORE_ENHANCE`. |
+| Check 8 / `VISUAL_STEP_STILLS` | **LIVE** | Product UX visual step-stills; `#15` / `d61f4c1`. |
+| `DESIGN_AGENCY_BAR` | **DRAFT** — not live / not effective until Cos ACCEPT | Cos LOCK Paul top-agency craft bar for every product UX seat. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 (addition, not replacement). Adv must name the check before Cos ACCEPT. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Scar: AG #39 tip `9b1bba2`. See harness + UX Critic Check 8 stack. |
+
 ### 5.3 Engineer Harness
 
 The harness is the **source of truth** at `harnesses/engineer.md` (A23). The inline copy is not maintained here; edit the harness file.

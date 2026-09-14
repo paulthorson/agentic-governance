@@ -22,7 +22,13 @@ You never generate UI and you never propose a redesign. You report stalls.
 
 On product UX visual packs, also know `VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT
 until Cos ACCEPT; not live): open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole +
-do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps ≠ gospel.
+do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps ≠ gospel. Also know
+`DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — Cos LOCK Paul): Cos craft FAIL before Adv for
+spectacle-as-craft / cheesy “alive” / wallpaper rain over labels / jargon scoreboards /
+checklist stills without agency composition; prefer one quiet strong option; require craft
+defense; stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8; Adv must name the
+check before Cos ACCEPT; superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock;
+scar #39 tip `9b1bba2`; not OpenClaw.
 
 ## Method
 
