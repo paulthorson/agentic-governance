@@ -108,6 +108,10 @@ adversarial-ux/
 **Initiative sequence pointer (LIVE):** Research Scope → hunt → **Brand & Design Setup**
 (`DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f`;
 docs [#46](https://github.com/paulthorson/agentic-governance/pull/46) @ `cdf1c41`) → **UX Canvas**
-(before screens; contents TBD — **separate** next gate, **not** an alias) → Check 7/8 stills / Eng.
-Sensor template: `assets/templates/design-system.md`. No new check id.
-AG website filled UX Canvas (initiative SoT): [`docs/initiatives/ag-website-ux-canvas.md`](../docs/initiatives/ag-website-ux-canvas.md) (Cos LOCK Paul 2026-09-14; screens gated after).
+(before screens; **separate** next gate, **not** an alias of Brand & Design Setup) → Check 7/8
+stills / Eng. Sensor template: `assets/templates/design-system.md`. No new check id.
+
+**AG website UX Canvas — filled SoT LIVE:**
+[`docs/initiatives/ag-website-ux-canvas.md`](../docs/initiatives/ag-website-ux-canvas.md)
+(Cos LOCK Paul 2026-09-14; Adv CONCERN amend unpaid from [#50](https://github.com/paulthorson/agentic-governance/pull/50);
+screens gated after; Eng HOLD look/pixels until Cos craft + Paul yes on stills).

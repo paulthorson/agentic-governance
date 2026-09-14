@@ -1,11 +1,31 @@
 # AG website — UX Canvas (Gothelf Lean UX Canvas v2)
 
-Status: Cos LOCK with Paul 2026-09-14. Screens gated after this canvas.
+Status: Cos LOCK with Paul 2026-09-14. Adv CONCERN unpaid from merged
+[#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b` — this amend
+pays the four concerns. Screens gated after this canvas.
 
 This is the **filled** UX Canvas for the AG marketing / website initiative — initiative
-source of truth. It is **not** the constitution Gothelf contents tip (box definitions /
-gate naming). Box definitions stay on the Gothelf Lean UX Canvas v2 track; this file
-locks the filled answers for AG website only.
+source of truth (**LIVE**). It is **not** the constitution Gothelf contents tip (box
+definitions / gate naming). Box definitions stay on the Gothelf Lean UX Canvas v2 track;
+this file locks the filled answers for AG website only.
+
+## Brand & Design Setup cite (Cos-signed — AG website)
+
+Cite Cos-signed Brand & Design Setup / `design-system` packet for AG website
+(`DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
+@ `ead012f`; Brand & Design Setup docs
+[#46](https://github.com/paulthorson/agentic-governance/pull/46) @ `cdf1c41`; template
+`adversarial-ux/assets/templates/design-system.md`). Cos-signed craft locks for this
+Initiative (do not invent further product policy here):
+
+- **Sage** instrument brand
+- **Advercase + Geist** type pairing
+- **Process Instrument in the Void** hybrid (experience / look direction)
+- **Direct founder voice** (Brand Voice)
+
+**Eng HOLD on look / pixels** until Cos craft + Paul yes on stills. **Screens only after
+this canvas.** Do not treat this canvas as permission to ship look/stills (#39 / #26) or to
+rewrite Brand & Design Setup constitution.
 
 ## Admin twin (definition)
 
@@ -21,11 +41,19 @@ pitch instead of a product people trust enough to run.
 
 ## Box 2 — Business outcomes
 
-- Weekly governed loop in use
-- Fewer rework cycles
-- More serious evals
+Each outcome names a metric and a direction (measurable or method-estimated). No invented
+percentages or fake baselines.
+
+- **Weekly governed loop in use** — metric: share of operator teams with ≥1 measured
+  loop/week; direction: ↑
+- **Fewer rework cycles** — metric: cycles back from craft/QA before Eng; direction: ↓
+- **More serious evals** — metric: evals that cite craft challenge before Eng; direction: ↑
 
 ## Box 3 — Users
+
+Provenance: **Cos-owned with Paul 2026-09-14** (not Adv-invented). Cos+Paul lock
+2026-09-14 — Research Scope provenance unpaid (no AG-website Research Scope / HCI pack
+found to cite for these seats).
 
 - Alex — operator-founder
 - Jordan — enterprise buyer
@@ -37,14 +65,25 @@ pitch instead of a product people trust enough to run.
 - Jordan — diligence he can take seriously (one product, not a pitch + cheap back office)
 - Sam — craft challenged before Eng (same board + download path)
 
-## Box 5 — Solutions
+## Box 5 — Solutions (genuine options + trades)
 
-- Living board
-- Get AG
-- Narratives (plain-English stories of what shipped)
-- Admin twin (all of the above as one product, two doors)
+Not a flat checklist — each option prioritizes differently. One trade line each
+(“trades away X to get Y”).
+
+- **Living board** — This option trades away pitch-page simplicity to get week-to-week
+  diligence visibility on a measured board.
+- **Get AG** — This option trades away browse-only discovery to get a concrete
+  download / run path into the product.
+- **Narratives** (plain-English stories of what shipped) — This option trades away dense
+  metric chrome to get readable ship stories operators can trust.
+- **Admin twin** (one product, two doors) — This option trades away a separate cheap back
+  office to get the same craft on public board and local `/admin`.
 
 ## Box 6 — Hypotheses
+
+Provenance: **Cos-owned with Paul 2026-09-14** (not Adv-invented). Cos+Paul lock
+2026-09-14 — Research Scope provenance unpaid (no AG-website Research Scope / HCI pack
+found to cite for these hypotheses).
 
 1. We believe operators will run a weekly governed loop (and cut rework) if Alex can see
    real ships update a living board and read plain-English stories of what shipped.
