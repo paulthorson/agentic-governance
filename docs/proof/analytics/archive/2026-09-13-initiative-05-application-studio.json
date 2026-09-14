@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-13",
+  "superseded_by": "initiative-05-application-studio",
+  "runs": [
+    {
+      "name": "design-system-monorepo",
+      "agents": 57,
+      "domains_allow": "7/7"
+    },
+    {
+      "name": "roadmap-p0-scope",
+      "agents": 20,
+      "seats_allow": "4/4",
+      "kick_backs_resolved": 5
+    },
+    {
+      "name": "phone-access",
+      "agents": 12,
+      "reviews_allow": "3/3"
+    }
+  ],
+  "verdicts": {
+    "allow": 36,
+    "kick_back": 32,
+    "rounds_opened": 64
+  },
+  "tickets": 8,
+  "veto_overrides": 0,
+  "test_suite": {
+    "passed": 955,
+    "failed": 0,
+    "skipped": 8
+  }
+}

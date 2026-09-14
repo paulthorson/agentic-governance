@@ -1,7 +1,8 @@
 # Analytics — evergreen
 
 Current as of 2026-09-13 (updated by the Initiative 01 outcomes-capture run;
-Initiative 09 connector-reliability evidence row added).
+Initiative 09 connector-reliability + Initiative 05 application-studio evidence
+rows added / F3-corrected).
 This file is always the latest: update it in place as new data lands.
 Superseded versions are kept in `archive/`.
 
@@ -34,6 +35,7 @@ Superseded versions are kept in `archive/`.
 | Veto Initiative 07 mentor matching & warm paths (consent handshake, safety, session kit, warm-path drafts) | 1 coordinator (depth-limited, no subagent spawn) | 6/6 review tickets ALLOW, 82 new tests green, shipped + pushed same session |
 | Veto outcome-min-v0 capture (Initiative 01: event schema, append-only store, migration contract, coverage gate) | 1 coordinator (depth-limited, no subagent spawn) | 1/1 reviews ALLOW (9 findings fixed pre-verdict), 58 new tests green, shipped + pushed same session |
 | Veto Initiative 09 connector reliability & coverage (contract kit, ATS deepening, session rescue, channels, calendar, scorecard) | 1 coordinator (depth-limited, no subagent spawn) | 7/7 review tickets ALLOW, 105 new tests green, shipped + pushed same session |
+| Veto application studio (Initiative 05: versioned resumes, evidence library, ATS check, diff, packet, earned feedback) | multi-agent build, blind re-review rounds | 16 verdicts: 12 ALLOW / 4 KICK_BACK, every KICK_BACK closed by rework + fresh blind re-review, 137/137 i05 tests green, shipped 2026-09-13 |
 
 ## Quality
 
@@ -44,6 +46,9 @@ Superseded versions are kept in `archive/`.
   all capture modules combined — ordering interaction elsewhere). Initiative 01's
   58 tests all green; see its EVIDENCE.md for details.
 - Initiative 09 added 105 tests, all green (7 adapter tests exercise Initiative 03's contract when it is in-tree and skip gracefully otherwise). Full-tree run at Initiative 09 ship: 1492 tests; failures confined to other teams' in-flight uncommitted work (`test_contribute`, `test_crew`, `test_ext_sandbox` — files outside Initiative 09's scope), flagged not touched.
+- Initiative 05: **137/137 i05 tests green** on the committed tree (F3-corrected
+  evidence); see its EVIDENCE.md for the full KICK_BACK → rework → fresh blind
+  re-review arc and disclosed caveats.
 - Design-system packages: 88 design tokens + component CSS modules + terminal theme,
   all with passing test suites; sync script byte-verifies every publish.
 
