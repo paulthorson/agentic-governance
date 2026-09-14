@@ -20,6 +20,16 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
 
 ### Added
+- **Get AG (Class A docs — DRAFT, ).** Cos LOCK
+  with Paul 2026-09-14. Product intent outline only — **MUST** have [redacted]
+  before ship / before Cos treats as production ToS; do not copy-paste from other products.
+  [redacted] gate before Get AG / download (**FAIL [redacted]**); free ↔ anonymous-improve
+  tradeoff; liability / IP / termination / **Governing Law = Delaware (Paul LOCK)** — do not
+  invent venue/city beyond Delaware / dispute / acceptance proof log / changes + re-accept;
+  process notes for common mistakes (not user-facing). Path:
+  ``. Pointers from
+  `docs/initiatives/anonymous-improve-feedback.md`, `marketing-site-split.md`,
+  `marketing-site-extract-plan.md`. No pixels; outline is **not** enforceable counsel work.
 - **Eng extract plan (Class A ops): Marketing site split.** Companion to PRODUCT epic
   [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` (**MERGED LIVE**) —
   `docs/initiatives/marketing-site-split.md` (do not overwrite). Path:

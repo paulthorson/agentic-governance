@@ -50,7 +50,10 @@ That conflates faces:
    track — not this PRD’s merge payload.
 4. **Get AG / download CTA URL** →
    `https://github.com/paulthorson/agentic-governance` (or release assets) — **NOT**
-   the marketing repo.
+   the marketing repo. **Download is gated on acceptance gate ToS** (checkbox before Get AG /
+   download — **FAIL [redacted]**). Product outline (DRAFT — [redacted];
+   [redacted] required before production ToS):
+   [``](../legal/).
 5. **Marketing site PULLS** analytics / measured board feeds **FROM** the AG git
    (or a published feed from AG) — **read-only consume**; marketing git does **not**
    contain the framework.
@@ -134,7 +137,9 @@ stay-vs-move LOCKs). Execute tracks (separate PRs / ops) then prove:
      setup**. Cos owns the notify; notify is part of critical-path completion. |
 | A4 | Get AG / download CTA resolves to
      `https://github.com/paulthorson/agentic-governance` or AG release assets — **not**
-     `agentic-governance-site`. |
+     `agentic-governance-site`. CTA / download path is **gated on acceptance gate ToS**
+     (outline: [``](../legal/) —
+     DRAFT, ). |
 | A5 | Marketing site consumes analytics / measured board feeds from AG (or published
      AG feed) **read-only**; no framework tree inside marketing git. |
 | A6 | Process/docs remain in AG git; look/stills that move do so under Class B / Paul
