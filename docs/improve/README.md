@@ -91,3 +91,4 @@ secrets/keys/emails/PII/host paths in digest artifacts; no invented tokens.
 - Admin (Google SSO): [`../../dashboard/`](../../dashboard/) `/admin/*` — see dashboard README for Vercel env + OAuth
 - Traction gates: [`../../data/traction.json`](../../data/traction.json) — widgets stay hidden until Cos/Paul set measured values ≥ `minVisible`
 - Cos harness SoT (`SELF_AUDIT_LOOP`): [`../../harnesses/chief-of-staff.md`](../../harnesses/chief-of-staff.md)
+- Initiative epic (Anonymous Improve Feedback — PRD / feeds this digest): [`../initiatives/anonymous-improve-feedback.md`](../initiatives/anonymous-improve-feedback.md)
