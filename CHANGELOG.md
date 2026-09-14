@@ -7,6 +7,18 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+- **Adv CONCERN absorb (AG website UX Canvas SoT — unpaid from merged [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b`):** Amend
+  `docs/initiatives/ag-website-ux-canvas.md` without inventing product policy: (1) cite
+  Cos-signed Brand & Design Setup / design-system packet (Sage instrument brand;
+  Advercase + Geist; Process Instrument in the Void hybrid; Direct founder voice) + Eng
+  HOLD look/pixels until Cos craft + Paul yes on stills; screens only after this canvas;
+  (2) Box 2 metric + direction per outcome (honest directions, no fake percentages);
+  (3) Box 5 solutions as genuine options with one trade line each; (4) Box 3 users + Box 6
+  hypotheses marked Cos-owned with Paul 2026-09-14 — Research Scope provenance unpaid.
+  `adversarial-ux/README.md` Initiative LIVE pointer drops stale “contents TBD” and points
+  at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
+
 ### Added
 - **AG website UX Canvas (initiative SoT):** Filled Gothelf Lean UX Canvas v2 for the AG
   marketing/website initiative — Cos LOCK with Paul 2026-09-14; screens gated after this
