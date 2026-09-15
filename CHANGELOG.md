@@ -8,6 +8,16 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **OpenClaw gateway single-owner + stale-install recycle scar SoT** (docs only;
+ `GATEWAY_SINGLE_OWNER` + `STALE_INSTALL_RECYCLE`; gateway-health-guard–style
+ scheduled sensor; competing gateway process count = **0** hold while LaunchAgent
+ loaded) at
+ `projects/openclaw/scars/gateway-single-owner-stale-install-recycle.md`. CLOSED
+ harness scar for dual-owner recycle races + install-changed `UNAVAILABLE` under a
+ long-lived PID. Scope: OpenClaw Studio gateway ops only — **not** product UX
+ Check 7 / Check 8. Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`).
+ P0: no secrets/tokens, emails, Discord channel names, absolute host home paths
+ (LaunchAgent label OK), or private operator data.
 - **Check 9 / `INITIATIVE_START_SEQUENCE` (Paul LOCK Cos plain 2026-09-15 — draft until Cos ACCEPT):**
  Standing QA check (same family as Check 7 / Check 8 visual stills) — **fail-closed before Eng
  handoff**. Plain name: **Initiative start sequence**. Sequence **must** run before screens:
