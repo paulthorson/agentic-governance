@@ -8,6 +8,17 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **OpenClaw ocuclaw-owner-guard scar SoT** (docs only; `OCUCLAW_OWNER_GUARD`;
+ `scripts/ocuclaw-owner-guard` + cron every 2 min; bare ocuclaw / even-ai keys
+ remapped each tick; `defaultAgent` stays `main`; zero `openclaw.json` hand-edits
+ = **0** hold) at `projects/openclaw/scars/ocuclaw-owner-guard.md`. CLOSED harness
+ scar for bare session keys rejected under `agents.ownership=explicit` (no
+ explicit owner). Scope: OpenClaw Studio OcuClaw / relay sessions only — **not**
+ product UX Check 7 / Check 8 / Check 9. Closes residual named unpaid in
+ question-wait-guard [#66](https://github.com/paulthorson/agentic-governance/pull/66).
+ Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`). P0: no secrets/tokens,
+ emails, Discord channel names, absolute host home paths, Notion workspace IDs,
+ cron UUIDs, or private operator data.
 - **OpenClaw question-wait-guard scar SoT** (docs only; `QUESTION_WAIT_GUARD`;
  question-wait-guard script + cron every 2 min; main session `blocked_tool_call`
  hangs ≥120s without auto-abort = **0** hold) at

@@ -2,7 +2,7 @@
 
 **Project:** OpenClaw 
 **Filed:** 2026-09-15 (Standing AG — anonymized process lock) 
-**Status:** CLOSED (Studio gate live; residual unpaid below) 
+**Status:** CLOSED (Studio gate live; residual paid by [ocuclaw-owner-guard.md](ocuclaw-owner-guard.md)) 
 **Kind:** harness scar / session ops self-heal 
 **Family:** Standing AG self-heal (pin-enforce / bridge-guard / cite-or-blank / gateway-single-owner [#65](https://github.com/paulthorson/agentic-governance/pull/65)) 
 **Lock name:** `QUESTION_WAIT_GUARD` 
@@ -53,7 +53,7 @@ Any later AG / OpenClaw ops lock that treats secret / masked-token prompts on `a
 
 ## What to improve (unpaid — do not drop)
 
-Bare session keys under explicit ownership need owner mapping without hand-editing gateway JSON (owner-guard script only). Gateway-single-owner scar ([#65](https://github.com/paulthorson/agentic-governance/pull/65)) LIVE separate. **Not** part of this scar’s done-when.
+Bare session keys under explicit ownership need owner mapping without hand-editing gateway JSON (owner-guard script only). Gateway-single-owner scar ([#65](https://github.com/paulthorson/agentic-governance/pull/65)) LIVE separate. **Not** part of this scar’s done-when. Residual paid by [ocuclaw-owner-guard](ocuclaw-owner-guard.md) (`OCUCLAW_OWNER_GUARD`).
 
 ## P0 boundary
 
