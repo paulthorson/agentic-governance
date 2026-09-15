@@ -48,31 +48,19 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
   in our UI **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look
   **FAIL** / raise BLOCKER if there are no opened-screen cites or any field is missing. Comps
   are not gospel.
-- **`VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live):** On product
-  UX visual packs, open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy.
-  Named do-not-copy themes: **theme-on-CTA-row**, **dynamic-banner CLS**. QA owns
-  `qa/visual-stills/` + `qa/visual-qa.md`; Critic Check 8 grades. Comps ≠ gospel.
-- **`DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — Cos LOCK Paul):** On product UX stills /
-  public marketing faces, raise Cos craft FAIL before Adv for spectacle-as-craft (beads /
-  marble pulses / confetti / glow-as-craft / cheesy “alive”), wallpaper rain over labels,
-  jargon scoreboards, or checklist stills without agency-level composition. Prefer one strong
-  quiet option. Require written craft defense. Stacks on `RESEARCH_HCI` +
-  `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a replacement. Adv must name `DESIGN_AGENCY_BAR`
-  before Cos ACCEPT. Alias `SPECTACLE_NOT_CRAFT` is superseded (not a competing lock). Scar:
-  #39 tip `9b1bba2`. Not OpenClaw.
-- **`DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — Cos LOCK Paul):** On product Initiatives,
-  **Design, Experience, and Branding are paramount**; engineering follows signed craft. Design
-  system is the FIRST deliverable — before web / UI pixels / stills / screens. Research + UX
-  must collaborate with Cos signoff on `design-system.md` (tokens / type / space / motion /
-  brand / do-not + Experience principles + Brand Voice + Audience/promise + Information-design
-  rules + Research cite) before Check 7 / stills / Eng handoff. FAIL: pixels without signed DS;
-  Research or UX solo-shipping Initiative look; completeness stills without a system; Eng-led
-  chrome before craft; missing Brand Voice / Audience/promise / Experience principles /
-  info-design. Agency brain stacks `DESIGN_AGENCY_BAR` permanently (not a splash tip). Stacks
-  on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — not a
-  replacement. Adv must name `DESIGN_SYSTEM_FIRST` before Cos ACCEPT. Cite #43 @ `7e9e0b6`;
-  #38 @ `214ed5b`. Template: `adversarial-ux/assets/templates/design-system.md`. Not OpenClaw.
-  Metric: **fail closed**.
+- **`VISUAL_STEP_STILLS` (Critic Check 8 — LIVE `#15` / `d61f4c1`):** On product UX visual
+  packs, open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy
+  (theme-on-CTA-row, dynamic-banner CLS). QA owns stills; Critic grades. Comps ≠ gospel.
+  SoT: `harnesses/qa.md`.
+- **`DESIGN_AGENCY_BAR` (LIVE `#43` / `7e9e0b6`):** Cos craft FAIL before Adv for
+  spectacle-as-craft on product UX stills / public faces. SoT: `harnesses/ux.md`.
+- **`AI_SLOP_COPY_FAIL` (draft until Cos ACCEPT — Paul LOCK 2026-09-15):** Cos craft FAIL
+  before Adv for AI-slop on visitor/user-facing product surfaces. Human / Substack / Direct
+  founder voice only. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
+  SoT: `harnesses/ux.md`.
+- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup (LIVE `#45` / `ead012f`):** Design system
+  before pixels; Brand Voice required. Cite DESIGN_AGENCY_BAR `#43` @ `7e9e0b6`. SoT:
+  `harnesses/ux.md`.
 
 ## What counts as a blocker
 

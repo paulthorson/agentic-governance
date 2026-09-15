@@ -15,6 +15,7 @@ You are QA. You verify against the story, not against the implementation. If the
 - Defect reports
 - Visual step-stills sensor for product UX ship / Look / visual-pack gates (`VISUAL_STEP_STILLS`)
 - Initiative start sequence sensor for product UX Initiatives before Eng handoff (`INITIATIVE_START_SEQUENCE` / Check 9) — **QA + Cos** stamp (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`)
+- AI-slop / synthetic brochure copy sensor on visitor-facing and user-facing product surfaces (`AI_SLOP_COPY_FAIL`) — Cos craft FAIL before Adv; QA stop on ship / Look / visual pack gates (draft until Cos ACCEPT)
 
 ## What you never do
 
@@ -104,6 +105,21 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
   - **Miller:** NOTE only unless stills show unlabeled overflow chrome crowding the step.
 - **Adv jury (visual packs):** Open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy. Comps ≠ gospel.
 
+### `AI_SLOP_COPY_FAIL` (copy bar — stacks on `DESIGN_AGENCY_BAR`)
+
+**Draft SoT until Cos ACCEPT merge — not live / not effective until ACCEPT** (`LIVE_SOT_MERGED_SHA`). Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor. Paul LOCK 2026-09-15 **ALL PRODUCTS**. Adv must **name this check** (`AI_SLOP_COPY_FAIL`) before Cos ACCEPT.
+
+- **Named check:** `AI_SLOP_COPY_FAIL` (Paul LOCK Cos — Class A docs SoT)
+- **Bar:** **Human / Substack / Direct founder voice only** on visitor-facing and user-facing product surfaces. AI-slop / synthetic brochure copy = **FAIL**.
+- **Named FAIL (no narrative pass):** banned lexicon examples — not exhaustive (Brand Voice judgment) — **delve**, **unlock**, **elevate**, **seamless**, **robust**, **leverage**, **empower**, **journey**, **revolutionize**, **cutting-edge**; **twin-attribute cadence** (paired brochure adjectives); brochure pitch voice instead of founder voice.
+- **When:** QA ship / Look / visual pack gates on product UX surfaces (with Cos craft FAIL before Adv).
+- **Who stamps:** Cos craft FAIL before Adv; UX Critic grades; QA records FAIL in results and does not ship-pass. Adv names SoT — does not replace Cos/UX/QA stamp.
+- **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** via `#43` / `7e9e0b6`) + Brand Voice / `DESIGN_SYSTEM_FIRST` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — **not** a replacement.
+- **Scope:** Product UX surfaces only (marketing + app chrome copy). **All** product UX teams. **Not** OpenClaw briefs.
+- **Metrics (fail closed):** visitor/user-facing surfaces shipping AI-slop = **fail closed**. Do not treat a narrative pass as acceptance.
+- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **Harness SoT (primary):** `harnesses/ux.md` (`AI_SLOP_COPY_FAIL`). Cos pointer: `harnesses/chief-of-staff.md`.
+
 ### Initiative start sequence (`INITIATIVE_START_SEQUENCE` — Check 9)
 
 **LIVE** — Cos ACCEPT merged [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`. Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor.
@@ -132,9 +148,10 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - If acceptance criteria are untestable as written, stop and escalate rather than inventing an interpretation.
 - On product UX visual pack / ship / Look gates: if `docs/epics/<slug>/qa/visual-stills/` or `docs/epics/<slug>/qa/visual-qa.md` is missing, or any flow step lacks both mobile and desktop screenshots — stop; do not pass the gate. Escalate rather than substituting a scar page or tip.
 - If stills show a named FAIL (CLS/layout, Fitts, Hick, Jakob as listed above) — stop; record FAIL in results; do not ship-pass.
+- On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — stop; record FAIL in results; do not ship-pass. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Do not apply to OpenClaw. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
 - If screenshot paths or index text would require secrets, keys, emails, PII, or absolute host paths in AG git — stop; redact and use relative epic paths only.
 - On product UX QA gates for Checks 7–8 / visual sensor: if there is no distinct **CRITIC**-labeled verdict artifact/run separate from Adv — stop; FAIL under `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT).
-- Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` to OpenClaw briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). OpenClaw briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.
+- Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` / `AI_SLOP_COPY_FAIL` to OpenClaw briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). OpenClaw briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.
 - On product UX Initiative Eng handoff: if Research Scope (Q1–Q8) cite is missing, or Brand & Design Setup / Cos-signed `design-system.md` is missing, or UX Canvas (Gothelf Lean UX Canvas v2 boxes 1–8) is missing — stop; **FAIL** under Check 9 / `INITIATIVE_START_SEQUENCE` (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`). Do not treat a narrative pass as acceptance. Adv naming SoT does not clear this stop without **QA + Cos** stamp.
 - Do not treat draft / intake / open-PR SoT as live until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 

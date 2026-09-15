@@ -98,6 +98,25 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
+#### `AI_SLOP_COPY_FAIL`
+
+**Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **name this check** (`AI_SLOP_COPY_FAIL`) before Cos ACCEPT. Do **not** treat this draft / open PR as live Paul LOCK (`LIVE_SOT_MERGED_SHA`). Paul LOCK 2026-09-15 **ALL PRODUCTS**.
+
+- **Id / named check:** `AI_SLOP_COPY_FAIL` (Paul LOCK Cos — Class A docs SoT)
+- **Who / scope:** Every **product UX seat** — AG, Ladders, [redacted product], Even Weather (EW), EvenCursor, Dungeon, JEEP, and future. **Visitor-facing and user-facing product surfaces** (marketing faces, app chrome copy, Initiative Brand Voice on those surfaces). **Not** OpenClaw briefs.
+- **Bar:** **Human / Substack / Direct founder voice only.** AI-slop / synthetic brochure copy on those surfaces = **FAIL**. Stacks `DESIGN_AGENCY_BAR` permanently (voice craft, not a splash tip).
+- **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** via `#43` / `7e9e0b6`) + Brand Voice under `DESIGN_SYSTEM_FIRST` (**LIVE** via `#45` / `ead012f`) + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — **not** a replacement. Does not reopen Check 7/8; raises the copy bar on product surfaces.
+- **Named FAIL (Cos craft FAIL before Adv when present):**
+  - AI-slop / synthetic brochure copy on visitor-facing or user-facing product surfaces
+  - Ban lexicon (examples — not exhaustive; Brand Voice judgment): **delve**, **unlock**, **elevate**, **seamless**, **robust**, **leverage**, **empower**, **journey**, **revolutionize**, **cutting-edge**
+  - **Twin-attribute cadence** (paired brochure adjectives / cadence — e.g. “seamless and robust”, “powerful yet simple”, “fast, reliable”) as default voice
+  - Brochure pitch voice substituting for Human / Substack / Direct founder voice
+- **Sensor (fail-closed):** Cos + UX + QA grade copy on product surfaces before ship / Look / stills handoff. Stills / copy PR must hold founder voice (or cite Brand Voice packet that bans the lexicon + twin-attribute cadence). Scar/wiki page alone is not this sensor. Cos craft stamp **before** Adv.
+- **Who stamps:** Cos craft FAIL before Adv; UX Critic grades under Check 8 stack; QA stop on ship / Look / visual pack gates when slop copy is present. Adv names SoT — does not clear Cos/UX/QA stamp.
+- **Metrics (fail closed):** visitor/user-facing surfaces shipping AI-slop = **fail closed**. Do not treat a narrative pass as acceptance.
+- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **Out of scope for this SoT write:** rewriting live marketing pixels in this tip; OpenClaw briefs; inventing product Brand Voice for a concrete Initiative beyond the ban bar.
+
 ### LIVE locks (Cos ACCEPT merged — cite SHA)
 
 Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A scar page is not a sensor.
@@ -182,6 +201,7 @@ Cite UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull
 - If Check 1 would PASS while `token_source` is UNSET, or an improve digest treats blank/invented tokens as measured — stop; FAIL under `TOKEN_SOURCE_OR_BLANK` (draft until Cos ACCEPT).
 - Do not execute draft / intake / open-PR headers as live harness law until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 - On product UX stills / public marketing faces (`DESIGN_AGENCY_BAR`, **LIVE** via `#43` / `7e9e0b6`): if stills lack a written craft defense, or use spectacle-as-craft patterns (beads / marble pulses / confetti / glow-as-craft / wallpaper rain over labels / jargon scoreboards / cheesy “alive” stacking) — stop; Cos craft **FAIL before Adv**. Prefer one strong quiet option. Do not apply to OpenClaw. Do not use superseded id `SPECTACLE_NOT_CRAFT` as a competing lock.
+- On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — stop; Cos craft **FAIL before Adv**. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Do not apply to OpenClaw. Do not treat this draft as live until Cos ACCEPT merge cites a merged SHA. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
 - On product Initiatives (`DESIGN_SYSTEM_FIRST`, **LIVE** via `#45` / `ead012f`; Brand & Design Setup docs `#46` / `cdf1c41`; UX Canvas name `#48` / `e9b4827`): if web / UI pixels / stills / screens ship without Cos-signed `design-system.md` (tokens / type / space / motion / brand / do-not + Experience principles + Brand Voice [tone, lexicon, headline patterns, narrative drill-down] + Audience/promise + Information-design rules [measured-only; marks stay marks] + Research cite + fresh diverse business-model-matched comps with cites that state model-fit + diversity), or Research Scope skipped before hunt, or screens skip **UX Canvas** (separate next gate after Brand & Design Setup; Gothelf Lean UX Canvas v2 boxes 1–8), or Research/UX solo-ships Initiative look, or completeness stills lack a system, or Eng-led chrome precedes signed craft, or fixed AG comps (Pentagram/500/AXM) are used as all-teams default / copy-pasted across teams, or comp cites appear in public chrome — stop; **FAIL**. Design, Experience, and Branding are paramount; engineering follows signed craft. Design system is first deliverable; sequence Research Scope → comps → Brand & Design Setup → UX Canvas → then screens / Check 7/8 stills / Eng. Check 9 / `INITIATIVE_START_SEQUENCE` (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`; QA + Cos stamp) fail-closes Eng handoff without Research Scope cite + signed DS + UX Canvas boxes 1–8. Agency brain stacks `DESIGN_AGENCY_BAR` permanently — not a splash tip. Do not apply to OpenClaw.
 
 ## Permitted plugins

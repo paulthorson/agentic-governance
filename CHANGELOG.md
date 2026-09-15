@@ -8,6 +8,37 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **LIVE SoT: `AI_SLOP_COPY_FAIL` — Cos ACCEPT [#69](https://github.com/paulthorson/agentic-governance/pull/69) @ `859eafa3`.** Paul
+ LOCK 2026-09-15 **ALL PRODUCTS**. AI-slop / synthetic brochure copy on **visitor-facing or
+ user-facing product surfaces** = **FAIL**. **Bar:** Human / Substack / Direct founder voice
+ only. **Ban examples — not exhaustive (Brand Voice judgment):** delve, unlock, elevate,
+ seamless, robust, leverage, empower, journey, revolutionize, cutting-edge; **twin-attribute
+ cadence**. **Stack:** addition on
+ `DESIGN_AGENCY_BAR` (**LIVE** [#43](https://github.com/paulthorson/agentic-governance/pull/43)
+ @ `7e9e0b6`) + Brand Voice / `DESIGN_SYSTEM_FIRST` + Check 7/8 — **not** a replacement.
+ **Who stamps:** Cos craft FAIL before Adv; UX Critic grades; QA stop on ship / Look / visual
+ pack gates. Adv challenges / names SoT — does not replace Cos/UX/QA stamp. **Metric (fail closed):**
+ visitor/user-facing surfaces shipping AI-slop = **fail closed**. Soft / deferred / tip /
+ wiki-scar-only = **REJECTED**. **Scope:** all product UX — **not** OpenClaw. **P0:** no
+ secrets/keys/emails/PII/host paths. Out of scope: rewriting live marketing pixels in this tip;
+ OpenClaw briefs. SoT: `harnesses/ux.md` (primary) + `harnesses/qa.md` +
+ `harnesses/chief-of-staff.md`; UX Critic + CX / Evaluative pointers + flat `agents/ux-*`
+ copies; adversarial-ux skill pointer; design-system Brand Voice lexicon pointer; CoE Already
+ LIVE + spec §5.2 / §5.4 / §13.6 index pointers.
+
+### Changed
+- **Adv CONCERN tidy on `#69` tip (pre-Cos ACCEPT):** (1) CX / Evaluative flat+plugin lock
+ pointers only (no full lock rewrite; twins stay short-bullet aligned). (2) Flip stale
+ `draft` labels for LIVE `VISUAL_STEP_STILLS` `#15`/`d61f4c1`, `DESIGN_AGENCY_BAR`
+ `#43`/`7e9e0b6`, `DESIGN_SYSTEM_FIRST` `#45`/`ead012f` in CX/Evaluative/skill/critic.
+ (3) Align metric sensor phrasing Cos/CoE/QA/UX/Critic:
+ visitor/user-facing surfaces shipping AI-slop = **fail closed**. (4) Ban list remains examples —
+ not exhaustive (Brand Voice judgment). No new checks.
+- **CoE Cos ACCEPT: `AI_SLOP_COPY_FAIL` → Already LIVE** citing [#69](https://github.com/paulthorson/agentic-governance/pull/69)
+ @ `859eafa3`. Dropped Draft intake + “HOLD ACCEPT until Adv names” (Adv PASS). Ban list stays
+ examples — not exhaustive (Brand Voice judgment).
+
+### Added
 - **OpenClaw ocuclaw-owner-guard scar SoT** (docs only; `OCUCLAW_OWNER_GUARD`;
  `scripts/ocuclaw-owner-guard` + cron every 2 min; bare ocuclaw / even-ai keys
  remapped each tick; `defaultAgent` stays `main`; zero `openclaw.json` hand-edits

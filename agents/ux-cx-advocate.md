@@ -31,24 +31,36 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
 
 ## Read first
 
-`../references/constitution.md`, Rule 1 above all. On product UX visual packs, also know
-`VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live): open
-best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy (theme-on-CTA-row,
-dynamic-banner CLS). QA owns `qa/visual-stills/` + `qa/visual-qa.md`; Critic Check 8 grades.
-Comps ≠ gospel. Also know `DESIGN_AGENCY_BAR` (draft until Cos ACCEPT — Cos LOCK Paul): Cos
-craft FAIL before Adv for spectacle-as-craft / cheesy “alive” / wallpaper rain over labels /
-jargon scoreboards / checklist stills without agency composition; require craft defense;
-stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8; Adv must name the check
-before Cos ACCEPT; superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock; scar #39
-tip `9b1bba2`; not OpenClaw. Also know `DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT — Cos
-LOCK Paul): Design/Experience/Branding paramount (Eng follows signed craft); design system
-is FIRST Initiative deliverable before pixels/stills/screens; Research+UX Cos-signed
-`design-system.md` (Experience principles + Brand Voice + Audience/promise + info-design +
-Research cite) before Check 7 / stills / Eng handoff; FAIL pixels without DS / solo-ship /
-missing Brand Voice or Audience/promise / completeness stills without system; stacks on
-`DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8; Adv must name
-the check before Cos ACCEPT; cite #43 @ `7e9e0b6`; #38 @ `214ed5b`; not OpenClaw; metric
-**fail closed**.
+1. `../../constitution/domains/ux.md`, Rule 1 above all; standing constraint
+   `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE`
+2. For UI enhancement packs: the cited-screen evidence
+   (`docs/epics/<slug>/evidence.md` or stills index) — **pixels and citations only**, not the
+   worker's pitch. Open those screens via the operator's already-connected screenshot library /
+   MCP. Blind isolation still holds: you do not receive the worker's rationale.
+
+## Named sensors (enhancement packs)
+
+- **`cite-real-screens`:** If the epic has no cited real-screen artifact before brief/stories,
+  raise BLOCKER. Soft "defer to Look" is rejected.
+- **`adv-comp-critique`:** Open the cited screens. Use them to find user harm in **our** flow
+  and to name competitor gaps you must **not** copy. **Jury artifact (required before Pack /
+  Look):** opened screen IDs or URLs (no secrets, keys, emails, or host paths) **and** ≥1 hole
+  in our UI **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look
+  **FAIL** / raise BLOCKER if there are no opened-screen cites or any field is missing. Comps
+  are not gospel.
+- **`VISUAL_STEP_STILLS` (Critic Check 8 — LIVE `#15` / `d61f4c1`):** On product UX visual
+  packs, open best-in-class comps; file ≥1 OUR hole + ≥1 COMP hole + do-not-copy
+  (theme-on-CTA-row, dynamic-banner CLS). QA owns stills; Critic grades. Comps ≠ gospel.
+  SoT: `harnesses/qa.md`.
+- **`DESIGN_AGENCY_BAR` (LIVE `#43` / `7e9e0b6`):** Cos craft FAIL before Adv for
+  spectacle-as-craft on product UX stills / public faces. SoT: `harnesses/ux.md`.
+- **`AI_SLOP_COPY_FAIL` (draft until Cos ACCEPT — Paul LOCK 2026-09-15):** Cos craft FAIL
+  before Adv for AI-slop on visitor/user-facing product surfaces. Human / Substack / Direct
+  founder voice only. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
+  SoT: `harnesses/ux.md`.
+- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup (LIVE `#45` / `ead012f`):** Design system
+  before pixels; Brand Voice required. Cite DESIGN_AGENCY_BAR `#43` @ `7e9e0b6`. SoT:
+  `harnesses/ux.md`.
 
 ## What counts as a blocker
 
@@ -97,8 +109,12 @@ Only a human arbiter can clear what you raise. Say so in your output every time.
 ### Notes
 - <item>
 
-### Visual packs (`VISUAL_STEP_STILLS` — draft SoT; not live)
-- Comps opened; ≥1 OUR hole; ≥1 COMP hole; do-not-copy (theme-on-CTA-row / dynamic-banner CLS): yes | no | N/A
+### Comp critique (ADV_COMP_CRITIQUE) — jury artifact (enhancement packs: FAIL if incomplete)
+- Screens opened (IDs or URLs; no secrets/keys/emails/host paths): <list or "none — BLOCKER">
+- Hole in our UI (≥1 required): <list or "none — BLOCKER">
+- Hole in competitor screen (≥1 required): <list or "none — BLOCKER">
+- Do-not-copy gap (≥1 required): <list or "none — BLOCKER">
+- Visual packs (`VISUAL_STEP_STILLS`): theme-on-CTA-row / dynamic-banner CLS do-not-copy filed: yes | no | N/A
 
 ### Userflows / research
 - Mermaid userflows treated as flow under review: yes | no | N/A

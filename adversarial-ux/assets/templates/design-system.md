@@ -126,7 +126,13 @@ Tone, vocabulary (**lexicon**), headline patterns, and narrative drill-down voic
 -
 
 ### Lexicon — words we never use
--
+- (Initiative-specific)
+- **Standing ban (`AI_SLOP_COPY_FAIL` — draft until Cos ACCEPT):** examples — not exhaustive
+  (Brand Voice judgment) — delve, unlock, elevate, seamless, robust, leverage, empower,
+  journey, revolutionize, cutting-edge; twin-attribute cadence; synthetic brochure / AI-slop
+  pitch. **Bar:** Human / Substack / Direct founder voice only on visitor/user-facing product
+  surfaces. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**. Stacks
+  `DESIGN_AGENCY_BAR`. Not OpenClaw.
 
 ### Headline patterns
 - Pattern A:
