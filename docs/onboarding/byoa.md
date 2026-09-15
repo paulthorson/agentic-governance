@@ -33,6 +33,13 @@ question. It covers:
   wrapper, never the content).
 - **Budget model** — metered, billed, or not-yet-known.
 - **Roster** — each bot as `name | role | team | project repo(s)`.
+- **Cos memory (when Cos is seated — install/setup, not deferred)** —
+  **Paul+Cos clarified store = private git.** Framework Cos ASKS `private_git`
+  **or** `local_folder` (do not force one); short private label; wizard finalize
+  calls seating hook `mcp/adversarial_mcp/cos_memory_setup.py` (CLI:
+  `scripts/cos_memory_setup.py`) and scaffolds `config/cos-memory/` from
+  `docs/templates/cos-memory/`. Multi-team requires a Cos roster row. Walkthrough:
+  [cos-seating.md](cos-seating.md).
 - **Adversarial agents** — in play or not.
 - **Escalation, quiet hours, stall thresholds, precedent decay** — the governance
   knobs.

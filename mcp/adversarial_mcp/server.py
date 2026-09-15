@@ -322,8 +322,10 @@ def setup_wizard_answer(answer: str) -> dict[str, Any]:
     """Record the operator's answer to the current wizard question and return the
     next question, or the completion summary when the wizard is done. For bounded
     questions, answer must be one of the offered options; for roster rows, send
-    'done' to finish the roster. Writes config/setup.md, config/roster.md, and one
-    persona block per roster row into config/personas/ on completion."""
+    'done' to finish the roster. On completion writes config/setup.md,
+    config/roster.md, persona blocks under config/personas/, and — when Chief of
+    Staff is seated — Cos memory scaffold via cos_memory_setup.apply_at_cos_seating
+    (install/setup seating hook; not a deferred README-only step)."""
     return setup_wizard.answer_wizard(REPO_ROOT, answer)
 
 

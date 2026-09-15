@@ -29,8 +29,20 @@ for a complete one.
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any
+
+# Cos memory seating hook — wizard MUST call apply_at_cos_seating when Cos is seated.
+# Sibling import works for package load and file-based test loaders.
+_MCP_DIR = Path(__file__).resolve().parent
+if str(_MCP_DIR) not in sys.path:
+    sys.path.insert(0, str(_MCP_DIR))
+from cos_memory_setup import (  # noqa: E402
+    COS_MEMORY_MODES,
+    apply_at_cos_seating,
+    looks_like_forbidden_memory_label,
+)
 
 # --- constants ---------------------------------------------------------------
 
@@ -138,6 +150,33 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "question": "List the agents on your team, one per line, as: agent name | role (pm, ux, engineer, qa, ceo, researcher, cos) | team name | project folder. Type 'done' when the list is complete. In multi-team mode a Cos row is required.",
         "options": None,
         "repeated": True,
+    },
+    # Cos memory — only when Chief of Staff is seated (roster has cos).
+    # Framework ASK: private_git OR local_folder; do not force one.
+    # Paul+Cos clarified store = private git (documented; not a forced wizard default).
+    # Skeleton: docs/templates/cos-memory/.
+    {
+        "id": "cos_memory_mode",
+        "if_has_cos": True,
+        "question": (
+            "Chief of Staff is seated. Where should Cos keep its private structured "
+            "memory store (locks / Cos↔human episodes — not chat-only, not public AG "
+            "product chrome)? Framework Cos ASKS — choose one; do not force a preference: "
+            "'private_git' (private git repo for versioned sync; Paul+Cos clarified store "
+            "is private git) OR 'local_folder' (on-machine private folder). "
+            "Skeleton: docs/templates/cos-memory/."
+        ),
+        "options": COS_MEMORY_MODES,
+    },
+    {
+        "id": "cos_memory_label",
+        "if_has_cos": True,
+        "question": (
+            "Give a short private label for this Cos memory store "
+            "(e.g. cos-memory-private or desk-cos-memory). "
+            "Do NOT paste absolute host paths, emails, tokens, or secrets."
+        ),
+        "options": None,
     },
     {
         "id": "adversarial_agents",
@@ -324,12 +363,25 @@ def _is_repeated_pending(state: dict[str, Any], q: dict[str, Any]) -> bool:
     return state.get("answers", {}).get(q["id"]) != "__DONE__"
 
 
-def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
+def _roster_has_cos(roster: list[Any] | None) -> bool:
+    """True when a seated roster row has role cos / chief-of-staff."""
+    for row in roster or []:
+        role = (row + [""])[1] if isinstance(row, list) else ""
+        if role in ("cos", "chief-of-staff"):
+            return True
+    return False
+
+
+def _enabled(
+    q: dict[str, Any],
+    answers: dict[str, Any],
+    roster: list[Any] | None = None,
+) -> bool:
     """A question is shown only when its condition matches the answers so far.
 
     Supports if_budget (budget model match), if_alert_channel (alert channel
-    match), if_alert_channel_other (alert channel is not discord), and
-    if_issue_source (issue source match).
+    match), if_alert_channel_other (alert channel is not discord),
+    if_issue_source (issue source match), and if_has_cos (Cos seated on roster).
     """
     cond = q.get("if_budget")
     if cond is not None:
@@ -342,16 +394,19 @@ def _enabled(q: dict[str, Any], answers: dict[str, Any]) -> bool:
     cond = q.get("if_issue_source")
     if cond is not None:
         return answers.get("issue_source") == cond
+    if q.get("if_has_cos"):
+        return _roster_has_cos(roster)
     return True
 
 
 def _next_question(state: dict[str, Any]) -> dict[str, Any] | None:
     answers = state.get("answers", {})
+    roster = state.get("roster", [])
     flow = state.get("flow_index", 0)
     # advance past any disabled or already-answered questions
     while flow < len(WIZARD_FLOW):
         q = WIZARD_FLOW[flow]
-        if not _enabled(q, answers):
+        if not _enabled(q, answers, roster):
             flow += 1
             continue
         if q.get("repeated"):
@@ -375,9 +430,14 @@ def _current_question(state: dict[str, Any]) -> dict[str, Any] | None:
     if flow >= len(WIZARD_FLOW):
         return None
     q = WIZARD_FLOW[flow]
-    if not _enabled(q, state.get("answers", {})):
+    if not _enabled(q, state.get("answers", {}), state.get("roster", [])):
         return None
     return q
+
+
+def _looks_like_forbidden_memory_label(value: str) -> bool:
+    """P0 wrapper — seating hook owns the rule (install-time, not README-only)."""
+    return looks_like_forbidden_memory_label(value)
 
 
 # --- config writers ----------------------------------------------------------
@@ -439,6 +499,18 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "",
         "## Multi-team mode (Chief of Staff)",
         f"- multi_team: {answers.get('multi_team', '') or '(unset)'}",
+        "",
+        "## Cos memory (private structured store)",
+        f"- mode: {answers.get('cos_memory_mode', '') or '(unset — Cos not seated, or wizard incomplete)'}",
+        f"- label: {answers.get('cos_memory_label', '') or '(unset)'}",
+        "- Paul+Cos clarified store: private git (their operator memory — not a force on every install).",
+        "- Framework seating ASK (AG install/setup when Cos is seated — not deferred README-only): "
+        "private_git OR local_folder — Cos prompts; do not force one mode.",
+        "- Seating hook: mcp/adversarial_mcp/cos_memory_setup.py "
+        "(CLI stub: scripts/cos_memory_setup.py).",
+        "- Skeleton SoT: docs/templates/cos-memory/",
+        "- Local scaffold (gitignored config/): config/cos-memory/",
+        "- Separate from public AG product surface. P0: no secrets/keys/emails/PII/host paths.",
         "",
         "## Escalation preferences (beyond Section 10.3 mandatory list)",
         f"- {answers.get('escalation_preferences', '') or '(unset)'}",
@@ -527,6 +599,18 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
         if not bot_name:
             continue
         harness_name = harness_by_role.get(role, role)
+        memory_note = ""
+        if role in ("cos", "chief-of-staff") and answers.get("cos_memory_mode") in COS_MEMORY_MODES:
+            memory_note = (
+                f"\nCos memory (framework seating ASK — do not force one mode):\n"
+                f"  - mode: {answers.get('cos_memory_mode')}\n"
+                f"  - label: {answers.get('cos_memory_label') or '(unset)'}\n"
+                f"  - Paul+Cos clarified store: private git (their operator memory).\n"
+                f"  - skeleton: docs/templates/cos-memory/\n"
+                f"  - local scaffold: config/cos-memory/\n"
+                f"  - private structured locks/episodes only — not public product chrome.\n"
+                f"  - P0: no secrets/keys/emails/PII/host paths.\n"
+            )
         block = (
             f"You are {bot_name}, the {role} bot for {team}.\n\n"
             f"Before every task, read the following from {governance_repo}:\n"
@@ -541,6 +625,7 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
             f"violation, not a correction.\n\n"
             f"Your default project repo is {repo}, unless your assignment names another.\n"
             f"You write only to your own folder in the epic you were handed.\n"
+            f"{memory_note}"
         )
         # one persona block per roster row; the runtime is the (thin) wrapper
         filename = "".join(c if c.isalnum() or c in "-_" else "_" for c in bot_name.lower())
@@ -889,6 +974,18 @@ def answer_wizard(repo_root: Path, value: str) -> dict[str, Any]:
             "options": q["options"],
         }
 
+    # Cos memory label: P0 scrub — no host paths / emails / secrets
+    if q["id"] == "cos_memory_label" and _looks_like_forbidden_memory_label(value):
+        return {
+            "status": "invalid",
+            "question": q["id"],
+            "error": (
+                "Cos memory label must be a short private name only — "
+                "no absolute host paths, emails, tokens, or secrets."
+            ),
+            "free_text": True,
+        }
+
     state["answers"][q["id"]] = value
     _save_state(repo_root, state)
     nxt = _next_question(state)
@@ -919,7 +1016,7 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
     # A8 / multi-team mode: if the operator runs more than one team, a roster
     # row with role 'cos' is required. Without one the system is incomplete.
     multi_team = answers.get("multi_team") == "yes"
-    has_cos = any((row + [""])[1] in ("cos", "chief-of-staff") for row in roster)
+    has_cos = _roster_has_cos(roster)
     if multi_team and not has_cos:
         return {
             "status": "invalid",
@@ -927,11 +1024,37 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
             "Multi-team mode requires a Chief of Staff (Cos); add a roster row "
             "with role 'cos' before completion. (A8)",
         }
+    if has_cos and answers.get("cos_memory_mode") not in COS_MEMORY_MODES:
+        return {
+            "status": "invalid",
+            "error": (
+                "Chief of Staff is seated but Cos memory mode is unset. "
+                "Re-run the wizard and choose private_git OR local_folder "
+                "(do not force one). Skeleton: docs/templates/cos-memory/."
+            ),
+        }
+    if has_cos and _looks_like_forbidden_memory_label(
+        answers.get("cos_memory_label", "")
+    ):
+        return {
+            "status": "invalid",
+            "error": (
+                "Chief of Staff is seated but Cos memory label is missing or "
+                "unsafe (no host paths/emails/secrets). Re-run the wizard."
+            ),
+        }
     setup_path = _write_setup(repo_root, answers)
     roster_path = _write_roster(repo_root, roster)
     persona_paths = _write_personas(repo_root, roster, answers)
     adoption_path = _write_adoption(repo_root, state)
     data_files = _write_data_files(repo_root, answers)
+    # Cos seating hook — required at install/setup when Cos is seated (not README-only).
+    cos_memory_files = apply_at_cos_seating(
+        repo_root,
+        answers.get("cos_memory_mode") or "",
+        answers.get("cos_memory_label") or "",
+        has_cos=has_cos,
+    )
     # clear wizard state so a fresh run starts over (re-runnable)
     _state_path(repo_root).unlink(missing_ok=True)
     return {
@@ -942,23 +1065,41 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
             "personas": [str(p) for p in persona_paths],
             "adoption": str(adoption_path) if adoption_path else None,
             "data_files": [str(p) for p in data_files],
+            "cos_memory": [str(p) for p in cos_memory_files],
         },
         "roster_rows": len(roster),
         "adopted_agents": len(state.get("adopted", [])),
         "generated_harness": state.get("generated_harness"),
-        "note": _completion_note(answers),
+        "note": _completion_note(answers, has_cos=has_cos),
     }
 
 
-def _completion_note(answers: dict[str, Any]) -> str:
+def _completion_note(answers: dict[str, Any], has_cos: bool = False) -> str:
+    parts: list[str] = []
     if answers.get("multi_team") == "yes":
-        return (
+        parts.append(
             "Multi-team mode: CEOs escalate via Cos; Cos owns the morning queue; "
             "only Cos pages you."
         )
-    if answers.get("multi_team") == "no":
-        return "Single-team mode: CEO → you for the morning queue."
-    return "Wizard complete. Every configured value is the operator's; re-run the wizard to change anything."
+    elif answers.get("multi_team") == "no":
+        parts.append("Single-team mode: CEO → you for the morning queue.")
+    if has_cos and answers.get("cos_memory_mode") in COS_MEMORY_MODES:
+        mode = answers.get("cos_memory_mode")
+        label = answers.get("cos_memory_label") or "(unset)"
+        parts.append(
+            f"Cos memory seated: mode={mode}, label={label}. "
+            "Paul+Cos clarified store is private git; framework ASK still lets "
+            "operators choose private_git OR local_folder (do not force). "
+            "Scaffold at config/cos-memory/ from docs/templates/cos-memory/. "
+            "If private_git: copy scaffold into your private repo. "
+            "If local_folder: keep scaffold under config/cos-memory/ (gitignored)."
+        )
+    if not parts:
+        return (
+            "Wizard complete. Every configured value is the operator's; "
+            "re-run the wizard to change anything."
+        )
+    return " ".join(parts)
 
 
 def _write_data_files(repo_root: Path, answers: dict[str, Any]) -> list[Path]:
