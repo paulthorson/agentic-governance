@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-09-14T22:20:00Z",
-  "sourceNote": "Cos 6pm digest 2026-09-14: measured GitHub API counts only. Raise minVisible (or set values) to reveal widgets. Never invent live traction numbers.",
+  "updatedAt": "2026-09-15T22:08:42Z",
+  "sourceNote": "Cos 6pm digest 2026-09-15: measured GitHub API counts only. Raise minVisible (or set values) to reveal widgets. Never invent live traction numbers.",
   "repoPublicRequired": true,
   "metrics": {
     "githubStars": {
@@ -30,7 +30,7 @@
     "openPrs": {
       "id": "openPrs",
       "label": "Open PRs",
-      "value": 4,
+      "value": 1,
       "minVisible": 1,
       "href": "https://github.com/paulthorson/agentic-governance/pulls",
       "unit": "open PRs"
@@ -38,7 +38,7 @@
     "mergedPrs": {
       "id": "mergedPrs",
       "label": "Merged PRs",
-      "value": 19,
+      "value": 53,
       "minVisible": 1,
       "href": "https://github.com/paulthorson/agentic-governance/pulls?q=is%3Apr+is%3Amerged",
       "unit": "merged PRs"
