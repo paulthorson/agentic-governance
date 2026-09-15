@@ -106,6 +106,8 @@ cd mcp && uv sync && uv run adversarial-mcp # stdio (default)
 
 Wire the MCP server into your agent, then run `setup_wizard_start` / `setup_wizard_answer`.
 
+**Cos seating (install/setup — not deferred):** When the roster includes Chief of Staff (`cos`), the wizard **ASKS** Cos memory store mode (`private_git` OR `local_folder` — do not force one) and scaffolds from `docs/templates/cos-memory/` via the seating hook `mcp/adversarial_mcp/cos_memory_setup.py` (CLI stub: `scripts/cos_memory_setup.py`). Paul+Cos clarified store = private git. See [`docs/onboarding/cos-seating.md`](docs/onboarding/cos-seating.md).
+
 Onboarding guides: [`docs/onboarding/`](docs/onboarding/).
 
 The optional Next.js `dashboard/` app is **not required** to use the framework ([§7.3](docs/capability-report.md#73-dashboard-required)).
@@ -114,7 +116,7 @@ The optional Next.js `dashboard/` app is **not required** to use the framework (
 
 ## Setup wizard (BYOA)
 
-Conversational via MCP tools. Asks runtime, engine, budget model (framework units), roster, adversaries, escalation, quiet hours, autonomy, retries, research bounds, irreversible-action protection level, **network permission**, alert channel, and data-source paths. Writes `config/setup.md`, `config/roster.md`, and persona blocks.
+Conversational via MCP tools. Asks runtime, engine, budget model (framework units), roster, **Cos memory (when Cos is seated — install-time ASK)**, adversaries, escalation, quiet hours, autonomy, retries, research bounds, irreversible-action protection level, **network permission**, alert channel, and data-source paths. Writes `config/setup.md`, `config/roster.md`, persona blocks, and (when Cos is seated) `config/cos-memory/`.
 
 **Reconcile, never layer** when adopting existing agents. **Re-runnable.** Agents absent from the roster are outside this framework’s config — the framework cannot introspect arbitrary runtimes.
 

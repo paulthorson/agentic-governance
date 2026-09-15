@@ -183,7 +183,7 @@ The harness is the **source of truth** at `harnesses/researcher.md` (A23). The i
 |---|---|---|
 | `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) | **LIVE** | Cite-real-screens; constitution + scar SoT. |
 | `RESEARCH_HCI` | **LIVE** via `#38` / `214ed5b` | Master's HCI craft bar for every product Research seat. Stacks on `RESEARCH_BEFORE_ENHANCE` (addition, not replacement). See harness + Research Critic Check 6. |
-| `DESIGN_SYSTEM_FIRST` (**Brand & Design Setup**) | **LIVE** via `#45` / `ead012f` | Cos LOCK Paul — Design, Experience, and Branding are paramount; Eng follows signed craft. Design system is FIRST Initiative deliverable. Research Scope (Q1–Q8) before comps hunt. Fresh diverse business-model-matched comps; cites state model-fit + diversity (not one peer); FAIL fixed AG comps (Pentagram/500/AXM) as all-teams default / copy-paste; cites internal-only. **Next gate:** **UX Canvas** (before screens; contents TBD — separate, not an alias of Brand & Design Setup; no new check id). Sequence: Research Scope → hunt → Brand & Design Setup → UX Canvas → Check 7/8 stills / Eng. Cite Brand & Design Setup docs `#46` / `cdf1c41`. Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Template: `adversarial-ux/assets/templates/design-system.md`. See harness + Research Critic lock. |
+| `DESIGN_SYSTEM_FIRST` (**Brand & Design Setup**) | **LIVE** via `#45` / `ead012f` | Cos LOCK Paul — Design, Experience, and Branding are paramount; Eng follows signed craft. Design system is FIRST Initiative deliverable. Research Scope (Q1–Q8) before comps hunt. Fresh diverse business-model-matched comps; cites state model-fit + diversity (not one peer); FAIL fixed AG comps (Pentagram/500/AXM) as all-teams default / copy-paste; cites internal-only. **Next gate:** **UX Canvas** (Gothelf Lean UX Canvas v2 boxes 1–8 as-is — [Gothelf external SoT](https://jeffgothelf.com/blog/leanuxcanvas-v2/); separate, not an alias of Brand & Design Setup). Sequence: Research Scope → comps → Brand & Design Setup → UX Canvas → then screens / Check 7/8 stills / Eng. Cite Brand & Design Setup docs `#46` / `cdf1c41` + UX Canvas name `#48` / `e9b4827`. Standing Eng-handoff sensor: Check 9 / `INITIATIVE_START_SEQUENCE` (draft until Cos ACCEPT). Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Template: `adversarial-ux/assets/templates/design-system.md`. See harness + Research Critic lock. |
 
 ### 5.1 Product Manager Harness
 
@@ -199,8 +199,9 @@ The harness is the **source of truth** at `harnesses/ux.md` (A23). The inline co
 |---|---|---|
 | Check 7 (flows + JTBD) | **LIVE** | UX→Eng gate; stacked on `RESEARCH_BEFORE_ENHANCE`. |
 | Check 8 / `VISUAL_STEP_STILLS` | **LIVE** | Product UX visual step-stills; `#15` / `d61f4c1`. |
+| Check 9 / `INITIATIVE_START_SEQUENCE` | **DRAFT** — not live until Cos ACCEPT | Initiative start sequence fail-closed before Eng handoff; QA + Cos stamp. See CoE Draft intake + `harnesses/qa.md`. |
 | `DESIGN_AGENCY_BAR` | **LIVE** via `#43` / `7e9e0b6` | Cos LOCK Paul top-agency craft bar for every product UX seat. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 (addition, not replacement). Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Scar: AG #39 tip `9b1bba2`. See harness + UX Critic Check 8 stack. |
-| `DESIGN_SYSTEM_FIRST` (**Brand & Design Setup**) | **LIVE** via `#45` / `ead012f` | Cos LOCK Paul — Design, Experience, and Branding are paramount; Eng follows signed craft. Design system is FIRST Initiative deliverable. Research Scope (Q1–Q8) before comps hunt. Fresh diverse business-model-matched comps; cites state model-fit + diversity (not one peer); FAIL fixed AG comps (Pentagram/500/AXM) as all-teams default / copy-paste; cites internal-only. **Next gate:** **UX Canvas** (before screens; contents TBD — separate, not an alias of Brand & Design Setup; no new check id). Sequence: Research Scope → hunt → Brand & Design Setup → UX Canvas → Check 7/8 stills / Eng. Cite Brand & Design Setup docs `#46` / `cdf1c41`. Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Template: `adversarial-ux/assets/templates/design-system.md`. See harness + UX Critic gate. |
+| `DESIGN_SYSTEM_FIRST` (**Brand & Design Setup**) | **LIVE** via `#45` / `ead012f` | Cos LOCK Paul — Design, Experience, and Branding are paramount; Eng follows signed craft. Design system is FIRST Initiative deliverable. Research Scope (Q1–Q8) before comps hunt. Fresh diverse business-model-matched comps; cites state model-fit + diversity (not one peer); FAIL fixed AG comps (Pentagram/500/AXM) as all-teams default / copy-paste; cites internal-only. **Next gate:** **UX Canvas** (Gothelf Lean UX Canvas v2 boxes 1–8 as-is — [Gothelf external SoT](https://jeffgothelf.com/blog/leanuxcanvas-v2/); separate, not an alias of Brand & Design Setup). Sequence: Research Scope → comps → Brand & Design Setup → UX Canvas → then screens / Check 7/8 stills / Eng. Cite Brand & Design Setup docs `#46` / `cdf1c41` + UX Canvas name `#48` / `e9b4827`. Standing Eng-handoff sensor: Check 9 / `INITIATIVE_START_SEQUENCE` (draft until Cos ACCEPT). Stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8. Template: `adversarial-ux/assets/templates/design-system.md`. See harness + UX Critic gate. |
 
 ### 5.3 Engineer Harness
 
@@ -209,6 +210,13 @@ The harness is the **source of truth** at `harnesses/engineer.md` (A23). The inl
 ### 5.4 QA Harness
 
 The harness is the **source of truth** at `harnesses/qa.md` (A23). The inline copy is not maintained here; edit the harness file.
+
+**Standing locks indexed on the QA harness (cite status carefully):**
+
+| Lock | Status | Notes |
+|---|---|---|
+| Check 8 / `VISUAL_STEP_STILLS` | **LIVE** | Visual step-stills sensor; `#15` / `d61f4c1`. QA owns sensor; UX Critic grades. |
+| Check 9 / `INITIATIVE_START_SEQUENCE` | **DRAFT** — not live until Cos ACCEPT (`LIVE_SOT_MERGED_SHA`) | **Check:** Initiative start sequence fail-closed before Eng handoff. **Sensor:** Research Scope (Q1–Q8) + Brand & Design Setup / Cos-signed `design-system.md` + UX Canvas (Gothelf Lean UX Canvas v2 boxes 1–8). **Metric (fail closed):** Eng handoffs missing Research Scope cite, signed Brand & Design Setup, or UX Canvas (boxes 1–8) = **fail closed**. Do not treat a narrative pass as acceptance. **Scope:** Product UX Initiatives only — **not** OpenClaw. **Who stamps:** QA + Cos. Adv challenges / names SoT — does not replace QA+Cos stamp. Stacks on LIVE `DESIGN_SYSTEM_FIRST` `#45` / `ead012f` + UX Canvas name `#48` / `e9b4827` + Check 7 + Check 8 — addition, not replacement. |
 
 ## 10. CEO Bot Harness
 
@@ -608,6 +616,12 @@ and drafts amendment proposals. The human still gates the constitution.
 
 The harness is the **source of truth** at `harnesses/chief-of-staff.md` (A23).
 The inline copy is not maintained here; edit the harness file.
+
+**Standing locks indexed on the Cos harness (cite status carefully):**
+
+| Lock | Status | Notes |
+|---|---|---|
+| Check 10 / `RELEASE_COMPLIANCE` | **DRAFT** — not live until Cos ACCEPT (`LIVE_SOT_MERGED_SHA`). Pays Cos HOLD / Adv HOLE unpaid on tip `be550d9`. | **Check:** `RELEASE_COMPLIANCE`. **Sensor/shape:** Cos checklist after material framework changes — **NOT** fail-closed merge gate. Unpaid cleanup (a) legal/terms Paul-only (agents NEVER draft/revise; Apache-2.0 + LICENSE) (b) marketing copy drift (c) README/git claim sync. Cos stamp; Paul on novel legal; Cos flags Paul; Cos does not draft legal. **Metric (fail closed):** skipped Cos checklist after material framework change = **fail closed**; agent-drafted legal = **fail closed**. **Scope:** AG framework / product release path — not OpenClaw (unless `SURFACE_GATE_MATRIX`). Does not soften Check 9. See CoE + Cos harness. |
 
 ---
 

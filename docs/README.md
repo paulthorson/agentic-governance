@@ -34,5 +34,6 @@ touch the relevant page here.
 | [[Tooling]] | validate.py, CI workflow, consolidate script |
 | [[Roadmap]] | Gaps, planned agents, enterprise hardening |
 | [Initiatives](./initiatives/) | Product Initiative epic plans (PRD / flows) — e.g. Anonymous Improve Feedback |
+| [Cos memory template](./templates/cos-memory/) | **DRAFT** — Paul+Cos clarified store = private git; framework install/setup ASK at Cos seating (private git **or** local folder; do not force); see [cos-seating](./onboarding/cos-seating.md) |
 | [Capability report](./capability-report.md) | What code actually does (release claims SoT) |
 | [Pre-merge review pack](./pre-merge-review.md) | Author review artifact for release hardening |

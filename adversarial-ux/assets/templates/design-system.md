@@ -7,10 +7,13 @@
 Copy this template into the Initiative packet as `design-system.md`. Research × UX fill it
 together. Complete **Research Scope** (Q1–Q8) **before** the comps hunt. **Cos signs Brand &
 Design Setup** before any web/UI pixels, stills, or screens. Next gate after Brand & Design
-Setup: **UX Canvas** (before screens; contents TBD — **separate** gate, **not** an alias of
-Brand & Design Setup; no new check id). Then Check 7/8 stills / Eng. Engineering follows
-signed craft — not the reverse. Cite [#46](https://github.com/paulthorson/agentic-governance/pull/46)
-@ `cdf1c41` + [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f`.
+Setup: **UX Canvas** (Gothelf Lean UX Canvas v2 boxes 1–8 as-is — [Gothelf external SoT](https://jeffgothelf.com/blog/leanuxcanvas-v2/);
+before screens — **separate** gate, **not** an alias of Brand & Design Setup). Then screens /
+Check 7/8 stills / Eng. Standing Eng-handoff sensor: Check 9 / `INITIATIVE_START_SEQUENCE`
+(draft until Cos ACCEPT; **QA + Cos** stamp). Engineering follows signed craft — not the
+reverse. Cite [#48](https://github.com/paulthorson/agentic-governance/pull/48) @ `e9b4827` +
+[#46](https://github.com/paulthorson/agentic-governance/pull/46) @ `cdf1c41` +
+[#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f`.
 
 **Paramount:** Design, Experience, and Branding are paramount — not optional polish after Eng.
 Design system + Experience + Branding **lead** Initiative; engineering follows signed craft.
@@ -23,7 +26,8 @@ are **internal only** (never public chrome). Cites must **state why this set mat
 product’s business model** and **why the set is diverse**.
 
 **Stack:** `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) + `RESEARCH_HCI` (**LIVE** `#38` /
-`214ed5b`) + `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 — addition, not replacement.
+`214ed5b`) + `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 + Check 9 /
+`INITIATIVE_START_SEQUENCE` (draft until Cos ACCEPT) — addition, not replacement.
 Agency design thinking (`DESIGN_AGENCY_BAR`) remains the permanent UX brain for every product
 UX seat.
 
@@ -188,6 +192,6 @@ copy-paste across teams. Cites are **internal only** — never public chrome.
 ## Cos stamp
 
 - Cos ACCEPT of this Brand & Design Setup `design-system.md`: **yes | no**
-- Next gate after this stamp: **UX Canvas** (before screens; contents TBD — not an alias)
-- Then Check 7/8 stills / Eng
+- Next gate after this stamp: **UX Canvas** (Gothelf Lean UX Canvas v2 boxes 1–8; before screens — not an alias)
+- Then screens / Check 7/8 stills / Eng (Check 9 / `INITIATIVE_START_SEQUENCE` fail-closes Eng handoff — draft until Cos ACCEPT; QA + Cos stamp)
 - Stamp note:

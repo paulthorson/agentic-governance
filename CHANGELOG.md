@@ -7,6 +7,55 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- **Check 9 / `INITIATIVE_START_SEQUENCE` (Paul LOCK Cos plain 2026-09-15 — draft until Cos ACCEPT):**
+ Standing QA check (same family as Check 7 / Check 8 visual stills) — **fail-closed before Eng
+ handoff**. Plain name: **Initiative start sequence**. Sequence **must** run before screens:
+ **Research Scope → comps → Brand & Design Setup → UX Canvas** (Gothelf Lean UX Canvas v2 boxes
+ 1–8) → **then screens**. Sensor: missing cite of Research Scope (Q1–Q8) OR Brand & Design Setup /
+ Cos-signed `design-system.md` OR UX Canvas (boxes 1–8) at Eng handoff = **FAIL**. Do not treat a narrative pass as acceptance
+ rejected. **Who stamps:** QA + Cos. Adv challenges / names SoT — does not replace QA+Cos stamp.
+ Stacks on LIVE `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
+ @ `ead012f` + UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull/48) @
+ `e9b4827` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — addition, not replacement. Scope: product
+ UX Initiatives only — **not** OpenClaw. Check 9 free on main (no collision). Supersedes draft
+ [#49](https://github.com/paulthorson/agentic-governance/pull/49) (Gothelf without check id).
+ **Metric (fail closed):** Eng handoffs missing Research Scope cite, signed Brand & Design Setup, or
+ UX Canvas (boxes 1–8) = **fail closed**. Do not treat a narrative pass as acceptance. SoT: `harnesses/qa.md` + UX/Research
+ harness + CoE Draft intake. **Not live** until Cos ACCEPT merge (`LIVE_SOT_MERGED_SHA`).
+- **Cos memory template (Paul LOCK Cos enhancement — draft until Cos ACCEPT):** Baked-in operator
+ template at `docs/templates/cos-memory/` for a **private** structured memory store.
+ **Paul+Cos clarified store = private git** (their operator memory). **Framework:** part of AG
+ **install/setup when Chief of Staff is seated** — **not** a deferred README-only step. Wizard ASK
+ after roster (`mcp/adversarial_mcp/setup_wizard.py`); finalize **must call** seating hook
+ `mcp/adversarial_mcp/cos_memory_setup.py` (`scripts/cos_memory_setup.py` CLI stub) —
+ Cos prompts `private_git` OR `local_folder` (do **not** force one); scaffolds `config/cos-memory/`;
+ writes mode/label to `config/setup.md` + Cos persona. Cos harness stop if seated without mode.
+ Docs: `docs/onboarding/cos-seating.md` + README Install. Cos↔human locks/episodes, not chat-only.
+ **Separate from public AG product surface.** Adv may name SoT later. P0: no secrets/keys/emails/PII/host
+ paths. Folded into the same Class A tip as Check 9 (no second PR).
+- **`RELEASE_COMPLIANCE` (Cos HOLD / Adv HOLE pay — unpaid on tip `be550d9`; draft until Cos ACCEPT):**
+ **Check:** Check 10 / `RELEASE_COMPLIANCE`. **Sensor/shape:** Cos checklist after material
+ framework changes — **NOT** fail-closed merge gate / stop-the-presses. Unpaid cleanup:
+ (a) legal/terms (**Paul human-only**; agents **NEVER** draft/revise legal; Apache-2.0 + LICENSE
+ govern); (b) marketing site copy drift; (c) README/git claim sync. Review categories (not auto
+ merge blockers): claims · telemetry · install promises · auth · license · public marketing face ·
+ data collection. **Who stamps:** Cos stamp; **Paul on novel legal**. Cos flags Paul; Cos does not
+ draft legal. **Metric (fail closed):** skipped Cos checklist after material framework change = **fail closed**; agent-drafted legal = **fail closed**. **Scope:** AG framework / product release path — not
+ OpenClaw (unless `SURFACE_GATE_MATRIX`). Check 9 stays fail-closed; Cos memory install ASK stays.
+ SoT: `harnesses/chief-of-staff.md` + CoE Draft intake.
+
+### Changed
+- **UX Canvas contents honesty (Paul LOCK — absorb Gothelf; kill “contents TBD”):** **UX Canvas** =
+ Jeff Gothelf [Lean UX Canvas V2](https://jeffgothelf.com/blog/leanuxcanvas-v2/) boxes **1–8 as-is**
+ (external SoT for box definitions). Boxes: (1) Business problem statement (2) Business outcomes
+ (3) Users (4) User outcomes and benefits (5) Solutions (6) Hypotheses (7) What’s the most
+ important thing we need to learn first? (8) What’s the least amount of work to learn the next
+ most important thing? Touched paths drop “contents TBD”; standing Check 9 owns Eng-handoff
+ fail-closed. Absorb under LIVE UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull/48)
+ @ `e9b4827` / `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
+ @ `ead012f`.
+
 ### Removed
 - **[redacted] Get AG (Paul LOCK release):** Deleted ``, ``, and empty `docs/legal/`. Settled posture: free/open source Apache-2.0; **no acceptance gate**; LICENSE is the only use governor. **No replacement** Terms/privacy/warranty text. Cross-links in docs/initiatives, `docs/README.md`, dashboard README, and capability report §12.7 updated accordingly.
 
