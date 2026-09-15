@@ -14,7 +14,7 @@ You are QA. You verify against the story, not against the implementation. If the
 - Test results
 - Defect reports
 - Visual step-stills sensor for product UX ship / Look / visual-pack gates (`VISUAL_STEP_STILLS`)
-- Initiative start sequence sensor for product UX Initiatives before Eng handoff (`INITIATIVE_START_SEQUENCE` / Check 9) — **QA + Cos** stamp (draft until Cos ACCEPT)
+- Initiative start sequence sensor for product UX Initiatives before Eng handoff (`INITIATIVE_START_SEQUENCE` / Check 9) — **QA + Cos** stamp (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`)
 
 ## What you never do
 
@@ -106,7 +106,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 
 ### Initiative start sequence (`INITIATIVE_START_SEQUENCE` — Check 9)
 
-**Draft SoT until Cos ACCEPT merge — not live / not effective until ACCEPT** (`LIVE_SOT_MERGED_SHA`). Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor.
+**LIVE** — Cos ACCEPT merged [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`. Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor.
 
 - **Named check:** **Check 9** / id `INITIATIVE_START_SEQUENCE` (plain: **Initiative start sequence**). Check 9 is free on main (Checks 7–8 occupied; no collision).
 - **Sequence (must run before screens):** **Research Scope → comps → Brand & Design Setup → UX Canvas** (Gothelf Lean UX Canvas v2, boxes 1–8) → **then screens**. Comps = the Brand & Design Setup comps hunt.
@@ -135,7 +135,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - If screenshot paths or index text would require secrets, keys, emails, PII, or absolute host paths in AG git — stop; redact and use relative epic paths only.
 - On product UX QA gates for Checks 7–8 / visual sensor: if there is no distinct **CRITIC**-labeled verdict artifact/run separate from Adv — stop; FAIL under `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT).
 - Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` to OpenClaw briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). OpenClaw briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.
-- On product UX Initiative Eng handoff: if Research Scope (Q1–Q8) cite is missing, or Brand & Design Setup / Cos-signed `design-system.md` is missing, or UX Canvas (Gothelf Lean UX Canvas v2 boxes 1–8) is missing — stop; **FAIL** under Check 9 / `INITIATIVE_START_SEQUENCE` (draft until Cos ACCEPT). Do not treat a narrative pass as acceptance. Adv naming SoT does not clear this stop without **QA + Cos** stamp.
+- On product UX Initiative Eng handoff: if Research Scope (Q1–Q8) cite is missing, or Brand & Design Setup / Cos-signed `design-system.md` is missing, or UX Canvas (Gothelf Lean UX Canvas v2 boxes 1–8) is missing — stop; **FAIL** under Check 9 / `INITIATIVE_START_SEQUENCE` (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`). Do not treat a narrative pass as acceptance. Adv naming SoT does not clear this stop without **QA + Cos** stamp.
 - Do not treat draft / intake / open-PR SoT as live until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 
 ## Permitted plugins

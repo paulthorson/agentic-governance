@@ -27,7 +27,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  Check 7 / Check 8. Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`).
  P0: no secrets/tokens, emails, Discord channel names, absolute host home paths
  (LaunchAgent label OK), or private operator data.
-- **Check 9 / `INITIATIVE_START_SEQUENCE` (Paul LOCK Cos plain 2026-09-15 — draft until Cos ACCEPT):**
+- **Check 9 / `INITIATIVE_START_SEQUENCE` (Paul LOCK Cos plain 2026-09-15 — now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):**
  Standing QA check (same family as Check 7 / Check 8 visual stills) — **fail-closed before Eng
  handoff**. Plain name: **Initiative start sequence**. Sequence **must** run before screens:
  **Research Scope → comps → Brand & Design Setup → UX Canvas** (Gothelf Lean UX Canvas v2 boxes
@@ -41,8 +41,8 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  [#49](https://github.com/paulthorson/agentic-governance/pull/49) (Gothelf without check id).
  **Metric (fail closed):** Eng handoffs missing Research Scope cite, signed Brand & Design Setup, or
  UX Canvas (boxes 1–8) = **fail closed**. Do not treat a narrative pass as acceptance. SoT: `harnesses/qa.md` + UX/Research
- harness + CoE Draft intake. **Not live** until Cos ACCEPT merge (`LIVE_SOT_MERGED_SHA`).
-- **Cos memory template (Paul LOCK Cos enhancement — draft until Cos ACCEPT):** Baked-in operator
+ harness + CoE Already LIVE.
+- **Cos memory template (Paul LOCK Cos enhancement — now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):** Baked-in operator
  template at `docs/templates/cos-memory/` for a **private** structured memory store.
  **Paul+Cos clarified store = private git** (their operator memory). **Framework:** part of AG
  **install/setup when Chief of Staff is seated** — **not** a deferred README-only step. Wizard ASK
@@ -53,7 +53,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  Docs: `docs/onboarding/cos-seating.md` + README Install. Cos↔human locks/episodes, not chat-only.
  **Separate from public AG product surface.** Adv may name SoT later. P0: no secrets/keys/emails/PII/host
  paths. Folded into the same Class A tip as Check 9 (no second PR).
-- **`RELEASE_COMPLIANCE` (Cos HOLD / Adv HOLE pay — unpaid on tip `be550d9`; draft until Cos ACCEPT):**
+- **`RELEASE_COMPLIANCE` (now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):**
  **Check:** Check 10 / `RELEASE_COMPLIANCE`. **Sensor/shape:** Cos checklist after material
  framework changes — **NOT** fail-closed merge gate / stop-the-presses. Unpaid cleanup:
  (a) legal/terms (**Paul human-only**; agents **NEVER** draft/revise legal; Apache-2.0 + LICENSE
@@ -62,44 +62,11 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  data collection. **Who stamps:** Cos stamp; **Paul on novel legal**. Cos flags Paul; Cos does not
  draft legal. **Metric (fail closed):** skipped Cos checklist after material framework change = **fail closed**; agent-drafted legal = **fail closed**. **Scope:** AG framework / product release path — not
  OpenClaw (unless `SURFACE_GATE_MATRIX`). Check 9 stays fail-closed; Cos memory install ASK stays.
- SoT: `harnesses/chief-of-staff.md` + CoE Draft intake.
+ SoT: `harnesses/chief-of-staff.md` + CoE Already LIVE.
 
-### Changed
-- **UX Canvas contents honesty (Paul LOCK — absorb Gothelf; kill “contents TBD”):** **UX Canvas** =
- Jeff Gothelf [Lean UX Canvas V2](https://jeffgothelf.com/blog/leanuxcanvas-v2/) boxes **1–8 as-is**
- (external SoT for box definitions). Boxes: (1) Business problem statement (2) Business outcomes
- (3) Users (4) User outcomes and benefits (5) Solutions (6) Hypotheses (7) What’s the most
- important thing we need to learn first? (8) What’s the least amount of work to learn the next
- most important thing? Touched paths drop “contents TBD”; standing Check 9 owns Eng-handoff
- fail-closed. Absorb under LIVE UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull/48)
- @ `e9b4827` / `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
- @ `ead012f`.
-
-### Removed
-- **[redacted] Get AG (Paul LOCK release):** Deleted ``, ``, and empty `docs/legal/`. Settled posture: free/open source Apache-2.0; **no acceptance gate**; LICENSE is the only use governor. **No replacement** Terms/privacy/warranty text. Cross-links in docs/initiatives, `docs/README.md`, dashboard README, and capability report §12.7 updated accordingly.
-
-### Changed
-- **Get AG Adv CONCERN amend (historical — files later removed):** Pay Adv CONCERNs on tip [#60](https://github.com/paulthorson/agentic-governance/pull/60) @ `86e98081` without absorbing unpaid counsel work. Paths were ``, `` (**removed** on release hardening; see Removed above).
-
-### Added
 - **Get AG (historical — file later removed):** Fuller LICENSE text authored on tip [#60](https://github.com/paulthorson/agentic-governance/pull/60); path was `` (**removed** on release hardening).
 - **Eng extract execute status (Class A companion):** After Eng plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) **Cos ACCEPT MERGED LIVE** @ `e7bb36e` — extract execute **GO** (site-repo extract continues **in parallel**). Site face → `paulthorson/agentic-governance-site`; this repo remains feed/corpus publisher + framework download. Path: `docs/initiatives/marketing-site-extract-execute.md`. Settled Get AG posture supersedes prior acceptance-gate HOLD (see Removed).
 
-### Changed
-- **LICENSE MIT → Apache-2.0 (Class A):** Replace root `LICENSE` with standard Apache License 2.0 text; Copyright (c) 2026 paulthorson (match prior copyright style). README license badge + Governance mention → **Apache-2.0** (public framework license for fork / remix / contribute).
-- **Get AG — Paul LOCKs amend (historical — file later removed):** Amend that was applied to `` (**removed** on release hardening).
-- **Adv CONCERN absorb (AG website UX Canvas SoT — unpaid from merged [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b`):** Amend
- `docs/initiatives/ag-website-ux-canvas.md` without inventing product policy: (1) cite
- Cos-signed Brand & Design Setup / design-system packet (Sage instrument brand;
- Advercase + Geist; Process Instrument in the Void hybrid; Direct founder voice) + Eng
- HOLD look/pixels until Cos craft + Paul yes on stills; screens only after this canvas;
- (2) Box 2 metric + direction per outcome (honest directions, no fake percentages);
- (3) Box 5 solutions as genuine options with one trade line each; (4) Box 3 users + Box 6
- hypotheses marked Cos-owned with Paul 2026-09-14 — Research Scope provenance unpaid.
- `adversarial-ux/README.md` Initiative LIVE pointer drops stale “contents TBD” and points
- at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
-
-### Added
 - **Get AG (historical — file later removed).** Cos LOCK with Paul 2026-09-14. Path was `` (**removed** on release hardening; see Removed above).
 - **Eng extract plan (Class A ops): Marketing site split.** Companion to PRODUCT epic
  [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` (**MERGED LIVE**) —
@@ -138,36 +105,6 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  Initiative sequence. **Not** the constitution Gothelf box-definitions tip. LIVE via
  [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4bc`.
 
-### Changed
-- **UX Canvas named next gate (Paul/Cos LOCK — no new check id):** **UX Canvas** is the
- **separate** next Initiative gate **after** Brand & Design Setup — **not** an alias of Brand
- & Design Setup. Sequence: Research Scope → hunt → Brand & Design Setup → **UX Canvas**
- (before screens; contents TBD) → Check 7/8 stills / Eng. Name the gate only; do not invent
- canvas contents or a new Critic Check. Absorb into harness + design-system sensor + CoE/spec
- pointers under LIVE `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
- @ `ead012f` + Brand & Design Setup docs [#46](https://github.com/paulthorson/agentic-governance/pull/46)
- @ `cdf1c41`.
-- **Adv CONCERN absorb (`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — no new check id):**
- Research cites must be **diverse** + **business-model-matched per project**; **FAIL** fixed AG
- comps (Pentagram/500/AXM) as all-teams default / copy-paste across teams; sensor requires cites
- that **state why this set matches this product’s model** and **why it is diverse** (not one
- peer); name walkthrough **Brand & Design Setup** once in harness heading. Also: **Research
- Scope** (Paul LOCK plain-English) Q1–Q8 wizard before comps hunt — no new check id.
-- **LIVE tidy:** `DESIGN_SYSTEM_FIRST` (**LIVE** `#45` / `ead012f`), `DESIGN_AGENCY_BAR`
- (**LIVE** `#43` / `7e9e0b6`), `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) — remove stale
- “draft until Cos ACCEPT” labels; move to CoE Already LIVE.
-- **`DESIGN_SYSTEM_FIRST` plain-English name (Paul LOCK):** **Brand & Design Setup** — early
- Initiative Cos walkthrough. Map that human/agent name onto the check in `harnesses/ux.md`,
- `adversarial-ux/assets/templates/design-system.md`, CoE + Critic table rows. Check id
- unchanged (`DESIGN_SYSTEM_FIRST`).
-- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — fresh comps (Paul LOCK):** Research gathers
- a **FRESH diverse** comps set for **each** project’s Brand & Design Setup, **matched to that
- project’s business model**. Do **not** treat Pentagram / 500 / AXM as an all-teams default
- (AG-site-specific). Comp cites **internal only** (never public chrome). Absorbed into
- `harnesses/ux.md` + `harnesses/researcher.md`, design-system template, CoE + Critic rows.
- Check id unchanged (`DESIGN_SYSTEM_FIRST`).
-
-### Added
 - **SoT: `DESIGN_SYSTEM_FIRST` (Brand & Design Setup) — LIVE via `#45` / `ead012f`.** Cos
  LOCK Paul — **Design, Experience, and Branding are paramount** (not optional polish after
  Eng; design system + Experience + Branding lead Initiative; **engineering follows signed
@@ -427,10 +364,6 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  "verdict ledger", "epic", "autonomy ladder"). The wizard also auto-creates the
  default data files (`runs/in_review.json`, `runs/verdicts.jsonl`).
 
-### Fixed
-- `docs/spec-addendum-01.md` — **A16 self-contradiction caught and fixed.** A decision about where validation records live was recorded as DECIDED in `docs/proposals/a17-validation-record-home.md` while §A17 still said "Not decided. Do not implement." — two copies of a governance rule disagreeing, with no precedence rule. This is exactly the A16 open problem, occurring inside the file where A16 is written down. The fix renumbered the validation-record decision as **A20** (decided, distinct from A17), kept A17 open on its actual subject (no project repo for governance-repo work), renamed the proposal file to `a20-validation-record-home.md`, and recorded the occurrence in the A16 section as evidence the duplication problem is real and already biting.
-
-### Added
 - `docs/spec-addendum-01.md` — Addendum 01 (Reversibility, Autonomy, Budgets, and Audit), ratified, committed into the repo so the repo copy is canonical and the Downloads copy is dead. Amends Sections 5, 6, 9, 10, 11, 13, 14 of `docs/agentic-governance-spec.md`. A9 and A10 are recorded open problems (not implemented).
 - `docs/agentic-governance-spec.md`: added **Section 10.7 Reversibility as the approval line** (A1) — finish reversible work, stage and stop irreversible work; precedence over vetoes/mandatory escalation; adversarial agents unchanged.
 - `docs/agentic-governance-spec.md`: added **Section 10.8 The autonomy ladder** (A2) — Levels 0-4, promotion earned on evidence, automatic demotion, config for starting level and clean runs per promotion.
@@ -472,13 +405,67 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - CI validation workflow (`scripts/validate.py` + GitHub Actions) — lints frontmatter,
  checks naming uniqueness, validates structure and cross-references.
 
-### Moved
-- `docs/Constitution.md` → `constitution/constitution.md` (git rename).
-- `docs/Calibration.md` → `ledger/calibration-ledger.md` (git rename).
-- `docs/Vetoes.md` → `constitution/vetoes.md` (git rename). The veto principle is now stated once, in `constitution.md` Rule 1; `vetoes.md` points to Rule 1 and keeps only its unique operational content (domain table, mechanism, mechanical enforcement, rationale). Inbound references updated.
-- 12 per-domain constitutions `adversarial-<domain>/references/constitution.md` → `constitution/domains/<domain>.md` (git rename, no rule text changed). Constitutional content moved out of capability folders; `get_constitution` repointed to the new path and verified for all 12 domains.
-
 ### Changed
+- **Class A honesty flip — Check 9 / Check 10 / Cos memory LIVE after Cos ACCEPT [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`:** CoE Draft intake
+ still listed Check 9 / `INITIATIVE_START_SEQUENCE`, Check 10 / `RELEASE_COMPLIANCE`, and Cos
+ memory install ASK as Draft after Cos ACCEPT MERGED. Flip those rows to CoE Already LIVE citing
+ `#64` @ `a9a4327`. Drop stale “draft until Cos ACCEPT” labels on related harness / template /
+ index / spec pointers already on main. **Check 9 stays fail-closed** before Eng handoff.
+ **Check 10 stays Cos checklist** — **NOT** fail-closed / stop-the-presses. Cos memory ASK
+ (`private_git` OR `local_folder` at Cos seating) stays. No new checks invented. P0: no secrets.
+- **UX Canvas contents honesty (Paul LOCK — absorb Gothelf; kill “contents TBD”):** **UX Canvas** =
+ Jeff Gothelf [Lean UX Canvas V2](https://jeffgothelf.com/blog/leanuxcanvas-v2/) boxes **1–8 as-is**
+ (external SoT for box definitions). Boxes: (1) Business problem statement (2) Business outcomes
+ (3) Users (4) User outcomes and benefits (5) Solutions (6) Hypotheses (7) What’s the most
+ important thing we need to learn first? (8) What’s the least amount of work to learn the next
+ most important thing? Touched paths drop “contents TBD”; standing Check 9 owns Eng-handoff
+ fail-closed. Absorb under LIVE UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull/48)
+ @ `e9b4827` / `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
+ @ `ead012f`.
+
+- **Get AG Adv CONCERN amend (historical — files later removed):** Pay Adv CONCERNs on tip [#60](https://github.com/paulthorson/agentic-governance/pull/60) @ `86e98081` without absorbing unpaid counsel work. Paths were ``, `` (**removed** on release hardening; see Removed above).
+
+- **LICENSE MIT → Apache-2.0 (Class A):** Replace root `LICENSE` with standard Apache License 2.0 text; Copyright (c) 2026 paulthorson (match prior copyright style). README license badge + Governance mention → **Apache-2.0** (public framework license for fork / remix / contribute).
+- **Get AG — Paul LOCKs amend (historical — file later removed):** Amend that was applied to `` (**removed** on release hardening).
+- **Adv CONCERN absorb (AG website UX Canvas SoT — unpaid from merged [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b`):** Amend
+ `docs/initiatives/ag-website-ux-canvas.md` without inventing product policy: (1) cite
+ Cos-signed Brand & Design Setup / design-system packet (Sage instrument brand;
+ Advercase + Geist; Process Instrument in the Void hybrid; Direct founder voice) + Eng
+ HOLD look/pixels until Cos craft + Paul yes on stills; screens only after this canvas;
+ (2) Box 2 metric + direction per outcome (honest directions, no fake percentages);
+ (3) Box 5 solutions as genuine options with one trade line each; (4) Box 3 users + Box 6
+ hypotheses marked Cos-owned with Paul 2026-09-14 — Research Scope provenance unpaid.
+ `adversarial-ux/README.md` Initiative LIVE pointer drops stale “contents TBD” and points
+ at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
+
+- **UX Canvas named next gate (Paul/Cos LOCK — no new check id):** **UX Canvas** is the
+ **separate** next Initiative gate **after** Brand & Design Setup — **not** an alias of Brand
+ & Design Setup. Sequence: Research Scope → hunt → Brand & Design Setup → **UX Canvas**
+ (before screens; contents TBD) → Check 7/8 stills / Eng. Name the gate only; do not invent
+ canvas contents or a new Critic Check. Absorb into harness + design-system sensor + CoE/spec
+ pointers under LIVE `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
+ @ `ead012f` + Brand & Design Setup docs [#46](https://github.com/paulthorson/agentic-governance/pull/46)
+ @ `cdf1c41`.
+- **Adv CONCERN absorb (`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — no new check id):**
+ Research cites must be **diverse** + **business-model-matched per project**; **FAIL** fixed AG
+ comps (Pentagram/500/AXM) as all-teams default / copy-paste across teams; sensor requires cites
+ that **state why this set matches this product’s model** and **why it is diverse** (not one
+ peer); name walkthrough **Brand & Design Setup** once in harness heading. Also: **Research
+ Scope** (Paul LOCK plain-English) Q1–Q8 wizard before comps hunt — no new check id.
+- **LIVE tidy:** `DESIGN_SYSTEM_FIRST` (**LIVE** `#45` / `ead012f`), `DESIGN_AGENCY_BAR`
+ (**LIVE** `#43` / `7e9e0b6`), `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) — remove stale
+ “draft until Cos ACCEPT” labels; move to CoE Already LIVE.
+- **`DESIGN_SYSTEM_FIRST` plain-English name (Paul LOCK):** **Brand & Design Setup** — early
+ Initiative Cos walkthrough. Map that human/agent name onto the check in `harnesses/ux.md`,
+ `adversarial-ux/assets/templates/design-system.md`, CoE + Critic table rows. Check id
+ unchanged (`DESIGN_SYSTEM_FIRST`).
+- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — fresh comps (Paul LOCK):** Research gathers
+ a **FRESH diverse** comps set for **each** project’s Brand & Design Setup, **matched to that
+ project’s business model**. Do **not** treat Pentagram / 500 / AXM as an all-teams default
+ (AG-site-specific). Comp cites **internal only** (never public chrome). Absorbed into
+ `harnesses/ux.md` + `harnesses/researcher.md`, design-system template, CoE + Critic rows.
+ Check id unchanged (`DESIGN_SYSTEM_FIRST`).
+
 - `docs/adr/0004-hard-vetoes.md`: references updated to `constitution/constitution.md` and `constitution/vetoes.md`.
 - `mcp/adversarial_mcp/server.py`: `get_constitution` reads `constitution/domains/<domain>.md`; `REPO_ROOT` now resolves relative to `server.py` (rename/clone-anywhere safe); `get_standard` fixed via glob of exactly one standard file per plugin (was reading nonexistent `references/standard.md` and silently returning empty for all 12 domains since the MCP server shipped 2026-08-26).
 - `mcp/adversarial_mcp/server.py`: `run_review` and `record_verdict` now tag verdict-log records with a `source` field (`app` by default; tests pass `source="smoke_test"`); `query_verdicts` gained a `source` filter so test/automation records can be excluded from the real-review log (runs/verdicts.jsonl).
@@ -487,6 +474,18 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `harnesses/ceo.md`: removed the restriction "Read access across everything belongs to the adversarial agents, not to the CEO" from the Inputs section — not in the spec, and the CEO reads the constitution, harness, config, and ledger by definition. The adversarial agents' read access is stated in Section 12 without a counterpart denial here.
 - **Migration brief (Section 7):** added carve-out — Phase 3 does not touch `references/constitution.md` in any plugin (constitutional content, not capability).
 - **Spec correction:** the Section 4 skeleton lists eight harness sections, but every harness carries a ninth — the Section 11 plugin allowlist. The allowlist is legitimately part of a harness; the spec (not the harnesses) is wrong. Noted for spec fix.
+
+### Removed
+- **[redacted] Get AG (Paul LOCK release):** Deleted ``, ``, and empty `docs/legal/`. Settled posture: free/open source Apache-2.0; **no acceptance gate**; LICENSE is the only use governor. **No replacement** Terms/privacy/warranty text. Cross-links in docs/initiatives, `docs/README.md`, dashboard README, and capability report §12.7 updated accordingly.
+
+### Fixed
+- `docs/spec-addendum-01.md` — **A16 self-contradiction caught and fixed.** A decision about where validation records live was recorded as DECIDED in `docs/proposals/a17-validation-record-home.md` while §A17 still said "Not decided. Do not implement." — two copies of a governance rule disagreeing, with no precedence rule. This is exactly the A16 open problem, occurring inside the file where A16 is written down. The fix renumbered the validation-record decision as **A20** (decided, distinct from A17), kept A17 open on its actual subject (no project repo for governance-repo work), renamed the proposal file to `a20-validation-record-home.md`, and recorded the occurrence in the A16 section as evidence the duplication problem is real and already biting.
+
+### Moved
+- `docs/Constitution.md` → `constitution/constitution.md` (git rename).
+- `docs/Calibration.md` → `ledger/calibration-ledger.md` (git rename).
+- `docs/Vetoes.md` → `constitution/vetoes.md` (git rename). The veto principle is now stated once, in `constitution.md` Rule 1; `vetoes.md` points to Rule 1 and keeps only its unique operational content (domain table, mechanism, mechanical enforcement, rationale). Inbound references updated.
+- 12 per-domain constitutions `adversarial-<domain>/references/constitution.md` → `constitution/domains/<domain>.md` (git rename, no rule text changed). Constitutional content moved out of capability folders; `get_constitution` repointed to the new path and verified for all 12 domains.
 
 ## [0.1.1] — 2026-09-11
 

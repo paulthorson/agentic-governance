@@ -105,13 +105,13 @@ adversarial-ux/
 └── commands/ adversarial-ux, adversary-review
 ```
 
-**Initiative sequence pointer (LIVE gates + draft Check 9):** Research Scope → comps → **Brand & Design Setup**
+**Initiative sequence pointer (LIVE gates including Check 9):** Research Scope → comps → **Brand & Design Setup**
 (`DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f`;
 docs [#46](https://github.com/paulthorson/agentic-governance/pull/46) @ `cdf1c41`) → **UX Canvas**
 (Gothelf Lean UX Canvas v2 boxes 1–8 as-is — [Gothelf](https://jeffgothelf.com/blog/leanuxcanvas-v2/);
 before screens — **separate** next gate, **not** an alias; name [#48](https://github.com/paulthorson/agentic-governance/pull/48)
 @ `e9b4827`) → then screens / Check 7/8 stills / Eng. Standing Eng-handoff sensor: **Check 9** /
-`INITIATIVE_START_SEQUENCE` (draft until Cos ACCEPT; **QA + Cos** stamp — Adv challenges / names SoT).
+`INITIATIVE_START_SEQUENCE` (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`; **QA + Cos** stamp — Adv challenges / names SoT).
 Sensor template: `assets/templates/design-system.md`.
 
 **AG website UX Canvas — filled SoT LIVE:**

@@ -1,6 +1,6 @@
 # Cos memory store (operator template)
 
-**Status:** **DRAFT** — not live / not effective until Cos ACCEPT of the tip PR that ships this template (`LIVE_SOT_MERGED_SHA`). Soft / tip-only use as AG law = **REJECTED**.
+**Status:** **LIVE** — Cos ACCEPT merged [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`. Soft / tip-only use as AG law = **REJECTED**. Install ASK at Cos seating remains `private_git` OR `local_folder` (do not force one).
 
 ## Purpose
 
