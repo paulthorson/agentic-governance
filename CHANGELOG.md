@@ -8,6 +8,15 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+- **OpenClaw question-wait-guard scar SoT** (docs only; `QUESTION_WAIT_GUARD`;
+ question-wait-guard script + cron every 2 min; main session `blocked_tool_call`
+ hangs ≥120s without auto-abort = **0** hold) at
+ `projects/openclaw/scars/question-wait-guard.md`. CLOSED harness scar for
+ `agent:main:main` hung on masked-token / secret `question.waitAnswer` (default
+ 15m timeout too long). Scope: OpenClaw Studio session ops only — **not** product
+ UX Check 7 / Check 8. Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`).
+ P0: no secrets/tokens, emails, Discord channel names, absolute host home paths,
+ Notion workspace IDs, or private operator data.
 - **OpenClaw gateway single-owner + stale-install recycle scar SoT** (docs only;
  `GATEWAY_SINGLE_OWNER` + `STALE_INSTALL_RECYCLE`; gateway-health-guard–style
  scheduled sensor; competing gateway process count = **0** hold while LaunchAgent
