@@ -117,6 +117,45 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
 - **Out of scope for this SoT write:** rewriting live marketing pixels in this tip; OpenClaw briefs; inventing product Brand Voice for a concrete Initiative beyond the ban bar.
 
+#### `MOCK_BEFORE_UI_ENG`
+
+**Draft SoT until Cos ACCEPT of AG #103 — not live / not effective until ACCEPT.** Do not treat a narrative pass as acceptance (literal). **Ops LIVE HOLD already binds seats** until Cos lifts. Soft CONCERN Soft: room/seat affirmations ≠ Cos lift.
+
+Fail-closed fleet gate: **no UI Eng build / tip** until Cos shows the operator a mock or wireframe in the Cos↔operator thread, the operator confirms intent, and the operator says go. UX authors the mock. Cos decides adequacy + GO clarity. Eng self-HOLD if unpaid.
+
+- **Id / named check:** `MOCK_BEFORE_UI_ENG`
+- **Surfaces:** Cos chat (primary), spoken/voice, Cos digests/reminders that present the mock. Seat↔seat / Class A GH / improve-inbox unbound.
+- **Mock alone ≠ Eng unlock (Cos-locked):** Operator mock/wireframe GO clears mock-before-build only — does **not** unlock Eng when Cos craft FAIL, glass Look unpaid, Check 8 unpaid, seat PARK, or `FLEET_DESIGN_CRAFT_RAISE` unpaid.
+- **Out of scope:** docs-only / non-UI Class A tips with no product UI pixels (not a narrative-pass for UI). Never narrative-pass UI Eng without mock+GO while this gate stands.
+- **Stack:** `DESIGN_AGENCY_BAR` **LIVE** `#43` / `7e9e0b6` + `RESEARCH_HCI` **LIVE** `#38` / `214ed5b` + improve LIVE `#87` @ `2ab4b17` + `#98` @ `fe27c4b` + `RESEARCH_BEFORE_ENHANCE` **LIVE** `#10` / `bd63566` + Check 7 **LIVE** `#14` / `36deb0e` + Check 8 / `VISUAL_STEP_STILLS` **LIVE** `#15` / `d61f4c1` + `FLEET_DESIGN_CRAFT_RAISE` (draft AG #104 on this tip). Ops LIVE HOLD until Cos lifts.
+- **Metric (fail closed):** UI Eng builds / tips that start without Cos-shown mock/wireframe + operator confirm-intent + go = **0**. Do not treat a narrative pass as acceptance.
+- **Cite:** [#103](https://github.com/paulthorson/agentic-governance/issues/103) Cos amend + LIVE ops HOLD + cites above.
+
+#### `FLEET_DESIGN_CRAFT_RAISE`
+
+**Draft SoT until Cos ACCEPT of AG #104 — not live / not effective until ACCEPT.** Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance (literal). Craft ≠ Feel (do not stamp craft remediation as Feel).
+
+Fleet enterprise/master craft raise on product UI. Stacks LIVE `DESIGN_AGENCY_BAR` [#43](https://github.com/paulthorson/agentic-governance/pull/43) @ `7e9e0b6` + LIVE `RESEARCH_HCI` [#38](https://github.com/paulthorson/agentic-governance/pull/38) @ `214ed5b`. Cite **LIVE ops HOLD** mock-before-build + `#103` DRAFT on this tip + LIVE `#43`/`#38` — **do not claim `#103` LIVE** until Cos ACCEPT. Soft CONCERN Soft: stamp craft remediation as Feel = Adv FAIL (Feel OFF).
+
+- **Id / named check:** `FLEET_DESIGN_CRAFT_RAISE`
+- **Judgment owner:** Chief of Staff grades whether craft meets enterprise/master bar for operator-facing stills (after UX delivers). UX authors craft; Research supplies comps/HCI evidence. Adversary may challenge Cos craft judgment. Operator confirms intent on mocks; Cos does not invent SoT.
+- **Surfaces the bar binds:**
+  1. Product UX stills / comps shown to Cos for operator Look
+  2. Phone companion + glass HUD UI for G2 plugin products
+  3. Public/marketing product UI when that product’s brief applies
+  4. Cos craft tips that claim look ready
+- **Does not bind:** Class A docs-only tips with no UI pixels; Feel/game-systems Feel stamps (separate).
+- **Who stamps + detection:**
+  - **Primary:** Cos craft FAIL on Cos-routed stills before Eng pack GO / before Adv soft-green alone.
+  - **Path:** UX stills → Cos craft grade → operator Look when required → Adv may challenge Cos gates.
+  - Completeness stills without craft rematch = FAIL. Critic Check 7/8 evidence required where those locks apply.
+- **Cos lift / exception:** Mock-before-build (`#103`) stays until **Cos explicitly lifts** in operator-facing + Class A SoT. Craft bar **never soft-defers** — Cos-locked: no “ship ugly now, craft later” for UI Eng. Emergency ops docs-only tips without UI pixels are out of scope (not an exception to craft on UI).
+- **Named remediation seat (Cos-locked before next UI Eng):** [redacted product] — path `public/tarot/` in product repo `new-desires-philly`. PM / UX / Research / Eng seats for that product. Explicit comps + agency-bar rematch + Cos mock GO before next [redacted product] UI Eng. Other products still under fleet bar + mock-before-build; [redacted product] is the named priority remediation.
+- **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) + `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) + LIVE improve `#87` @ `2ab4b17` + `#98` @ `fe27c4b` — **not** a replacement. LIVE ops HOLD mock-before-build until Cos lifts `#103` (do **not** soft-depend unpaid `#103` Class A body as sole cite).
+- **Metric (fail closed):** count of UI Eng tips / merges that ship product UI below enterprise/master craft bar without Cos craft PASS on Cos-routed stills. Target = **0**. Do not treat a narrative pass as acceptance.
+- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **Cite:** [#104](https://github.com/paulthorson/agentic-governance/issues/104) Cos amend + [#43](https://github.com/paulthorson/agentic-governance/pull/43) LIVE @ `7e9e0b6` + [#38](https://github.com/paulthorson/agentic-governance/pull/38) LIVE @ `214ed5b` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + LIVE ops HOLD mock-before-build (until `#103` LIVE Class A).
+
 ### LIVE locks (Cos ACCEPT merged — cite SHA)
 
 Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A scar page is not a sensor.
@@ -201,6 +240,8 @@ Cite UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull
 - If Check 1 would PASS while `token_source` is UNSET, or an improve digest treats blank/invented tokens as measured — stop; FAIL under `TOKEN_SOURCE_OR_BLANK` (draft until Cos ACCEPT).
 - Do not execute draft / intake / open-PR headers as live harness law until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 - On product UX stills / public marketing faces (`DESIGN_AGENCY_BAR`, **LIVE** via `#43` / `7e9e0b6`): if stills lack a written craft defense, or use spectacle-as-craft patterns (beads / marble pulses / confetti / glow-as-craft / wallpaper rain over labels / jargon scoreboards / cheesy “alive” stacking) — stop; Cos craft **FAIL before Adv**. Prefer one strong quiet option. Do not apply to OpenClaw. Do not use superseded id `SPECTACLE_NOT_CRAFT` as a competing lock.
+- On UI Eng handoff (`MOCK_BEFORE_UI_ENG`, draft until Cos ACCEPT of AG #103; ops LIVE HOLD binds now): if Cos-shown mock/wireframe + operator confirm-intent + go unpaid — **stop**; do not clear Eng. Mock alone ≠ Eng unlock when craft / Look / Check 8 / PARK / `#104` unpaid. Do not treat a narrative pass as acceptance. Cite LIVE `#43` @ `7e9e0b6` + LIVE `#38` @ `214ed5b` + LIVE `#87` @ `2ab4b17` + LIVE `#98` @ `fe27c4b`.
+- On product UI Eng tips / merges (`FLEET_DESIGN_CRAFT_RAISE`, draft until Cos ACCEPT of AG #104): if product UI ships below enterprise/master craft bar without Cos craft PASS on Cos-routed stills, or completeness stills skip craft rematch, or craft bar is soft-deferred (“ship ugly now, craft later”), or craft remediation is stamped as Feel — **stop**. Path: UX stills → Cos craft grade → operator Look when required → Adv may challenge. Mock-before-build under **LIVE ops HOLD** + `#103` DRAFT on this tip — do **not** claim `#103` LIVE until Cos ACCEPT. Named priority remediation: [redacted product] `public/tarot/`. Do not treat a narrative pass as acceptance. Cite LIVE `#43` @ `7e9e0b6` + LIVE `#38` @ `214ed5b` + LIVE `#87` @ `2ab4b17` + LIVE `#98` @ `fe27c4b`.
 - On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — stop; Cos craft **FAIL before Adv**. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Do not apply to OpenClaw. Do not treat this draft as live until Cos ACCEPT merge cites a merged SHA. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
 - On product Initiatives (`DESIGN_SYSTEM_FIRST`, **LIVE** via `#45` / `ead012f`; Brand & Design Setup docs `#46` / `cdf1c41`; UX Canvas name `#48` / `e9b4827`): if web / UI pixels / stills / screens ship without Cos-signed `design-system.md` (tokens / type / space / motion / brand / do-not + Experience principles + Brand Voice [tone, lexicon, headline patterns, narrative drill-down] + Audience/promise + Information-design rules [measured-only; marks stay marks] + Research cite + fresh diverse business-model-matched comps with cites that state model-fit + diversity), or Research Scope skipped before hunt, or screens skip **UX Canvas** (separate next gate after Brand & Design Setup; Gothelf Lean UX Canvas v2 boxes 1–8), or Research/UX solo-ships Initiative look, or completeness stills lack a system, or Eng-led chrome precedes signed craft, or fixed AG comps (Pentagram/500/AXM) are used as all-teams default / copy-pasted across teams, or comp cites appear in public chrome — stop; **FAIL**. Design, Experience, and Branding are paramount; engineering follows signed craft. Design system is first deliverable; sequence Research Scope → comps → Brand & Design Setup → UX Canvas → then screens / Check 7/8 stills / Eng. Check 9 / `INITIATIVE_START_SEQUENCE` (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`; QA + Cos stamp) fail-closes Eng handoff without Research Scope cite + signed DS + UX Canvas boxes 1–8. Agency brain stacks `DESIGN_AGENCY_BAR` permanently — not a splash tip. Do not apply to OpenClaw.
 

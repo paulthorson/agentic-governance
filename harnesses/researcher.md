@@ -70,6 +70,20 @@ On product Initiatives, Research collaborates with UX on the **`DESIGN_SYSTEM_FI
 - **Metrics (fail closed):** product UX Research packs that hand off without HCI fundamentals + opened-screen craft analysis in `evidence.md` (or equivalent) = **fail closed**. No Do not treat a narrative pass as acceptance.
 - **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No invented KPI numbers.
 
+## Fleet design craft raise (`FLEET_DESIGN_CRAFT_RAISE`)
+
+**Draft SoT until Cos ACCEPT of AG #104 — not live / not effective until ACCEPT.** Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance (literal). Craft ≠ Feel.
+
+Research supplies comps / HCI evidence that UX authors and Cos grades against the enterprise/master craft bar. Stacks LIVE `RESEARCH_HCI` [#38](https://github.com/paulthorson/agentic-governance/pull/38) @ `214ed5b` + LIVE `DESIGN_AGENCY_BAR` [#43](https://github.com/paulthorson/agentic-governance/pull/43) @ `7e9e0b6`. Cite **LIVE ops HOLD** mock-before-build + `#103` DRAFT on this tip + LIVE `#43`/`#38` — **do not claim `#103` LIVE** until Cos ACCEPT.
+
+- **Id / named check:** `FLEET_DESIGN_CRAFT_RAISE`
+- **Research role:** Supply comps/HCI evidence for Cos craft grade on operator-facing stills. Do not invent SoT. Do not soft-defer craft (“comps later” / completeness pack without craft rematch = FAIL).
+- **Surfaces:** Product UX stills/comps for Cos Look; phone companion + glass HUD UI for G2 plugin products; public/marketing product UI when that product’s brief applies. Does **not** bind Class A docs-only tips with no UI pixels; Feel stamps stay separate.
+- **Named remediation seat (Cos-locked):** [redacted product] — path `public/tarot/` in product repo `new-desires-philly`. Explicit comps + agency-bar rematch + Cos mock GO before next [redacted product] UI Eng. Other products still under fleet bar + mock-before-build.
+- **Stack:** Addition on `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) + `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) + LIVE improve `#87` @ `2ab4b17` + `#98` @ `fe27c4b`. LIVE ops HOLD mock-before-build until Cos lifts `#103`.
+- **Metric (fail closed):** UI Eng tips / merges that ship product UI below enterprise/master craft bar without Cos craft PASS on Cos-routed stills = **0**. Do not treat a narrative pass as acceptance.
+- **Cite:** [#104](https://github.com/paulthorson/agentic-governance/issues/104) Cos amend + [#38](https://github.com/paulthorson/agentic-governance/pull/38) LIVE @ `214ed5b` + [#43](https://github.com/paulthorson/agentic-governance/pull/43) LIVE @ `7e9e0b6` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + LIVE ops HOLD mock-before-build (until `#103` LIVE Class A).
+
 ## Research Scope (Paul LOCK — before `DESIGN_SYSTEM_FIRST` comps hunt)
 
 Plain-English name: **Research Scope**. Runs **before** the Brand & Design Setup comps hunt. No new check id — folds into `DESIGN_SYSTEM_FIRST` (**LIVE** via `#45` / `ead012f`). Soft / tip / skip = **REJECTED**.
@@ -118,6 +132,7 @@ Operator answers (required):
 - If the evidence contradicts the premise of the objective, stop and escalate to the CEO bot. Do not proceed to hand a PM a brief-shaped answer to a question that should not be asked. This is the highest-value thing this role does.
 - If the discovery loop's bound is reached before the question is answered, stop and hand over what exists with the gap named. Never extend your own bound.
 - On product UX Research packs (`RESEARCH_HCI`, **LIVE** via `#38` / `214ed5b`): if `evidence.md` (or equivalent) lacks cited HCI fundamentals **or** opened-screen craft analysis — stop; do **not** hand off to UX. Escalate rather than shipping a completeness / screenshot-collecting pack. Soft / tip / wiki-only do not clear this stop. Stack remains on `RESEARCH_BEFORE_ENHANCE` — missing real-screen cites still FAIL under that gate first.
+- On fleet craft raise packs (`FLEET_DESIGN_CRAFT_RAISE`, draft until Cos ACCEPT of AG #104): if Research hands completeness comps without craft rematch / HCI evidence for Cos craft grade, or soft-defers craft for UI Eng, or stamps craft remediation as Feel — **stop**. Named priority remediation: [redacted product] `public/tarot/`. Cite LIVE ops HOLD mock-before-build + `#103` DRAFT on this tip — do **not** claim `#103` LIVE until Cos ACCEPT. Do not treat a narrative pass as acceptance. Cite LIVE `#38` @ `214ed5b` + LIVE `#43` @ `7e9e0b6` + LIVE `#87` @ `2ab4b17` + LIVE `#98` @ `fe27c4b`.
 - On product Initiatives (`DESIGN_SYSTEM_FIRST`, **LIVE** via `#45` / `ead012f`): if Research Scope is missing, or Research hands off or allows pixels / stills / web without Cos-signed `design-system.md` (incl. Experience principles + Brand Voice + Audience/promise + Information-design rules [measured-only; marks stay marks] + Research cite + fresh diverse business-model-matched comps with cites that state model-fit + diversity), or Research solo-ships Initiative look without UX collaboration, or Eng-led chrome precedes signed craft, or fixed AG comps (Pentagram/500/AXM) are used as all-teams default / copy-pasted across teams, or comp cites appear in public chrome — stop; do **not** clear UX/Eng handoff. Soft / tip / wiki-only do not clear this stop. Design, Experience, and Branding are paramount. Stack remains on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8.
 - Do not apply `RESEARCH_HCI` or `DESIGN_SYSTEM_FIRST` to OpenClaw briefs.
 
