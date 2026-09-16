@@ -351,9 +351,9 @@ or gates is enforcement.
 | 5.1 In-tree configs that SET `user.name` / `user.email` / `GIT_AUTHOR*` / `GIT_COMMITTER*` | **No in-tree identity config exists.** The committing agent's identity comes from its **host environment** (e.g. `~/.gitconfig`, process env), outside this repository and not controlled by it. | Repo-wide grep + `tests/test_published_claims.py:168–211` (`test_no_git_identity_config_uses_non_noreply_email`) |
 | 5.2 Changes made in-repo | **None in-tree** — host-side git identity is outside this repository and not controlled by it. Not a repository fix. | Same; durability row below |
 | Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
-| 5.3 `noreply address` (historical) | Was in allowlist; **removed** from functional code. Remains in CHANGELOG / plan prose and git history only | `admin-access.ts` now env-only |
+| 5.3 Personal allowlist email (historical) | Was in allowlist; **removed** from functional code and tip prose (placeholder `noreply address` / `ADMIN_EMAILS`). May remain in git history only | `admin-access.ts` now env-only |
 | Personal phone numbers in tree | **NO** found | Repo-wide grep (no matches) |
-| 5.4 `prior username` | HTTP **404** (2026-09-14 probe) | Read-only `curl -sI` |
+| 5.4 Prior personal GitHub username URL | HTTP **404** (2026-09-14 probe); tip scrubbed to `prior username` | Read-only `curl -sI` |
 | History rewrite / `.mailmap` | **Not done** (forbidden) | — |
 
 ---
@@ -522,7 +522,7 @@ were stripped from the published README.
 ### Cuts considered
 
 - No additional README product claims cut this pass; prior PR already removed “mechanical governance” / fake hard-stop language.
-- CHANGELOG / plan / history prose retaining `noreply address` left for author history rewrite (not functional).
+- Personal email / prior-username tip prose scrubbed to redacted placeholders; git history rewrite remains out of scope for tip-scrub PRs.
 - README work-instruction numbers 11.1–11.4 stripped from headings; remaining §12.x / §7.x cites point at capability-report sections (intentional).
 
 ---
@@ -548,17 +548,18 @@ were stripped from the published README.
 | Was | Action |
 |---|---|
 | `dashboard/src/lib/admin-access.ts` hardcoded `noreply address` | Removed; env-only |
-| `dashboard/.env.example` `ADMIN_EMAILS=noreply address` | Placeholder `you@example.com` |
+| `dashboard/.env.example` `ADMIN_EMAILS=` personal address | Placeholder `you@example.com` |
 | `dashboard/README.md` / login page hardcoded references | Rewritten |
 | `dashboard/src/app/admin/login/page.tsx` PRIMARY_ADMIN_EMAIL | Removed |
 
-**Incidental prose (left for author history rewrite):**
+**Incidental prose (tip scrubbed; history rewrite out of scope):**
 
 | Location | Note |
 |---|---|
-| `CHANGELOG.md` | Historical allowlist mention |
-| `docs/claim-alignment-plan.md` | Audit note |
-| `docs/capability-report.md` | Historical/5.3 note (updated) |
+| `CHANGELOG.md` | Historical allowlist → `ADMIN_EMAILS` / no personal address |
+| `docs/claim-alignment-plan.md` | Audit note → redacted placeholders |
+| `docs/capability-report.md` | Historical/5.3 / 5.4 notes redacted |
+| Prior personal GitHub username / noreply | Tip scrubbed to `prior username` |
 | Git commit author history | Not rewritten |
 
 **Phone / home / personal id in functional positions:** none found.

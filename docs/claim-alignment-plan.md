@@ -117,9 +117,9 @@ code, make it real; where not, say advisory.
 | `docs/deployment.md` still describes `0.0.0.0` default | Align after bind fix |
 | README “governance **mechanical**” / CEO “paces spend” | Overclaims vs code; rewrite after capability report |
 | SECURITY “non-negotiable guarantees” | Several are process/advisory, not code walls — reword |
-| Git author/committer **configs that SET identity** | **None found** in tree (5.1). History contains `noreply address` and `prior username` authors — **report only; do not rewrite history; no.mailmap** |
-| `noreply address` in dashboard allowlist / `.env.example` / README | **Report only** (5.3) — not git identity config |
-| `prior username` | Read-only check → **HTTP 404** (5.4) |
+| Git author/committer **configs that SET identity** | **None found** in tree (5.1). History may contain personal / prior-username author emails — **report only; do not rewrite history; no.mailmap** |
+| Personal email historically in dashboard allowlist / `.env.example` / README | **Scrubbed from tip** (5.3) — use `ADMIN_EMAILS` / placeholder `you@example.com` only; not git identity config |
+| Prior personal GitHub username URL (5.4) | Read-only check → **HTTP 404**; tip scrubbed to `prior username` |
 | No wizard network permission; messaging egress unrestricted when webhook/command set | Fix in commits 8–9 |
 | Dashboard optional for framework use; marketing/admin surface | Report in capability report (7.3) |
 | `sharp-libvips*` LGPL-3.0-or-later in dashboard lockfile | Copyleft note for binary redistribution (6.3) |
