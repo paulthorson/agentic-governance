@@ -30,7 +30,7 @@
 
 ### 2.1 Hierarchy before chrome
 
-- **Index job:** scan seats by **role family** (PM / Eng / UX / Research / QA / CEO / Cos / Critic / Adversary / …), then drill. 
+- **Index job:** scan seats by **role family** (Product Manager / Engineer / User Experience / Research / Quality / Chief Executive / Chief of Staff / Critic / Adversary / …), then drill. Public labels use these full names — never CEO/PM/UX/Eng/QA/Adv/Cos abbreviations. 
 - **Subpage job:** one seat — title, one-line job, what they own, how they hand off (human voice; Cos copy). 
 - Jakob **Heuristic #8** (aesthetic & minimalist): every extra unit of info competes — index cards carry name + seat + one-line job only; bio depth lives on the subpage. 
 - **Heuristic #6** (recognition over recall): seat labels and short jobs must be visible on the index; visitors must not memorize the CoE roster from Substack.
@@ -91,6 +91,8 @@ Supporting (optional Adv open): NN/g About leadership strip https://www.nngroup.
 
 ### do-not-copy
 
+- Fable / 3D brain mesh / synapse wash on persona pages (Instrument-only)
+- CEO/PM/UX/Eng/QA/Adv/Cos abbreviations on public chrome (spell titles out)
 - Flat Instagram-style face wallpaper 
 - Equal card weight for Cos and a single QA seat with no sectioning 
 - AI-generated “passionate about synergy” bios 
@@ -107,6 +109,7 @@ Supporting (optional Adv open): NN/g About leadership strip https://www.nngroup.
 5. Mobile-first: one column; section sticky or jump links optional. 
 6. Measured motion only (DESIGN_AGENCY_BAR) — no carnival avatar loops. 
 7. Cites for this pack stay **INTERNAL**; public `/` shows seats, not Research URLs.
+8. Public chrome seat titles **spelled out** (Chief Executive, Product Manager, User Experience, Engineer, Quality, Adversary, Chief of Staff) — no CEO/PM/UX/Eng/QA/Adv/Cos abbreviations on visitor labels.
 
 ---
 
@@ -136,9 +139,9 @@ Supporting (optional Adv open): NN/g About leadership strip https://www.nngroup.
 
 Map index H2s to the inventory (names = seat roles; never private product brands):
 
-1. **Product seats** — Product Manager · UX · Engineer · QA · Research 
-2. **Governance / ops** — Chief of Staff · Adversary (Adv) 
-3. **Adversarial UX loop seats** — Adversarial Worker · Critic · CX Advocate · Evaluative UXR 
+1. **Product seats** — Product Manager · User Experience · Engineer · Quality · Research 
+2. **Governance / ops** — **Chief Executive** · Chief of Staff · Adversary *(Chief Executive + Chief of Staff required on public grid)* 
+3. **Adversarial review seats** — Adversarial Worker · Critic · CX Advocate · Evaluative UXR 
 
 Open Cos→Paul: whether Cos/Adv are public; card grid vs hub+detail; Process Instrument node remap — Research does not decide; comps support either IA.
 
@@ -146,7 +149,7 @@ Open Cos→Paul: whether Cos/Adv are public; card grid vs hub+detail; Process In
 
 - “What this is” = **harness** (not loops). Word **loop** ≤ **1** on that surface. 
 - Cards/pages = **what the agents do** (no Paul first-person; never name his products). 
-- Persona tone (Cos copy): light/dry jokes + 80s/90s music/movie refs — not gag-heavy. Research cites constraint only. 
+- Persona tone (Cos copy): Substack voice + light dry humor only. **No** movie refs, music refs, named-critic bits, or corpse language. Research cites constraint only; Cos owns copy. 
 - Eng HOLD implement until Cos craft stills + Paul yes.
 
 ### Compose delta
@@ -154,3 +157,32 @@ Open Cos→Paul: whether Cos/Adv are public; card grid vs hub+detail; Process In
 - Prefer three role-family sections above (or equivalent) so critics/adversaries are not buried under Product. 
 - Index one-liners describe **agent job**, not founder autobiography. 
 - Do-not-copy: “HOW THE LOOP WORKS” seven-chapter spine; loop-heavy “what this is” copy.
+
+---
+
+## 8. Cheap amend — Chief Executive + Chief of Staff on grid; persona ≠ Fable (2026-09-16)
+
+**Paul LOCK:** Public marketing agent grid **includes Chief Executive + Chief of Staff**. Persona pages are **normal site pages** (index card → seat subpage). **Not** Anthropic Fable / 3D brain-mesh treatment — Fable SoT was **only** for Process Instrument (#12 / #70), not persona IA.
+
+### Compose delta
+
+- Roster families: add **Chief Executive** under Governance/ops (or Product lead strip) alongside **Chief of Staff** — both appear on the public index, not ops-only hidden. 
+- Persona stills: type, hierarchy, cards/rows, Substack voice — DESIGN_AGENCY_BAR marketing chrome. 
+- **Do-not-copy onto persona pages:** Fable 3D brain mesh, synapse wash, particle universe, Process Instrument living-mesh grammar.
+
+### Cite
+
+- Process Instrument visual SoT stays #70 @ `6fd9191` + Fable LOCK for **#12 only**. 
+- This pack (#73 lineage) owns persona marketing IA comps only.
+
+---
+
+## 9. Cheap amend — persona copy tone LOCK (2026-09-16)
+
+**Paul LOCK (absorb):** Persona / marketing copy — **no movie refs**, **no music refs**, **no Jay Sherman**, **no corpse language**. Keep **Substack voice + light dry humor only**. Harness framing; loop ≤1 on what-this-is. Cos owns copy/ACCEPT. Research does not draft public copy.
+
+---
+
+## 10. Cheap amend — no abbreviations on public chrome (2026-09-16)
+
+**Paul ACCEPT / LOCK:** Persona card copy SoT (no movies/music/Jay Sherman/corpses) stands. **No abbreviations on public chrome** — spell **Chief Executive**, **Product Manager**, **User Experience**, **Engineer**, **Quality**, **Adversary**, **Chief of Staff** (not CEO/PM/UX/Eng/QA/Adv/Cos on visitor-facing labels). Home grid includes **Chief Executive + Chief of Staff**. Roster examples in this pack use spelled-out titles (INTERNAL shorthand CEO/PM/… only when naming bans). Eng HOLD until Cos craft stills + Paul phone. Cos owns copy.
