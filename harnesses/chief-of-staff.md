@@ -143,9 +143,9 @@ When governance watch finds a candidate change, write a proposal under `docs/pro
 
 **This tip lands (Cos amend AG #91 + children #92–#97 + synced issue bodies):** fail-closed optical/pack/CI gate scars — `SHIP_WITHOUT_SENSOR`, `DOCS_PASS_NE_PACK_GO`, `VERBAL_PASS_NE_OPTICAL`, `CI_EMPTY_NE_MERGE_GATE`, `CRITIC_SEAT_THRASH` / `CRITIC_SEPARATE_STAMP`, `CHAT_LOCK_NE_DURABLE_FOLD` — plus pack-level metric. **Cos-locked single path:** fail-closed sensors before CLOSED/GO/Ready; human gate only for phone Look / legal / spend / publish. **Named stamp / Look line (C):** durable artifact path only — written checklist in PR comment, tip body, or harness stamp file; chat KEEP / verbal alone ≠ named stamp. Cite-fold LIVE sensors (B) required — **no tip-only soft close**. Soft CONCERN H body/label sync **PAID**. Stacks `COS_FEEDBACK_TO_IMPROVE` **LIVE** #87 @ `2ab4b17` + `COS_IMPROVE_INBOX` **LIVE** #98 @ `fe27c4b`. **Advercase / Process Instrument / marketing live-face stay marketing-site only** under `COS_OPERATOR_LOOK_GATE` + `MARKETING_LIVE_FACE_NONREG` + #79 LIVE @ `cbc4b5b` — **not** Cos universal / **not** fleet.
 
-**Pack metric (fail closed):** unpaid inbox scar OR unpaid promote OR unpaid Eng land after Adv PASS on this pack while scar still open = **fail closed**. Do not treat a narrative pass as acceptance.
+**Pack metric (fail closed):** unpaid inbox scar OR unpaid promote OR unpaid Eng land after Adv PASS on this pack while scar still open = **fail closed**. Do not treat a narrative pass as acceptance. Pack promoted from improve-inbox [#88](https://github.com/paulthorson/agentic-governance/issues/88); stacks `COS_IMPROVE_INBOX` **LIVE** #98 @ `fe27c4b`.
 
-**Evidence / scar cites:** Cos amends #91–#97; synced issue bodies; `COS_FEEDBACK_TO_IMPROVE` LIVE #87 @ `2ab4b17`; `COS_IMPROVE_INBOX` LIVE #98 @ `fe27c4b`; Check 7/8 + `VISUAL_STEP_STILLS` LIVE `#15` / `d61f4c1`; `COS_OPERATOR_LOOK_GATE` / `COS_FLEET_LOOK_GATE`; Critic stamp `CRITIC_SEPARATE_STAMP` (#96).
+**Evidence / scar cites:** Cos amends #91–#97 (prefer Cos amend on Cos-locked details); synced issue bodies (Soft CONCERN H **PAID**); promoted from improve-inbox [#88](https://github.com/paulthorson/agentic-governance/issues/88); `COS_FEEDBACK_TO_IMPROVE` LIVE #87 @ `2ab4b17`; `COS_IMPROVE_INBOX` LIVE #98 @ `fe27c4b`; Check 7/8 + `VISUAL_STEP_STILLS` LIVE `#15` / `d61f4c1`; `COS_OPERATOR_LOOK_GATE` / `COS_FLEET_LOOK_GATE`; Critic stamp `CRITIC_SEPARATE_STAMP` (#96).
 
 #### `COS_FEEDBACK_TO_IMPROVE` (fail-closed, fleet) — **LIVE** [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17`
 
@@ -193,12 +193,12 @@ All seated AG teams feed anonymized scars into a shared **improve-inbox** temp c
 
 #### `SHIP_WITHOUT_SENSOR` (fail-closed, fleet) — draft until Cos ACCEPT of AG #92
 
-Upload/Install ≠ CLOSED. Done-when requires Hub stills PASS + **named Look line** = durable PR/tip artifact (C), not chat. Do not treat a narrative pass as acceptance.
+Upload/Install ≠ CLOSED. Done-when = Hub stills PASS + **named Look line** (durable PR/tip artifact (C), not chat) **before Eng pack GO**. Do not treat a narrative pass as acceptance.
 
 - **Id:** `SHIP_WITHOUT_SENSOR`
 - **Who stamps:** Eng/QA/Cos — Upload or Install alone cannot stamp CLOSED while Hub stills or Look score unpaid.
 - **Scope:** **fleet** / G2 plugin seat (Eng, QA, UX, Cos). Not OpenClaw.
-- **Not:** Chat KEEP as named Look line; tip-only soft close; Upload/Install alone as CLOSED.
+- **Not:** Chat KEEP as named Look line; tip-only soft close; Upload/Install alone as CLOSED; Hub stills / Look score unpaid while CLOSED.
 - **Stack:** `VISUAL_STEP_STILLS` + `COS_FLEET_LOOK_GATE` / product Look + Check 8 where applicable + `COS_OPERATOR_LOOK_GATE` phone SoT where marketing. Cite LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b`.
 - **Metric (fail closed):** Upload or Install alone stamps CLOSED while Hub stills or Look score unpaid = **fail closed**. Pack GO without named Look line as durable artifact on tip/PR = **fail closed**. Do not treat a narrative pass as acceptance.
 - **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
@@ -235,7 +235,7 @@ Check 7 / Eng-handoff PASS ≠ Cos pack GO. Pack GO is a separate Cos named stam
 When status checks are **empty / none**: (1) **Fail-closed:** Cos must NOT treat empty rollup as CI green. (2) **Alternate gate (named):** Adv re-NAMES PASS **and** Cos ACCEPT checklist on the tip **or** human merge GO (operator) — Adv PASS alone is **not** sole soft green. (3) Prefer adding a minimal required check job on docs tips when feasible (follow-on; not blocker for this story’s SoT). Do not treat a narrative pass as acceptance.
 
 - **Id:** `CI_EMPTY_NE_MERGE_GATE`
-- **Who stamps:** Cos ACCEPT with explicit empty-CI acknowledgment **or** human merge GO. Adv re-NAMES required on the Adv+Cos path.
+- **Who stamps:** Merge path names Adv re-NAMES + Cos ACCEPT **plus** explicit empty-CI acknowledgment **in Cos ACCEPT comment** — **or** human merge GO (operator). Adv PASS alone is **not** sole soft green when CI is empty.
 - **Scope:** Cos, Adv, UX / fleet docs+product. Not OpenClaw.
 - **Not:** Empty CI rollup as / merge Ready; Adv PASS alone as sole gate when CI is empty.
 - **Stack:** Cos PR sweep + `COS_FEEDBACK_TO_IMPROVE` / Class A docs path. Cite LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b`.
