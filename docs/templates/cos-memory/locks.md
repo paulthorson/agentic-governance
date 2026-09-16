@@ -173,3 +173,30 @@
 - **Not:** OpenClaw; chat KEEP as durable fold; tip-only soft close
 - **Cite when LIVE:** _(pending Cos ACCEPT of AG #97)_ — cite [#97](https://github.com/paulthorson/agentic-governance/issues/97) + [#91](https://github.com/paulthorson/agentic-governance/issues/91) + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b`
 - **Supersedes:** none
+
+## 2026-09-16 — `COS_OPERATOR_PLAIN_ENGLISH` (fail-closed, fleet)
+
+- **Who:** operator / Cos (AG #100 Cos amend; Adv re-challenge PASS; Cos ACCEPT pending)
+- **Plain text:** Cos→operator channel uses everyday words only. Cos owns ban-list judgment for “equivalent process slang”; Adv may challenge; operator never babysits the lexicon. Surfaces: Cos chat (primary), spoken/voice, digests/reminders, rare operator-expected GH. Does not bind seat↔seat / Class A / improve-inbox / Adv / Eng tip SoT. Primary: Cos self-detect on send; if slang slipped, same-day improve story + restate in everyday words. Secondary: Adv CONCERN. Not QA as sole sensor. Exception: operator asks what a named lock/story id means — Cos may quote the id once and define in everyday words (not narrative-pass to keep jargon). Not this lock: AI_SLOP_COPY_FAIL (product/visitor/marketing slop lexicon) — different surfaces, different ban lists; do not merge. Do not treat a narrative pass as acceptance. Metric: Cos→operator messages with process slang / calendar day = fail closed.
+- **Scope:** fleet Cos→operator channel
+- **Not:** OpenClaw (unless later story Cos-locks fleet parity — ); seat↔seat / Class A / improve-inbox / Adv / Eng tip SoT; merging with AI_SLOP_COPY_FAIL; operator babysitting lexicon
+- **Cite when LIVE:** _(pending Cos ACCEPT of AG #100)_ — cite [#100](https://github.com/paulthorson/agentic-governance/issues/100) Cos amend + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + `COS_CRITICAL_THINKING`
+- **Supersedes:** none — sibling to `COS_PROJECT_CONTEXT_REMINDER` (not collapsed)
+
+## 2026-09-16 — `HUB_UPLOAD_SEAT_PATH` (fail-closed)
+
+- **Who:** operator / Cos (AG #101 Cos amend; Adv re-challenge PASS; Cos ACCEPT pending)
+- **Plain text:** Eng logs into Hub and Uploads the.ehpk (required), then STOP — Eng does not Install on the operator’s device. Cos notifies the operator that Private Upload is ready. Operator Installs via the Even app only, then Looks on glasses when asked. Upload ≠ CLOSED. Install ≠ CLOSED. Stacks LIVE pack #99 @ 4d73758 / tip 3892b29: SHIP_WITHOUT_SENSOR + Look / VISUAL_STEP_STILLS / verbal keep ≠ optical close. Stills + operator Look unpaid stays fail closed for optical/visual close. Scope: all glass / G2 Hub plugin seats that ship.ehpk. Emergency: Cos-locked never for routine ships; true Hub auth breakage = Eng escalates once to Cos for one-time browser login help — still not ask operator to upload the pack. Do not treat a narrative pass as acceptance. Soft #92 CoE tidy. Scrub unpaid #100 cite. Metric: routine-ship events where a seat asks operator to Hub-login/upload, OR Cos implies that path in operator-facing text = fail closed.
+- **Scope:** all glass / G2 Hub plugin seats (fleet G2 plugin apps that ship.ehpk)
+- **Not:** Eng Install on operator device; operator Hub-login/upload as standing routine path; Upload or Install alone as CLOSED / Look close; unpaid #100 cite; OpenClaw; ; auto-merge #26
+- **Cite when LIVE:** _(pending Cos ACCEPT of AG #101)_ — cite [#101](https://github.com/paulthorson/agentic-governance/issues/101) Cos amend + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + [#99](https://github.com/paulthorson/agentic-governance/pull/99) LIVE @ `4d73758` / `SHIP_WITHOUT_SENSOR` + `VISUAL_STEP_STILLS` — do not cite unpaid #100
+- **Supersedes:** none — stacks Hub Ship Upload-only / zombie-ops scar; does not soft-merge Install into optical close
+
+## 2026-09-16 — `COS_PROJECT_CONTEXT_REMINDER` (fail-closed, fleet)
+
+- **Who:** operator / Cos (AG #102 Cos amend; Adv re-challenge PASS; Cos ACCEPT pending)
+- **Plain text:** Cos→operator messages that name a project/side thread include a 1–2 sentence reminder (what it is + last state). Cos owns adequacy judgment vs bare nickname; Adv may challenge; operator never babysits wording. Surfaces: same Cos→operator channel (chat / voice / digests / rare operator-expected GH). Primary: Cos self-detect; if bare, restate with reminder same turn + same-day improve story. Secondary: Adv CONCERN. Not QA as sole sensor. Mid-thread exception: same-product immediate back-and-forth may skip follow-up reminders; any product switch or cold reopen requires reminder again — never skip on first mention after a switch. Sibling to #100 COS_OPERATOR_PLAIN_ENGLISH (not collapsed). Until #100 is LIVE on main, cite only LIVE #87 @ 2ab4b17 + LIVE #98 @ fe27c4b — do not claim #100 LIVE. Do not treat a narrative pass as acceptance. Metric: Cos→operator messages naming a project/side thread without reminder = fail closed.
+- **Scope:** fleet Cos→operator channel
+- **Not:** Collapsing into #100; claiming #100 LIVE before Cos ACCEPT merge; seat↔seat / Class A / improve-inbox; operator babysitting wording; OpenClaw; ; auto-merge #26
+- **Cite when LIVE:** _(pending Cos ACCEPT of AG #102)_ — cite [#102](https://github.com/paulthorson/agentic-governance/issues/102) Cos amend + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` only (until #100 LIVE)
+- **Supersedes:** none — sibling to `COS_OPERATOR_PLAIN_ENGLISH` (not collapsed)
