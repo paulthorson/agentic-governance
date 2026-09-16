@@ -290,33 +290,36 @@ class TestPublishedClaims(unittest.TestCase):
                 os.environ["AG_APPROVAL"] = prev_ap
 
     def test_admin_allowlist_empty_is_fail_closed_and_no_personal_default(self):
-        """Claim: ADMIN_EMAILS empty → nobody; no hardcoded personal email."""
+        """Claim: ADMIN_EMAILS empty → nobody; allowlist is env-only (no hardcoded default)."""
         src = (REPO_ROOT / "dashboard" / "src" / "lib" / "admin-access.ts").read_text(
             encoding="utf-8"
         )
-        self.assertNotIn("noreply address", src)
         self.assertIn("fail closed", src.lower())
         self.assertIn("ADMIN_EMAILS", src)
-        # No hardcoded string-literal email arrays
+        self.assertIn("process.env.ADMIN_EMAILS", src)
+        # adminAllowlist is env-only (calls envAdminEmails; no hardcoded array).
+        self.assertRegex(
+            src,
+            r"export function adminAllowlist\(\)[^{]*\{[^}]*envAdminEmails\(\)",
+        )
+        self.assertNotIn("HARDCODED_ADMIN_EMAILS", src)
+        self.assertNotIn("PRIMARY_ADMIN_EMAIL", src)
         self.assertNotRegex(src, r'HARDCODED_ADMIN_EMAILS\s*=\s*\[["\'][^"\']+@')
+        # No personal email defaults in the allowlist module.
+        self.assertNotIn("@gmail.com", src)
 
         env_ex = (REPO_ROOT / "dashboard" / ".env.example").read_text(encoding="utf-8")
-        self.assertNotIn("noreply address", env_ex)
-        # Placeholder only
+        self.assertNotIn("@gmail.com", env_ex)
+        # Placeholder only (example.com — not a personal address).
         self.assertRegex(env_ex, r"(?m)^ADMIN_EMAILS=you@example\.com\s*$")
 
     def test_no_personal_email_in_functional_config_defaults(self):
-        """Claim: functional configs/defaults/allowlists lack personal addresses."""
-        banned = re.compile(r"paul\.thorson@gmail\.com", re.I)
-        functional_globs = [
-            "dashboard/src/**/*",
-            "dashboard/.env.example",
-            "mcp/**/*.py",
-            "scripts/**/*.py",
-            "tests/**/*.py",
-            ".github/**/*",
-        ]
-        # Walk explicit functional roots
+        """Claim: functional configs/defaults/allowlists lack personal email defaults.
+
+        Uses a generic local-part pattern (no full personal address stored in tip).
+        """
+        # Generic: first-name.local-part @ gmail — does not embed a specific address.
+        banned = re.compile(r"paul\.[a-z0-9._+-]+@gmail\.com", re.I)
         roots = [
             REPO_ROOT / "dashboard" / "src",
             REPO_ROOT / "dashboard" / ".env.example",
@@ -348,8 +351,6 @@ class TestPublishedClaims(unittest.TestCase):
                     continue
                 if banned.search(text):
                     hits.append(str(p))
-        # Exclude this contract file (it mentions the banned string under test).
-        hits = [h for h in hits if Path(h).resolve() != Path(__file__).resolve()]
         self.assertEqual(hits, [], "personal email in functional paths: " + ", ".join(hits))
 
     def test_gitignore_excludes_env_and_pem(self):

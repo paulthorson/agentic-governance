@@ -350,7 +350,8 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Dashboard public + admin split.** Same Vercel deploy (`dashboard/`): public
  marketing at `/` (KPI strip, Get AG CTA, traction gated by
  `data/traction.json`); admin at `/admin/*` behind Auth.js v5 Google SSO with
- allowlist (`noreply address` + optional `ADMIN_EMAILS`). Admin shows
+ allowlist via `ADMIN_EMAILS` only (env; no hardcoded addresses; prior
+ personal default removed). Admin shows
  honest Baseline / unpaid token placeholders, cycle-time tables, improve
  report detail, raw traction (including below `minVisible`), and anonymized
  scar index — never invents live token/$ numbers; no Studio PII.
