@@ -351,10 +351,10 @@ or gates is enforcement.
 | 5.1 In-tree configs that SET `user.name` / `user.email` / `GIT_AUTHOR*` / `GIT_COMMITTER*` | **No in-tree identity config exists.** The committing agent's identity comes from its **host environment** (e.g. `~/.gitconfig`, process env), outside this repository and not controlled by it. | Repo-wide grep + `tests/test_published_claims.py:168–211` (`test_no_git_identity_config_uses_non_noreply_email`) |
 | 5.2 Changes made in-repo | **None in-tree** — host-side git identity is outside this repository and not controlled by it. Not a repository fix. | Same; durability row below |
 | Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
-| 5.3 Personal allowlist email (historical) | Was in allowlist; **removed** from functional code and tip prose (placeholder `noreply address` / `ADMIN_EMAILS`). May remain in git history only | `admin-access.ts` now env-only |
+| 5.3 Personal allowlist email (historical) | Was in allowlist; **removed** from functional code, tip prose, and git history (placeholder `noreply address` / `ADMIN_EMAILS`) | `admin-access.ts` now env-only; history scrub note |
 | Personal phone numbers in tree | **NO** found | Repo-wide grep (no matches) |
-| 5.4 Prior personal GitHub username URL | HTTP **404** (2026-09-14 probe); tip scrubbed to `prior username` | Read-only `curl -sI` |
-| History rewrite / `.mailmap` | **Not done** (forbidden) | — |
+| 5.4 Prior personal GitHub username URL | HTTP **404** (2026-09-14 probe); tip + history scrubbed to `prior username` | Read-only `curl -sI`; history scrub note |
+| History rewrite / `.mailmap` | **Done** 2026-09-16 (Paul GO): `git-filter-repo` on `main` | `docs/history-identity-scrub-2026-09-16.md` |
 
 ---
 
@@ -522,7 +522,7 @@ were stripped from the published README.
 ### Cuts considered
 
 - No additional README product claims cut this pass; prior PR already removed “mechanical governance” / fake hard-stop language.
-- Personal email / prior-username tip prose scrubbed to redacted placeholders; git history rewrite remains out of scope for tip-scrub PRs.
+- Personal email / prior-username tip prose scrubbed to redacted placeholders; full history rewrite completed 2026-09-16 (Paul GO) — see `docs/history-identity-scrub-2026-09-16.md`.
 - README work-instruction numbers 11.1–11.4 stripped from headings; remaining §12.x / §7.x cites point at capability-report sections (intentional).
 
 ---
@@ -552,7 +552,7 @@ were stripped from the published README.
 | `dashboard/README.md` / login page hardcoded references | Rewritten |
 | `dashboard/src/app/admin/login/page.tsx` PRIMARY_ADMIN_EMAIL | Removed |
 
-**Incidental prose (tip scrubbed; history rewrite out of scope):**
+**Incidental prose (tip scrubbed; history rewrite done 2026-09-16):**
 
 | Location | Note |
 |---|---|
@@ -613,7 +613,7 @@ Qualifier text:
 ## 5.6 Could not do / why
 
 - Could not make GitHub noreply a Google SSO identity (Google product constraint).
-- Did not rewrite git history / CHANGELOG personal-email prose (forbidden; author history rewrite later).
+- Tip-scrub PR did not rewrite git history (done later 2026-09-16 under separate Paul GO — `docs/history-identity-scrub-2026-09-16.md`).
 - Did not mark PR ready or merge (forbidden).
 - Did not invent TERMS/PRIVACY or replacement legal text for deleted Get AGs (forbidden).
 - Did **not** implement proposed `COUNSEL_GATE_BEFORE_PROD` (human reviews first; lands separately).
