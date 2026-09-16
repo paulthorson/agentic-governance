@@ -86,9 +86,18 @@
 
 ## 2026-09-16 — `COS_CRITICAL_THINKING` (fail-closed, fleet)
 
-- **Who:** operator / Cos (AG #78 Cos draft; Adv NAMES PASS)
-- **Plain text:** Before Cos routes any ask: (1) think through the ask; (2) if unclear — clarify with the human operator before routing (never assume); (3) challenge soft claims (fake “approved” copy, tip screenshots as Ready, guessed clocks); do not invent SoT or fill gaps with guesses; unsure → return to PM. Metric: Cos routes on an assumed SoT / guessed ETA / tip-screenshot Ready = fail closed. Do not treat a narrative pass as acceptance.
+- **Who:** operator / Cos (AG #78 Cos draft; Adv NAMES PASS; **LIVE** via #80)
+- **Plain text:** Before Cos routes any ask: (1) think through the ask; (2) if unclear — clarify with the human operator before routing (never assume); (3) challenge soft claims (fake “approved” copy, tip screenshots as Ready, guessed clocks); do not invent SoT or fill gaps with guesses; unsure → return to PM. Metric: Cos routes on an assumed SoT / guessed ETA / tip-screenshot Ready = fail closed. Do not treat a narrative pass as acceptance. Stacks COS_FEEDBACK_TO_IMPROVE (draft until Cos ACCEPT of AG #82).
 - **Scope:** fleet — any ask Cos routes across seated AG teams
-- **Not:** OpenClaw; inventing SoT; tip-screenshot Ready; guessed ETAs; assuming unclear asks; not LIVE until Cos ACCEPT after Adv re-NAMES of AG #78
-- **Cite when LIVE:** _(pending Cos ACCEPT of AG #78)_ — cite [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78)
+- **Not:** OpenClaw; inventing SoT; tip-screenshot Ready; guessed ETAs; assuming unclear asks
+- **Cite when LIVE:** [#80](https://github.com/paulthorson/agentic-governance/pull/80) @ `e75d3b0` — cite fold [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#82](https://github.com/paulthorson/agentic-governance/issues/82)
 - **Supersedes:** none
+
+## 2026-09-16 — `COS_FEEDBACK_TO_IMPROVE` (fail-closed, fleet)
+
+- **Who:** operator / Cos (AG #82 Cos draft; Adv NAMES PASS; operator LOCK 2026-09-16)
+- **Plain text:** Every negative operator feedback / “we’re not doing something right” / process scar Cos receives is Cos-owned improve input — not chat-only. Same day: anonymize into a universal improve item (strip personal names, emails, product brand kits, project-specific marketing craft from framework SoT). Shape: improve epic when thematic/recurring; else story with problem (anonymized) / requirements / AC / metric (fail closed) where applicable. Queue: Cos → Product Manager → (UX if craft) → Engineer → Quality; Adversary challenges gates before LIVE. Daily Cos improve pass: missing story for a recorded negative-feedback scar = fail closed. Human ping only for decisions only the human can make (legal, spend, publish, phone look on a product face). Process wording / tip prose / queue hygiene = Cos+team — not human review. Do not treat a narrative pass as acceptance.
+- **Scope:** fleet — any operator / any product negative-feedback scar Cos records; continuous AG improve / daily digest / post-epic retros
+- **Not:** OpenClaw; inventing SoT the operator did not say; personal PII or project marketing brand as fleet law; auto-merging look/Class B stills (); human babysit of process wording / tip prose / queue hygiene; SoT invent from issues #83–#86 (queue evidence only)
+- **Cite when LIVE:** _(pending Cos ACCEPT of AG #82)_ — cite [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#80](https://github.com/paulthorson/agentic-governance/pull/80) LIVE @ `e75d3b0` (`COS_CRITICAL_THINKING`) + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` (`COS_OPERATOR_LOOK_GATE` / Advercase marketing-only) + [#82](https://github.com/paulthorson/agentic-governance/issues/82)
+- **Supersedes:** none — addition on `COS_CRITICAL_THINKING` LIVE + daily improve / `SELF_AUDIT_LOOP`
