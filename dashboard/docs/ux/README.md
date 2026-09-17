@@ -3,7 +3,7 @@
 # UX pack — public `/`
 **DESIGN_AGENCY_BAR LIVE:** #43 @ `7e9e0b6`. Spectacle FAIL. One quiet alive (in-line white). Craft defense in `qa/visual-qa-graph.md`.
 
-Check 7 + Check 8 for the Cos GO splash. Peak craft. Look never merges until Paul yes in Cos.
+Check 7 + Check 8 for the Cos GO splash. Peak craft. Look never merges until operator yes in Cos.
 
 | Artifact | Path | Gate |
 | --- | --- | --- |

@@ -54,7 +54,7 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
   SoT: `harnesses/qa.md`.
 - **`DESIGN_AGENCY_BAR` (LIVE `#43` / `7e9e0b6`):** Cos craft FAIL before Adv for
   spectacle-as-craft on product UX stills / public faces. SoT: `harnesses/ux.md`.
-- **`AI_SLOP_COPY_FAIL` (draft until Cos ACCEPT — Paul LOCK 2026-09-15):** Cos craft FAIL
+- **`AI_SLOP_COPY_FAIL` (draft until Cos ACCEPT — operator LOCK 2026-09-15):** Cos craft FAIL
   before Adv for AI-slop on visitor/user-facing product surfaces. Human / Substack / Direct
   founder voice only. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
   SoT: `harnesses/ux.md`.

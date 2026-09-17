@@ -7,7 +7,7 @@
 **Gate:** #48 @ `e9b4827`. **Stack:** #45 @ `ead012f` + #46 @ `cdf1c41`. 
 **Framework:** Gothelf [Lean UX Canvas v2](https://jeffgothelf.com/blog/leanuxcanvas-v2/) boxes 1–8 as-is. 
 **Related:** #53 consent Research LIVE @ `eaa2efa2`. Adv low CONCERN: live **Privacy/Settings** consent UI stills at Canvas — absorb into Check 7/8 when Anonymous Improve stories exist (not inventing stories now). 
-**Look:** #39 craft CLEAR (Paul APPROVED 2026-09-14) @ `4d4e4d7` — Eng may ship approved stills. New stills Cos→Paul.
+**Look:** #39 craft CLEAR (operator APPROVED 2026-09-14) @ `4d4e4d7` — Eng may ship approved stills. New stills Cos→operator.
 
 ---
 
@@ -70,7 +70,7 @@ loop.
 
 ---
 
-## Get AG / legal (Paul STANDING)
+## Get AG / legal (operator STANDING)
 
 **Apache 2.0 + LICENSE alone.** No acceptance gate. Agents never draft legal pages. Brand beat is not a download trade.
 

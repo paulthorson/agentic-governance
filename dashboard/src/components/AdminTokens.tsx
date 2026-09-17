@@ -1,10 +1,10 @@
 'use client';
 
-import {Banner} from '@astryxdesign/core/Banner';
-import {EmptyState} from '@astryxdesign/core/EmptyState';
-import {Table} from '@astryxdesign/core/Table';
-import {VStack} from '@astryxdesign/core/Layout';
-import {Heading, Text} from '@astryxdesign/core/Text';
+import {Banner} from '@ag-dashboard/core/Banner';
+import {EmptyState} from '@ag-dashboard/core/EmptyState';
+import {Table} from '@ag-dashboard/core/Table';
+import {VStack} from '@ag-dashboard/core/Layout';
+import {Heading, Text} from '@ag-dashboard/core/Text';
 import type {ImproveReport} from '@/lib/improve';
 
 interface TokenRow extends Record<string, unknown> {
@@ -57,7 +57,7 @@ export function AdminTokensView({reports}: {reports: ImproveReport[]}) {
       <Banner
         status="warning"
         title="Unpaid / baseline"
-        description="Until Cos/Paul attach a real token feed, every cell stays Baseline / unpaid. Admin may see that honesty; public marketing never fabricates a series."
+        description="Until Cos/operator attach a real token feed, every cell stays Baseline / unpaid. Admin may see that honesty; public marketing never fabricates a series."
       />
 
       {rows.length === 0 ? (

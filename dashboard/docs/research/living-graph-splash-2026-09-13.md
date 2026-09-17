@@ -174,7 +174,7 @@ AG repo holds the KPI / data store the site reads. Every merge / update writes *
 
 | Field | Value |
 | --- | --- |
-| Received | Cos Paul LOCK: splash = living interactive DATA GRAPH of AG governance in motion; additives CONFIRM (all projects feed in; measured-only micro-motion; click→inspect Explore seats; public no project names; chatbot phase 2) |
+| Received | Cos operator LOCK: splash = living interactive DATA GRAPH of AG governance in motion; additives CONFIRM (all projects feed in; measured-only micro-motion; click→inspect Explore seats; public no project names; chatbot phase 2) |
 | Well-formed? | Yes — Job + graph rules + Mobbin cite tables (graph/inspect + hover + density support) + mapping + holes + data contract + acceptance; Eng HOLD; no look / Check 7–8 / src; no chatbot research |
 | Supersedes | Strip-only / marketing-hero splash framing; density cites retained as **supporting** only |
 | Prior SoT intact | #20 `evidence.md` @ `9721af1`; #25 live-comps; #27 motion-finish @ `235610e` — cite only |

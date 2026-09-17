@@ -21,7 +21,7 @@ Data source (ADR-0007):
 
   --source paperclip (default)
       Shells out to `paperclipai issue list --status in_review --json`.
-      This is the Grimdor default adapter.
+      This is the framework host default adapter.
 
   --source file --issues-file <path>
       Reads a JSON file (or stdin with `-`) containing a list of issue

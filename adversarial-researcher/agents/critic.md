@@ -60,8 +60,7 @@ tip-only, or wiki/scar-page-only language is **REJECTED**.
 **Stacked on `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — an addition, not a replacement.** Cite-real-
 screens still required; this check grades the craft bar on top.
 
-**When / scope:** Product UX Research packs for **every product Research seat** (AG, Ladders,
-[redacted product], Even Weather / EW, EvenCursor, Dungeon, and future product Research seats).
+**When / scope:** Product UX Research packs for **every product Research seat** (every product Research seat).
 **Not** OpenClaw briefs. Skip only when the work is not product UX Research (say so → N/A).
 
 **Bar:** Master's HCI. Fundamentals **THEN** opened comps (order load-bearing):
@@ -96,8 +95,7 @@ Critic Check 7 + Check 8 — an addition, not a replacement.**
 **Paramount:** **Design, Experience, and Branding are paramount** — not optional polish after
 Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
 
-**When / scope:** Product Initiatives for **every product UX + Research seat** (AG, Ladders,
-[redacted product], Even Weather / EW, EvenCursor, Dungeon, JEEP, and future). **Not** OpenClaw.
+**When / scope:** Product Initiatives for **every product UX + Research seat** (every product seat). **Not** OpenClaw.
 Skip only when the work is not a product Initiative (say so → N/A).
 
 **Bar / order:** Design system is the FIRST Initiative deliverable — before web / UI pixels /
@@ -105,7 +103,7 @@ stills / screens. Research + UX collaborate; Cos signoff in early Initiative. Ag
 thinking stacks `DESIGN_AGENCY_BAR` as permanent UX brain (not a splash tip). Complete
 **Research Scope** (Q1–Q8) before the comps hunt.
 
-**Fresh comps (Paul LOCK — Research owns):** Research cites must be **diverse** and
+**Fresh comps (operator LOCK — Research owns):** Research cites must be **diverse** and
 **business-model-matched per project**. Gather a **FRESH** set for **each** project — **not**
 one peer, **not** a fixed AG comps list copy-pasted across teams. Do **not** treat
 Pentagram / 500 / AXM as an all-teams default — those were **AG-site-specific**. Comp cites

@@ -28,7 +28,7 @@ cd mcp
 uv run adversarial-mcp # stdio transport (default for MCP clients)
 ```
 
-Point `ADVERSARIAL_ROOT` at the repo if it isn't `~/adversarial-agents`.
+Point `ADVERSARIAL_ROOT` at the repo if it isn't `<framework-root>`.
 
 ## Wire into a client
 

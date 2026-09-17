@@ -17,7 +17,7 @@
 
 | Claim | Meaning |
 |---|---|
-| **Paul+Cos clarified store** | Private git (their operator memory) |
+| **operator + Cos clarified store** | Private git (their operator memory) |
 | **Framework Cos ASK** | Operator chooses `private_git` OR `local_folder` — **not forced** to one |
 | **Private ≠ public** | Filled memory stays out of public AG product surface |
 

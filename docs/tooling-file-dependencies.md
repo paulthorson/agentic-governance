@@ -35,7 +35,7 @@ resolves from the file's own location; `DOMAIN_DIR[domain] = REPO_ROOT/adversari
 | `runs/verdicts.jsonl` | `calibration-report.py` | Calibration report | Same log as MCP.
 | `runs/stuck-watchdog.json` | `stuck-review-watchdog.py` | Stuck-review state | `STUCK_STATE_FILE` override.
 | company ticket dirs | `stuck-review-watchdog.py` | Watchdog | Reads external ticket dirs.
-| Every plugin: `agents/*.md`, `skills/*/SKILL.md`, `references/` (`constitution.md`, `calibration-ledger.md`, `personas.md`), `assets/templates/`, `commands/`; flat `agents/` + `skills/` | `validate.py` | CI structure validation | **BROKEN as of 2026-09-04**: still requires `references/constitution.md` in each plugin, which was moved to `constitution/domains/`. Must be repointed. Hardcoded default `--root ~/adversarial-agents`.
+| Every plugin: `agents/*.md`, `skills/*/SKILL.md`, `references/` (`constitution.md`, `calibration-ledger.md`, `personas.md`), `assets/templates/`, `commands/`; flat `agents/` + `skills/` | `validate.py` | CI structure validation | **BROKEN as of 2026-09-04**: still requires `references/constitution.md` in each plugin, which was moved to `constitution/domains/`. Must be repointed. Hardcoded default `--root <framework-root>`.
 
 ## Write-only (not reads) — noted for awareness
 

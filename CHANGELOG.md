@@ -8,7 +8,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
-- **LIVE SoT: `AI_SLOP_COPY_FAIL` — Cos ACCEPT [#69](https://github.com/paulthorson/agentic-governance/pull/69) @ `859eafa3`.** Paul
+- **LIVE SoT: `AI_SLOP_COPY_FAIL` — Cos ACCEPT [#69](https://github.com/paulthorson/agentic-governance/pull/69) @ `859eafa3`.** operator
  LOCK 2026-09-15 **ALL PRODUCTS**. AI-slop / synthetic brochure copy on **visitor-facing or
  user-facing product surfaces** = **FAIL**. **Bar:** Human / Substack / Direct founder voice
  only. **Ban examples — not exhaustive (Brand Voice judgment):** delve, unlock, elevate,
@@ -39,21 +39,21 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  examples — not exhaustive (Brand Voice judgment).
 
 ### Added
-- **OpenClaw ocuclaw-owner-guard scar SoT** (docs only; `OCUCLAW_OWNER_GUARD`;
- `scripts/ocuclaw-owner-guard` + cron every 2 min; bare ocuclaw / even-ai keys
- remapped each tick; `defaultAgent` stays `main`; zero `openclaw.json` hand-edits
- = **0** hold) at `projects/openclaw/scars/ocuclaw-owner-guard.md`. CLOSED harness
- scar for bare session keys rejected under `agents.ownership=explicit` (no
- explicit owner). Scope: OpenClaw Studio OcuClaw / relay sessions only — **not**
- product UX Check 7 / Check 8 / Check 9. Closes residual named unpaid in
- question-wait-guard [#66](https://github.com/paulthorson/agentic-governance/pull/66).
+- **Studio session owner-guard scar SoT** (docs only; `SESSION_OWNER_GUARD`;
+ owner-guard script + cron; bare relay-session keys remapped each tick;
+ `defaultAgent` stays `main`; zero gateway JSON hand-edits = **0** hold) —
+ CLOSED harness scar SoT (Studio private / product brief — OUT of framework
+ repo). CLOSED harness scar for bare session keys rejected under
+ `agents.ownership=explicit` (no explicit owner). Scope: Studio relay sessions
+ only — **not** product UX Check 7 / Check 8 / Check 9. Closes residual named
+ unpaid in question-wait-guard [#66](https://github.com/paulthorson/agentic-governance/pull/66).
  Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`). P0: no secrets/tokens,
  emails, Discord channel names, absolute host home paths, Notion workspace IDs,
  cron UUIDs, or private operator data.
 - **OpenClaw question-wait-guard scar SoT** (docs only; `QUESTION_WAIT_GUARD`;
  question-wait-guard script + cron every 2 min; main session `blocked_tool_call`
- hangs ≥120s without auto-abort = **0** hold) at
- `projects/openclaw/scars/question-wait-guard.md`. CLOSED harness scar for
+ hangs ≥120s without auto-abort = **0** hold) — CLOSED harness scar SoT (Studio
+ private / product brief — OUT of framework repo). CLOSED harness scar for
  `agent:main:main` hung on masked-token / secret `question.waitAnswer` (default
  15m timeout too long). Scope: OpenClaw Studio session ops only — **not** product
  UX Check 7 / Check 8. Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`).
@@ -62,14 +62,14 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **OpenClaw gateway single-owner + stale-install recycle scar SoT** (docs only;
  `GATEWAY_SINGLE_OWNER` + `STALE_INSTALL_RECYCLE`; gateway-health-guard–style
  scheduled sensor; competing gateway process count = **0** hold while LaunchAgent
- loaded) at
- `projects/openclaw/scars/gateway-single-owner-stale-install-recycle.md`. CLOSED
+ loaded) — CLOSED harness scar SoT (Studio private / product brief — OUT of
+ framework repo). CLOSED
  harness scar for dual-owner recycle races + install-changed `UNAVAILABLE` under a
  long-lived PID. Scope: OpenClaw Studio gateway ops only — **not** product UX
  Check 7 / Check 8. Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`).
  P0: no secrets/tokens, emails, Discord channel names, absolute host home paths
  (LaunchAgent label OK), or private operator data.
-- **Check 9 / `INITIATIVE_START_SEQUENCE` (Paul LOCK Cos plain 2026-09-15 — now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):**
+- **Check 9 / `INITIATIVE_START_SEQUENCE` (operator LOCK Cos plain 2026-09-15 — now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):**
  Standing QA check (same family as Check 7 / Check 8 visual stills) — **fail-closed before Eng
  handoff**. Plain name: **Initiative start sequence**. Sequence **must** run before screens:
  **Research Scope → comps → Brand & Design Setup → UX Canvas** (Gothelf Lean UX Canvas v2 boxes
@@ -84,9 +84,9 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  **Metric (fail closed):** Eng handoffs missing Research Scope cite, signed Brand & Design Setup, or
  UX Canvas (boxes 1–8) = **fail closed**. Do not treat a narrative pass as acceptance. SoT: `harnesses/qa.md` + UX/Research
  harness + CoE Already LIVE.
-- **Cos memory template (Paul LOCK Cos enhancement — now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):** Baked-in operator
+- **Cos memory template (operator LOCK Cos enhancement — now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):** Baked-in operator
  template at `docs/templates/cos-memory/` for a **private** structured memory store.
- **Paul+Cos clarified store = private git** (their operator memory). **Framework:** part of AG
+ **operator + Cos clarified store = private git** (their operator memory). **Framework:** part of AG
  **install/setup when Chief of Staff is seated** — **not** a deferred README-only step. Wizard ASK
  after roster (`mcp/adversarial_mcp/setup_wizard.py`); finalize **must call** seating hook
  `mcp/adversarial_mcp/cos_memory_setup.py` (`scripts/cos_memory_setup.py` CLI stub) —
@@ -98,10 +98,10 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **`RELEASE_COMPLIANCE` (now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):**
  **Check:** Check 10 / `RELEASE_COMPLIANCE`. **Sensor/shape:** Cos checklist after material
  framework changes — **NOT** fail-closed merge gate / stop-the-presses. Unpaid cleanup:
- (a) legal/terms (**Paul human-only**; agents **NEVER** draft/revise legal; Apache-2.0 + LICENSE
+ (a) legal/terms (**operator human-only**; agents **NEVER** draft/revise legal; Apache-2.0 + LICENSE
  govern); (b) marketing site copy drift; (c) README/git claim sync. Review categories (not auto
  merge blockers): claims · telemetry · install promises · auth · license · public marketing face ·
- data collection. **Who stamps:** Cos stamp; **Paul on novel legal**. Cos flags Paul; Cos does not
+ data collection. **Who stamps:** Cos stamp; **operator on novel legal**. Cos flags operator; Cos does not
  draft legal. **Metric (fail closed):** skipped Cos checklist after material framework change = **fail closed**; agent-drafted legal = **fail closed**. **Scope:** AG framework / product release path — not
  OpenClaw (unless `SURFACE_GATE_MATRIX`). Check 9 stays fail-closed; Cos memory install ASK stays.
  SoT: `harnesses/chief-of-staff.md` + CoE Already LIVE.
@@ -109,7 +109,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Get AG (historical — file later removed):** Fuller LICENSE text authored on tip [#60](https://github.com/paulthorson/agentic-governance/pull/60); path was `` (**removed** on release hardening).
 - **Eng extract execute status (Class A companion):** After Eng plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) **Cos ACCEPT MERGED LIVE** @ `e7bb36e` — extract execute **GO** (site-repo extract continues **in parallel**). Site face → `paulthorson/agentic-governance-site`; this repo remains feed/corpus publisher + framework download. Path: `docs/initiatives/marketing-site-extract-execute.md`. Settled Get AG posture supersedes prior acceptance-gate HOLD (see Removed).
 
-- **Get AG (historical — file later removed).** Cos LOCK with Paul 2026-09-14. Path was `` (**removed** on release hardening; see Removed above).
+- **Get AG (historical — file later removed).** Cos LOCK with operator 2026-09-14. Path was `` (**removed** on release hardening; see Removed above).
 - **Eng extract plan (Class A ops): Marketing site split.** Companion to PRODUCT epic
  [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` (**MERGED LIVE**) —
  `docs/initiatives/marketing-site-split.md` (do not overwrite). Path:
@@ -117,18 +117,18 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  Anonymous Improve public UX, living board UI → `agentic-governance-site`; AG owns
  feeds/corpus/publisher (site read-only pull). Vercel project `agentic-governance-site`
  already created + Git-linked. Get AG CTA → AG git only. **PLAN ONLY** — Eng HOLD look
- pixels until Paul yes. Cos ACCEPT + MUST-merge this Eng plan when CI green; Eng execute
+ pixels until operator yes. Cos ACCEPT + MUST-merge this Eng plan when CI green; Eng execute
  after this plan MERGED.
-- **Marketing site split (extract epic PRD — MERGED LIVE [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f`):** Paul
+- **Marketing site split (extract epic PRD — MERGED LIVE [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f`):** operator
  LOCK 2026-09-14 + Cos craft PASS — extract public marketing/`dashboard` surface into
  locked repo [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site);
  AG stays framework download face; **Vercel project create CRITICAL PATH** (do **not**
- wait on #39/#26); Cos owns Paul notify when Vercel is up (domain setup); stay-vs-move
+ wait on #39/#26); Cos owns operator notify when Vercel is up (domain setup); stay-vs-move
  LOCKs: admin twin UI + living board UI + Anonymous Improve public UX/consent move with
  site; AG owns measured data/feeds, improve corpus, feed publisher (read-only consume);
  Get AG CTA → AG git; conflict cleanup #42/#35/#34/#49 GO separately; Class A ≠ Class B
  look — never #39/#26. Path: `docs/initiatives/marketing-site-split.md` (+ index).
-- **Initiative epic plan: Anonymous Improve Feedback (PRD / flows — Eng HOLD).** Paul LOCK
+- **Initiative epic plan: Anonymous Improve Feedback (PRD / flows — Eng HOLD).** operator LOCK
  2026-09-14 bake anonymous improve telemetry into the AG product. **Value exchange:** AG is
  free because operators share anonymous basics (default on); richer diagnostic logs remain
  opt-in. **Brand beat:** “Worker bees need to feed the hive.” (Get AG + consent headline/voice;
@@ -137,21 +137,21 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  Cos daily digest — measured only. Sequencing: after UX Canvas filled SoT [#50](https://github.com/paulthorson/agentic-governance/pull/50)
  @ `6b24c4bc` (gate named [#48](https://github.com/paulthorson/agentic-governance/pull/48) @
  `e9b4827`) → Research HCI consent pack [#53](https://github.com/paulthorson/agentic-governance/pull/53)
- @ `eaa2efa2` → Check 7 when stories exist → Eng pixels only after Cos craft + Paul yes on #39
+ @ `eaa2efa2` → Check 7 when stories exist → Eng pixels only after Cos craft + operator yes on #39
  look. ADMIN TWIN framing noted. Path: `docs/initiatives/anonymous-improve-feedback.md` (+
  index README).
 - **AG website UX Canvas (initiative SoT):** Filled Gothelf Lean UX Canvas v2 for the AG
- marketing/website initiative — Cos LOCK with Paul 2026-09-14; screens gated after this
+ marketing/website initiative — Cos LOCK with operator 2026-09-14; screens gated after this
  canvas. Includes admin twin definition (one product, two doors). Path:
  `docs/initiatives/ag-website-ux-canvas.md`. Pointer from `adversarial-ux/README.md`
  Initiative sequence. **Not** the constitution Gothelf box-definitions tip. LIVE via
  [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4bc`.
 
 - **SoT: `DESIGN_SYSTEM_FIRST` (Brand & Design Setup) — LIVE via `#45` / `ead012f`.** Cos
- LOCK Paul — **Design, Experience, and Branding are paramount** (not optional polish after
+ LOCK operator — **Design, Experience, and Branding are paramount** (not optional polish after
  Eng; design system + Experience + Branding lead Initiative; **engineering follows signed
  craft**). Design system is the **FIRST Initiative deliverable** for **every product UX +
- Research seat** (AG, Ladders, [redacted product], Even Weather / EW, EvenCursor, Dungeon, JEEP, and
+ Research seat** (every product seat, and
  future) — **not OpenClaw.** **Bar / order:** bake DS before any web / UI pixels / stills /
  screens; Research + UX collaborate; Cos signoff in early Initiative. Agency design thinking
  (restraint, hierarchy, type, space, one strong quiet option) is **permanent UX brain** —
@@ -180,8 +180,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  pointers; CoE + spec Section 5.0 / 5.2 index pointers.
 
 - **Draft SoT: `DESIGN_AGENCY_BAR` — not live / not effective until Cos ACCEPT merge.** Cos
- LOCK Paul agency craft bar for **every product UX seat** (AG, Ladders, [redacted product], Even
- Weather / EW, EvenCursor, Dungeon, JEEP, and future) — **product UX stills / public marketing
+ LOCK operator agency craft bar for **every product UX seat** — **product UX stills / public marketing
  faces only; not OpenClaw briefs.** **Bar:** design as if from a top agency — restraint,
  hierarchy, type, space, micro-interaction; prefer **one strong quiet option** (Apple / Linear
  restraint SoT) over stacking effects. **Stack:** addition on `RESEARCH_HCI` +
@@ -205,8 +204,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  pointers.
 
 - **Draft SoT: `RESEARCH_HCI` — not live / not effective until Cos ACCEPT merge.** Master's
- HCI craft bar for **every product Research seat** (AG, Ladders, [redacted product], Even Weather /
- EW, EvenCursor, Dungeon, and future product Research seats) — **Product UX Research only;
+ HCI craft bar for **every product Research seat** — **Product UX Research only;
  not OpenClaw briefs; not AG-dashboard-only.** **Stack:** addition on
  `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — **not** a replacement; cite-real-screens still
  required. **Bar:** fundamentals **THEN** opened comps — type, space, hierarchy, gestalt,
@@ -225,13 +223,13 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - **Draft SoT: `SELF_AUDIT_LOOP` — not live / not effective until Cos ACCEPT merge.** Cos 6pm
  ET improve digest + AG standing self-audit routine (not a product UX Critic Check number; **no
- new sidebar persona**). **Cos CoE ownership (Paul/Cos LOCK; Adv confirm):** Team triad
+ new sidebar persona**). **Cos CoE ownership (operator/Cos LOCK; Adv confirm):** Team triad
  retro (feed) → AG seat drafts named unpaid SoT/plan (`id` / owner / metric / AC; project
  PMs ≠ AG constitution) → Adv challenges (does **not** author; `CRITIC_SEPARATE_STAMP`) →
  Cos ACCEPT → teams absorb next ship. Sensor remains unpaid item or `AUDIT_CLEAR`.
  **One-line FAIL:** FAIL if the periodic AG self-audit only nags (missing stills, `UNSET`
  `token_source`, missing retros, draft-as-law, wrong-surface gates) without opening a
- fail-closed named unpaid SoT/improve item; Paul/Cos having to hand-list meta-gaps = FAIL of
+ fail-closed named unpaid SoT/improve item; operator/Cos having to hand-list meta-gaps = FAIL of
  this loop. **Why retro-only insufficient:** `RETRO_BEFORE_CLOSE` is post-epic/team-scoped —
  cannot catch standing AG gate drift between epics; digest-without-unpaid = nag theater.
  **Sensor (fail-closed):** each audit cycle produces BOTH (1) checklist vs live scars/locks
@@ -242,7 +240,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  replacement; audits the other five locks (`CRITIC_SEPARATE_STAMP`, `TOKEN_SOURCE_OR_BLANK`,
  `RETRO_BEFORE_CLOSE`, `LIVE_SOT_MERGED_SHA`, `SURFACE_GATE_MATRIX`) once SoT-live — this PR
  does **not** define those five. **Scope:** AG harness + Cos improve digest / self-heal —
- **not** OpenClaw briefs. **Metrics (fail closed):** Cos/Paul hand-recommended AG meta-gaps the
+ **not** OpenClaw briefs. **Metrics (fail closed):** Cos/operator hand-recommended AG meta-gaps the
  last audit should have fail-closed = **0**; nag-only cycles (no unpaid item and no
  `AUDIT_CLEAR`) = **0**. **P0:** no secrets/keys/emails/PII/host paths in AG git or digest
  artifacts; no invented tokens. Soft / deferred / tip / wiki-scar-only = REJECTED. SoT:
@@ -276,7 +274,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  Scope: all product teams; OpenClaw keeps scars (do not force product retro path). Metric:
  Cos-closed epics missing retro = **fail closed**.
  4. **`LIVE_SOT_MERGED_SHA`** — Slot: Studio→AG→Cos ACCEPT + Adv challenge. FAIL: treating
- intake / open PR / draft / muse as live Paul LOCK; only Cos ACCEPT + merged SHA is live
+ intake / open PR / draft / muse as live operator LOCK; only Cos ACCEPT + merged SHA is live
  (precedent `#13` intake ≠ SoT). Sensor: cite merged SHA/PR; draft headers say not live /
  not effective until Cos ACCEPT merge. Stack: liveness only — does not replace Check 7/8 /
  `RESEARCH_BEFORE_ENHANCE` content. Scope: AG harness writes + all product teams + OpenClaw
@@ -289,7 +287,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  all teams. Metric: OpenClaw briefs failed for missing userflows/stills = **fail closed**.
  SoT: `harnesses/ux.md`, `harnesses/qa.md`, `harnesses/ceo.md`, `harnesses/chief-of-staff.md`;
  adversarial-ux/qa critics + flat copies; `design.md`; improve README/template; workflow
- skills; OpenClaw README + morning-brief scar cross-ref; Ladders retros README pointer.
+ skills; OpenClaw README + morning-brief scar cross-ref; product-seat retros pointer.
 
 - **Draft SoT: `VISUAL_STEP_STILLS` (Critic Check 8) — not live / not effective until Cos
  ACCEPT merge.** Fail-closed visual step-stills sensor for product UX ship / Look / visual
@@ -303,7 +301,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  without step stills (mobile+desktop) = **0**; marketing/dashboard layout-shift Highs
  (primary CTA wrap, chrome colliding with CTA, theme control stealing CTA row) = **0**.
  **Scope:** product UX surfaces only (marketing + app chrome); **all** product UX teams
- (Ladders, Even Weather, [redacted product], Dungeon, JEEP, EvenCursor, Nearby Places, G2, and any
+ (every product UX team, and any
  other product UX team) — **not** OpenClaw briefs. **P0:** no secrets/keys/emails/PII/host
  paths in AG git. **Named FAIL (no etc.):** CLS/layout (CTA wrap/shift when theme/chrome
  loads; reserved-space missing for theme control; dynamic banner pushes hero CTA); Fitts
@@ -341,12 +339,12 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  pointers. P0: no keys, tokens, emails, PII, absolute host paths, or private operator data.
 - **OpenClaw morning-brief cite-or-blank scar SoT** (docs only;
  `MORNING_BRIEF_CITE_OR_BLANK` Rule 2 A; `validate-brief-grounding.py`
- fail-closed before Discord) at
- `projects/openclaw/scars/morning-brief-cite-or-blank.md`. CLOSED harness scar
+ fail-closed before Discord) — CLOSED harness scar SoT (Studio private /
+ product brief — OUT of framework repo). CLOSED harness scar
  for invented meetings after KICK_BACK+rewrite; OpenClaw morning briefs only.
 - **OpenClaw bridge-guard false-clobber scar SoT** (docs only; structural vs
- content check named) at
- `projects/openclaw/scars/bridge-guard-false-clobber.md`.
+ content check named) — CLOSED harness scar SoT (Studio private / product
+ brief — OUT of framework repo).
 - **Dashboard public + admin split.** Same Vercel deploy (`dashboard/`): public
  marketing at `/` (KPI strip, Get AG CTA, traction gated by
  `data/traction.json`); admin at `/admin/*` behind Auth.js v5 Google SSO with
@@ -355,8 +353,8 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  honest Baseline / unpaid token placeholders, cycle-time tables, improve
  report detail, raw traction (including below `minVisible`), and anonymized
  scar index — never invents live token/$ numbers; no Studio PII.
-- **OpenClaw pin-enforce scar SoT** at
- `projects/openclaw/scars/pin-enforce-version-drift.md` (docs only; Cos
+- **OpenClaw pin-enforce scar SoT** — CLOSED harness scar SoT (Studio private /
+ product brief — OUT of framework repo) (docs only; Cos
  canonicalizes on OpenClaw Eng’s draft, not Bridge paste). CLOSED harness scar
  for silent downgrade via nightly `npm update -g openclaw` vs pin; documents
  the pin-enforce process lock only — no framework-policy invention beyond that
@@ -364,11 +362,11 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Continuous improve reporting path.** Daily markdown reports live under
  `docs/improve/` (README with KPI rules, `_template.md`, dated stubs). KPIs
  must be measured or method-estimated — never invented. A public Next.js
- marketing dashboard under `dashboard/` (UI SoT = Meta Astryx:
- `@astryxdesign/core` + `theme-neutral`) puts KPI strip/charts first, a loud
+ marketing dashboard under `dashboard/` (UI SoT = declared product design system:
+ declared localhost dashboard UI kit) puts KPI strip/charts first, a loud
  Get AG CTA second, then changelog/contribute. Traction widgets are fully
  wired but gated by `data/traction.json` `minVisible` thresholds (hidden on
- launch). Vercel-ready; Cos/Paul must make the marketing surface public.
+ launch). Vercel-ready; Cos/operator must make the marketing surface public.
 
 - **Chief of Staff (Cos) for multi-team mode.** Setup wizard asks whether the
  operator will run more than one project/team at once; if yes, a Cos roster
@@ -387,7 +385,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  the build.
 - **Vanilla handoff (ADR-0006, ADR-0007).** The framework is now environment-agnostic —
  adopters take the constitution + harnesses as a loadable contract (no repo mirror).
- First real-team adoption: Ladders Grok Bot (2026-09-06).
+ First real-team adoption: first adopting team / first product-seat adopter (2026-09-06).
 - **Watchdog data-source abstraction (ADR-0007).** `stuck-review-watchdog.py` now
  supports `--source paperclip` (default), `--source file --issues-file <path>` (JSON
  file or stdin), and `--source none` (disabled until an in_review backend exists).
@@ -444,7 +442,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  - `docs/` retained as the in-repo wiki (no separate `wiki/` folder).
 - Foundation for GitHub publication: LICENSE (MIT), SECURITY.md, CONTRIBUTING.md,
  AGENTS.md (repo operating rules), CHANGELOG.md, .gitignore.
-- AUDIT.md — enterprise gap analysis + roadmap.
+- `docs/quarantine/AUDIT.md` — enterprise gap analysis + roadmap (quarantined).
 - CI validation workflow (`scripts/validate.py` + GitHub Actions) — lints frontmatter,
  checks naming uniqueness, validates structure and cross-references.
 
@@ -456,7 +454,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  index / spec pointers already on main. **Check 9 stays fail-closed** before Eng handoff.
  **Check 10 stays Cos checklist** — **NOT** fail-closed / stop-the-presses. Cos memory ASK
  (`private_git` OR `local_folder` at Cos seating) stays. No new checks invented. P0: no secrets.
-- **UX Canvas contents honesty (Paul LOCK — absorb Gothelf; kill “contents TBD”):** **UX Canvas** =
+- **UX Canvas contents honesty (operator LOCK — absorb Gothelf; kill “contents TBD”):** **UX Canvas** =
  Jeff Gothelf [Lean UX Canvas V2](https://jeffgothelf.com/blog/leanuxcanvas-v2/) boxes **1–8 as-is**
  (external SoT for box definitions). Boxes: (1) Business problem statement (2) Business outcomes
  (3) Users (4) User outcomes and benefits (5) Solutions (6) Hypotheses (7) What’s the most
@@ -469,19 +467,19 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Get AG Adv CONCERN amend (historical — files later removed):** Pay Adv CONCERNs on tip [#60](https://github.com/paulthorson/agentic-governance/pull/60) @ `86e98081` without absorbing unpaid counsel work. Paths were ``, `` (**removed** on release hardening; see Removed above).
 
 - **LICENSE MIT → Apache-2.0 (Class A):** Replace root `LICENSE` with standard Apache License 2.0 text; Copyright (c) 2026 paulthorson (match prior copyright style). README license badge + Governance mention → **Apache-2.0** (public framework license for fork / remix / contribute).
-- **Get AG — Paul LOCKs amend (historical — file later removed):** Amend that was applied to `` (**removed** on release hardening).
+- **Get AG — operator LOCKs amend (historical — file later removed):** Amend that was applied to `` (**removed** on release hardening).
 - **Adv CONCERN absorb (AG website UX Canvas SoT — unpaid from merged [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b`):** Amend
  `docs/initiatives/ag-website-ux-canvas.md` without inventing product policy: (1) cite
  Cos-signed Brand & Design Setup / design-system packet (Sage instrument brand;
  Advercase + Geist; Process Instrument in the Void hybrid; Direct founder voice) + Eng
- HOLD look/pixels until Cos craft + Paul yes on stills; screens only after this canvas;
+ HOLD look/pixels until Cos craft + operator yes on stills; screens only after this canvas;
  (2) Box 2 metric + direction per outcome (honest directions, no fake percentages);
  (3) Box 5 solutions as genuine options with one trade line each; (4) Box 3 users + Box 6
- hypotheses marked Cos-owned with Paul 2026-09-14 — Research Scope provenance unpaid.
+ hypotheses marked Cos-owned with operator 2026-09-14 — Research Scope provenance unpaid.
  `adversarial-ux/README.md` Initiative LIVE pointer drops stale “contents TBD” and points
  at the filled SoT. No Brand & Design Setup constitution rewrite; no look/stills (#39/#26).
 
-- **UX Canvas named next gate (Paul/Cos LOCK — no new check id):** **UX Canvas** is the
+- **UX Canvas named next gate (operator/Cos LOCK — no new check id):** **UX Canvas** is the
  **separate** next Initiative gate **after** Brand & Design Setup — **not** an alias of Brand
  & Design Setup. Sequence: Research Scope → hunt → Brand & Design Setup → **UX Canvas**
  (before screens; contents TBD) → Check 7/8 stills / Eng. Name the gate only; do not invent
@@ -494,15 +492,15 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
  comps (Pentagram/500/AXM) as all-teams default / copy-paste across teams; sensor requires cites
  that **state why this set matches this product’s model** and **why it is diverse** (not one
  peer); name walkthrough **Brand & Design Setup** once in harness heading. Also: **Research
- Scope** (Paul LOCK plain-English) Q1–Q8 wizard before comps hunt — no new check id.
+ Scope** (operator LOCK plain-English) Q1–Q8 wizard before comps hunt — no new check id.
 - **LIVE tidy:** `DESIGN_SYSTEM_FIRST` (**LIVE** `#45` / `ead012f`), `DESIGN_AGENCY_BAR`
  (**LIVE** `#43` / `7e9e0b6`), `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) — remove stale
  “draft until Cos ACCEPT” labels; move to CoE Already LIVE.
-- **`DESIGN_SYSTEM_FIRST` plain-English name (Paul LOCK):** **Brand & Design Setup** — early
+- **`DESIGN_SYSTEM_FIRST` plain-English name (operator LOCK):** **Brand & Design Setup** — early
  Initiative Cos walkthrough. Map that human/agent name onto the check in `harnesses/ux.md`,
  `adversarial-ux/assets/templates/design-system.md`, CoE + Critic table rows. Check id
  unchanged (`DESIGN_SYSTEM_FIRST`).
-- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — fresh comps (Paul LOCK):** Research gathers
+- **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup — fresh comps (operator LOCK):** Research gathers
  a **FRESH diverse** comps set for **each** project’s Brand & Design Setup, **matched to that
  project’s business model**. Do **not** treat Pentagram / 500 / AXM as an all-teams default
  (AG-site-specific). Comp cites **internal only** (never public chrome). Absorbed into
@@ -519,7 +517,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Spec correction:** the Section 4 skeleton lists eight harness sections, but every harness carries a ninth — the Section 11 plugin allowlist. The allowlist is legitimately part of a harness; the spec (not the harnesses) is wrong. Noted for spec fix.
 
 ### Removed
-- **[redacted] Get AG (Paul LOCK release):** Deleted ``, ``, and empty `docs/legal/`. Settled posture: free/open source Apache-2.0; **no acceptance gate**; LICENSE is the only use governor. **No replacement** Terms/privacy/warranty text. Cross-links in docs/initiatives, `docs/README.md`, dashboard README, and capability report §12.7 updated accordingly.
+- **[redacted] Get AG (operator LOCK release):** Deleted ``, ``, and empty `docs/legal/`. Settled posture: free/open source Apache-2.0; **no acceptance gate**; LICENSE is the only use governor. **No replacement** Terms/privacy/warranty text. Cross-links in docs/initiatives, `docs/README.md`, dashboard README, and capability report §12.7 updated accordingly.
 
 ### Fixed
 - `docs/spec-addendum-01.md` — **A16 self-contradiction caught and fixed.** A decision about where validation records live was recorded as DECIDED in `docs/proposals/a17-validation-record-home.md` while §A17 still said "Not decided. Do not implement." — two copies of a governance rule disagreeing, with no precedence rule. This is exactly the A16 open problem, occurring inside the file where A16 is written down. The fix renumbered the validation-record decision as **A20** (decided, distinct from A17), kept A17 open on its actual subject (no project repo for governance-repo work), renamed the proposal file to `a20-validation-record-home.md`, and recorded the occurrence in the A16 section as evidence the duplication problem is real and already biting.
@@ -533,10 +531,11 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [0.1.1] — 2026-09-11
 
 ### Added
-- **Ladders epic retrospectives as SoT** under `projects/ladders/retros/`
- (Paul LOCK 2026-09-11). Filed triad retros for `migration-drift-gate` and
+- **Product-seat epic retrospectives as SoT** (path on product brief — OUT of
+ AG framework repo; was under `projects/ladders/retros/` — tree removed from
+ tip). Operator LOCK 2026-09-11. Filed triad retros for `migration-drift-gate` and
  `marketing-landing` (went well / didn't / improve only). Optional mirrors
- elsewhere OK later; this tree is canonical. Docs only — no framework-policy
+ elsewhere OK later. Docs only — no framework-policy
  change.
 
 ## [0.1.0] — 2026-08-26

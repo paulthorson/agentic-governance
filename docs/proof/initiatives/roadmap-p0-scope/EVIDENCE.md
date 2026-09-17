@@ -1,7 +1,7 @@
 # Initiative evidence — roadmap-p0-scope
 
 Shipped 2026-09-13. Annual Veto roadmap (Oct 2026–Sep 2027, 24 pages) restored to
-full P0 visual-polish scope after reviewers narrowed it; human (Paul) overrode
+full P0 visual-polish scope after reviewers narrowed it; human (operator) overrode
 and the full scope was reinstated.
 
 ## Scope restored to P0
@@ -18,8 +18,8 @@ explicit fallback — not by narrowing scope.
 - Round 2: product ALLOW, QA ALLOW, UX ALLOW, critic KICK_BACK (5 findings)
 - Final: **4/4 seats ALLOW** — fresh critic re-review returned SHIP, all 5
   findings verified resolved with quotable language
-- Human-primacy incident: reviewers narrowed Paul's explicit scope; Paul
-  restored it. Reviewers do not override explicit product scope.
+- Human-primacy incident: reviewers narrowed the operator's explicit scope; the
+  operator restored it. Reviewers do not override explicit product scope.
 
 ## Metrics
 

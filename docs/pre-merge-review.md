@@ -2,9 +2,9 @@
 
 Author review artifact. PR stays **DRAFT**. Do not merge from this note alone.
 
-Updated for Paul LOCK — AG PUBLIC RELEASE EXECUTE (items 2–6). Settled posture is FINAL.
+Updated for operator LOCK — AG PUBLIC RELEASE EXECUTE (items 2–6). Settled posture is FINAL.
 
-**Final batch (Paul LOCK):** §12.9 OLLAMA loopback distinction; README telemetry/approval/`approval.token` clarity + stranger-facing language; `SECURITY.md` contact `security@agenticgovernance.app` + GitHub private reporting; stale `DISCORD_WEBHOOK_URL` docstring fix; calibration proximate-cause sentence. PR remains **DRAFT**.
+**Final batch (operator LOCK):** §12.9 OLLAMA loopback distinction; README telemetry/approval/`approval.token` clarity + stranger-facing language; `SECURITY.md` contact `security@agenticgovernance.app` + GitHub private reporting; stale `DISCORD_WEBHOOK_URL` docstring fix; calibration proximate-cause sentence. PR remains **DRAFT**.
 
 ---
 
@@ -57,7 +57,7 @@ Capability-report **§12.9** is the standing telemetry section. Final-batch rewr
 
 ### 3.2 — NOTICE / `[BRACKET]` placeholders
 
-`NOTICE` filled by Paul: copyright **Paul Thorson**, 2026. `SECURITY.md` contact is `security@agenticgovernance.app`. **No** remaining unfilled `[AUTHOR …]` / WILL-BE-SUPPLIED authoring placeholders in shipped release files.
+`NOTICE` filled by operator: copyright holder named in `NOTICE`, 2026. `SECURITY.md` contact is `security@agenticgovernance.app`. **No** remaining unfilled `[AUTHOR …]` / WILL-BE-SUPPLIED authoring placeholders in shipped release files.
 
 Not counted: wiki `[[.]]`, skill tags, markdown links, Apache LICENSE bracket terms.
 
@@ -96,7 +96,7 @@ Rewritten: no in-tree identity config; committing agent identity comes from host
 
 ### 3.9 — SECURITY.md + CONTRIBUTING.md
 
-Full current text embedded below (Items 9 / 9b). Eight SECURITY.md line cites for Paul review are in that embed.
+Full current text embedded below (Items 9 / 9b). Eight SECURITY.md line cites for operator review are in that embed.
 
 ### 4 — Calibration ledger
 
@@ -112,7 +112,7 @@ Full current text embedded below (Items 9 / 9b). Eight SECURITY.md line cites fo
 | File | Status |
 |---|---|
 | `LICENSE` | Apache 2.0 verbatim; no prepended copyright |
-| `NOTICE` | NOTICE present, copyright Paul Thorson, 2026 |
+| `NOTICE` | NOTICE present, copyright holder named in `NOTICE`, 2026 |
 | `CONTRIBUTING.md` | DCO via `git commit -s` documented |
 | `README.md` | Near top: free/open source Apache 2.0; no acceptance required; LICENSE only governor |
 
@@ -350,11 +350,11 @@ or gates is enforcement.
 |---|---|---|
 | 5.1 In-tree configs that SET `user.name` / `user.email` / `GIT_AUTHOR*` / `GIT_COMMITTER*` | **No in-tree identity config exists.** The committing agent's identity comes from its **host environment** (e.g. `~/.gitconfig`, process env), outside this repository and not controlled by it. | Repo-wide grep + `tests/test_published_claims.py:168–211` (`test_no_git_identity_config_uses_non_noreply_email`) |
 | 5.2 Changes made in-repo | **None in-tree** — host-side git identity is outside this repository and not controlled by it. Not a repository fix. | Same; durability row below |
-| Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
+| Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (ephemeral host) (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
 | 5.3 Personal allowlist email (historical) | Was in allowlist; **removed** from functional code, tip prose, and git history (placeholder `noreply address` / `ADMIN_EMAILS`) | `admin-access.ts` now env-only; history scrub note |
 | Personal phone numbers in tree | **NO** found | Repo-wide grep (no matches) |
 | 5.4 Prior personal GitHub username URL | HTTP **404** (2026-09-14 probe); tip + history scrubbed to `prior username` | Read-only `curl -sI`; history scrub note |
-| History rewrite / `.mailmap` | **Done** 2026-09-16 (Paul GO): `git-filter-repo` on `main` | `docs/history-identity-scrub-2026-09-16.md` |
+| History rewrite / `.mailmap` | **Done** 2026-09-16 (operator GO): `git-filter-repo` on `main` | `docs/history-identity-scrub-2026-09-16.md` |
 
 ---
 
@@ -363,7 +363,7 @@ or gates is enforcement.
 | Question | Answer | Cite |
 |---|---|---|
 | LICENSE text | Exact Apache-2.0 from upstream (no prepended copyright line) | `LICENSE` |
-| NOTICE | NOTICE present, copyright Paul Thorson, 2026. | `NOTICE` |
+| NOTICE | NOTICE present, copyright holder named in `NOTICE`, 2026. | `NOTICE` |
 | MCP direct deps | `mcp>=1.0.0,<2`, `pydantic>=2.0` | `mcp/pyproject.toml:6–9` |
 | Resolved Python licenses (local metadata) | mcp MIT; pydantic MIT; uvicorn/starlette/httpx BSD-3-Clause; certifi **MPL-2.0**; cryptography Apache-2.0 OR BSD-3-Clause; python-multipart Apache-2.0; typing-extensions PSF-2.0 | `importlib.metadata` after install |
 | GPL / AGPL in MCP set | **NO** found | — |
@@ -408,7 +408,7 @@ or gates is enforcement.
 | Storage | Traction/improve content from repo files / synced content; no first-party DB module found in dashboard src for AG data | `dashboard/data/`, `docs/improve` sync script |
 | Cookies | Auth.js session cookies when admin SSO used; no custom cookie module found in `dashboard/src` | Grep: no `cookie` hits under `dashboard/src` |
 | Analytics (gtag/plausible/segment) | **NO** matches under `dashboard/src` | Grep |
-| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including `@astryxdesign/*`, `next`, `next-auth`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json:7–25`; lockfile sharp entries |
+| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including the localhost dashboard UI kit packages, `next`, `next-auth`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json:7–25`; lockfile sharp entries |
 
 ---
 
@@ -522,7 +522,7 @@ were stripped from the published README.
 ### Cuts considered
 
 - No additional README product claims cut this pass; prior PR already removed “mechanical governance” / fake hard-stop language.
-- Personal email / prior-username tip prose scrubbed to redacted placeholders; full history rewrite completed 2026-09-16 (Paul GO) — see `docs/history-identity-scrub-2026-09-16.md`.
+- Personal email / prior-username tip prose scrubbed to redacted placeholders; full history rewrite completed 2026-09-16 (operator GO) — see `docs/history-identity-scrub-2026-09-16.md`.
 - README work-instruction numbers 11.1–11.4 stripped from headings; remaining §12.x / §7.x cites point at capability-report sections (intentional).
 
 ---
@@ -568,8 +568,8 @@ were stripped from the published README.
 
 | Source | Before | After |
 |---|---|---|
-| `~/.gitconfig` `user.name` | `Cursor Agent` | `operator` (this VM only) |
-| `~/.gitconfig` `user.email` | `cursoragent@cursor.com` | `paulthorson@users.noreply.github.com` (this VM only) |
+| `~/.gitconfig` (ephemeral host) `user.name` | `Cursor Agent` | `operator` (this VM only) |
+| `~/.gitconfig` (ephemeral host) `user.email` | `cursoragent@cursor.com` | `paulthorson@users.noreply.github.com` (this VM only) |
 | Env `GIT_AUTHOR_*` / `GIT_COMMITTER_*` | unset | may be set for commits in a session |
 | In-repo git identity config | none | none |
 | CI workflow git identity | none | none |
@@ -580,7 +580,7 @@ were stripped from the published README.
 
 ```
 git log -1 --format='%an <%ae> / %cn <%ce>'
-operator <paulthorson@users.noreply.github.com> / operator <paulthorson@users.noreply.github.com>
+operator <operator@users.noreply.github.com> / operator <operator@users.noreply.github.com>
 ```
 
 (Verified on commits in this pre-merge pass when host config + env were set. Co-authored-by trailer: none observed on these commits.)
@@ -613,7 +613,7 @@ Qualifier text:
 ## 5.6 Could not do / why
 
 - Could not make GitHub noreply a Google SSO identity (Google product constraint).
-- Tip-scrub PR did not rewrite git history (done later 2026-09-16 under separate Paul GO — `docs/history-identity-scrub-2026-09-16.md`).
+- Tip-scrub PR did not rewrite git history (done later 2026-09-16 under separate operator GO — `docs/history-identity-scrub-2026-09-16.md`).
 - Did not mark PR ready or merge (forbidden).
 - Did not invent TERMS/PRIVACY or replacement legal text for deleted Get AGs (forbidden).
 - Did **not** implement proposed `COUNSEL_GATE_BEFORE_PROD` (human reviews first; lands separately).
@@ -807,7 +807,7 @@ Use [`SECURITY.md`](SECURITY.md). Do not open a public issue for vulnerabilities
 
 ## Item 10 — Get AG documents
 
-**DELETED** on this tip (Paul LOCK public release). No replacements.
+**DELETED** on this tip (operator LOCK public release). No replacements.
 
 | Former path | Status |
 |---|---|
@@ -821,12 +821,13 @@ NOTICE (current):
 
 ```text
 Agentic Governance
-Copyright 2026 Paul Thorson
+Copyright 2026 <copyright holder named in NOTICE>
 
 Licensed under the Apache License, Version 2.0.
 
 ```
 
+*(Legal party text lives only in `NOTICE` / `LICENSE` — this embed is anonymized for public tip scrub.)*
 ---
 
 ## §6 Clean-clone

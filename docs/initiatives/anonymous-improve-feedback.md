@@ -2,7 +2,7 @@
 
 **Plain-English name:** Anonymous Improve Feedback 
 **Type:** Initiative epic plan (PRD / flows) — **not** Eng implementation 
-**Status:** Paul LOCK 2026-09-14 — bake anonymous improve telemetry into the Agentic Governance product 
+**Status:** operator LOCK 2026-09-14 — bake anonymous improve telemetry into the Agentic Governance product 
 **Owner seat:** AG Product / UX (+ Research for consent HCI); Cos ACCEPT for craft; Eng HOLD until sequenced gates clear 
 **Review:** Cos craft first on this tip — **do not ping Adv** unless Cos asks
 
@@ -14,9 +14,9 @@ Agentic Governance is **free**. The tradeoff is that operators share **anonymous
 
 ---
 
-## Paul / Cos locks (bake into this epic)
+## operator / Cos locks (bake into this epic)
 
-### Value exchange (Cos ADD LOCK from Paul — first-class product promise)
+### Value exchange (Cos ADD LOCK from operator — first-class product promise)
 
 - AG stays **free**.
 - **Anonymous basics are on by default** — that is the privacy-respecting tradeoff that funds continuous improve.
@@ -24,14 +24,14 @@ Agentic Governance is **free**. The tradeoff is that operators share **anonymous
 - Phrase publicly in plain English on **Get AG / download**: free because operators share anonymous improve signals.
 - Still **no secrets / PII** (and the rest of the privacy floor below).
 
-### Brand voice (Cos ADD LOCK from Paul — AG site Brand Voice)
+### Brand voice (Cos ADD LOCK from operator — AG site Brand Voice)
 
 - Brand beat: **“Worker bees need to feed the hive.”**
 - Use on **Get AG** + **consent** as headline / voice for the free tradeoff (anonymous basics that improve the framework).
 - Public chrome stays **plain English**. Metaphor is OK as headline/voice — **not** harness jargon, not a mascot layer.
 - Still: basics default on · richer logs opt-in · no secrets/PII.
 
-### ADMIN TWIN (related product framing — Paul LOCK)
+### ADMIN TWIN (related product framing — operator LOCK)
 
 - `/admin` = **same look and craft** as the public living board (type, space, graph language).
 - Sensitive numbers and ops sit **behind that door**.
@@ -87,7 +87,7 @@ We need a productized **Anonymous Improve Feedback** path that:
 
 ## Sequencing under Initiative
 
-Eng does **not** start pixels until Cos craft + **Paul yes** on `#39` look. This epic is **PRD / flows first**. Cos craft before Adv.
+Eng does **not** start pixels until Cos craft + **operator yes** on `#39` look. This epic is **PRD / flows first**. Cos craft before Adv.
 
 | Order | Gate | Note |
 |---|---|---|
@@ -95,7 +95,7 @@ Eng does **not** start pixels until Cos craft + **Paul yes** on `#39` look. This
 | 1 | **Research HCI — consent UX** | Clear off-switch; what “basics” means in plain English; layered consent. Pack LIVE [#53](https://github.com/paulthorson/agentic-governance/pull/53) @ `eaa2efa2` — [`dashboard/docs/research/anonymous-improve-consent-2026-09-14.md`](../../dashboard/docs/research/anonymous-improve-consent-2026-09-14.md). Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE`. |
 | 2 | **Stories / flows** | JTBD + Mermaid flows for lanes 1–4 + Get AG / consent / off-switch (next unpaid after this PRD). |
 | 3 | **UX Check 7** | When stories exist — entry / success / error / empty / exits. |
-| 4 | **Check 8 stills / Eng** | **HOLD** until Cos craft + Paul yes on `#39` look. No Eng pixels from this epic alone. |
+| 4 | **Check 8 stills / Eng** | **HOLD** until Cos craft + operator yes on `#39` look. No Eng pixels from this epic alone. |
 
 Initiative sequence reminder (LIVE named gates): Research Scope → hunt → Brand & Design Setup → **UX Canvas** → Check 7/8 stills / Eng.
 
@@ -106,7 +106,7 @@ Initiative sequence reminder (LIVE named gates): Research Scope → hunt → Bra
 **Get AG / download (plain English):** 
 Agentic Governance is free because operators share anonymous improve signals that help the framework get better. You can turn basics off. Richer diagnostic logs are optional and off until you opt in. We never collect secrets, tokens, or personal data.
 
-**Get AG download (Class A — Paul LOCK public release, settled):** Download / Get AG CTA requires **no acceptance gate**. Apache-2.0 LICENSE is the only use governor. [redacted] Get AG files were removed; no replacement legal text.
+**Get AG download (Class A — operator LOCK public release, settled):** Download / Get AG CTA requires **no acceptance gate**. Apache-2.0 LICENSE is the only use governor. [redacted] Get AG files were removed; no replacement legal text.
 
 **Brand beat (headline / voice — OK):** 
 “Worker bees need to feed the hive.”
@@ -125,7 +125,7 @@ This tip is accepted as the Initiative epic plan when:
 - [x] Privacy floor (basics on / richer opt-in / never secrets·PII·paths·sauce) is explicit.
 - [x] Lanes **1–4** are named with defaults and destinations.
 - [x] Destination = improve loop / living board / Cos daily digest — **measured only**.
-- [x] Sequencing cites UX Canvas filled SoT **#50 @ `6b24c4bc`** (gate **#48 @ `e9b4827`**), Research HCI consent pack **#53 @ `eaa2efa2`**, Check 7 when stories exist, Eng HOLD pending Cos craft + Paul yes on `#39` look.
+- [x] Sequencing cites UX Canvas filled SoT **#50 @ `6b24c4bc`** (gate **#48 @ `e9b4827`**), Research HCI consent pack **#53 @ `eaa2efa2`**, Check 7 when stories exist, Eng HOLD pending Cos craft + operator yes on `#39` look.
 - [x] ADMIN TWIN framing is noted (one product, two doors).
 - [x] Problem, outcomes, open questions, acceptance sketch, and non-goals are present.
 - [ ] Cos craft review of this PRD tip (**do not ping Adv** unless Cos asks).
@@ -148,7 +148,7 @@ This tip is accepted as the Initiative epic plan when:
 ## Non-goals (this epic / this tip)
 
 - Eng implementation, pixels, schemas, collectors, or dashboard `/src` changes.
-- Reopening or amending `#39` look stills / craft tip (Eng HOLD; Paul yes required separately).
+- Reopening or amending `#39` look stills / craft tip (Eng HOLD; operator yes required separately).
 - Inventing UX Canvas boxes or skipping the Gothelf v2 filled canvas SoT ([#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4bc`).
 - Identity-bearing analytics, account graphs, or marketing attribution pixels.
 - Collecting secrets, tokens, emails, PII, absolute host paths, or private operator data “for debugging.”

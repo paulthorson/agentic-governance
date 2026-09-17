@@ -106,11 +106,13 @@ cd mcp && uv sync && uv run adversarial-mcp # stdio (default)
 
 Wire the MCP server into your agent, then run `setup_wizard_start` / `setup_wizard_answer`.
 
-**Cos seating (install/setup — not deferred):** When the roster includes Chief of Staff (`cos`), the wizard **ASKS** Cos memory store mode (`private_git` OR `local_folder` — do not force one) and scaffolds from `docs/templates/cos-memory/` via the seating hook `mcp/adversarial_mcp/cos_memory_setup.py` (CLI stub: `scripts/cos_memory_setup.py`). Paul+Cos clarified store = private git. See [`docs/onboarding/cos-seating.md`](docs/onboarding/cos-seating.md).
+**Cos seating (install/setup — not deferred):** When the roster includes Chief of Staff (`cos`), the wizard **ASKS** Cos memory store mode (`private_git` OR `local_folder` — do not force one) and scaffolds from `docs/templates/cos-memory/` via the seating hook `mcp/adversarial_mcp/cos_memory_setup.py` (CLI stub: `scripts/cos_memory_setup.py`). operator + Cos clarified store = private git. See [`docs/onboarding/cos-seating.md`](docs/onboarding/cos-seating.md).
 
 Onboarding guides: [`docs/onboarding/`](docs/onboarding/).
 
-The optional Next.js `dashboard/` app is **not required** to use the framework ([§7.3](docs/capability-report.md#73-dashboard-required)).
+**Public face vs localhost:** Marketing homepage is [https://www.agenticgovernance.app](https://www.agenticgovernance.app) (site repo). The optional Next.js `dashboard/` app is **localhost-only** for operator/dev — **not required** to use the framework ([§7.3](docs/capability-report.md#73-dashboard-required)), and this framework repo must **not** bind a Vercel project to `dashboard/`.
+
+Historical gap analysis lives under [`docs/quarantine/`](docs/quarantine/) (not live Class A SoT).
 
 ---
 

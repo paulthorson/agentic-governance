@@ -56,5 +56,3 @@ Run the setup wizard to declare your roster and reconcile existing instructions.
 
 - The MCP server uses **stdio transport**, which OpenClaw supports.
 - Verdicts append to `runs/verdicts.jsonl` (gitignored).
-- Studio OpenClaw anonymized scars / pin process locks (Standing AG SoT):
-  [`projects/openclaw/`](../../projects/openclaw/).

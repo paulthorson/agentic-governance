@@ -98,7 +98,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 
 - **Id:** `LIVE_SOT_MERGED_SHA`
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge (liveness only).
-- **FAIL:** Treating this draft (or intake / open PR / muse) as live Paul LOCK. Only Cos ACCEPT
+- **FAIL:** Treating this draft (or intake / open PR / muse) as live operator LOCK. Only Cos ACCEPT
   + merged SHA is live. Precedent: `#13` intake ≠ SoT.
 - **Sensor:** Cite merged SHA / merged PR when claiming live SoT; this file's draft headers say
   not live / not effective until Cos ACCEPT merge.
@@ -109,7 +109,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
-### `DESIGN_AGENCY_BAR` (stacks on Check 8 — Cos LOCK Paul)
+### `DESIGN_AGENCY_BAR` (stacks on Check 8 — Cos LOCK operator)
 
 **LIVE** — Cos ACCEPT merged [#43](https://github.com/paulthorson/agentic-governance/pull/43) @
 `7e9e0b6`. Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Alias /
@@ -119,8 +119,7 @@ competing lock id.
 - **Id:** `DESIGN_AGENCY_BAR`
 - **Slot:** Product UX stills / public marketing faces — Cos craft gate **before** Adv; Critic
   grades under Check 8 stack.
-- **Who / scope:** Every product UX seat (AG, Ladders, [redacted product], EW, EvenCursor, Dungeon,
-  JEEP, future) — **not** OpenClaw briefs.
+- **Who / scope:** Every product UX seat — **not** OpenClaw briefs.
 - **Bar:** Top-agency craft — restraint, hierarchy, type, space, micro-interaction. Prefer **one
   strong quiet option** (Apple / Linear restraint SoT) over stacking effects.
 - **FAIL (Cos craft FAIL before Adv):** cheesy effects; spectacle as craft (particle beads /
@@ -138,7 +137,7 @@ competing lock id.
 - **Metric:** Cos craft FAIL holds for listed spectacle patterns = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
-### `AI_SLOP_COPY_FAIL` (stacks on `DESIGN_AGENCY_BAR` — Paul LOCK 2026-09-15 ALL PRODUCTS)
+### `AI_SLOP_COPY_FAIL` (stacks on `DESIGN_AGENCY_BAR` — operator LOCK 2026-09-15 ALL PRODUCTS)
 
 **Draft SoT until Cos ACCEPT merge — not live constitution / not effective until ACCEPT.** Soft,
 deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **name this check**
@@ -147,8 +146,7 @@ deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **
 - **Id:** `AI_SLOP_COPY_FAIL`
 - **Slot:** Visitor-facing and user-facing product surfaces — Cos craft gate **before** Adv;
   Critic grades under Check 8 stack / Brand Voice.
-- **Who / scope:** Every product UX seat (AG, Ladders, [redacted product], EW, EvenCursor, Dungeon,
-  JEEP, future) — **not** OpenClaw briefs.
+- **Who / scope:** Every product UX seat — **not** OpenClaw briefs.
 - **Bar:** **Human / Substack / Direct founder voice only.** AI-slop / synthetic brochure copy =
   **FAIL**.
 - **FAIL (Cos craft FAIL before Adv):** banned lexicon examples — not exhaustive (Brand Voice
@@ -163,7 +161,7 @@ deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **
 - **Metric:** visitor/user-facing surfaces shipping AI-slop = **fail closed**.
 - **P0:** No secrets/keys/emails/PII/host paths in AG git.
 
-### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (gates pixels before Check 7/8 — Cos LOCK Paul)
+### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (gates pixels before Check 7/8 — Cos LOCK operator)
 
 **LIVE** — Cos ACCEPT merged [#45](https://github.com/paulthorson/agentic-governance/pull/45) @
 `ead012f`. Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Check id
@@ -175,12 +173,11 @@ stays `DESIGN_SYSTEM_FIRST`. Cite stacks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
   Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
 - **Slot:** Initiative packet — design system **before** web / UI pixels / stills / screens; Cos
   stamp before Check 7 / Check 8 stills / Eng handoff. **Research Scope** before comps hunt.
-- **Who / scope:** Every product team UX + Research (AG, Ladders, [redacted product], EW, EvenCursor,
-  Dungeon, JEEP, future) — **not** OpenClaw.
+- **Who / scope:** Every product team UX + Research — **not** OpenClaw.
 - **Bar / order:** Design system is the FIRST Initiative deliverable. Research + UX collaborate;
   Cos signoff in early Initiative. Agency design thinking (restraint, hierarchy, type, space, one
   strong quiet option) is permanent UX brain — stacks `DESIGN_AGENCY_BAR`; not a splash tip.
-- **Fresh comps (Paul LOCK):** Research cites must be **diverse** + **business-model-matched per
+- **Fresh comps (operator LOCK):** Research cites must be **diverse** + **business-model-matched per
   project**. **FAIL** fixed AG comps (Pentagram/500/AXM) as all-teams default / copy-paste across
   teams. Cites **internal only**. Cites must **state why this set matches this product’s model**
   and **why the set is diverse** (not one peer).
@@ -316,8 +313,7 @@ COMP hole + do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps are not go
 **When:** QA ship / Look / visual pack gates on product UX surfaces (after Check 7
 Eng-handoff artifacts exist when applicable). Skip only when the work is not a product UX
 surface (say so). **Scope:** product UX surfaces only (marketing + app chrome) for **all**
-product UX teams (Ladders, Even Weather, [redacted product], Dungeon, JEEP, EvenCursor, Nearby
-Places, G2, and any other product UX team) — **not** OpenClaw briefs.
+product UX teams (every product UX team) — **not** OpenClaw briefs.
 
 **Metrics (fail closed):** visual QA packs / ship gates without per-step mobile **and** desktop
 stills = **fail closed**; marketing/dashboard layout-shift Highs (primary CTA wrap, chrome
@@ -517,19 +513,19 @@ merged SHA. `RETRO_BEFORE_CLOSE` — Cos/CEO close gate (harness SoT). Check 8
 (`VISUAL_STEP_STILLS`) is already **LIVE** on main via `#15` / `d61f4c1` — do not reopen.
 HOLD ACCEPT on these five until Adv PASS.
 
-**LIVE — `DESIGN_AGENCY_BAR`:** Cos LOCK Paul agency craft bar for every product UX seat.
+**LIVE — `DESIGN_AGENCY_BAR`:** Cos LOCK operator agency craft bar for every product UX seat.
 **LIVE** via `#43` / `7e9e0b6`. Stacks on `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8
 — not a replacement. Superseded alias `SPECTACLE_NOT_CRAFT` is not a competing lock. Metric: Cos
 craft FAIL for listed spectacle patterns = **fail closed**.
 
-**Draft until Cos ACCEPT (not live) — `AI_SLOP_COPY_FAIL`:** Paul LOCK 2026-09-15 ALL PRODUCTS.
+**Draft until Cos ACCEPT (not live) — `AI_SLOP_COPY_FAIL`:** operator LOCK 2026-09-15 ALL PRODUCTS.
 AI-slop / synthetic brochure copy on visitor/user-facing product surfaces = FAIL. Human /
 Substack / Direct founder voice only. Ban lexicon examples — not exhaustive (Brand Voice
 judgment). Twin-attribute cadence banned. Stacks on `DESIGN_AGENCY_BAR`. Adv must **name
 `AI_SLOP_COPY_FAIL`** before Cos ACCEPT. Do not mark LIVE until Cos ACCEPT MERGED SHA. Not
 OpenClaw. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
 
-**LIVE — Brand & Design Setup (`DESIGN_SYSTEM_FIRST`):** Cos LOCK Paul — Design, Experience, and
+**LIVE — Brand & Design Setup (`DESIGN_SYSTEM_FIRST`):** Cos LOCK operator — Design, Experience, and
 Branding are paramount; engineering follows signed craft. **LIVE** via `#45` / `ead012f`.
 Research Scope (Q1–Q8) before comps hunt. Fresh diverse business-model-matched comps; cites
 state model-fit + diversity (not one peer); FAIL fixed AG comps (Pentagram/500/AXM) as

@@ -11,7 +11,7 @@ Usage:
   python3 scripts/cos_memory_setup.py --mode local_folder --label desk-cos-memory
   python3 scripts/cos_memory_setup.py --show-prompt
 
-Paul+Cos clarified store = private git.
+operator + Cos clarified store = private git.
 Framework ASK: private_git OR local_folder — do not force.
 P0: no secrets/keys/emails/PII/host paths.
 """
@@ -94,7 +94,7 @@ def main(argv: list[str] | None = None) -> int:
                 "when": "Cos seating / AG install-setup hook",
                 "mode": args.mode,
                 "label": args.label,
-                "paul_cos_clarified_store": "private_git",
+                "operator_cos_clarified_store": "private_git",
                 "force_one_mode": False,
                 "wrote": [str(p) for p in written],
             },

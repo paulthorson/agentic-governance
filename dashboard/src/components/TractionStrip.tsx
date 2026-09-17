@@ -1,10 +1,10 @@
 'use client';
 
-import {Button} from '@astryxdesign/core/Button';
-import {Card} from '@astryxdesign/core/Card';
-import {Grid} from '@astryxdesign/core/Grid';
-import {HStack, VStack} from '@astryxdesign/core/Layout';
-import {Heading, Text} from '@astryxdesign/core/Text';
+import {Button} from '@ag-dashboard/core/Button';
+import {Card} from '@ag-dashboard/core/Card';
+import {Grid} from '@ag-dashboard/core/Grid';
+import {HStack, VStack} from '@ag-dashboard/core/Layout';
+import {Heading, Text} from '@ag-dashboard/core/Text';
 import type {TractionMetric} from '@/lib/traction';
 
 export function TractionStrip({

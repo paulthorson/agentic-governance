@@ -3,11 +3,11 @@
 **Gate:** Cos LOCK look additive **#39** + Cos ADDITIVE Matrix retip (vertical DATA STREAM). `RESEARCH_BEFORE_ENHANCE` + **RESEARCH_HCI** (Critic Check 6) LIVE **#38** @ `214ed5b`. 
 **Ownership:** AG Research (Master's HCI). **Eng HOLD.** Chatbot = **phase 2 out**. UX paints stills only after Cos ACCEPT + Adv PASS + Cos merge of this tip. 
 **Prior SoT (cite only — do not rewrite):** [`obsidian-kg-splash-2026-09-13.md`](./obsidian-kg-splash-2026-09-13.md) (**#37** @ `cefb5f1` — Obsidian-class KG + Master's HCI compose); RESEARCH_HCI constitution **#38** @ `214ed5b`; [`living-graph-splash-2026-09-13.md`](./living-graph-splash-2026-09-13.md) (**#28** @ `f9f38ff`); [`motion-finish-2026-09-13.md`](./motion-finish-2026-09-13.md) (**#27** @ `235610e`). 
-**Scope:** Evidence that **teaches elevated readable KG** under Matrix/Tron / phosphor dark-ops look, with **full Paul LOOK stack** (all four — not labels-only). Screenshot wallpaper collecting = **FAIL**. No `look.md`. No Check 7–8. No Eng / `dashboard/src`. Codes only. No PII / secrets / Studio.
+**Scope:** Evidence that **teaches elevated readable KG** under Matrix/Tron / phosphor dark-ops look, with **full operator LOOK stack** (all four — not labels-only). Screenshot wallpaper collecting = **FAIL**. No `look.md`. No Check 7–8. No Eng / `dashboard/src`. Codes only. No PII / secrets / Studio.
 
 **Bar test:** If UX can only produce cheap Matrix wallpaper + green blob, this pack failed. Pack must teach elevation + readability + atmosphere rain together.
 
-### Paul LOOK stack (CONFIRM — all four required)
+### operator LOOK stack (CONFIRM — all four required)
 
 | # | Lock | Research teach |
 | --- | --- | --- |
@@ -147,7 +147,7 @@ Prior §2.3 listed Research-box PNG paths (`thegridcn-home.png`, `gmunk-tron-are
 | **Fake KPI ticker** rain (counting invented totals) | Cos FAIL — DATA STREAM is atmosphere, not fabricated metrics |
 | Rain glyphs with git names / PII / secrets / paths | Codes / anonymized glyphs only |
 | Movie HUD chrome without inspect/hover (LOOK 1 missing) | Spectacle ≠ governance graph job |
-| Labels-only pack (LOOK 2–4 missing) | Paul LOOK stack requires all four |
+| Labels-only pack (LOOK 2–4 missing) | operator LOOK stack requires all four |
 | Human/git/product names on nodes | Codes only |
 
 ### 3.4 Keep UX locks (named)

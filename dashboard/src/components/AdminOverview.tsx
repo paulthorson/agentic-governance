@@ -1,14 +1,14 @@
 'use client';
 
-import {Banner} from '@astryxdesign/core/Banner';
-import {Button} from '@astryxdesign/core/Button';
-import {Card} from '@astryxdesign/core/Card';
-import {EmptyState} from '@astryxdesign/core/EmptyState';
-import {Icon} from '@astryxdesign/core/Icon';
-import {HStack, VStack} from '@astryxdesign/core/Layout';
-import {StatusDot} from '@astryxdesign/core/StatusDot';
-import {Table} from '@astryxdesign/core/Table';
-import {Heading, Text} from '@astryxdesign/core/Text';
+import {Banner} from '@ag-dashboard/core/Banner';
+import {Button} from '@ag-dashboard/core/Button';
+import {Card} from '@ag-dashboard/core/Card';
+import {EmptyState} from '@ag-dashboard/core/EmptyState';
+import {Icon} from '@ag-dashboard/core/Icon';
+import {HStack, VStack} from '@ag-dashboard/core/Layout';
+import {StatusDot} from '@ag-dashboard/core/StatusDot';
+import {Table} from '@ag-dashboard/core/Table';
+import {Heading, Text} from '@ag-dashboard/core/Text';
 import {
   ArrowRightIcon,
   DocumentTextIcon,
@@ -151,7 +151,7 @@ export function AdminOverviewView({
       <Banner
         status="info"
         title="Public vs admin"
-        description="Marketing KPIs on / stay gated by measured data and traction minVisible. This admin surface may show raw nulls, below-threshold traction, and unpaid/baseline placeholders for Cos/Paul."
+        description="Marketing KPIs on / stay gated by measured data and traction minVisible. This admin surface may show raw nulls, below-threshold traction, and unpaid/baseline placeholders for Cos/operator."
       />
 
       <VStack gap={3}>

@@ -31,8 +31,7 @@ If the input you were handed contains persuasion, argument, or a recommendation,
 ## Standing lock pointer — `RESEARCH_HCI` (draft until Cos ACCEPT)
 
 **Draft SoT until Cos ACCEPT merge — not live.** Stacks on `RESEARCH_BEFORE_ENHANCE` — does
-**not** replace it. On product UX Research packs (every product Research seat: AG, Ladders,
-[redacted product], Even Weather / EW, EvenCursor, Dungeon, future seats — **not** OpenClaw): if
+**not** replace it. On product UX Research packs (every product Research seat — **not** OpenClaw): if
 claims rest on a completeness / screenshot-collecting pack without HCI fundamentals craft
 analysis + opened-screen cites in `evidence.md` (or equivalent), raise **BLOCKER** for
 unsupported craft claims and note FAIL UX handoff under `RESEARCH_HCI`. Critic grades the
@@ -44,8 +43,7 @@ named check; you challenge unsupported claims. Narrative pass is rejected. Adv m
 **Draft SoT until Cos ACCEPT merge — not live.** Stacks on `DESIGN_AGENCY_BAR` +
 `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Check 7/8 — does **not** replace them.
 **Design, Experience, and Branding are paramount**; engineering follows signed craft. On
-product Initiatives (every product UX + Research seat: AG, Ladders, [redacted product], EW,
-EvenCursor, Dungeon, JEEP, future — **not** OpenClaw): if Research claims or handoffs allow
+product Initiatives (every product UX + Research seat — **not** OpenClaw): if Research claims or handoffs allow
 pixels / stills / web without Cos-signed `design-system.md` (tokens / type / space / motion /
 brand / do-not + Experience principles + Brand Voice + Audience/promise + Information-design
 rules + Research cite), or Research solo-ships Initiative look, or Eng-led chrome precedes

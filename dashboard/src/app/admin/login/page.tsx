@@ -1,11 +1,11 @@
-import {Banner} from '@astryxdesign/core/Banner';
-import {Button} from '@astryxdesign/core/Button';
-import {Card} from '@astryxdesign/core/Card';
-import {Center} from '@astryxdesign/core/Center';
-import {Divider} from '@astryxdesign/core/Divider';
-import {Icon} from '@astryxdesign/core/Icon';
-import {VStack} from '@astryxdesign/core/Layout';
-import {Heading, Text} from '@astryxdesign/core/Text';
+import {Banner} from '@ag-dashboard/core/Banner';
+import {Button} from '@ag-dashboard/core/Button';
+import {Card} from '@ag-dashboard/core/Card';
+import {Center} from '@ag-dashboard/core/Center';
+import {Divider} from '@ag-dashboard/core/Divider';
+import {Icon} from '@ag-dashboard/core/Icon';
+import {VStack} from '@ag-dashboard/core/Layout';
+import {Heading, Text} from '@ag-dashboard/core/Text';
 import {LockClosedIcon} from '@heroicons/react/20/solid';
 import {signInWithGoogle} from '@/app/admin/actions';
 

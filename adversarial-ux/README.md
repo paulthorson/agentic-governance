@@ -116,5 +116,5 @@ Sensor template: `assets/templates/design-system.md`.
 
 **AG website UX Canvas — filled SoT LIVE:**
 [`docs/initiatives/ag-website-ux-canvas.md`](../docs/initiatives/ag-website-ux-canvas.md)
-(Cos LOCK Paul 2026-09-14; Adv CONCERN amend unpaid from [#50](https://github.com/paulthorson/agentic-governance/pull/50);
-screens gated after; Eng HOLD look/pixels until Cos craft + Paul yes on stills).
+(Cos LOCK operator 2026-09-14; Adv CONCERN amend unpaid from [#50](https://github.com/paulthorson/agentic-governance/pull/50);
+screens gated after; Eng HOLD look/pixels until Cos craft + operator yes on stills).

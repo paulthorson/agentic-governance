@@ -1,10 +1,10 @@
 # Epic — Marketing site split (EXTRACT PRD)
 
-Status: **tip for Cos ACCEPT / MUST-merge** (Paul LOCK 2026-09-14; Cos craft PASS
+Status: **tip for Cos ACCEPT / MUST-merge** (operator LOCK 2026-09-14; Cos craft PASS
 on content with stay-vs-move OPEN Q → LOCK). Docs / Class A ops plan only — not look,
 not pixels, not Research.
 
-**Paul LOCK — repo name (exact):**
+**operator LOCK — repo name (exact):**
 [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site)
 
 **Related initiative SoT (look / UX, separate track):**
@@ -20,8 +20,7 @@ PRD.
 
 `paulthorson/agentic-governance` currently carries both (1) the product/framework
 people download and (2) the public marketing / living-board surface under
-`dashboard/`, deployed today as Vercel project **agentic-governance-three**
-(`https://agentic-governance-three.vercel.app`, Root Directory `dashboard`).
+`dashboard/` is the **LOCALHOST** improve app only (Tip B #124). Public marketing face = `agentic-governance-site` / https://www.agenticgovernance.app. Framework must **not** bind Vercel project `agentic-governance`.
 
 That conflates faces:
 
@@ -33,7 +32,7 @@ That conflates faces:
 - Analytics / measured board feeds belong to the framework loop; the marketing
  surface should **consume** them read-only, not own the framework.
 
-## Outcomes (Paul LOCK — SPLIT tracks)
+## Outcomes (operator LOCK — SPLIT tracks)
 
 1. **New git for MARKETING WEBSITE only** —
  [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site)
@@ -41,11 +40,11 @@ That conflates faces:
  `agentic-governance` into that repo.
 2. **`paulthorson/agentic-governance` remains the product/framework** people
  download — **no** marketing site as the download face.
-3. **Vercel project for the marketing-site repo is on the CRITICAL PATH** (Cos/Paul
+3. **Vercel project for the marketing-site repo is on the CRITICAL PATH** (Cos/operator
  LOCK) — create / bind a Vercel project to
  https://github.com/paulthorson/agentic-governance-site as Class A ops **now**.
  **Do NOT wait** on look stills (**#39 / #26**). Rewire / successor of current
- marketing deploy (**agentic-governance-three**) lands on that critical path;
+ marketing deploy (**agentic-governance-site** Vercel) is the critical path;
  conflict cleanup for open docs tips **#42 / #35 / #34 / #49** GO on a **separate**
  track — not this PRD’s merge payload.
 4. **Get AG / download CTA URL** →
@@ -62,15 +61,15 @@ That conflates faces:
 |---|---|---|
 | Create / bind Vercel project to https://github.com/paulthorson/agentic-governance-site | Cos (Class A ops) | **CRITICAL PATH** of this site-split epic |
 | **Do NOT wait** on #39 / #26 look stills / pixels | Eng + Cos | Look ≠ deploy path |
-| When Vercel project is up → **Cos notifies Paul** (domain setup) | Cos → Paul | Cos owns Paul notify; Paul owns domain setup after notify |
-| Rewire current marketing deploy (agentic-governance-three or successor) onto site repo | Cos / Eng Class A | Same critical path; still not blocked on look |
+| When Vercel project is up → **Cos notifies operator** (domain setup) | Cos → operator | Cos owns operator notify; operator owns domain setup after notify |
+| Keep marketing deploy on agentic-governance-site Vercel (framework detached) | Cos / Eng Class A | Same critical path; still not blocked on look |
 
 ## Class A vs Class B merge rule (cite)
 
 | Class | What | Merge rule |
 |---|---|---|
 | **Class A** | Process / docs / extract + **Vercel project create/rewire** ops | May plan and (after Cos ACCEPT of this PRD) execute **without** waiting on marketing look. Marketing look ≠ process. Vercel project creation is **critical path**. |
-| **Class B** | Marketing look / stills / pixels (`dashboard` craft, Check 7/8 stills) | **Eng HOLD** pixels on **#39** until Paul yes. **Never** #39 / #26 look on this extract tip. Look/stills move with the site repo **once split**, still under Paul craft gate — **not** a gate on Vercel project create. |
+| **Class B** | Marketing look / stills / pixels (`dashboard` craft, Check 7/8 stills) | **Eng HOLD** pixels on **#39** until operator yes. **Never** #39 / #26 look on this extract tip. Look/stills move with the site repo **once split**, still under operator craft gate — **not** a gate on Vercel project create. |
 
 - **Process/docs stay in AG git** (this epic lives here as Class A SoT).
 - **Research not required** for the repo split.
@@ -80,7 +79,7 @@ That conflates faces:
 
 ## Stay-vs-move LOCKs (Cos craft PASS — was OPEN Q)
 
-Cos craft PASS on content; Paul/Cos LOCK these three (no longer open):
+Cos craft PASS on content; operator/Cos LOCK these three (no longer open):
 
 | # | Topic | LOCK |
 |---|---|---|
@@ -100,10 +99,10 @@ Cos craft PASS on content; Paul/Cos LOCK these three (no longer open):
  product track, not a reason to keep public UX in AG git.
 - **Living board UI** (L3).
 - Look / stills / visual QA packs that are **marketing-site craft** — move with the
- site repo **once split** (still Class B / Paul craft gate; not executed by this
+ site repo **once split** (still Class B / operator craft gate; not executed by this
  PRD; **never** #39 / #26 on this tip).
 - Vercel project bound to site repo (**critical path** create/rewire; includes
- successor of **agentic-governance-three**).
+ public face on **agentic-governance-site**.
 
 ### Stay → `paulthorson/agentic-governance`
 
@@ -129,9 +128,9 @@ stay-vs-move LOCKs). Execute tracks (separate PRs / ops) then prove:
  site is **not** the clone/download primary face. |
 | A3 | **CRITICAL PATH:** Vercel project exists for
  https://github.com/paulthorson/agentic-governance-site (create and/or rewire of
- **agentic-governance-three** / successor). Class A ops — **not** blocked on
+ **agentic-governance-site**). Class A ops — **not** blocked on
  #39/#26 look stills. |
-| A3a | **Cos notifies Paul** when that Vercel project is up so Paul can do **domain
+| A3a | **Cos notifies operator** when that Vercel project is up so operator can do **domain
  setup**. Cos owns the notify; notify is part of critical-path completion. |
 | A4 | Get AG / download CTA resolves to
  `https://github.com/paulthorson/agentic-governance` or AG release assets — **not**
@@ -139,8 +138,8 @@ stay-vs-move LOCKs). Execute tracks (separate PRs / ops) then prove:
  LICENSE only (Get AGs removed). |
 | A5 | Marketing site consumes analytics / measured board feeds from AG (or published
  AG feed) **read-only**; no framework tree inside marketing git. |
-| A6 | Process/docs remain in AG git; look/stills that move do so under Class B / Paul
- craft rules (Eng HOLD #39 until Paul yes) — look remains **off** the Vercel
+| A6 | Process/docs remain in AG git; look/stills that move do so under Class B / operator
+ craft rules (Eng HOLD #39 until operator yes) — look remains **off** the Vercel
  critical path. |
 | A7 | Stay-vs-move LOCKs held: admin twin UI + living board UI + Anonymous Improve
  public UX/consent on site repo; AG owns measured data/feeds, improve corpus, and
@@ -170,9 +169,9 @@ this epic’s critical path (not deferred to look).
 
 | Role | Action |
 |---|---|
-| **Cos** | ACCEPT / MUST-merge this extract PRD tip when CI green + MERGEABLE → execute critical path (extract + **Vercel project create/rewire** Class A). **Notify Paul** when Vercel project is up (domain setup). |
-| **Paul** | Domain setup after Cos notify that Vercel project for agentic-governance-site is up. |
-| **Eng** | Plan extract + Vercel project/rewire as Class A ops (**not** gated on look); **HOLD** #39 pixels until Paul yes. |
+| **Cos** | ACCEPT / MUST-merge this extract PRD tip when CI green + MERGEABLE → execute critical path (extract + **Vercel project create/rewire** Class A). **Notify operator** when Vercel project is up (domain setup). |
+| **operator** | Domain setup after Cos notify that Vercel project for agentic-governance-site is up. |
+| **Eng** | Plan extract + Vercel project/rewire as Class A ops (**not** gated on look); **HOLD** #39 pixels until operator yes. |
 | **UX** | Look/stills follow site repo after split; never via this tip; never #39/#26 here; never block Vercel critical path. |
 | **Research** | Not required for repo split. |
 | **Adv** | Challenge only if this tip smuggles look, moves measured corpora/process into marketing git, or re-gates Vercel create on #39/#26. |

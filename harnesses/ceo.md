@@ -116,7 +116,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
 
 - **Id:** `LIVE_SOT_MERGED_SHA`
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge.
-- **FAIL:** Treating intake / open PR / draft / muse as live Paul LOCK or harness law; only Cos ACCEPT + merged SHA is live.
+- **FAIL:** Treating intake / open PR / draft / muse as live operator LOCK or harness law; only Cos ACCEPT + merged SHA is live.
 - **Sensor:** SoT claims must cite merged commit SHA (or merged PR number); open/draft headers say not live / not effective until Cos ACCEPT merge.
 - **Stack:** Gates Cos ACCEPT; does not replace `RESEARCH_BEFORE_ENHANCE` / Check 7 / Check 8
   (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) content — only liveness of *these*

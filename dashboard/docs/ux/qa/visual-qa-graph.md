@@ -2,7 +2,7 @@
 **Website DS LOCKED:** [`design-system.md`](design-system.md) — Cos GO SIGNOFF 2026-09-14 (Sage instrument · Advercase+Geist · Direct founder · Process Instrument in the Void).
 # Check 8 — Process Instrument in the Void
 
-**Paul LOCK 2026-09-14 hybrid:** **A** Editorial Void + **B** Process Story + **C** Measured Instrument.
+**operator LOCK 2026-09-14 hybrid:** **A** Editorial Void + **B** Process Story + **C** Measured Instrument.
 **Name:** Process Instrument in the Void.
 **DESIGN_AGENCY_BAR LIVE:** #43 @ `7e9e0b6`. Spectacle beads/marble/confetti/glow-as-craft FAIL.
 **LIVE SoT:** #40 @ `d3a515e` + #37 @ `cefb5f1` + RESEARCH_HCI #38 @ `214ed5b`. Cite #28 @ `f9f38ff`, #27 @ `235610e`.

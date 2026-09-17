@@ -10,14 +10,14 @@ ADV_COMP / live-comps evidence for the Cos GO dashboard epic. AG Research owns t
 | Living interactive graph splash | [`living-graph-splash-2026-09-13.md`](./living-graph-splash-2026-09-13.md) | Cos LOCK: public splash = living measured DATA GRAPH (not strip); **#28** @ `f9f38ff` |
 | Obsidian-class KG splash — Master's HCI | [`obsidian-kg-splash-2026-09-13.md`](./obsidian-kg-splash-2026-09-13.md) | LIVE SoT — **#37** @ `cefb5f1` — fundamentals + Obsidian FIRST + compose teach |
 | Matrix / elevated dark-ops KG (PRIMARY tip) | [`matrix-elevated-kg-2026-09-13.md`](./matrix-elevated-kg-2026-09-13.md) | Cos LOCK look additive **#39**: elevated readable KG under Matrix/Tron phosphor; cite RESEARCH_HCI **#38** @ `214ed5b` + **#37** @ `cefb5f1`; FAIL wallpaper+blob; Eng HOLD |
-| Anonymous Improve Feedback — consent HCI | [`anonymous-improve-consent-2026-09-14.md`](./anonymous-improve-consent-2026-09-14.md) | Paul LOCK (provisional): layered consent; plain-English basics; clear off-switch; Eng HOLD until #39 Paul yes; screens after UX Canvas #48 |
+| Anonymous Improve Feedback — consent HCI | [`anonymous-improve-consent-2026-09-14.md`](./anonymous-improve-consent-2026-09-14.md) | operator LOCK (provisional): layered consent; plain-English basics; clear off-switch; Eng HOLD until #39 operator yes; screens after UX Canvas #48 |
 | Process Instrument synapse comps | [`process-instrument-synapse-comps-2026-09-15.md`](./process-instrument-synapse-comps-2026-09-15.md) | Organic brain/neuron/synapse comps for #12 retip; wash-in-stroke; DESIGN_AGENCY_BAR; FAIL labels-only / beads |
-| Agent persona index + seat subpages | [`agent-persona-team-pages-2026-09-16.md`](./agent-persona-team-pages-2026-09-16.md) | Paul LOCK marketing: replace 7 loop chapters with persona index + subpage per seat (incl. critics/adversaries); RESEARCH_HCI; cites INTERNAL; Cos owns copy |
+| Agent persona index + seat subpages | [`agent-persona-team-pages-2026-09-16.md`](./agent-persona-team-pages-2026-09-16.md) | operator LOCK marketing: replace 7 loop chapters with persona index + subpage per seat (incl. critics/adversaries); RESEARCH_HCI; cites INTERNAL; Cos owns copy |
 
 `evidence.md` stays the Mobbin ADV_COMP SoT. **#37** @ `cefb5f1` teaches Obsidian-class KG compose. This tip is **additive elevation** (deep black / phosphor / atmosphere) stacked on RESEARCH_HCI **#38** @ `214ed5b` — teach elevated readable KG; screenshot collecting alone is FAIL. Does not rewrite prior packs or write `look.md`.
 
-Anonymous Improve consent pack teaches RESEARCH_HCI layered consent for the provisional Anonymous Improve Feedback epic. Cite DESIGN_SYSTEM_FIRST **#45** @ `ead012f`, Research Scope **#46** @ `cdf1c41`, UX Canvas **#48** @ `e9b4827`. Screens after Canvas LIVE + Cos craft; Eng HOLD until **#39** Paul yes.
+Anonymous Improve consent pack teaches RESEARCH_HCI layered consent for the provisional Anonymous Improve Feedback epic. Cite DESIGN_SYSTEM_FIRST **#45** @ `ead012f`, Research Scope **#46** @ `cdf1c41`, UX Canvas **#48** @ `e9b4827`. Screens after Canvas LIVE + Cos craft; Eng HOLD until **#39** operator yes.
 
-Process Instrument synapse comps pack supports #12 retip: organic synapse wash along strokes; cite FAIL chain f6026e9→2b52a99→113326a; Paul phone SoT.
+Process Instrument synapse comps pack supports #12 retip: organic synapse wash along strokes; cite FAIL chain f6026e9→2b52a99→113326a; operator phone SoT.
 
 Agent persona pack teaches sectioned index → seat subpage (NN/g People PRIMARY); Cos owns Substack voice; cites INTERNAL only.

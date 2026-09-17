@@ -15,9 +15,9 @@
 
 **Extract execute GO** — companion AG status: [`marketing-site-extract-execute.md`](./marketing-site-extract-execute.md). Site face extract lands in `agentic-governance-site` (parallel); this repo documents publisher posture without deleting dashboard UI yet.
 
-**Eng HOLD look pixels** until Paul yes (and stills / #39 craft clear). This plan does **not** authorize pixel work or `dashboard/src` look changes on AG.
+**Eng HOLD look pixels** until operator yes (and stills / #39 craft clear). This plan does **not** authorize pixel work or `dashboard/src` look changes on AG.
 
-**Paul LOCK 2026-09-14 — Get AG (superseded by release settle):** Prior acceptance-gate language is **void**. Settled posture: Apache-2.0 only; **no acceptance gate**; [redacted] Get AG files removed. **Eng HOLD Get AG CTA pixels** remains on #39 look craft only. Class A extract docs / ops OK; site-repo extract continues **in parallel**.
+**operator LOCK 2026-09-14 — Get AG (superseded by release settle):** Prior acceptance-gate language is **void**. Settled posture: Apache-2.0 only; **no acceptance gate**; [redacted] Get AG files removed. **Eng HOLD Get AG CTA pixels** remains on #39 look craft only. Class A extract docs / ops OK; site-repo extract continues **in parallel**.
 
 ---
 
@@ -45,7 +45,7 @@ Site repo [`paulthorson/agentic-governance-site`](https://github.com/paulthorson
 |---|---|
 | Marketing / site target repo | [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site) — site face (marketing + board + admin twin UI + Anon Improve public UX) |
 | Product / framework repo | [`paulthorson/agentic-governance`](https://github.com/paulthorson/agentic-governance) — download face + feed/corpus publisher |
-| Current Next app (pre-extract) | `dashboard/` on AG; legacy Vercel **agentic-governance-three** (root `dashboard`) hosts both public `/` and `/admin/*` today |
+| Current Next app (pre-extract) | `dashboard/` on AG = LOCALHOST app only (Tip B #124); public `/` + `/admin/*` live face = agentic-governance-site |
 | **Vercel (critical path)** | Project **`agentic-governance-site`** already **created + Git-linked** to the site repo — prefer this path for post-merge execute (vs only rewiring three) |
 | This PR | **PLAN DOCS ONLY** — no `dashboard/src` look changes; no #39 stills; no file moves |
 
@@ -53,7 +53,7 @@ Related SoT (do not reopen here):
 
 - PRODUCT extract epic — [`marketing-site-split.md`](./marketing-site-split.md) — [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` (**MERGED LIVE**; AG PM owns; do not overwrite)
 - AG website UX Canvas SoT — [`ag-website-ux-canvas.md`](./ag-website-ux-canvas.md) — LIVE [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4bc` (gate named [#48](https://github.com/paulthorson/agentic-governance/pull/48) @ `e9b4827`)
-- Eng HOLD look / pixels until Cos craft + Paul yes on stills (#39 track)
+- Eng HOLD look / pixels until Cos craft + operator yes on stills (#39 track)
 
 ---
 
@@ -73,7 +73,7 @@ Related SoT (do not reopen here):
 | Traction / board **consumer** | Client of `data/traction.json` + improve/KPI feeds | **Pull from AG** — never publish from site |
 | Site `vercel.json` | At **repo root** of `agentic-governance-site` | Root directory = repo root |
 
-**Not a move in this tip:** binaries / stills merge (#39). Stills follow Cos craft + Paul yes on a later Eng/UX tip.
+**Not a move in this tip:** binaries / stills merge (#39). Stills follow Cos craft + operator yes on a later Eng/UX tip.
 
 ---
 
@@ -122,7 +122,7 @@ Related SoT (do not reopen here):
 | Root Directory | **repo root** (site app at root — not nested `dashboard/`) |
 | Site `vercel.json` | Add at site repo root |
 | Site deploy env | Hosts public `/` **and** admin twin `/admin/*` (SSO env on **site** project once admin UI lives there) |
-| Legacy **agentic-governance-three** | Retire / redirect / re-point after site project is serving — do not leave split-brain marketing hosts |
+| Former framework Vercel (`agentic-governance` / three) | **DETACHED** from framework git — public face = site only; do not re-bind |
 
 ### Safest default after split (Cos OPEN Q LOCKs)
 
@@ -142,7 +142,7 @@ Rationale: one site product face (public + admin twin craft); AG remains framewo
 | **Get AG / download** | [`https://github.com/paulthorson/agentic-governance`](https://github.com/paulthorson/agentic-governance) (or AG release assets) | Site repo as product download |
 | Stars / clone links in traction | Product repo (as measured in feed) | Invented counts |
 
-**Paul LOCK (public release, settled):** Get AG / download has **no acceptance gate**. Apache-2.0 LICENSE only. Eng HOLD Get AG CTA **pixels** on #39 look craft. Extract Class A docs/ops OK; site extract continues in parallel.
+**operator LOCK (public release, settled):** Get AG / download has **no acceptance gate**. Apache-2.0 LICENSE only. Eng HOLD Get AG CTA **pixels** on #39 look craft. Extract Class A docs/ops OK; site extract continues in parallel.
 
 ---
 
@@ -154,7 +154,7 @@ Rationale: one site product face (public + admin twin craft); AG remains framewo
 | 1 | **This Eng extract plan** tipped (Cos OPEN Q LOCKs folded) | Eng |
 | 2 | **Cos ACCEPT + MUST-merge this Eng plan** when CI green | Cos |
 | 3 | Eng execute full extract + site Vercel wire — **separate PR(s)** (project already Git-linked); only after this plan MERGED | Eng |
-| 4 | Look pixels / #39 stills | **HOLD** until Cos craft + **Paul yes** — not authorized by this plan |
+| 4 | Look pixels / #39 stills | **HOLD** until Cos craft + **operator yes** — not authorized by this plan |
 
 ---
 
@@ -174,7 +174,7 @@ Rationale: one site product face (public + admin twin craft); AG remains framewo
 2. Vercel: `agentic-governance-site` already created + Git-linked (critical path); PRODUCT [#55](https://github.com/paulthorson/agentic-governance/pull/55) **MERGED LIVE** @ `19e451f`; Eng execute after this plan MERGED.
 3. Get AG CTA → AG git (never site repo as download).
 4. Measured-only honesty; no invented KPIs.
-5. Eng HOLD look pixels until Paul yes; Eng execute only after Cos ACCEPT / MUST-merge **this** Eng plan ([#55](https://github.com/paulthorson/agentic-governance/pull/55) already **MERGED LIVE** @ `19e451f`).
+5. Eng HOLD look pixels until operator yes; Eng execute only after Cos ACCEPT / MUST-merge **this** Eng plan ([#55](https://github.com/paulthorson/agentic-governance/pull/55) already **MERGED LIVE** @ `19e451f`).
 6. PLAN ONLY — no extract landed in this tip.
 
 ---

@@ -12,7 +12,7 @@ const figtree = Figtree({
 export const metadata: Metadata = {
   title: 'Agentic Governance — Improve',
   description:
-    'Public daily improve reports for Agentic Governance. Measured KPIs only — never invented numbers. UI powered by Meta Astryx.',
+    'Public daily improve reports for Agentic Governance. Measured KPIs only — never invented numbers. UI powered by Meta UI kit.',
 };
 
 export default function RootLayout({

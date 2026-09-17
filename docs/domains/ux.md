@@ -4,8 +4,7 @@
 
 ## What it reviews
 
-Designs, wireframes, the Even G2 glasses HUD, Sonos voice responses, TUI/Discord
-surfaces, and UX research (personas, usability). Any work where a human
+Designs, wireframes, product UI surfaces (web, device, voice, TUI/chat), and UX research (personas, usability). Any work where a human
 interacts with a product.
 
 ## Adversary agents

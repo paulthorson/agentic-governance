@@ -1,6 +1,6 @@
 # Agent persona index + seat subpages — RESEARCH_HCI (2026-09-16)
 
-**Ask:** Paul LOCK via Cos + site epic [#15](https://github.com/paulthorson/agentic-governance-site/issues/15) — AG marketing replaces 7 loop chapters with **agent persona index + subpage per seat** (all AG agents incl. critics/adversaries). Public framing: **harness**; **loop** ≤1. 
+**Ask:** operator LOCK via Cos + site epic [#15](https://github.com/paulthorson/agentic-governance-site/issues/15) — AG marketing replaces 7 loop chapters with **agent persona index + subpage per seat** (all AG agents incl. critics/adversaries). Public framing: **harness**; **loop** ≤1. 
 **Copy:** Substack human voice; **AI_SLOP_COPY_FAIL** #69 @ `26c7257`. Cos owns public copy funnel. 
 **Research:** fundamentals + opened comps; **cites INTERNAL only** (never on public `/`). 
 **Ownership:** AG Research evidence. UX stills / IA. Eng after Cos craft. Research does not paint or write public copy.
@@ -17,7 +17,7 @@
 | --- | --- |
 | Q1 Business model | Public marketing × living AG board: sell Agentic Governance by showing the **governed seat roster** (not a human “about us” HR page). |
 | Q2 Category | Marketing IA: **people/persona directory** + detail pages (index → seat). |
-| Q3 Audience | Visitors evaluating AG; operators browsing seats; Paul/Cos reviewing craft. |
+| Q3 Audience | Visitors evaluating AG; operators browsing seats; operator/Cos reviewing craft. |
 | Q4 Offer/promise | Every seat is a named role with a job — critics/adversaries included, not hidden. |
 | Q5 Craft bar | DESIGN_AGENCY_BAR: restraint, hierarchy, type, space; Substack voice; measured only. |
 | Q6 Anti-patterns | AI-slop bios; equal-weight face grid; loop-chapter dump; secrets/PII; stock “meet the team” fluff. |
@@ -77,7 +77,7 @@ Supporting (optional Adv open): NN/g About leadership strip https://www.nngroup.
 
 ### our-hole (AG)
 
-- 7 loop chapters as marketing spine ≠ seat mental model (Paul LOCK replace). 
+- 7 loop chapters as marketing spine ≠ seat mental model (operator LOCK replace). 
 - Risk: pretty equal-weight agent grid with no role family → Hick overload + “who challenges whom?” unread. 
 - Risk: AI-slop seat blurbs if copy leaves Cos funnel. 
 - Risk: critics/adversaries omitted (governance story collapses). 
@@ -133,7 +133,7 @@ Supporting (optional Adv open): NN/g About leadership strip https://www.nngroup.
 
 ## 7. Cheap amend — site epic #15 + harness framing (2026-09-16)
 
-**Site epic:** https://github.com/paulthorson/agentic-governance-site/issues/15 (Paul LOCK replace HOW THE LOOP WORKS chapters). Mobile chrome tip NOT blocked by this epic..
+**Site epic:** https://github.com/paulthorson/agentic-governance-site/issues/15 (operator LOCK replace HOW THE LOOP WORKS chapters). Mobile chrome tip NOT blocked by this epic..
 
 ### Roster families (PM v0 → compose sections)
 
@@ -143,14 +143,14 @@ Map index H2s to the inventory (names = seat roles; never private product brands
 2. **Governance / ops** — **Chief Executive** · Chief of Staff · Adversary *(Chief Executive + Chief of Staff required on public grid)* 
 3. **Adversarial review seats** — Adversarial Worker · Critic · CX Advocate · Evaluative UXR 
 
-Open Cos→Paul: whether Cos/Adv are public; card grid vs hub+detail; Process Instrument node remap — Research does not decide; comps support either IA.
+Open Cos→operator: whether Cos/Adv are public; card grid vs hub+detail; Process Instrument node remap — Research does not decide; comps support either IA.
 
 ### Public framing LOCK (absorb)
 
 - “What this is” = **harness** (not loops). Word **loop** ≤ **1** on that surface. 
-- Cards/pages = **what the agents do** (no Paul first-person; never name his products). 
+- Cards/pages = **what the agents do** (no operator first-person; never name his products). 
 - Persona tone (Cos copy): Substack voice + light dry humor only. **No** movie refs, music refs, named-critic bits, or corpse language. Research cites constraint only; Cos owns copy. 
-- Eng HOLD implement until Cos craft stills + Paul yes.
+- Eng HOLD implement until Cos craft stills + operator yes.
 
 ### Compose delta
 
@@ -162,7 +162,7 @@ Open Cos→Paul: whether Cos/Adv are public; card grid vs hub+detail; Process In
 
 ## 8. Cheap amend — Chief Executive + Chief of Staff on grid; persona ≠ Fable (2026-09-16)
 
-**Paul LOCK:** Public marketing agent grid **includes Chief Executive + Chief of Staff**. Persona pages are **normal site pages** (index card → seat subpage). **Not** Anthropic Fable / 3D brain-mesh treatment — Fable SoT was **only** for Process Instrument (#12 / #70), not persona IA.
+**operator LOCK:** Public marketing agent grid **includes Chief Executive + Chief of Staff**. Persona pages are **normal site pages** (index card → seat subpage). **Not** Anthropic Fable / 3D brain-mesh treatment — Fable SoT was **only** for Process Instrument (#12 / #70), not persona IA.
 
 ### Compose delta
 
@@ -179,10 +179,10 @@ Open Cos→Paul: whether Cos/Adv are public; card grid vs hub+detail; Process In
 
 ## 9. Cheap amend — persona copy tone LOCK (2026-09-16)
 
-**Paul LOCK (absorb):** Persona / marketing copy — **no movie refs**, **no music refs**, **no Jay Sherman**, **no corpse language**. Keep **Substack voice + light dry humor only**. Harness framing; loop ≤1 on what-this-is. Cos owns copy/ACCEPT. Research does not draft public copy.
+**operator LOCK (absorb):** Persona / marketing copy — **no movie refs**, **no music refs**, **no Jay Sherman**, **no corpse language**. Keep **Substack voice + light dry humor only**. Harness framing; loop ≤1 on what-this-is. Cos owns copy/ACCEPT. Research does not draft public copy.
 
 ---
 
 ## 10. Cheap amend — no abbreviations on public chrome (2026-09-16)
 
-**Paul ACCEPT / LOCK:** Persona card copy SoT (no movies/music/Jay Sherman/corpses) stands. **No abbreviations on public chrome** — spell **Chief Executive**, **Product Manager**, **User Experience**, **Engineer**, **Quality**, **Adversary**, **Chief of Staff** (not CEO/PM/UX/Eng/QA/Adv/Cos on visitor-facing labels). Home grid includes **Chief Executive + Chief of Staff**. Roster examples in this pack use spelled-out titles (INTERNAL shorthand CEO/PM/… only when naming bans). Eng HOLD until Cos craft stills + Paul phone. Cos owns copy.
+**operator ACCEPT / LOCK:** Persona card copy SoT (no movies/music/Jay Sherman/corpses) stands. **No abbreviations on public chrome** — spell **Chief Executive**, **Product Manager**, **User Experience**, **Engineer**, **Quality**, **Adversary**, **Chief of Staff** (not CEO/PM/UX/Eng/QA/Adv/Cos on visitor-facing labels). Home grid includes **Chief Executive + Chief of Staff**. Roster examples in this pack use spelled-out titles (INTERNAL shorthand CEO/PM/… only when naming bans). Eng HOLD until Cos craft stills + operator phone. Cos owns copy.

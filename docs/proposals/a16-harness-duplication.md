@@ -1,7 +1,7 @@
 # Proposal: A16 — harness bodies are duplicated
 
 **Status:** DECIDED — Option B (generate one from the other), approved by
-operator (Paul) on 2026-09-06. Recorded as **A23** in spec-addendum-01.md.
+operator on 2026-09-06. Recorded as **A23** in spec-addendum-01.md.
 **Date:** 2026-09-06
 **Related:** A16 open problem (spec-addendum-01.md §A16), now resolved by A23.
 

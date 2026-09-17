@@ -75,7 +75,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 
 - **Id:** `LIVE_SOT_MERGED_SHA`
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge (liveness only).
-- **FAIL:** Treating intake / open PR / draft / muse as live Paul LOCK or harness law. Only Cos ACCEPT + merged SHA is live. Precedent: `#13` intake ≠ SoT.
+- **FAIL:** Treating intake / open PR / draft / muse as live operator LOCK or harness law. Only Cos ACCEPT + merged SHA is live. Precedent: `#13` intake ≠ SoT.
 - **Sensor:** SoT claims cite merged commit SHA (or merged PR number); open/draft headers say **not live / not effective until Cos ACCEPT merge**.
 - **Stack:** Gates Cos ACCEPT; does not replace Check 8 content (**LIVE** via `#15` /
   `d61f4c1`) — only liveness of *these five* locks. Do not reopen Check 8.
@@ -92,7 +92,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **When:** QA ship / Look / visual pack gates on product UX surfaces (after Check 7 Eng-handoff artifacts exist when applicable).
 - **Who:** QA owns stills sensor; UX Critic Check 8 grades presence + FAIL criteria; Adv opens best-in-class comps and files ≥1 OUR hole + ≥1 COMP hole + do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps are not gospel.
 - **Stack:** Addition on `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Critic Check 7 + `ADV_COMP_CRITIQUE` — **not** a replacement.
-- **Scope:** Product UX surfaces only (marketing + app chrome). **All** product UX teams (Ladders, Even Weather, [redacted product], Dungeon, JEEP, EvenCursor, Nearby Places, G2, and any other product UX team). **Not** OpenClaw briefs.
+- **Scope:** Product UX surfaces only (marketing + app chrome). **All** product UX teams (every product UX team). **Not** OpenClaw briefs.
 - **Metrics (fail closed):**
   - Visual QA packs / ship gates without per-step mobile **and** desktop stills = **fail closed**.
   - Marketing/dashboard layout-shift Highs (primary CTA wrap, chrome colliding with CTA, theme control stealing CTA row) = **fail closed**.
@@ -107,9 +107,9 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 
 ### `AI_SLOP_COPY_FAIL` (copy bar — stacks on `DESIGN_AGENCY_BAR`)
 
-**Draft SoT until Cos ACCEPT merge — not live / not effective until ACCEPT** (`LIVE_SOT_MERGED_SHA`). Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor. Paul LOCK 2026-09-15 **ALL PRODUCTS**. Adv must **name this check** (`AI_SLOP_COPY_FAIL`) before Cos ACCEPT.
+**Draft SoT until Cos ACCEPT merge — not live / not effective until ACCEPT** (`LIVE_SOT_MERGED_SHA`). Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor. operator LOCK 2026-09-15 **ALL PRODUCTS**. Adv must **name this check** (`AI_SLOP_COPY_FAIL`) before Cos ACCEPT.
 
-- **Named check:** `AI_SLOP_COPY_FAIL` (Paul LOCK Cos — Class A docs SoT)
+- **Named check:** `AI_SLOP_COPY_FAIL` (operator LOCK Cos — Class A docs SoT)
 - **Bar:** **Human / Substack / Direct founder voice only** on visitor-facing and user-facing product surfaces. AI-slop / synthetic brochure copy = **FAIL**.
 - **Named FAIL (no narrative pass):** banned lexicon examples — not exhaustive (Brand Voice judgment) — **delve**, **unlock**, **elevate**, **seamless**, **robust**, **leverage**, **empower**, **journey**, **revolutionize**, **cutting-edge**; **twin-attribute cadence** (paired brochure adjectives); brochure pitch voice instead of founder voice.
 - **When:** QA ship / Look / visual pack gates on product UX surfaces (with Cos craft FAIL before Adv).

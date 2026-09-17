@@ -1,7 +1,7 @@
 # Brand & Design Setup — Initiative packet (`DESIGN_SYSTEM_FIRST`)
 
 **LIVE** — Cos ACCEPT merged [#45](https://github.com/paulthorson/agentic-governance/pull/45)
-@ `ead012f`. Soft / deferred / tip / wiki-scar-only = **REJECTED**. Cos LOCK Paul. Check id:
+@ `ead012f`. Soft / deferred / tip / wiki-scar-only = **REJECTED**. Cos LOCK operator. Check id:
 `DESIGN_SYSTEM_FIRST`.
 
 Copy this template into the Initiative packet as `design-system.md`. Research × UX fill it
@@ -18,7 +18,7 @@ reverse. Cite [#64](https://github.com/paulthorson/agentic-governance/pull/64) @
 **Paramount:** Design, Experience, and Branding are paramount — not optional polish after Eng.
 Design system + Experience + Branding **lead** Initiative; engineering follows signed craft.
 
-**Fresh comps (Paul LOCK — Research owns):** Research cites must be **diverse** and
+**Fresh comps (operator LOCK — Research owns):** Research cites must be **diverse** and
 **business-model-matched per project**. Gather a **FRESH** set for **this** project — **not**
 one peer, **not** a fixed AG comps list copy-pasted across teams. Do **not** reuse
 Pentagram / 500 / AXM as an all-teams default — those were **AG-site-specific**. Comp cites
@@ -59,7 +59,7 @@ Missing answers = FAIL. Copy-pasting another team’s Scope = FAIL.
 | Q5 | Craft bar (what good looks like) | |
 | Q6 | Anti-patterns | |
 | Q7 | How many comps + diversity bar | |
-| Q8 | Where to look (if blank, Research suggests: Mobbin, live sites, apps, …) | |
+| Q8 | Where to look (if blank, Research suggests: live comps libraries, live sites, apps, …) | |
 
 ---
 

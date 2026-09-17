@@ -5,7 +5,7 @@ Not a deferred README-only step. The conversational setup wizard
 is present. Operators may also re-run this module via the CLI stub at
 `scripts/cos_memory_setup.py`.
 
-Paul+Cos clarified store = private git (their operator memory).
+operator + Cos clarified store = private git (their operator memory).
 Framework Cos ASKS private_git OR local_folder — do not force one mode.
 Skeleton SoT: docs/templates/cos-memory/
 Local scaffold: config/cos-memory/ (gitignored)
@@ -83,10 +83,10 @@ def apply_at_cos_seating(
             "profile.md": (
                 "# Cos operator profile\n\n"
                 "## Storage mode\n\n"
-                "- Paul+Cos clarified store: private git\n"
+                "- operator + Cos clarified store: private git\n"
                 "- Mode (this install): (see STORAGE_MODE.md)\n"
             ),
-            "locks.md": "# Paul / Cos LOCKs\n\n",
+            "locks.md": "# Operator / Cos LOCKs\n\n",
             "log.md": "# Cos↔human episode log\n\n",
             "log/README.md": "# Dated episode files\n\n",
             "log/_episode.md": "# YYYY-MM-DD — episode title\n\n",
@@ -103,7 +103,7 @@ def apply_at_cos_seating(
         "# Cos memory storage mode\n\n"
         "Set at AG install/setup when Chief of Staff was seated — "
         "**not** a later optional README-only step.\n\n"
-        "- **Paul+Cos clarified store:** private git (their operator memory — "
+        "- **operator + Cos clarified store:** private git (their operator memory — "
         "not a force on every install).\n"
         "- **Framework ASK:** Cos prompts `private_git` OR `local_folder` — "
         "do not force one mode.\n\n"
@@ -130,7 +130,7 @@ def seating_prompt_summary() -> dict[str, Any]:
     return {
         "when": "AG install/setup when Chief of Staff is seated (setup wizard after roster)",
         "not": "deferred README-only optional step",
-        "paul_cos_clarified_store": "private_git",
+        "operator_cos_clarified_store": "private_git",
         "framework_ask": COS_MEMORY_MODES,
         "force_one_mode": False,
         "skeleton": SKELETON_REL.as_posix(),

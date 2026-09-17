@@ -1,9 +1,9 @@
 'use client';
 
-import {Card} from '@astryxdesign/core/Card';
-import {EmptyState} from '@astryxdesign/core/EmptyState';
-import {HStack, VStack} from '@astryxdesign/core/Layout';
-import {Heading, Text} from '@astryxdesign/core/Text';
+import {Card} from '@ag-dashboard/core/Card';
+import {EmptyState} from '@ag-dashboard/core/EmptyState';
+import {HStack, VStack} from '@ag-dashboard/core/Layout';
+import {Heading, Text} from '@ag-dashboard/core/Text';
 import {
   CartesianGrid,
   Line,

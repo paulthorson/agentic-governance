@@ -34,7 +34,7 @@ question. It covers:
 - **Budget model** — metered, billed, or not-yet-known.
 - **Roster** — each bot as `name | role | team | project repo(s)`.
 - **Cos memory (when Cos is seated — install/setup, not deferred)** —
-  **Paul+Cos clarified store = private git.** Framework Cos ASKS `private_git`
+  **operator + Cos clarified store = private git.** Framework Cos ASKS `private_git`
   **or** `local_folder` (do not force one); short private label; wizard finalize
   calls seating hook `mcp/adversarial_mcp/cos_memory_setup.py` (CLI:
   `scripts/cos_memory_setup.py`) and scaffolds `config/cos-memory/` from

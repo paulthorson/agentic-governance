@@ -3,7 +3,7 @@
 **Gate:** `RESEARCH_BEFORE_ENHANCE` + `ADV_COMP_CRITIQUE` 
 **Cos GO:** 2026-09-13 — public dashboard FAIL on look; Research evidence SoT before Check 7/8 or Eng UI. 
 **Ownership:** AG Research owns this pack. AG UX owns Check 7 (flows/JTBD) and Check 8 (stills) after — **not in this PR**. 
-**Live surface audited:** https://agentic-governance-three.vercel.app 
+**Live surface audited:** https://www.agenticgovernance.app 
 **Scope:** ADV_COMP evidence for the public marketing+ops face only (not OpenClaw briefs, not admin SSO, not Check 7/8 artifacts, not Eng UI). 
 **No Check 7/8 in this PR.**
 
@@ -75,7 +75,7 @@ Dedicated Linear **Insights** product screens were sparse in Mobbin at pull time
 - Fake filled charts or invented visitors / revenue / token / money numbers.
 - Dumping full MD reports as the fold hero.
 - Internal launch language ("Cos unlocks", private-repo asides) on the public face.
-- Component-gallery Astryx demos without product IA (Meta Astryx is UI SoT; the page must still be a product face, not a kit demo).
+- Component-gallery UI-kit demos without product IA (declared product design system is UI SoT; the page must still be a product face, not a kit demo).
 - No **fake ticker** — numbers must not scroll/tick for atmosphere.
 - No **invented pulse** — activity pulse only when a real improve / merge / retro event lands.
 - No **simulated live** activity that is not backed by a measured feed.
@@ -86,7 +86,7 @@ Dedicated Linear **Insights** product screens were sparse in Mobbin at pull time
 
 Observed from opened comps + AG PM toast/spark set; AG UX translates into Check 8 stills. No Eng motion in this PR. **No Check 7/8 artifacts in this PR.**
 
-**Evidence of absence (live public `/`, text audit 2026-09-13):** https://agentic-governance-three.vercel.app shows **static** measured KPI copy (Gains / Retros / merged PRs from improve MD) and **no** count-up / activity pulse / ship toast on the public face today. That is evidence of absence — **not** a build ticket.
+**Evidence of absence (live public `/`, text audit 2026-09-13):** https://www.agenticgovernance.app shows **static** measured KPI copy (Gains / Retros / merged PRs from improve MD) and **no** count-up / activity pulse / ship toast on the public face today. That is evidence of absence — **not** a build ticket.
 
 **Mobbin stills caveat:** Mobbin captures are static screenshots. Toast / confirmation / sparkline chrome is **visible in stills** below; tweened count-up / pulse timing is product-UX inference unless noted. Adv must open every URL. Numbers / motion may only tie to **measured feeds** (improve MD, merged PRs, retros).
 
@@ -119,14 +119,14 @@ Supporting ops-board stills (card chrome / spark vocabulary, not toast): [Stripe
 
 ---
 
-## 8. Keep / adopt for Meta Astryx product face (not component demo)
+## 8. Keep / adopt for declared design-system product face (not component demo)
 
 **Keep (locked honesty):**
 
 - Traction gate via `data/traction.json` — hide below-threshold metrics; never invent.
 - Measured-points-only improve trends — null days stay gaps (but must look intentional).
 - Primary CTA toward Get AG / GitHub (public distribution), once Cos clears public marketing copy.
-- UI implementation SoT remains Meta Astryx (`@astryxdesign/core` + theme-neutral) — after Check 8 stills + Adv PASS.
+- UI implementation SoT remains the declared product design system — after Check 8 stills + Adv PASS.
 
 **Adopt (from comps, product IA):**
 
@@ -147,7 +147,7 @@ Supporting ops-board stills (card chrome / spark vocabulary, not toast): [Stripe
 - Strip internal launch copy from public marketing ("Cos unlocks", private-repo asides).
 - Motion only from measured feeds (improve MD, merged PRs, retros) — no **fake ticker**, no **invented pulse**, no **simulated live**.
 - Designed empty/baseline required; traction stays gated.
-- UI SoT: Meta Astryx — Eng implements only after AG UX Check 8 `VISUAL_STEP_STILLS` → Adv PASS → stills to Cos.
+- UI SoT: declared product design system — Eng implements only after AG UX Check 8 `VISUAL_STEP_STILLS` → Adv PASS → stills to Cos.
 - This PR is **Research intake only** (`evidence.md`). AG UX owns Check 7/8 next. **Not live Eng UI yet.** **No Check 7/8 in this PR.**
 
 ---
