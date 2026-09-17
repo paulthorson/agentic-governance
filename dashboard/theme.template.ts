@@ -1,5 +1,5 @@
 /**
- * Astryx theme template — every `defineTheme` field, with a note on what it
+ * Localhost dashboard UI kit theme template — every `defineTheme` field, with a note on what it
  * does and when to reach for it.
  *
  * Only `name` is required. Delete what you do not need: the values here are
@@ -16,7 +16,7 @@
  *
  * 1. WRAP THE APP. A theme does nothing until it is provided.
  *
- *      import {Theme} from '@astryxdesign/core';
+ *      import {Theme} from '@ag-dashboard/core';
  *      import {myTheme} from './theme';
  *
  *      <Theme theme={myTheme} mode="system">   // 'system' | 'light' | 'dark'
@@ -26,7 +26,7 @@
  *    `system` follows the OS. Nest a second `<Theme>` to give one region its
  *    own theme or mode — a dark sidebar inside a light page.
  *
- * 2. SHIP THE FONTS YOU NAME. Astryx sets the `--font-family-*` tokens; it
+ * 2. SHIP THE FONTS YOU NAME. The UI kit sets the `--font-family-*` tokens; it
  *    never loads a font file, so use whatever typeface the design needs and
  *    load it yourself. Either add it to your app's <head>:
  *
@@ -78,9 +78,9 @@
  * - /packages/core/src/theme/expandMotionScale.ts
  */
 
-import {defineTheme} from '@astryxdesign/core/theme';
-// import {dracula} from '@astryxdesign/core/theme/syntax';
-// import {neutralTheme} from '@astryxdesign/theme-neutral';
+import {defineTheme} from '@ag-dashboard/core/theme';
+// import {dracula} from '@ag-dashboard/core/theme/syntax';
+// import {neutralTheme} from '@ag-dashboard/theme-neutral';
 
 export const myTheme = defineTheme({
   /** Required. Becomes the `data-astryx-theme` attribute and the registry key. */
@@ -223,7 +223,7 @@ export const myTheme = defineTheme({
   /**
    * Optional theme-family-local roles. Use the complete exact name and keep
    * references inside this maintained theme family. These do not become
-   * portable Astryx tokens.
+   * portable UI-kit tokens.
    */
   // localTokens: {'--astryx-theme-my-theme-color-status-fill-accent': ['#0077B6', '#48CAE4']},
 
@@ -312,7 +312,7 @@ export const myTheme = defineTheme({
 
   /**
    * Code highlighting: sets the --color-syntax-* tokens. Presets live in
-   * `@astryxdesign/core/theme/syntax`.
+   * `@ag-dashboard/core/theme/syntax`.
    */
   // syntax: dracula,
 

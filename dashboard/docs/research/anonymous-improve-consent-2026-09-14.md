@@ -1,9 +1,9 @@
 # Anonymous Improve Feedback — RESEARCH_HCI consent UX pack
 
 **Gate:** `RESEARCH_HCI` (**#38** @ `214ed5b`) / `RESEARCH_BEFORE_ENHANCE` 
-**Epic (provisional name):** Paul LOCK **Anonymous Improve Feedback** 
+**Epic (provisional name):** operator LOCK **Anonymous Improve Feedback** 
 **Date:** 2026-09-14 (America/New_York) 
-**Ownership:** AG Research owns this pack (plain-English “basics,” clear off-switch, layered consent teach). **AG UX** composes screens **after** UX Canvas **LIVE** + Cos craft. **Eng HOLD** until **#39** Paul yes. Research does **not** paint stills, write `look.md`, or touch `src`. 
+**Ownership:** AG Research owns this pack (plain-English “basics,” clear off-switch, layered consent teach). **AG UX** composes screens **after** UX Canvas **LIVE** + Cos craft. **Eng HOLD** until **#39** operator yes. Research does **not** paint stills, write `look.md`, or touch `src`. 
 **Cite locks:** DESIGN_SYSTEM_FIRST **#45** @ `ead012f`; Brand & Design Setup + Research Scope **#46** @ `cdf1c41`; UX Canvas **#48** @ `e9b4827` (named next gate; contents TBD); DESIGN_AGENCY_BAR **#43** @ `7e9e0b6` (restraint — no agency playlist; Pentagram/500/AXM = AG-internal only, NEVER public). 
 **Destination (product fact):** improve loop / living board / Cos daily AG digest — **measured only**. 
 **Codes only:** pack examples use `P-01`… style; never secrets, tokens, PII, absolute paths, or private operator data. 
@@ -40,7 +40,7 @@ If a still cannot be defended with §1–§6 vocabulary + product facts, it fail
 | Lane 4 | Richer diagnostic logs — **explicit opt-in** |
 | Destination | Improve loop / living board / Cos daily AG digest — **measured only** |
 | Research OWN | Clear off-switch; plain English what “basics” means (proposal below — Cos may rename) |
-| Screens | After UX Canvas **LIVE** + Cos craft; Eng HOLD until **#39** Paul yes |
+| Screens | After UX Canvas **LIVE** + Cos craft; Eng HOLD until **#39** operator yes |
 | Out of scope for Research | Stills, `look.md`, `src`, agency playlist |
 
 ---
@@ -224,7 +224,7 @@ From S01–S02 + product facts:
 | A6 | Layered consent: default-on basics vs explicit opt-in diagnostics | §3 + product facts | PASS (Research) |
 | A7 | Codes only; no PII in examples | Throughout | PASS (Research) |
 | A8 | Dark-pattern FAIL list explicit | §6.3 | PASS (Research) |
-| A9 | No stills / no `look.md` / no `src`; Eng HOLD until #39 Paul yes | Ownership banner | PASS (Research) |
+| A9 | No stills / no `look.md` / no `src`; Eng HOLD until #39 operator yes | Ownership banner | PASS (Research) |
 | A10 | UX Canvas **#48** @ `e9b4827` named as next gate before screens | Banner + §6.1 | PASS (Research) |
 | A11 | Agency playlist skipped (AG-internal never public) | #43 cite | PASS (Research) |
 | A12 | Cos / Legal rename of “basics” allowed without invalidating pack | §4 label | OPEN (Cos) |
@@ -241,4 +241,4 @@ Compose consent as **two altitudes** (basics default-on with equal Off; diagnost
 **Research is not saying:** 
 Pixel stills, color, motion, Eng event schema, Legal lawful basis determination, or that Cos must keep the string “anonymous basics.”
 
-**Next gate:** UX Canvas **#48** @ `e9b4827` LIVE → Cos craft → stills. Eng remains HOLD until Paul **#39** yes.
+**Next gate:** UX Canvas **#48** @ `e9b4827` LIVE → Cos craft → stills. Eng remains HOLD until operator **#39** yes.

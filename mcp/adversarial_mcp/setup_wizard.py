@@ -153,7 +153,7 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     },
     # Cos memory — only when Chief of Staff is seated (roster has cos).
     # Framework ASK: private_git OR local_folder; do not force one.
-    # Paul+Cos clarified store = private git (documented; not a forced wizard default).
+    # operator + Cos clarified store = private git (documented; not a forced wizard default).
     # Skeleton: docs/templates/cos-memory/.
     {
         "id": "cos_memory_mode",
@@ -162,7 +162,7 @@ WIZARD_FLOW: list[dict[str, Any]] = [
             "Chief of Staff is seated. Where should Cos keep its private structured "
             "memory store (locks / Cos↔human episodes — not chat-only, not public AG "
             "product chrome)? Framework Cos ASKS — choose one; do not force a preference: "
-            "'private_git' (private git repo for versioned sync; Paul+Cos clarified store "
+            "'private_git' (private git repo for versioned sync; operator + Cos clarified store "
             "is private git) OR 'local_folder' (on-machine private folder). "
             "Skeleton: docs/templates/cos-memory/."
         ),
@@ -503,7 +503,7 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "## Cos memory (private structured store)",
         f"- mode: {answers.get('cos_memory_mode', '') or '(unset — Cos not seated, or wizard incomplete)'}",
         f"- label: {answers.get('cos_memory_label', '') or '(unset)'}",
-        "- Paul+Cos clarified store: private git (their operator memory — not a force on every install).",
+        "- operator + Cos clarified store: private git (their operator memory — not a force on every install).",
         "- Framework seating ASK (AG install/setup when Cos is seated — not deferred README-only): "
         "private_git OR local_folder — Cos prompts; do not force one mode.",
         "- Seating hook: mcp/adversarial_mcp/cos_memory_setup.py "
@@ -605,7 +605,7 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
                 f"\nCos memory (framework seating ASK — do not force one mode):\n"
                 f"  - mode: {answers.get('cos_memory_mode')}\n"
                 f"  - label: {answers.get('cos_memory_label') or '(unset)'}\n"
-                f"  - Paul+Cos clarified store: private git (their operator memory).\n"
+                f"  - operator + Cos clarified store: private git (their operator memory).\n"
                 f"  - skeleton: docs/templates/cos-memory/\n"
                 f"  - local scaffold: config/cos-memory/\n"
                 f"  - private structured locks/episodes only — not public product chrome.\n"
@@ -1088,7 +1088,7 @@ def _completion_note(answers: dict[str, Any], has_cos: bool = False) -> str:
         label = answers.get("cos_memory_label") or "(unset)"
         parts.append(
             f"Cos memory seated: mode={mode}, label={label}. "
-            "Paul+Cos clarified store is private git; framework ASK still lets "
+            "operator + Cos clarified store is private git; framework ASK still lets "
             "operators choose private_git OR local_folder (do not force). "
             "Scaffold at config/cos-memory/ from docs/templates/cos-memory/. "
             "If private_git: copy scaffold into your private repo. "

@@ -1,6 +1,6 @@
 # Proposal: A20 — where validation records live
 
-**Status:** DECIDED — Option A approved by operator (Paul) on 2026-09-06.
+**Status:** DECIDED — Option A approved by operator on 2026-09-06.
 **Date:** 2026-09-06
 **Related:** A11c validation record. (This is a distinct decision from A17, which
 remains open on its own subject — no project repo for governance-repo work.)
@@ -57,7 +57,7 @@ the first entry.
 
 ## Decision (2026-09-06)
 
-**Option A approved by the operator (Paul).** Validation records live in
+**Option A approved by the operator.** Validation records live in
 `docs/validation-records/` with the naming convention
 `YYYY-MM-DD-<epic>-<run>.md`. The existing `docs/a11c-validation-record.md` is
 left in place (not moved) to avoid churn; new records use the new directory.

@@ -1,6 +1,6 @@
 # Obsidian-class KG splash — Master's HCI Research (peak craft)
 
-**Gate:** Cos LOCK Paul **peak design craft** — SUPERSEDES screenshot-collect freeze on prior tip `b95e4a1`. `RESEARCH_BEFORE_ENHANCE` + ADV_COMP. 
+**Gate:** Cos LOCK operator **peak design craft** — SUPERSEDES screenshot-collect freeze on prior tip `b95e4a1`. `RESEARCH_BEFORE_ENHANCE` + ADV_COMP. 
 **Ownership:** AG Research (Master's HCI seat). **Eng HOLD.** Chatbot = **phase 2 out**. Cos ACCEPT evidence bar + Adv PASS ACCEPT. UX stills HOLD until Cos merge LIVE. 
 **Prior SoT (cite only — do not rewrite):** [`living-graph-splash-2026-09-13.md`](./living-graph-splash-2026-09-13.md) (**#28** @ `f9f38ff`); [`motion-finish-2026-09-13.md`](./motion-finish-2026-09-13.md) (**#27** @ `235610e`); [`evidence.md`](./evidence.md) (**#20** @ `9721af1`). 
 **Scope:** Evidence that **teaches senior-director composition**. A completeness / Mobbin tile dump is **not** evidence. No `look.md`. No Check 7–8. No Eng / `dashboard/src`. Codes only (`P-01`…). No secrets, tokens, PII, git/product/human names, Studio sauce.

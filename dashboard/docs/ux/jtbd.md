@@ -2,7 +2,7 @@
 **Website DS LOCKED:** [`design-system.md`](design-system.md) — Cos GO SIGNOFF 2026-09-14 (Sage instrument · Advercase+Geist · Direct founder · Process Instrument in the Void).
 # JTBD — Process Instrument in the Void
 
-**Paul LOCK:** A Editorial Void + B Process Story + C Measured Instrument. Advercase + Inter/SF.
+**operator LOCK:** A Editorial Void + B Process Story + C Measured Instrument. Advercase + Inter/SF.
 **DESIGN_AGENCY_BAR:** #43 @ `7e9e0b6`. **SoT:** #37 @ `cefb5f1` + #38 @ `214ed5b` + #40 @ `d3a515e`.
 **Bar:** Chapters sell the loop. Side instrument is dense real fluid 3D. Narrative drill-downs. FAIL diary / scoreboard / flat kit / hairball.
 **Codes only** on all surfaces. **Numbers:** 4 / 2 / 2. Hatch unpaid. Chatbot out.

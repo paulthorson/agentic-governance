@@ -3,7 +3,7 @@
 **Gate:** `RESEARCH_BEFORE_ENHANCE` — additive live cites for Cos HOLD **#24** look retip. 
 **Ownership:** AG Research owns this cite. AG UX owns composition / `look.md` — **not written here**. 
 **Prior SoT:** [`evidence.md`](./evidence.md) merged **#20** @ `9721af1` (Mobbin ADV_COMP). This file does **not** replace or rewrite that pack. 
-**Live AG:** https://agentic-governance-three.vercel.app 
+**Live AG:** https://www.agenticgovernance.app 
 **Opened:** ~2026-09-13 ~3:30 PM ET by AG Research (marketing + AG fold live; dashboards AUTH_REQUIRED). 
 **Scope:** Evidence-only live pixel facts + holes. No UI recommendations. No look composition. No Eng / `dashboard/src`.
 
@@ -17,7 +17,7 @@
 | **L2** | https://linear.app/ | public | dark marketing hero + product preview frame |
 | **L3** | https://dashboard.stripe.com/ | AUTH_REQUIRED | Sign-in wall only |
 | **L4** | https://linear.app/login | AUTH_REQUIRED | four-option login wall |
-| **L5** | https://agentic-governance-three.vercel.app/ | public | live AG fold |
+| **L5** | https://www.agenticgovernance.app/ | public | live AG fold |
 | **M\*** | #20 Mobbin analogs for authenticated dashboards: Stripe [Your overview](https://mobbin.com/screens/673e89af-fe9e-4ab9-ac27-435dedf21888); Linear [Project Overview + Progress rail](https://mobbin.com/screens/e88b6bd7-3d4b-4e1e-8cd7-a9d2a6852795) | prior SoT Mobbin | **Not** live-auth today — label as prior SoT Mobbin, not live-opened authenticated dashboard |
 
 Stills captured for L1 / L2 / L5 (and login-wall notes for L3 / L4) on open day; evidence below is from those stills + live open.

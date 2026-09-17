@@ -117,7 +117,7 @@ code, make it real; where not, say advisory.
 | `docs/deployment.md` still describes `0.0.0.0` default | Align after bind fix |
 | README “governance **mechanical**” / CEO “paces spend” | Overclaims vs code; rewrite after capability report |
 | SECURITY “non-negotiable guarantees” | Several are process/advisory, not code walls — reword |
-| Git author/committer **configs that SET identity** | **None found** in tree (5.1). History rewrite **done** 2026-09-16 (Paul GO) — see `docs/history-identity-scrub-2026-09-16.md` |
+| Git author/committer **configs that SET identity** | **None found** in tree (5.1). History rewrite **done** 2026-09-16 (operator GO) — see `docs/history-identity-scrub-2026-09-16.md` |
 | Personal email historically in dashboard allowlist / `.env.example` / README | **Scrubbed from tip** (5.3) — use `ADMIN_EMAILS` / placeholder `you@example.com` only; not git identity config |
 | Prior personal GitHub username URL (5.4) | Read-only check → **HTTP 404**; tip scrubbed to `prior username` |
 | No wizard network permission; messaging egress unrestricted when webhook/command set | Fix in commits 8–9 |

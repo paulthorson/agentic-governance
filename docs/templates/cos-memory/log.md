@@ -21,7 +21,7 @@
 
 ## 2026-09-15 — Check 9 tip opened (draft)
 
-- **Humans:** Paul / Cos
+- **Humans:** operator / Cos
 - **Decision:** LOCK (draft tip)
 - **Plain outcome:** Standing QA Check 9 / INITIATIVE_START_SEQUENCE drafted; Gothelf UX Canvas honesty; Cos memory template folded same tip.
 - **Artifacts:** tip branch Class A docs only

@@ -86,7 +86,7 @@ class TestReviewEngine(unittest.TestCase):
         self.assertTrue(r["veto_triggered"])
 
     def test_run_review_assembles_prompt(self):
-        r = mcp_server.run_review("ux", "A new onboarding flow for the glasses HUD.")
+        r = mcp_server.run_review("ux", "A new onboarding flow for the product-surface HUD.")
         self.assertIn("Adversarial review", r["review_prompt"])
         # The prompt lists the domain's agents by their frontmatter name.
         for a in mcp_server.list_agents("ux"):

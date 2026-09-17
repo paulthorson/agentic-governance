@@ -34,7 +34,7 @@ export function loadTractionConfig(): TractionConfig {
   return {
     updatedAt: null,
     sourceNote:
-      'No data/traction.json found. Traction widgets stay hidden until Cos/Paul add measured values.',
+      'No data/traction.json found. Traction widgets stay hidden until Cos/operator add measured values.',
     repoPublicRequired: true,
     metrics: {},
   };

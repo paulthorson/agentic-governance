@@ -1,11 +1,11 @@
 'use client';
 
-import {EmptyState} from '@astryxdesign/core/EmptyState';
-import {List, ListItem} from '@astryxdesign/core/List';
-import {Section} from '@astryxdesign/core/Section';
-import {Table} from '@astryxdesign/core/Table';
-import {HStack, VStack} from '@astryxdesign/core/Layout';
-import {Heading, Text} from '@astryxdesign/core/Text';
+import {EmptyState} from '@ag-dashboard/core/EmptyState';
+import {List, ListItem} from '@ag-dashboard/core/List';
+import {Section} from '@ag-dashboard/core/Section';
+import {Table} from '@ag-dashboard/core/Table';
+import {HStack, VStack} from '@ag-dashboard/core/Layout';
+import {Heading, Text} from '@ag-dashboard/core/Text';
 import type {ImproveReport} from '@/lib/improve';
 
 interface KpiRow extends Record<string, unknown> {

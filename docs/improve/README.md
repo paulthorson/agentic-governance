@@ -66,7 +66,7 @@ should…”, wiki tip, or scar-without-unpaid = **REJECTED**. SoT lives in
 [`harnesses/chief-of-staff.md`](../../harnesses/chief-of-staff.md). **No new sidebar
 persona.**
 
-**Cos CoE ownership (Paul/Cos LOCK; Adv confirm):** Team triad retro (feed) → AG seat drafts
+**Cos CoE ownership (operator/Cos LOCK; Adv confirm):** Team triad retro (feed) → AG seat drafts
 named unpaid SoT/plan (`id` / owner / metric / AC; project PMs ≠ AG constitution) → Adv
 challenges (does **not** author; `CRITIC_SEPARATE_STAMP`) → Cos ACCEPT → teams absorb next
 ship. Sensor remains unpaid item or `AUDIT_CLEAR`.
@@ -87,8 +87,8 @@ secrets/keys/emails/PII/host paths in digest artifacts; no invented tokens.
 
 - Template: [`_template.md`](./_template.md)
 - Changelog: [`../../CHANGELOG.md`](../../CHANGELOG.md)
-- Public dashboard: [`../../dashboard/`](../../dashboard/) (UI SoT = Meta Astryx)
+- Public dashboard: [`../../dashboard/`](../../dashboard/) (UI SoT = declared product design system)
 - Admin (Google SSO): [`../../dashboard/`](../../dashboard/) `/admin/*` — see dashboard README for Vercel env + OAuth
-- Traction gates: [`../../data/traction.json`](../../data/traction.json) — widgets stay hidden until Cos/Paul set measured values ≥ `minVisible`
+- Traction gates: [`../../data/traction.json`](../../data/traction.json) — widgets stay hidden until Cos/operator set measured values ≥ `minVisible`
 - Cos harness SoT (`SELF_AUDIT_LOOP`): [`../../harnesses/chief-of-staff.md`](../../harnesses/chief-of-staff.md)
 - Initiative epic (Anonymous Improve Feedback — PRD / feeds this digest): [`../initiatives/anonymous-improve-feedback.md`](../initiatives/anonymous-improve-feedback.md)

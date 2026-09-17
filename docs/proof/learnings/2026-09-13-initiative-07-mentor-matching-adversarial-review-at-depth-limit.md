@@ -28,7 +28,7 @@ But self-review cannot satisfy the framework's blind-isolation invariant,
 and recording ALLOW verdicts from it without disclosure would launder the
 provenance. The honest move is to record the verdicts with the isolation
 caveat stated in the summary itself, and to route the existing human gate
-(the roadmap's pre-pilot "Paul + independent framework reviewer must pass
+(the roadmap's pre-pilot "operator + independent framework reviewer must pass
 the consent/abuse suite") as the backstop that restores blind review
 before any real users are involved.
 

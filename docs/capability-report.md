@@ -59,11 +59,11 @@ or gates is enforcement.
 |---|---|---|
 | 5.1 In-tree configs that SET `user.name` / `user.email` / `GIT_AUTHOR*` / `GIT_COMMITTER*` | **No in-tree identity config exists.** The committing agent's identity comes from its **host environment** (e.g. `~/.gitconfig`, process env), outside this repository and not controlled by it. | Repo-wide grep + `tests/test_published_claims.py:168–211` (`test_no_git_identity_config_uses_non_noreply_email`) |
 | 5.2 Changes made in-repo | **None in-tree** — host-side git identity is outside this repository and not controlled by it. Not a repository fix. | Same; durability row below |
-| Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
+| Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (ephemeral host) (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
 | 5.3 Personal allowlist email (historical) | Was in allowlist; **removed** from functional code, tip prose, and git history (placeholder `noreply address` / `ADMIN_EMAILS`) | `admin-access.ts` now env-only; `docs/history-identity-scrub-2026-09-16.md` |
 | Personal phone numbers in tree | **NO** found | Repo-wide grep (no matches) |
 | 5.4 Prior personal GitHub username URL | HTTP **404** (2026-09-14 probe); tip + history scrubbed to `prior username` | Read-only `curl -sI`; history scrub note |
-| History rewrite / `.mailmap` | **Done** 2026-09-16 (Paul GO): `git-filter-repo` on `main`; author emails → `paulthorson@users.noreply.github.com` | `docs/history-identity-scrub-2026-09-16.md` |
+| History rewrite / `.mailmap` | **Done** 2026-09-16 (operator GO): `git-filter-repo` on `main`; author emails → `paulthorson@users.noreply.github.com` | `docs/history-identity-scrub-2026-09-16.md` |
 
 ---
 
@@ -72,7 +72,7 @@ or gates is enforcement.
 | Question | Answer | Cite |
 |---|---|---|
 | LICENSE text | Exact Apache-2.0 from upstream (no prepended copyright line) | `LICENSE` |
-| NOTICE | NOTICE present, copyright Paul Thorson, 2026. | `NOTICE` |
+| NOTICE | NOTICE present, copyright holder named in `NOTICE`, 2026. | `NOTICE` |
 | MCP direct deps | `mcp>=1.0.0,<2`, `pydantic>=2.0` | `mcp/pyproject.toml:6–9` |
 | Resolved Python licenses (local metadata) | mcp MIT; pydantic MIT; uvicorn/starlette/httpx BSD-3-Clause; certifi **MPL-2.0**; cryptography Apache-2.0 OR BSD-3-Clause; python-multipart Apache-2.0; typing-extensions PSF-2.0 | `importlib.metadata` after install |
 | GPL / AGPL in MCP set | **NO** found | — |
@@ -117,7 +117,7 @@ or gates is enforcement.
 | Storage | Traction/improve content from repo files / synced content; no first-party DB module found in dashboard src for AG data | `dashboard/data/`, `docs/improve` sync script |
 | Cookies | Auth.js session cookies when admin SSO used; no custom cookie module found in `dashboard/src` | Grep: no `cookie` hits under `dashboard/src` |
 | Analytics (gtag/plausible/segment) | **NO** matches under `dashboard/src` | Grep |
-| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including `@astryxdesign/*`, `next`, `next-auth`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json:7–25`; lockfile sharp entries |
+| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including the localhost dashboard UI kit packages, `next`, `next-auth`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json:7–25`; lockfile sharp entries |
 
 ---
 

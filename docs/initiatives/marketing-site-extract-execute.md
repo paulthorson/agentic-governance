@@ -18,7 +18,7 @@
 | Look / #39 pixels | **HOLD** — do **not** implement |
 | Get AG acceptance gate | **SUPERSEDED** — settled release posture: Apache-2.0 only; **no acceptance gate**; Get AGs removed. Get AG CTA pixels HOLD on #39 look only |
 | AG `dashboard/` UI | **Leave in place** for rollback until site PR lands and serves the extracted face — deprecate in README only; **no** full UI deletion in this companion tip |
-| Legacy Vercel **agentic-governance-three** | **Do not break** yet — document **retire / redirect** only after site project is serving the extracted face |
+| Former framework Vercel project (`agentic-governance` / three host) | **DETACH** — framework must not host a Vercel site; public face = `agentic-governance-site` only (Tip B #124) |
 
 ---
 
@@ -49,14 +49,14 @@ Invariant (Cos OPEN Q LOCKs from [#56](https://github.com/paulthorson/agentic-go
 
 | Deploy | Action now | Action later |
 |---|---|---|
-| **agentic-governance-three** (Root Directory `dashboard`) | **Leave serving** — do not tear down / break | After site is serving extracted face → **retire / redirect** onto site project (Class A ops; Cos/Eng) |
-| AG `dashboard/` sources | **Stay in tree** (rollback) — README marks marketing face **moving** / deprecated as host of record | Full UI deletion only after site PR landed + Cos green for delete |
+| Former framework Vercel (`agentic-governance` / three) | **DETACH** from framework git (no `vercel.json`; no homepage `*.vercel.app`) | Cos/operator console detach if still linked |
+| AG `dashboard/` sources | **KEEP as LOCALHOST app** — do **not** delete | Not a framework Vercel deploy; public face = site only |
 
 ---
 
-## Paul LOCK 2026-09-14 — Get AG (superseded by release settle)
+## operator LOCK 2026-09-14 — Get AG (superseded by release settle)
 
-> **Superseded (Paul LOCK public release):** [redacted] Get AG/DRAFT files
+> **Superseded (operator LOCK public release):** [redacted] Get AG/DRAFT files
 > were **removed**. Settled posture: free/open source Apache-2.0; **no acceptance gate
 > anywhere**; LICENSE is the only use governor. No replacement legal text.
 
@@ -91,7 +91,7 @@ Invariant (Cos OPEN Q LOCKs from [#56](https://github.com/paulthorson/agentic-go
 
 - Implement #39 look pixels / `dashboard/src` visual redesign.
 - Delete dashboard UI in this first companion tip (coordinate with site PR).
-- Break or rewire **agentic-governance-three** until site is serving.
+- Re-bind framework git to a Vercel marketing host (Cos CORRECT: framework = localhost dashboard only).
 - Overwrite PRODUCT epic or Eng extract **plan** files.
 - Invent replacement Terms / privacy / warranty text for deleted Get AGs.
 - Reintroduce an acceptance gate on Get AG / download.
@@ -107,9 +107,9 @@ Invariant (Cos OPEN Q LOCKs from [#56](https://github.com/paulthorson/agentic-go
 | 2 | Site extract PR on `agentic-governance-site` | **In parallel** — marketing face move continues (not blocked by AG companion) |
 | 3 | **This AG companion** (docs + publisher posture) | **This tip** |
 | 3a | Get AGs | **REMOVED** — no acceptance gate; Apache-2.0 only |
-| 4 | Retire / redirect **agentic-governance-three** | **After** site serves extracted face |
+| 4 | Detach framework Vercel / clear homepage | Tip B #124 — site already public face |
 | 5 | Optional AG `dashboard/` UI deletion | Only after site PR landed + Cos green |
-| 6 | Look / #39 Get AG CTA pixels | **HOLD** until Paul yes on look craft |
+| 6 | Look / #39 Get AG CTA pixels | **HOLD** until operator yes on look craft |
 
 ---
 

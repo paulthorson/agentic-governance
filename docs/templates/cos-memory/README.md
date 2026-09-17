@@ -6,11 +6,11 @@
 
 Give Cos operators a **private structured memory store** for Cos↔human locks and episodes — not only chat context. Copy this folder into private storage you control. Fill it as you work. It is a baked-in operator template, not a product feature.
 
-## Paul + Cos clarified store
+## operator + Cos clarified store
 
-**Paul+Cos operator memory = private git.** That is the clarified store for Paul and Cos themselves (versioned private repo — not public AG product surface).
+**operator + Cos operator memory = private git.** That is the clarified store for operator and Cos themselves (versioned private repo — not public AG product surface).
 
-This is a **clarification of Paul+Cos’s own store**, not a framework-wide forced default for every install.
+This is a **clarification of operator + Cos’s own store**, not a framework-wide forced default for every install.
 
 ## Framework setup flow (ASK at Cos seating — not deferred)
 
@@ -24,7 +24,7 @@ At seating, **framework Cos ASKS the operator** which path to use. The skeleton 
 
 | Path | Wizard option | When |
 |---|---|---|
-| **A — Private git repo** | `private_git` | Operator wants versioned history / sync (same shape as Paul+Cos clarified store) |
+| **A — Private git repo** | `private_git` | Operator wants versioned history / sync (same shape as operator + Cos clarified store) |
 | **B — Local folder** | `local_folder` | On-machine install; operator wants a simple private directory |
 
 Record the chosen path in `profile.md` / `STORAGE_MODE.md` (mode + non-secret label only — **no** absolute host paths, emails, or tokens).
@@ -34,7 +34,7 @@ Record the chosen path in `profile.md` / `STORAGE_MODE.md` (mode + non-secret la
 | This template | Public AG product surface |
 |---|---|
 | Cos operator working memory | Marketing site, dashboard chrome, Get AG, living board |
-| Private git (Paul+Cos clarified) **or** operator-chosen private git / local folder | `paulthorson/agentic-governance` public tree / site repo |
+| Private git (operator + Cos clarified) **or** operator-chosen private git / local folder | `paulthorson/agentic-governance` public tree / site repo |
 | Locks, episodes, Cos↔human decisions | Public product copy, screens, stills |
 
 **Do not** commit a filled memory store into public AG git. Ship only this empty template under `docs/templates/cos-memory/`. Filled stores stay private.
@@ -62,7 +62,7 @@ Record the chosen path in `profile.md` / `STORAGE_MODE.md` (mode + non-secret la
 ## What belongs
 
 - Standing Cos operator **profile / prefs** (`profile.md`) — including chosen storage mode (A or B)
-- **Paul/Cos LOCKs** with date + plain text (`locks.md`)
+- **operator/Cos LOCKs** with date + plain text (`locks.md`)
 - **Episodes** — Cos↔human decisions, ACCEPT/HOLD outcomes, named SoT lines (`log.md` and/or `log/`)
 
 ## What does NOT belong
@@ -72,7 +72,7 @@ Record the chosen path in `profile.md` / `STORAGE_MODE.md` (mode + non-secret la
 - Emails, account names, or other PII dumps
 - Absolute host paths
 - private operator data
-- A framework-forced “must use git” or “must use local” rule (Paul+Cos clarified store ≠ force-all-operators)
+- A framework-forced “must use git” or “must use local” rule (operator + Cos clarified store ≠ force-all-operators)
 
 **P0:** Examples in this template stay scrubbed. Soft “put everything in memory” = **REJECTED**.
 
@@ -81,7 +81,7 @@ Record the chosen path in `profile.md` / `STORAGE_MODE.md` (mode + non-secret la
 | File | Role |
 |---|---|
 | `profile.md` | Standing Cos operator profile / prefs + storage mode (A or B) |
-| `locks.md` | Paul/Cos LOCKs — date + plain text |
+| `locks.md` | operator/Cos LOCKs — date + plain text |
 | `log.md` | Append-only episode index / short log |
 | `log/` | Optional dated episode files (`YYYY-MM-DD-slug.md`) |
 

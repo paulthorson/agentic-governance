@@ -4,7 +4,7 @@ import {isAdminEmail} from "@/lib/admin-access";
 
 /**
  * Protect /admin/* behind Google SSO + allowlist.
- * /admin/login is reachable without a session so Paul can sign in.
+ * /admin/login is reachable without a session so the operator can sign in.
  */
 export default auth((req) => {
   const {pathname} = req.nextUrl;

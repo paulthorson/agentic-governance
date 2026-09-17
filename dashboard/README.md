@@ -1,20 +1,20 @@
-# Agentic Governance — improve dashboard
+# Agentic Governance — localhost improve dashboard
 
-> **Marketing face is moving.** Cos ACCEPT MERGED Eng extract plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) @ `e7bb36e` — execute **GO**. 
-> Public marketing / living board / admin twin **UI** → [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site) (site face + Vercel `agentic-governance-site`). 
-> **This repo stays** feed/corpus **publisher** + framework **download** — not the marketing host of record. 
+> **Public face is NOT this repo.** Marketing / living board / admin twin → [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site) (Vercel project `agentic-governance-site` / [www.agenticgovernance.app](https://www.agenticgovernance.app)). 
+> **This repo** = process/agent SoT + feed/corpus **publisher** + framework **download**. 
+> **`dashboard/`** = **LOCALHOST-only** app for operator/dev. Framework git must **not** bind a Vercel project. 
 > Keep `data/traction.json` + `npm run sync-improve` as publisher sources. **Do not delete** them. 
-> UI below remains in-tree for **rollback** until the site PR lands and serves the extracted face — then retire/redirect legacy Vercel **agentic-governance-three** (do **not** break three yet). 
-> **HOLD:** #39 look pixels; Get AG CTA pixels HOLD on look craft. Settled release posture: Apache-2.0 only; **no acceptance gate**; Get AGs removed. Extract execute continues on site repo **in parallel**. Status: [`docs/initiatives/marketing-site-extract-execute.md`](../docs/initiatives/marketing-site-extract-execute.md).
+> Cos CORRECT Tip B [#124](https://github.com/paulthorson/agentic-governance/issues/124): detach framework Vercel (`agentic-governance` / former three host); **KEEP** this localhost app. Marketing-site Vercel untouched. 
+> **HOLD:** #39 look pixels; ;. Settled release posture: Apache-2.0 only; **no acceptance gate**.
 
-Next.js app with two surfaces on the **same Vercel deploy** (route-split) — **legacy / rollback host** until site extract is live:
+Next.js **localhost** app with two surfaces (route-split) — run with `npm run dev`; **not** a framework Vercel deploy:
 
-1. **Public marketing** (`/`) — KPIs/charts, Get AG CTA, supporting content, traction widgets gated by `data/traction.json`.
+1. **Public marketing preview** (`/`) — KPIs/charts, Get AG CTA, supporting content, traction widgets gated by `data/traction.json`.
 2. **Admin backend** (`/admin/*`) — Google SSO + `ADMIN_EMAILS` allowlist (empty = nobody). Sensitive/internal KPI views.
 
 **Publisher (stays in AG):** measured traction (`data/traction.json`), improve corpus (`docs/improve/`), and sync (`scripts/sync-improve.mjs`). Site consumes feeds **read-only**.
 
-**UI source of truth: Meta Astryx** (`@astryxdesign/core` + `@astryxdesign/theme-neutral` + `@astryxdesign/cli`). Not a custom/Tailwind/shadcn primary UI.
+**UI source of truth:** this localhost app's declared design system (configured kit in `package.json`). Not a fleet SoT — product briefs name their own DS.
 
 ## Public vs admin
 
@@ -32,7 +32,7 @@ cd dashboard
 cp.env.example.env.local # fill AUTH_* for admin SSO locally
 npm install
 npm run sync-improve
-npx astryx init # refreshes AGENTS.md cheat sheet if needed
+# optional: refresh local UI-kit cheat sheet per package.json scripts
 npm run dev
 ```
 
@@ -61,25 +61,16 @@ Without Google env vars, public pages still work; admin sign-in will fail until 
 
 Never commit real secrets. `.env*.local` is gitignored.
 
-## Vercel setup
+## Framework Vercel — DETACHED
 
-1. **Root Directory** = `dashboard` (see `vercel.json`).
-2. **Environment variables** (Production + Preview as needed):
- - `AUTH_SECRET`
- - `AUTH_GOOGLE_ID`
- - `AUTH_GOOGLE_SECRET`
- - `ADMIN_EMAILS` (Google account email(s); empty = nobody can sign in)
-3. Build command: `npm run build` (syncs improve markdown when parent tree is present).
-4. Deploy the marketing surface publicly when Cos unlocks launch (repo may stay private; site can be a public Vercel project).
+This framework repo must **not** deploy `dashboard/` to Vercel. No in-tree `vercel.json`. No framework GitHub homepage pointing at a `*.vercel.app` host. Public marketing face = **agentic-governance-site** only. Cos/operator detach of Vercel project `agentic-governance` (former three host) is ops outside this tip's git if still linked in the Vercel console.
 
-## Google Cloud OAuth consent
+## Google Cloud OAuth consent (localhost)
 
 1. Google Cloud Console → **APIs & Services** → **Credentials** → Create **OAuth client ID** (Web application).
 2. Configure OAuth consent screen (External or Internal as appropriate for your Google Cloud org).
-3. **Authorized JavaScript origins**: `https://<your-vercel-host>` (and `http://localhost:3000` for local).
-4. **Authorized redirect URIs**:
- - `https://<your-vercel-host>/api/auth/callback/google`
- - `http://localhost:3000/api/auth/callback/google` (local)
+3. **Authorized JavaScript origins**: `http://localhost:3000`.
+4. **Authorized redirect URIs**: `http://localhost:3000/api/auth/callback/google`.
 5. Copy Client ID → `AUTH_GOOGLE_ID`, Client secret → `AUTH_GOOGLE_SECRET`.
 
 Auth.js auto-detects `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` for the Google provider.
@@ -88,20 +79,10 @@ Auth.js auto-detects `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` for the Google prov
 
 | Feed | Path | Notes |
 |---|---|---|
-| Improve reports | `../docs/improve/*.md` or `./content/improve/` | Prefer monorepo docs; `prebuild` syncs a copy |
-| Optional JSON | `../data/improve.json` or `./data/improve.json` | If present, overrides markdown |
-| Traction gates | `../data/traction.json` or `./data/traction.json` | Null values / high floors → public widgets stay hidden; admin shows raw |
-| Scar index (admin) | `../projects/*/scars/*.md` | Anonymized title/status only — no Studio PII |
+| Improve corpus | `../docs/improve/*.md` | Synced into app data for KPI / report views |
+| Traction | `../data/traction.json` (and local copy under `dashboard/data/`) | Measured-only; never invent |
+| Scars index | derived from improve / ledger publish side | Anonymized |
 
-### Traction config (Cos / Paul)
+## Localhost UI kit conventions
 
-Edit repo-root [`data/traction.json`](../data/traction.json): set a measured `value` and keep or lower `minVisible`. Flipping **public** visibility is **config-only**. Never invent live numbers. Admin always sees the raw rows.
-
-## Astryx conventions
-
-Agent cheat sheet: [`AGENTS.md`](./AGENTS.md). Discover components with:
-
-```bash
-npm run astryx -- component Button
-npm run astryx -- build "…"
-```
+Localhost dashboard UI SoT = this app's declared design system (configured in `package.json`). Fleet law does **not** name a private design-system brand as SoT — each product brief declares its own DS. Kit CLI notes (if any) live in `AGENTS.md`.

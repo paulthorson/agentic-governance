@@ -1,7 +1,7 @@
 # Proposal: A10 — rollback (decision framework)
 
 **Status:** DECIDED — all three decisions as recommended, approved by operator
-(Paul) on 2026-09-06. Recorded as **A22** in spec-addendum-01.md.
+on 2026-09-06. Recorded as **A22** in spec-addendum-01.md.
 **Date:** 2026-09-06
 **Related:** A10 open problem (spec-addendum-01.md §A10), now resolved by A22.
 

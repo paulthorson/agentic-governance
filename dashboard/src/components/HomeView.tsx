@@ -1,18 +1,18 @@
 'use client';
 
-import {AppShell} from '@astryxdesign/core/AppShell';
-import {Button} from '@astryxdesign/core/Button';
-import {Card} from '@astryxdesign/core/Card';
-import {Divider} from '@astryxdesign/core/Divider';
-import {EmptyState} from '@astryxdesign/core/EmptyState';
-import {Icon} from '@astryxdesign/core/Icon';
-import {HStack, VStack} from '@astryxdesign/core/Layout';
-import {List, ListItem} from '@astryxdesign/core/List';
-import {NavIcon} from '@astryxdesign/core/NavIcon';
-import {Section} from '@astryxdesign/core/Section';
-import {Table} from '@astryxdesign/core/Table';
-import {Heading, Text} from '@astryxdesign/core/Text';
-import {TopNav, TopNavHeading, TopNavItem} from '@astryxdesign/core/TopNav';
+import {AppShell} from '@ag-dashboard/core/AppShell';
+import {Button} from '@ag-dashboard/core/Button';
+import {Card} from '@ag-dashboard/core/Card';
+import {Divider} from '@ag-dashboard/core/Divider';
+import {EmptyState} from '@ag-dashboard/core/EmptyState';
+import {Icon} from '@ag-dashboard/core/Icon';
+import {HStack, VStack} from '@ag-dashboard/core/Layout';
+import {List, ListItem} from '@ag-dashboard/core/List';
+import {NavIcon} from '@ag-dashboard/core/NavIcon';
+import {Section} from '@ag-dashboard/core/Section';
+import {Table} from '@ag-dashboard/core/Table';
+import {Heading, Text} from '@ag-dashboard/core/Text';
+import {TopNav, TopNavHeading, TopNavItem} from '@ag-dashboard/core/TopNav';
 import {
   ArrowDownTrayIcon,
   ArrowRightIcon,
@@ -179,7 +179,7 @@ export function HomeView({
             </Heading>
             <Text type="body" color="secondary" textWrap="balance">
               Clone the framework, run the MCP server, and adopt with the setup
-              wizard. Primary distribution is GitHub — Cos/Paul must make the
+              wizard. Primary distribution is GitHub — Cos/operator must make the
               marketing surface public (repo visibility or a separate public
               site) before this CTA reaches strangers.
             </Text>
@@ -298,7 +298,7 @@ export function HomeView({
         </VStack>
 
         <Text type="supporting" color="secondary">
-          UI source of truth: Meta Astryx (@astryxdesign/core + theme-neutral).
+          UI source of truth: Meta UI kit (@ag-dashboard/core + theme-neutral).
           Report feed: docs/improve/. Traction gate: data/traction.json (
           {gatedCount} metrics hidden at current thresholds).
         </Text>

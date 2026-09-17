@@ -3,7 +3,7 @@
 **Gate:** `RESEARCH_BEFORE_ENHANCE` + ADV_COMP additive — Mobbin-first motion / micro-interaction / finish for **#26** polish. 
 **Ownership:** AG Research. **Eng HOLD.** UX uses for **#26** polish stills. 
 **Prior SoT:** [`evidence.md`](./evidence.md) (**#20** @ `9721af1`); [`live-comps-2026-09-13.md`](./live-comps-2026-09-13.md) (**#25** @ `fe8152e`). This file does **not** rewrite those packs. 
-**Paul LOCK:** white/paper + simple type; Apple ethos — subtle transitions, micro-interactions, enterprise finesse; not flashy; **measured-only** motion. 
+**operator LOCK:** white/paper + simple type; Apple ethos — subtle transitions, micro-interactions, enterprise finesse; not flashy; **measured-only** motion. 
 **Scope:** Evidence-only. No `look.md`. No Check 7/8. No Eng / `dashboard/src`. No Mobbin-visible keys, emails, account names, or PII in this cite.
 
 **Mobbin stills caveat:** Mobbin captures are static. Finish / toast / control chrome is visible in stills; tweened motion claims require live opens (§2). Adv must open every URL.

@@ -24,8 +24,8 @@ calibration ledger.
 ## Per-domain detail
 
 ### UX (`adversarial-ux/`)
-Reviews designs, wireframes, the Even G2 glasses HUD, Sonos voice responses,
-TUI/Discord surfaces, and UX research (personas, usability). Four checks:
+Reviews designs, wireframes, product UI surfaces (web, device, voice, TUI/chat),
+and UX research (personas, usability). Four checks:
 usability/task completion, clarity/communication, accessibility (WCAG 2.2 AA),
 evidence honesty. Skills: `ux-altitude-check`, `ux-a11y-testing`,
 `ux-assumption-testing`, `ux-desk-research`, `ux-generative-research`,

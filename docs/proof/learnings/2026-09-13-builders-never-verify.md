@@ -17,5 +17,5 @@ in practice.
 ## What changed
 
 Framework rule: KICK_BACK returns work to the builder for rework and re-review
-with a FRESH reviewer. Builders never clear blockers; only the human (Paul)
+with a FRESH reviewer. Builders never clear blockers; only the human (operator)
 clears a veto via `overturn_verdict`.

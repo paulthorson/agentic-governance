@@ -1,6 +1,6 @@
 # AG website — UX Canvas (Gothelf Lean UX Canvas v2)
 
-Status: Cos LOCK with Paul 2026-09-14. Adv CONCERN unpaid from merged
+Status: Cos LOCK with operator 2026-09-14. Adv CONCERN unpaid from merged
 [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b` — this amend
 pays the four concerns. Screens gated after this canvas.
 
@@ -23,7 +23,7 @@ Initiative (do not invent further product policy here):
 - **Process Instrument in the Void** hybrid (experience / look direction)
 - **Direct founder voice** (Brand Voice)
 
-**Eng HOLD on look / pixels** until Cos craft + Paul yes on stills. **Screens only after
+**Eng HOLD on look / pixels** until Cos craft + operator yes on stills. **Screens only after
 this canvas.** Do not treat this canvas as permission to ship look/stills (#39 / #26) or to
 rewrite Brand & Design Setup constitution.
 
@@ -51,7 +51,7 @@ percentages or fake baselines.
 
 ## Box 3 — Users
 
-Provenance: **Cos-owned with Paul 2026-09-14** (not Adv-invented). Cos+Paul lock
+Provenance: **Cos-owned with operator 2026-09-14** (not Adv-invented). Cos+operator lock
 2026-09-14 — Research Scope provenance unpaid (no AG-website Research Scope / HCI pack
 found to cite for these seats).
 
@@ -81,7 +81,7 @@ Not a flat checklist — each option prioritizes differently. One trade line eac
 
 ## Box 6 — Hypotheses
 
-Provenance: **Cos-owned with Paul 2026-09-14** (not Adv-invented). Cos+Paul lock
+Provenance: **Cos-owned with operator 2026-09-14** (not Adv-invented). Cos+operator lock
 2026-09-14 — Research Scope provenance unpaid (no AG-website Research Scope / HCI pack
 found to cite for these hypotheses).
 

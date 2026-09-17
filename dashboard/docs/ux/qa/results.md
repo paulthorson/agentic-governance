@@ -6,7 +6,7 @@
 **Historical Adv PASS tip (not live SoT):** `4ecb309` 
 **Research LIVE:** AG #20 @ `9721af1` 
 **Adv:** PASS tip `4ecb309` (historical); Critic separate stamp **owed** 
-**Live:** https://agentic-governance-three.vercel.app 
+**Live:** https://www.agenticgovernance.app 
 **Verdict line:** Report UP AG PM → Cos. **Eng HOLD on look. No Eng GO from QA.** Look craft retip = new PR (not #21).
 
 ## Executive verdict
@@ -19,13 +19,13 @@
 | Honesty on live `/` (no invented numbers / no fake ticker) | **PASS** |
 | Eng GO | **HOLD** — no Eng GO from QA |
 
-## G1 — Check 7 present + research-cited → PASS
+## Gate-1 — Check 7 present + research-cited → PASS
 
 - Present on LIVE #21 @ `b2d703e`: `dashboard/docs/ux/jtbd.md`, `dashboard/docs/ux/userflows.md` (Mermaid F1–F5).
 - Research cite (both files): LIVE Cos ACCEPT MERGED AG #20 @ `9721af1` → `dashboard/docs/research/evidence.md`; Adv PASS tip `b868672` secondary.
 - Jobs map to flows; cites §2/§3/§6/§7/§8/§9. No `NO_RESEARCH`.
 
-## G2 — Check 8 stills mobile+desktop → PASS
+## Gate-2 — Check 8 stills mobile+desktop → PASS
 
 Index: `dashboard/docs/ux/qa/visual-qa.md` (LIVE via #21 @ `b2d703e`) 
 Stills (12, all non-empty at verify):
@@ -58,14 +58,14 @@ Opened stills (not Eng pixels):
 **Measured set only (live text + stills):** Daily improve **4**, Retros **2**, AG PRs **2**, Cycle time **Baseline**, Tokens **Baseline**, traction **5 metrics gated**. 
 No count-up/pulse/ticker observed on idle live `/` (evidence of absence; matches story).
 
-## G6 — Meta Astryx product face → split
+## G6 — declared design-system product face → split
 
 | Surface | Verdict |
 | --- | --- |
 | Check 8 stills (LIVE #21 @ `b2d703e`) | **PASS** — product IA, KPI card system, designed empty hatch, Latest Update card + Progress rail, not kit demo |
 | Live `/` | **FAIL vs story** — limp KPI tiles; full **Daily improve reports** MD dump as primary content; internal Cos/launch copy (“Private today → public Vercel… when Cos unlocks launch”) |
 
-Live footer cites Meta Astryx as UI SoT — kit citation present, product-face IA not yet.
+Live footer cites the declared design system as UI SoT — kit citation present, product-face IA not yet.
 
 ## G7 — Public `/` not report dump → split
 
@@ -107,5 +107,5 @@ Observed live desktop (2026-09-13):
 
 - Story SoT LIVE: https://github.com/paulthorson/agentic-governance/pull/21 @ `b2d703e` 
 - Research LIVE: https://github.com/paulthorson/agentic-governance/pull/20 @ `9721af1` 
-- Live: https://agentic-governance-three.vercel.app/ 
+- Live: https://www.agenticgovernance.app/ 
 - This QA docs PR: https://github.com/paulthorson/agentic-governance/pull/22 

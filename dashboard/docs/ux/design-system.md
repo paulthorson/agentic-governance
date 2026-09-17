@@ -2,15 +2,15 @@
 **DESIGN_SYSTEM_FIRST LIVE:** #45 @ `ead012f` — DS before pixels; Research×UX Cos signoff; Design/Experience/Branding paramount.
 **Brand & Design Setup + Research Scope LIVE:** #46 @ `cdf1c41` — under DESIGN_SYSTEM_FIRST #45 @ `ead012f`. Fresh diverse business-model-matched comps; FAIL AG Pentagram/500/AXM as all-teams default.
 **UX Canvas LIVE (named gate):** #48 @ `e9b4827` — SEPARATE next gate after Brand & Design Setup (not an alias). **Initiative SoT LIVE:** [`docs/initiatives/ag-website-ux-canvas.md`](../../../docs/initiatives/ag-website-ux-canvas.md) @ **`6b24c4bc`** (**#50** MERGED). Dashboard [`ux-canvas.md`](ux-canvas.md) mirrors (Class B). Cite https://jeffgothelf.com/blog/leanuxcanvas-v2/. Screens gated. **#53** consent Research LIVE @ `eaa2efa2` — Check 7 when stories exist.
-**Walkthrough name (Paul LOCK):** **Brand & Design Setup** — plain English for the early Initiative Cos signoff. Use with teams; no jargon with Paul. Maps to #45 @ `ead012f`.
+**Walkthrough name (operator LOCK):** **Brand & Design Setup** — plain English for the early Initiative Cos signoff. Use with teams; no jargon with operator. Maps to #45 @ `ead012f`.
 **Comps:** Fresh and business-model-specific per project. Other teams do **not** inherit AG’s Pentagram / 500 / AXM research set. AG public site still uses this signed packet; those names stay INTERNAL.
 
-**Status:** Cos GO SIGNOFF 2026-09-14 DS LOCKED. **Look APPROVED** Paul 2026-09-14 — `#39` craft CLEAR; Eng may ship approved stills. New stills still Cos→Paul. 
+**Status:** Cos GO SIGNOFF 2026-09-14 DS LOCKED. **Look APPROVED** operator 2026-09-14 — `#39` craft CLEAR; Eng may ship approved stills. New stills still Cos→operator. 
 **DESIGN_AGENCY_BAR LIVE:** #43 @ `7e9e0b6`. 
 **Research cites (INTERNAL only):** Pentagram; 500 Factorial / Bartrack; AXM AMM — evidence for Cos/Research/UX docs. **Never** name these on public `/` or marketing chrome. Stack #40 @ `d3a515e` + #37 @ `cefb5f1` + #38 @ `214ed5b`. 
 **Paramount:** Design, Experience, and Branding. Eng follows signed craft.
 
-## Initiative sequence (Paul LOCK — plain English)
+## Initiative sequence (operator LOCK — plain English)
 
 1. **Research Scope** (Q1–Q8) — #46 @ `cdf1c41`
 2. **Research hunt**
@@ -49,14 +49,14 @@ Visible loop. Ship only what clears. **Not** a sandbox, certification, or guaran
 - No hype. No harness jargon scoreboards (`Improve · 4`, ROLE dumps, “measured SoT”). 
 - Land sells how the loop works. Drill-downs = past-tense micro-stories of what that chapter did.
 
-### Brand beat (Paul LOCK — superseded for Get AG download)
+### Brand beat (operator LOCK — superseded for Get AG download)
 **“Worker bees need to feed the hive.”** 
 **Superseded 2026-09-14 for Get AG download:** does **not** frame the download trade. Get AG = **Apache 2.0 + LICENSE** (no anonymous-improve / free-tradeoff requirement on download). 
 Beat may still apply to **separate unpaid** Anonymous Improve / voluntary feedback surfaces — not the Get AG gate. Chrome stays plain English.
 
-## Public copy honesty (Paul LOCK — absorb AG #62)
+## Public copy honesty (operator LOCK — absorb AG #62)
 
-**Not look stills.** Copy only. DESIGN_AGENCY_BAR still. Cos owns timing after Paul §5 pack. Look `#39` HOLD.
+**Not look stills.** Copy only. DESIGN_AGENCY_BAR still. Cos owns timing after operator §5 pack. Look `#39` HOLD.
 
 Governing principle from **#62** (release hardening): a control that exists only as text is **guidance**, not enforcement. Never describe advisory as enforcement.
 
@@ -89,7 +89,7 @@ FAIL: enforcement-as-marketing · “hard spend cap” · “makes governance me
 | Instrument | Sage / graphite | One muted sage family on deep graphite void. |
 | Motion | Drift + in-line white + measured toast only | No confetti, no glow-as-craft, no ticker rain. |
 
-### Token sketch (Eng after Paul yes)
+### Token sketch (Eng after operator yes)
 - `--void: #030303` 
 - `--ink: #f2f1ec` 
 - `--sage: #8a9a8e` (family — lifts for path, sinks for context) 
@@ -114,7 +114,7 @@ FAIL: enforcement-as-marketing · “hard spend cap” · “makes governance me
 Codes only on public and admin. No git / product / human names, paths, secrets. 
 Measured **4 / 2 / 2**. One **Get AG** on public nav. None on admin. Chatbot phase 2 out.
 
-### Public vs internal (Paul CLARIFY 2026-09-14)
+### Public vs internal (operator CLARIFY 2026-09-14)
 - **Public `/` chrome** shows only: Sage instrument · Advercase/Geist · Direct founder voice · the promise. 
 - **Research agency/product names** (Pentagram, 500 Factorial, Bartrack, AXM AMM, etc.) live in `design-system.md` and Research docs as **internal evidence only**. 
 - **FAIL** if those names appear on land, chapters, panels, toast, admin twin, or any marketing still.
@@ -127,20 +127,20 @@ Munzner: one luminance channel for the week’s path. Hue scarcity (sage family 
 Internal research pattern (Pentagram / 500 / AXM — never public-named): hierarchy first, accent scarcity, purpose chapters + living viz. 
 Agency bar: completeness stills ≠ craft.
 
-## Admin twin (Paul LOCK)
+## Admin twin (operator LOCK)
 
 Local `/admin` — **same look and craft** as the public living board; sensitive numbers and ops behind `/admin`. **One product, two doors** — not a cheap separate back office. See [`ux-canvas.md`](ux-canvas.md).
 
-## Repo split (Paul LOCK 2026-09-14)
+## Repo split (operator LOCK 2026-09-14)
 
 - **Marketing face extract LIVE:** https://agentic-governance-site.vercel.app (#2 @ `88a1b5a`).
 - **Marketing look / stills** move with the **site repo**.
 
 - **Process / docs** (Brand & Design Setup, UX Canvas, Initiative sequence, harness) stay in **AG git**.
 - **Get AG** / Anonymous Improve CTA points at **AG git download**, not the marketing surface.
-- **Look APPROVED (Cos GO Paul 2026-09-14):** `#39` craft CLEAR @ `4d4e4d7`. Eng may ship approved stills. **New** look stills still Cos→Paul before merge.
+- **Look APPROVED (Cos GO operator 2026-09-14):** `#39` craft CLEAR @ `4d4e4d7`. Eng may ship approved stills. **New** look stills still Cos→operator before merge.
 
-## Get AG / software use (Paul LOCK STANDING 2026-09-14)
+## Get AG / software use (operator LOCK STANDING 2026-09-14)
 
 - **License = Apache 2.0** — AG `LICENSE` LIVE **#60**. Software use governed by **Apache 2.0 + LICENSE alone**.
 - **No acceptance gate anywhere** (no acceptance gate, no [redacted], no “I agree” download gate from agents).

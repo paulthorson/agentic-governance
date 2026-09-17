@@ -5,10 +5,10 @@
 
 ## Context
 
-The first real-team adoption (Ladders Grok Bot, ADR-0006) exposed that the
+The first real-team adoption (first adopting team / first product-seat adopter, ADR-0006) exposed that the
 stuck-review-watchdog was **Paperclip-native**: it shelled out to
 `paperclipai issue list --status in_review --json`, read `~/.paperclip/instances/`
-for the company id, and held Grimdor's adversary IDs. The Ladders team does not
+for the company id, and held the framework host's adversary IDs. The first adopting team does not
 use Paperclip (work lives in GitHub PRs + epic markdown; no `in_review` ticket
 store), so the watchdog could not drop in as-is.
 
@@ -23,7 +23,7 @@ issues and applies the same staleness/dedupe/alert logic regardless of where
 the issues come from. Two sources are built in:
 
 - **`--source paperclip` (default)** — the existing adapter. Shells out to
-  `paperclipai issue list --status in_review --json`. This is Grimdor's default.
+  `paperclipai issue list --status in_review --json`. This is the framework host's default.
 - **`--source file --issues-file <path>`** — reads a JSON file (or stdin with
   `-`) containing a list of issue dicts. Any team's store (GitHub PR review
   state, a file ledger in the epic folder, Linear, Jira) can be adapted by
@@ -37,8 +37,8 @@ returns `(issues, error)` from the configured source.
 ## Consequences
 
 - **Positive:** the watchdog is now vanilla-handoffable. A non-Paperclip team
-  (like Ladders) can feed it from its own store via a JSON file or stdin,
-  without forking the script. Paperclip remains the default for Grimdor.
+  (like the first adopting team) can feed it from its own store via a JSON file or stdin,
+  without forking the script. Paperclip remains the default for the framework host.
 - **Positive:** backward-compatible — the default `--source paperclip` behavior
   is byte-for-byte unchanged.
 - **Negative:** a team using a live store (not a file) still needs a small shim

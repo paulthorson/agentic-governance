@@ -1,18 +1,18 @@
 'use client';
 
-import {AppShell} from '@astryxdesign/core/AppShell';
-import {Button} from '@astryxdesign/core/Button';
-import {Icon} from '@astryxdesign/core/Icon';
-import {HStack, VStack} from '@astryxdesign/core/Layout';
-import {NavIcon} from '@astryxdesign/core/NavIcon';
+import {AppShell} from '@ag-dashboard/core/AppShell';
+import {Button} from '@ag-dashboard/core/Button';
+import {Icon} from '@ag-dashboard/core/Icon';
+import {HStack, VStack} from '@ag-dashboard/core/Layout';
+import {NavIcon} from '@ag-dashboard/core/NavIcon';
 import {
   SideNav,
   SideNavHeading,
   SideNavItem,
   SideNavSection,
-} from '@astryxdesign/core/SideNav';
-import {Text} from '@astryxdesign/core/Text';
-import {TopNav, TopNavHeading, TopNavItem} from '@astryxdesign/core/TopNav';
+} from '@ag-dashboard/core/SideNav';
+import {Text} from '@ag-dashboard/core/Text';
+import {TopNav, TopNavHeading, TopNavItem} from '@ag-dashboard/core/TopNav';
 import {
   ArrowRightStartOnRectangleIcon,
   ChartBarIcon,

@@ -67,8 +67,8 @@ channel.
   system-actor audit attribution, CLI approve/decline default, feedback
   input validation).
 - Human-primacy note: the two-sided-consent + abuse-case suite must pass
-  Paul and the independent framework reviewer BEFORE any pilot; Q2-day-10
-  pilot targets need Paul + contracted user researcher + independent
+  the operator and the independent framework reviewer BEFORE any pilot; Q2-day-10
+  pilot targets need operator + contracted user researcher + independent
   reviewer approval. Code ships the suite; humans clear the gates.
 
 ## Metrics

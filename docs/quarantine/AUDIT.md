@@ -24,7 +24,7 @@ wiring:
   (`~/.claude/agents`, `~/.claude/skills`).
 - **5 Paperclip agents** (Adversarial Engineer/QA/Researcher/UX/Universal) + mandatory
   review rule in 8 domain agents (Engineer, QA, UXer, UX Researcher, PM, BA, Scrum, CEO).
-- Git repo at `~/adversarial-agents`, **but remote is wrong** (`even-weather`).
+- Git repo at `<framework-root>`, **but remote is wrong** (wrong remote — scrubbed product name).
 
 ## 2. Gap analysis
 
@@ -120,7 +120,7 @@ An enterprise MCP server that exposes the review system to any MCP-capable clien
 ### P5 — Tooling
 8. `adv` CLI + dry-run test harness + stuck-ticket watchdog.
 
-## 4. Decisions requested from Paul
+## 4. Decisions requested from operator
 1. Confirm the wrong git remote — what is the intended GitHub repo/org?
 2. Which additional agent plugins to build first (recommend security + compliance + product).
 3. MCP implementation language — **Python** (matches mempalace-mcp pattern) vs **Node**

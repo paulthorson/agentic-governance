@@ -11,7 +11,7 @@
 
 ## Storage mode (set at framework setup ASK — do not force)
 
-- **Paul+Cos clarified store:** private git (their operator memory — not a force on every install)
+- **operator + Cos clarified store:** private git (their operator memory — not a force on every install)
 - **Mode (this install):** A — private git **|** B — local folder _(Cos ASKS at seating; operator chooses)_
 - **Label:** _(short private label only — no absolute host path, no URL with tokens)_
 

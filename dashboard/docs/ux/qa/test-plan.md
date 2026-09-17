@@ -2,7 +2,7 @@
 
 **Seat:** AG QA 
 **Epic:** Cos GO public `/` (marketing + ops face) 
-**Surfaces:** https://agentic-governance-three.vercel.app `/` and `/admin` 
+**Surfaces:** https://www.agenticgovernance.app `/` and `/admin` 
 **Story SoT:** LIVE Cos ACCEPT MERGED AG #21 @ `b2d703e` — Check 7 + Check 8 IA pack on main 
 **Historical Adv PASS tip (not live SoT):** `4ecb309` (pre-merge #21 tip; do not treat as OPEN or SoT) 
 **Research SoT:** LIVE Cos ACCEPT MERGED AG #20 @ `9721af1` (`dashboard/docs/research/evidence.md`) 
@@ -11,18 +11,18 @@
 
 ## Scope
 
-Verify **vs story, not implementation**. Check 8 stills are the product-face **target** (Meta Astryx IA). Live `/` is audited for honesty gates and for named story FAILs that Eng must close after Cos ACCEPT of look retip.
+Verify **vs story, not implementation**. Check 8 stills are the product-face **target** (declared design-system IA). Live `/` is audited for honesty gates and for named story FAILs that Eng must close after Cos ACCEPT of look retip.
 
 ## Gates
 
 | ID | Gate | How |
 | --- | --- | --- |
-| G1 | Check 7 present + research-cited | `jtbd.md` + `userflows.md` cite LIVE #20 @ `9721af1` / evidence.md (LIVE on main via #21 @ `b2d703e`) |
-| G2 | Check 8 stills mobile+desktop | 6 steps × 2 = 12 PNGs under `visual-stills/` + motion notes in `visual-qa.md` |
+| Gate-1 | Check 7 present + research-cited | `jtbd.md` + `userflows.md` cite LIVE #20 @ `9721af1` / evidence.md (LIVE on main via #21 @ `b2d703e`) |
+| Gate-2 | Check 8 stills mobile+desktop | 6 steps × 2 = 12 PNGs under `visual-stills/` + motion notes in `visual-qa.md` |
 | G3 | Check 8 FAIL review (story stills) | No High layout-shift / chrome inconsistency / Fitts\|Hick\|Jakob break on **primary** in the still pack |
 | G4 | Motion notes | Per-step what/when/why; measured-feeds-only; no fake ticker |
 | G5 | No invented numbers / no fake ticker | Live + stills: only measured labels; idle board calm |
-| G6 | Meta Astryx product face | Product IA (not kit demo); brand + one job headline |
+| G6 | declared design-system product face | Product IA (not kit demo); brand + one job headline |
 | G7 | Public `/` not report dump | Fold is board chrome, not full improve MD hero |
 | G8 | Critic separate stamp | `CRITIC_SEPARATE_STAMP` owed — QA notes, does not stamp |
 

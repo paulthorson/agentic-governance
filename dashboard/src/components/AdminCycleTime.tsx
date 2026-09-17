@@ -1,9 +1,9 @@
 'use client';
 
-import {EmptyState} from '@astryxdesign/core/EmptyState';
-import {Table} from '@astryxdesign/core/Table';
-import {VStack} from '@astryxdesign/core/Layout';
-import {Heading, Text} from '@astryxdesign/core/Text';
+import {EmptyState} from '@ag-dashboard/core/EmptyState';
+import {Table} from '@ag-dashboard/core/Table';
+import {VStack} from '@ag-dashboard/core/Layout';
+import {Heading, Text} from '@ag-dashboard/core/Text';
 import type {ImproveReport} from '@/lib/improve';
 
 interface CycleRow extends Record<string, unknown> {
