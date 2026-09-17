@@ -182,6 +182,16 @@
 - **Not:** OpenClaw (unless later story Cos-locks fleet parity — ); seat↔seat / Class A / improve-inbox / Adv / Eng tip SoT; merging with AI_SLOP_COPY_FAIL; operator babysitting lexicon
 - **Cite when LIVE:** _(pending Cos ACCEPT of AG #100)_ — cite [#100](https://github.com/paulthorson/agentic-governance/issues/100) Cos amend + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + `COS_CRITICAL_THINKING`
 - **Supersedes:** none — sibling to `COS_PROJECT_CONTEXT_REMINDER` (not collapsed)
+- **Note:** Incomplete land — expanded ban list ( / as process codes) paid by 2026-09-17 expand AG #142 below. Do not cite this entry alone as complete ban-list SoT after #142 land.
+
+## 2026-09-17 — `COS_OPERATOR_PLAIN_ENGLISH` expand (fail-closed, fleet) — AG #142 absorb/supersede #100
+
+- **Who:** operator / Cos (AG #142 expand; absorb/supersede incomplete #100 land; Adv re-NAMES + Cos ACCEPT pending)
+- **Plain text:** Cos→operator = everyday words only. Ban in operator-facing Cos copy (translate or omit):, (as process code), tip, stamp, HOLD, unpaid, gate, rematch, FAIL, PASS, Ready, SoT, LIVE, pack, optical, and equivalent process slang (incl. checklist as process code). Named miss folded: “ still ” = banned process codes — ban list must include /. Cos owns ban-list judgment; Adv may challenge; operator never babysits. Surfaces: Cos chat (primary), spoken/voice, digests/reminders, rare operator-expected GH. Seat↔seat / Class A / improve-inbox / Adv / Eng tip SoT may keep process vocabulary. Primary: Cos self-detect on send; if jargon slipped, same-day improve story (stacks COS_FEEDBACK_TO_IMPROVE LIVE #87 @ 2ab4b17 + COS_IMPROVE_INBOX LIVE #98 @ fe27c4b) + restate in everyday words. Secondary: Adv CONCERN. Not QA as sole sensor. Exception: operator asks lock/story id → quote once + define in everyday words (not narrative-pass to keep jargon). Not this lock: AI_SLOP_COPY_FAIL (product/visitor/marketing slop lexicon) — different surfaces, different ban lists; do not merge. Do not treat a narrative pass as acceptance. Separate from SHOWTIME #127. Metric: 0 jargon phrases in Cos→operator messages (fail closed if jargon appears in operator thread).
+- **Scope:** fleet Cos→operator channel
+- **Not:** OpenClaw (unless later story Cos-locks fleet parity — ); seat↔seat / Class A / improve-inbox / Adv / Eng tip SoT; merging with AI_SLOP_COPY_FAIL; operator babysitting lexicon; SHOWTIME #127; ; auto-merge #26
+- **Cite when LIVE:** _(pending Cos ACCEPT of AG #142)_ — cite [#142](https://github.com/paulthorson/agentic-governance/issues/142) Cos expand (absorb/supersede [#100](https://github.com/paulthorson/agentic-governance/issues/100)) + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + `COS_CRITICAL_THINKING`
+- **Supersedes:** 2026-09-16 `COS_OPERATOR_PLAIN_ENGLISH` (AG #100 incomplete land — ban list missing / ) — sibling to `COS_PROJECT_CONTEXT_REMINDER` unchanged (not collapsed)
 
 ## 2026-09-16 — `HUB_UPLOAD_SEAT_PATH` (fail-closed)
 
