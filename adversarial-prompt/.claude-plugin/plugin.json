@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A self-hosting adversarial reviewer. One prompt-adversary agent audits agent instructions, system prompts, and skill definitions for prompt-injection, drift, and safety overrides — with a hard veto that only a human can clear.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }

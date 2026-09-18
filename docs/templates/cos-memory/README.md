@@ -34,7 +34,7 @@ Record the chosen path in `profile.md` / `STORAGE_MODE.md` (mode + non-secret la
 | This template | Public AG product surface |
 |---|---|
 | Cos operator working memory | Marketing site, dashboard chrome, Get AG, living board |
-| Private git (operator + Cos clarified) **or** operator-chosen private git / local folder | `paulthorson/agentic-governance` public tree / site repo |
+| Private git (operator + Cos clarified) **or** operator-chosen private git / local folder | `agentic-governance` public tree / site repo |
 | Locks, episodes, Cos↔human decisions | Public product copy, screens, stills |
 
 **Do not** commit a filled memory store into public AG git. Ship only this empty template under `docs/templates/cos-memory/`. Filled stores stay private.

@@ -1,7 +1,7 @@
 # Initiative evidence — initiative-01-outcomes-capture
 
-Shipped 2026-09-13. `outcome-min-v0` event capture is ACTIVE in Veto
-(`paulthorson/job-apply-mcp`, commit `e44fb5a` on `main`): the annual
+Shipped 2026-09-13. `outcome-min-v0` event capture is ACTIVE in the governed product
+(a private product repository, commit `e44fb5a` on `main`): the annual
 roadmap's Week-0 minimum event (Decision 02), the gating deliverable that
 must precede the P0 craft audit. The P0 audit is now unblocked.
 
@@ -107,8 +107,8 @@ must precede the P0 craft audit. The P0 audit is now unblocked.
   covered by tests; server hooks are thin guarded wrappers (no direct unit
   test; accepted as minor, disclosed).
 - EVIDENCE: verdict ALLOW recorded append-only under
-  `muse/2026-09-13/roadmap-exec/capture`; commit `e44fb5a` on
-  `paulthorson/job-apply-mcp` `main`; full-suite numbers measured 2026-09-13.
+  `muse/2026-09-13/roadmap-exec/capture`; commit `e44fb5a` on the product repository's
+  `main`; full-suite numbers measured 2026-09-13.
 - ASSUMPTION: "100% of confirmed submissions after enablement are captured"
   — true for the three hooked write paths by construction; unproven against
   future write paths and unobserved in production.

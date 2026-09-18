@@ -112,7 +112,7 @@ code, make it real; where not, say advisory.
 
 | Finding | Notes |
 |---|---|
-| LICENSE prepends `Copyright (c) 2026 paulthorson` before Apache text | Apache-2.0.txt has no copyright line prepended; fix + add NOTICE |
+| LICENSE prepends a personal copyright line before Apache text (since generalized; see `NOTICE`) | Apache-2.0.txt has no copyright line prepended; fix + add NOTICE |
 | No `NOTICE` file | Required by release plan |
 | `docs/deployment.md` still describes `0.0.0.0` default | Align after bind fix |
 | README “governance **mechanical**” / CEO “paces spend” | Overclaims vs code; rewrite after capability report |

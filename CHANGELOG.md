@@ -466,7 +466,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - **Get AG Adv CONCERN amend (historical — files later removed):** Pay Adv CONCERNs on tip [#60](https://github.com/paulthorson/agentic-governance/pull/60) @ `86e98081` without absorbing unpaid counsel work. Paths were ``, `` (**removed** on release hardening; see Removed above).
 
-- **LICENSE MIT → Apache-2.0 (Class A):** Replace root `LICENSE` with standard Apache License 2.0 text; Copyright (c) 2026 paulthorson (match prior copyright style). README license badge + Governance mention → **Apache-2.0** (public framework license for fork / remix / contribute).
+- **LICENSE MIT → Apache-2.0 (Class A):** Replace root `LICENSE` with standard Apache License 2.0 text; prepend a copyright attribution line (match prior copyright style; since generalized — see `NOTICE`). README license badge + Governance mention → **Apache-2.0** (public framework license for fork / remix / contribute).
 - **Get AG — operator LOCKs amend (historical — file later removed):** Amend that was applied to `` (**removed** on release hardening).
 - **Adv CONCERN absorb (AG website UX Canvas SoT — unpaid from merged [#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4b`):** Amend
  `docs/initiatives/ag-website-ux-canvas.md` without inventing product policy: (1) cite

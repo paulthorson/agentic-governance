@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A dedicated data-privacy adversarial reviewer. Audits data handling, retention, and consent for GDPR/CCPA risk, with a hard veto that only a human can clear.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }
