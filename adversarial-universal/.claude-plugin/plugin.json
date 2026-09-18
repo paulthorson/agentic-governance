@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A universal adversarial reviewer. One universal adversary agent stress-tests any decision, plan, design, code change, or claim for unstated assumptions, blind spots, and fatal risks — with a hard veto that only a human can clear.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }

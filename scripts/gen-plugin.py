@@ -58,7 +58,7 @@ def gen(args):
   "version": "0.1.0",
   "description": "{args.desc}",
   "author": {{
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }}
 }}
 """)

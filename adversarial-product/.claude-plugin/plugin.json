@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A dedicated product-market adversarial reviewer. Audits product and market decisions for unvalidated assumptions, weak evidence, and market risk, with a hard veto that only a human can clear.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }

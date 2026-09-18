@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A governed engineering loop. One worker skill produces code, architecture, config, and infrastructure; three adversary agents audit it blind; four constitutional rules gate it; and only a human can clear a veto.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }

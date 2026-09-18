@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A dedicated security adversarial reviewer. One security-adversary agent audits code, config, infra, and dependencies for vulnerabilities, secret exposure, and supply-chain risk — with a hard veto that only a human can clear.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }

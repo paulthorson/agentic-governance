@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A dedicated compliance adversarial reviewer. Audits work against regulatory gates and policy requirements, with a hard veto that only a human can clear.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }

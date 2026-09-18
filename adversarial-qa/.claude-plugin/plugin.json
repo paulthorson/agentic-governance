@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "description": "A governed QA loop. One worker skill produces test plans and quality gates; three adversary agents audit them blind; four constitutional rules gate them; and only a human can clear a veto.",
   "author": {
-    "name": "paulthorson"
+    "name": "agentic-governance"
   }
 }

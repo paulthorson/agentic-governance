@@ -5,7 +5,7 @@ on content with stay-vs-move OPEN Q → LOCK). Docs / Class A ops plan only — 
 not pixels, not Research.
 
 **operator LOCK — repo name (exact):**
-[`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site)
+[`agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site)
 
 **Related initiative SoT (look / UX, separate track):**
 [`ag-website-ux-canvas.md`](ag-website-ux-canvas.md) — screens still gated; **never**
@@ -18,7 +18,7 @@ PRD.
 
 ## Problem
 
-`paulthorson/agentic-governance` currently carries both (1) the product/framework
+`agentic-governance` currently carries both (1) the product/framework
 people download and (2) the public marketing / living-board surface under
 `dashboard/` is the **LOCALHOST** improve app only (Tip B #124). Public marketing face = `agentic-governance-site` / https://www.agenticgovernance.app. Framework must **not** bind Vercel project `agentic-governance`.
 
@@ -35,10 +35,10 @@ That conflates faces:
 ## Outcomes (operator LOCK — SPLIT tracks)
 
 1. **New git for MARKETING WEBSITE only** —
- [`paulthorson/agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site)
+ [`agentic-governance-site`](https://github.com/paulthorson/agentic-governance-site)
  (created; name locked). Extract the `dashboard/` public marketing surface from
  `agentic-governance` into that repo.
-2. **`paulthorson/agentic-governance` remains the product/framework** people
+2. **`agentic-governance` remains the product/framework** people
  download — **no** marketing site as the download face.
 3. **Vercel project for the marketing-site repo is on the CRITICAL PATH** (Cos/operator
  LOCK) — create / bind a Vercel project to
@@ -89,7 +89,7 @@ Cos craft PASS on content; operator/Cos LOCK these three (no longer open):
 
 ## Move / stay sketch (per LOCKs above)
 
-### Move → `paulthorson/agentic-governance-site`
+### Move → `agentic-governance-site`
 
 - Public marketing surface today under AG `dashboard/` (app shell, public `/`,
  marketing chrome, Get AG CTA wiring target).
@@ -104,7 +104,7 @@ Cos craft PASS on content; operator/Cos LOCK these three (no longer open):
 - Vercel project bound to site repo (**critical path** create/rewire; includes
  public face on **agentic-governance-site**.
 
-### Stay → `paulthorson/agentic-governance`
+### Stay → `agentic-governance`
 
 - Framework / product download surface (README, harnesses, agents, skills, MCP,
  constitutions, domains).
@@ -124,7 +124,7 @@ stay-vs-move LOCKs). Execute tracks (separate PRs / ops) then prove:
 | A1 | Marketing git exists at exact URL
  https://github.com/paulthorson/agentic-governance-site and holds the extracted
  public marketing surface (framework code **not** vendored into it). |
-| A2 | `paulthorson/agentic-governance` download face is framework-first — marketing
+| A2 | `agentic-governance` download face is framework-first — marketing
  site is **not** the clone/download primary face. |
 | A3 | **CRITICAL PATH:** Vercel project exists for
  https://github.com/paulthorson/agentic-governance-site (create and/or rewire of
@@ -154,7 +154,7 @@ this epic’s critical path (not deferred to look).
 
 - No #39 / #26 look, stills, or pixel Eng GO from this epic.
 - No Research pack required for the split itself.
-- No rename of `paulthorson/agentic-governance-site` (name locked).
+- No rename of `agentic-governance-site` (name locked).
 - No moving process/docs/CoE/improve/proof/initiatives / measured corpora into the
  marketing git.
 - No pointing Get AG at the marketing repo.
