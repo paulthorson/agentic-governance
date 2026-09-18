@@ -1,11 +1,49 @@
-# Proposal: Disposable UAT stack — a repeatable hermetic acceptance-test playbook
+# Disposable UAT — salvage-only recommended pattern
 
-**Status:** PROPOSED (rework 5 — addresses QA adversarial review round 4)
-**Date:** 2026-09-16
-**Related:** QA harness ("What you own": test plans, test results); the standing
-rule that user acceptance testing gates every ship.
+**Status:** ADOPTED (salvage-only recommended pattern) — 2026-09-18 
+**Ship-gate strength:** recommended practice, **not** a required fleet ship gate 
+**Skill / constitution:** none — no skill file; constitution untouched 
+**Adoption:** opt-in per project; recorded as a decision; reversible 
+**Keep path:** `docs/proposals/disposable-uat-stack.md`
 
-## The problem
+## What is adopted
+
+A short sealed-copy pattern for acceptance runs:
+
+1. **Stand up** a disposable local copy of the service and what it needs for that run.
+2. **Test** against that copy.
+3. **Tear down** everything the run created (including on catchable failures).
+
+Use **fake, sanitized, version-controlled seed data** — never production data.
+
+The builder does **not** grade a hand-tuned laptop. Verification belongs in an environment the builder did not personally tune for a lucky green.
+
+If a project **chooses** recorded stubs, **stale or missing stub recordings fail loud** (hard red). Stubs are not mandated by this adoption.
+
+## What this is not
+
+This adoption is **not** a five-command platform, not a production-identical database mandate, not a two-layer contract-testing platform, not a fleet-wide re-record cadence, and not a required ship gate. Those ideas live only under **NOT ADOPTED** below (historical / rejected platform face).
+
+## Soft notes (salvage face)
+
+When a project opts in, watch for: cache that breaks hermetic runs; seed-before-migrate ordering mistakes (migrate before seed); async/streaming paths left outside the sealed copy; tear-down that leaves local residue or is misused as a long-lived local stack. Name them in the project decision — do not grow this page back into a platform.
+
+## Open questions (operator lock 2026-09-18)
+
+1. Approve as a QA-domain playbook? — **ANSWERED:** yes, as salvage-only recommended QA playbook (not a fleet platform).
+2. Placement: standalone docs page, or a section in existing QA-domain docs? — **ANSWERED:** keep at `docs/proposals/disposable-uat-stack.md`.
+3. Ship-gate strength: recommended practice, or required gate alongside UAT? — **ANSWERED:** recommended, **not** required.
+
+---
+
+## NOT ADOPTED / historical appendix
+
+> Everything below is **not adopted**. It is retained as readable history of an earlier platform-shaped proposal face (rework 5 / QA adversarial review round 4 era). Do not treat any rule, command contract, cadence, or acceptance checklist here as current guidance.
+
+**Historical status line (superseded):** PROPOSED (rework 5 — addresses QA adversarial review round 4), dated 2026-09-16. 
+**Historical related framing:** QA harness ("What you own": test plans, test results); standing rule that user acceptance testing gates every ship.
+
+### Historical problem statement (not adopted as fleet law)
 
 Acceptance tests usually run against whatever environment happens to be
 around: a developer's laptop, a shared staging box, a staging database that
@@ -27,7 +65,7 @@ in:
 User acceptance testing is a standing ship gate. A gate that runs on a
 contaminated, non-repeatable environment is not a gate; it is a ritual.
 
-## The pattern
+### Historical five-command platform pattern (not adopted)
 
 One command stands up a developer's own complete, disposable copy of the
 service and everything it depends on. A second command runs the full test
@@ -52,7 +90,7 @@ catchable failures even when the suite fails (trap / try-finally, never a
 bare `&&` chain, which would skip teardown on exactly the runs where residue
 matters most).
 
-## What this buys the framework
+### Historical "what this buys" framing (not adopted)
 
 This playbook turns the framework's verification from ritual into mechanism.
 Today a verdict can cite "all tests green" — a claim about a run nobody can
@@ -75,7 +113,7 @@ hand-tune — no lucky local config, no residue from the builder's own
 debugging sessions, no "works on my machine." The environment is a neutral
 witness.
 
-## Adoption, not mandate
+### Historical adoption framing that made rules ship-gate-required once opted in (not adopted)
 
 This is a **playbook**, not a constitutional requirement. It imposes nothing
 on any project until the operator adopts it for that project. Adoption is
@@ -91,9 +129,12 @@ Each rule below states its tradeoff in the constitution's mechanical form
 ("this strategy trades X for Y"), its metric with a direction, and its scope
 flag.
 
-## The rules
+**Operator note (2026-09-18):** the salvage adoption above keeps opt-in /
+recorded / reversible and constitution-untouched, but does **not** adopt
+"required at ship gates once adopted," the five-command contract, or the
+rules that follow.
 
-### 1. Lifecycle — hermetic and disposable
+### Historical rule 1 — Lifecycle hermetic and disposable (not adopted as written)
 
 - `stand-up` produces a complete copy of the service **and everything it
   depends on**, owned by that run alone. Two developers' runs never share
@@ -126,7 +167,7 @@ flag.
 > What the team ships faster: root-causing — reproducible failures debug
 > in minutes instead of days.
 
-### 2. Data stores — production-identical engines, in containers
+### Historical rule 2 — Production-identical DB engines in containers (not adopted)
 
 - Run the **same database engine and version production uses**, inside a
   container, started and stopped by the test harness (Testcontainers or the
@@ -164,7 +205,7 @@ flag.
 > users find them. What the team ships faster: data-layer debugging against
 > a faithful store instead of against a substitute that lies.
 
-### 3. Stubs — recorded, normalized, committed, configured
+### Historical rule 3 — Stubs recorded / cadence as fleet law (not adopted)
 
 - Any external API the service calls is replaced locally by a **stub server
   running on localhost** (WireMock, Hoverfly, Mountebank, or the stack-native
@@ -247,7 +288,13 @@ flag.
 > failure-mode lint, and the re-record cadence — new ongoing scope, named
 > here so it cannot bypass the human gate.
 
-### 4. Contract tests — promised interface first, drift detection second
+**Operator note (2026-09-18):** salvage adoption does **not** mandate stubs.
+If a project opts into recorded stubs, only the loud-fail-on-stale/missing
+behavior is carried onto the adopted face — not the scheduled re-record
+cadence as fleet law, not the three-stage pipeline mandate, not failure-mode
+lint as fleet law.
+
+### Historical rule 4 — Two-layer contract tests (not adopted)
 
 Two layers, in this order. The order matters: layer 2 without layer 1 is a
 tautology.
@@ -295,7 +342,7 @@ the drift snapshot does not satisfy this rule.
 > hand-authoring layer-1 contracts from requirements is new authoring scope,
 > named here so it cannot bypass the human gate.
 
-### 5. Regression before merge
+### Historical rule 5 — Required ship-gate regression before merge (not adopted)
 
 For a project that has adopted this playbook:
 
@@ -310,7 +357,11 @@ For a project that has adopted this playbook:
 > around a red suite; it ships fewer regressions. What the team ships
 > faster: incident-free releases — fewer rollbacks, fewer hotfixes.
 
-## Acceptance criteria for "done"
+**Operator note (2026-09-18):** salvage adoption is recommended practice only;
+it is **not** a required fleet ship gate and does not mandate a required CI
+check once opted in.
+
+### Historical acceptance criteria checklist (not adopted)
 
 A project claims this playbook when all of the following hold. Each criterion
 names its independent verifier — the worker never grades its own work.
@@ -367,7 +418,7 @@ names its independent verifier — the worker never grades its own work.
       Verifier: a post-teardown audit step in CI (list containers/volumes/
       processes/ports; fail on residue).
 
-## Recommendation
+### Historical recommendation / Muse-skill invent (not adopted)
 
 Adopt this as a **QA-domain playbook**: a new docs page under `docs/` (or a
 section in the QA-domain material — maintainer's call on placement),
@@ -383,7 +434,11 @@ so the acceptance gate the framework already requires runs on an environment
 the gate can trust. That decision is scope_driven = true and is routed to the
 operator below.
 
-## Open questions for the operator
+**Operator note (2026-09-18):** no skill file was invented; constitution
+untouched; keep path remains this proposals file; ship-gate follow-up was
+answered as recommended-not-required.
+
+### Historical open questions (superseded by answers above)
 
 1. Approve as a QA-domain playbook?
 2. Placement: standalone docs page, or a section in existing QA-domain docs?
