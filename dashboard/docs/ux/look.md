@@ -1,5 +1,7 @@
 **Look APPROVED (Cos GO operator 2026-09-14):** `#39` craft CLEAR @ `4d4e4d7`. Eng may ship approved stills. New look stills still Cos→operator before merge.
 
+**`NO_NESTED_DEVICE_CHROME` (fleet Look law — DRAFT until Cos ACCEPT of AG [#158](https://github.com/paulthorson/agentic-governance/issues/158)):** Never ship nested device chrome inside a host WebView that already provides device chrome. Companion surfaces = edge-to-edge host chrome + real safe-area insets only. Preview/mock frames only in design stills outside the live install path — never in shipped plugin HTML/CSS. Adv / Cos Look **FAIL** if nested bezel / island / home bar / fake device canvas is on a live host face. Do not treat a narrative pass as acceptance. Vanilla — no product / host / plugin brand names. SoT: `harnesses/ux.md` + Cos Look gate.
+
 **DESIGN_SYSTEM_FIRST LIVE:** #45 @ `ead012f` — DS before pixels; Research×UX Cos signoff; Design/Experience/Branding paramount.
 **Brand & Design Setup LIVE:** #46 @ `cdf1c41`.
 **UX Canvas LIVE (separate gate):** #48 @ `e9b4827` — Initiative SoT **#50 @ `6b24c4bc`** `docs/initiatives/ag-website-ux-canvas.md`. Dashboard `ux-canvas.md` mirrors. Screens gated. Admin twin = same craft; one product, two doors. #53 consent Research @ `eaa2efa2` — Check 7 when stories exist.

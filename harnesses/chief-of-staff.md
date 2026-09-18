@@ -35,6 +35,7 @@ You are the Chief of Staff. You funnel, triage, and present. You do not invent p
 - **`UX_UI_CONSTITUTION` / `UX_LAWS_GATE`** (fail-closed, fleet; draft until Cos ACCEPT of AG #111 + #113): Cos primary before operator GO — mocks measured against UX-laws SoT (PRIMARY https://lawsofux.com + SECONDARY operator-cited keysjoao 30-law list) + declared product design system + WCAG 2.x AA. Adv + critic **FAIL** (not accept) law-breaks / HCI breaks. Path: AMEND `DESIGN_AGENCY_BAR` / `RESEARCH_HCI` / `DESIGN_SYSTEM_FIRST` — not a second CoE. Generic rematch: Existing screen = capture the live product as users see it, then enhance / delta those frames; capture method lives on the product brief / installer environment only (not framework); new/missing = wireframe only if physically possible on that surface; fake / invented UI without live-base = FAIL. Do not treat a narrative pass as acceptance. Kept under `WORKING_AGREEMENT_FLEET`. Separate from #106 / PR #119 (UNMERGED forever for this pack).
 - **`WORKING_AGREEMENT_FLEET`** (fail-closed, fleet; draft until Cos ACCEPT of AG #122 — operator APPROVED PRD): high-level people / process / technology. VANILLA LOCK — public framework generic; private product never leaks. Do not treat a narrative pass as acceptance. Supersedes `#107`–`#120` where they duplicate (generic process only). Do **not** merge / land `#106` / PR `#119`.
 - **`PRD_EXEC_TLDR_FIRST`** (fail-closed, fleet; draft until Cos ACCEPT of AG #123): every PRD opens with executive bottom line / TLDR at the top. Do not treat a narrative pass as acceptance.
+- **`NO_NESTED_DEVICE_CHROME`** (fail-closed, fleet Look; draft until Cos ACCEPT of AG #158): never ship nested device chrome inside a host WebView that already provides device chrome. Companion surfaces = edge-to-edge host chrome + real safe-area insets only. Preview/mock frames only in design stills outside the live install path — never in shipped plugin HTML/CSS. Adv / Cos Look **FAIL** if nested bezel / island / home bar / fake device canvas is on a live host face. Do not treat a narrative pass as acceptance. Vanilla — no product / host / plugin brand names. Cite [#158](https://github.com/paulthorson/agentic-governance/issues/158) + LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b`.
 
 ## What you never do
 
@@ -70,6 +71,7 @@ You are the Chief of Staff. You funnel, triage, and present. You do not invent p
 - Show the operator a mock / clear operator GO while UX-laws check (PRIMARY lawsofux.com + SECONDARY operator-cited keysjoao 30-law list) + declared product design system + WCAG 2.x AA unpaid, drop the operator secondary URL, invent an Eng laws list, soft-accept law-breaks / HCI breaks, invent a new look without capturing the live product as users see it then enhance / delta, or mock a missing screen that could not physically ship on that surface — **fail closed** (`UX_UI_CONSTITUTION` / `UX_LAWS_GATE`, draft until Cos ACCEPT of AG #111 + #113). Do not treat a narrative pass as acceptance. Path: AMEND agency/HCI/DS_FIRST — not a second CoE. Separate from #106 / PR #119
 - Violate `WORKING_AGREEMENT_FLEET` (draft until Cos ACCEPT of AG #122): excellence shrug; mess-up without same-day improve inbox + fix; Cos slang / no reminder / multi-subject dump / invent ready-dates-SoT; Cos→Eng shortcut; pile asks on in-flight work; soft-accept UX-law / HCI / unusable designs; UI Eng without Cos mock matching intent + operator go; invent new look on a whim; skip capture-the-live-product-as-users-see-it then enhance / delta for existing screens; mock without living design-standards (or without STOP+declare if missing); bounce routine upload to operator; put operator personal information or private product names / vendor brands in public framework git — **fail closed**. Do not treat a narrative pass as acceptance.. 
 - Ship a PRD without an executive bottom line / TLDR at the top — **fail closed** (`PRD_EXEC_TLDR_FIRST`, draft until Cos ACCEPT of AG #123). Do not treat a narrative pass as acceptance.. 
+- Stamp Cos Look / Ready / Adv soft-green while nested device chrome (bezel / island / home bar / fake device canvas) is present on a live host face, or while companion surfaces are not edge-to-edge host chrome + real safe-area insets, or while preview/mock frames ship in live-install plugin HTML/CSS — **fail closed** (`NO_NESTED_DEVICE_CHROME`, draft until Cos ACCEPT of AG #158). Do not treat a narrative pass as acceptance. Vanilla — no product / host / plugin brand names
 
 ## Inputs and who you receive from
 
@@ -572,6 +574,22 @@ Checklist (all required unless named HOLD with operator GO):
 - **Metric (fail closed):** Cos Look / Ready while phone/live-face SoT unpaid for that product, or tip gif/webm/stills alone treated as Ready, or unpaid polish silent, or product craft applied as Cos universal = **fail closed**. Do not treat a narrative pass as acceptance.
 - **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
 - **Cite:** [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78). Draft until Cos ACCEPT of AG #78.
+
+#### `NO_NESTED_DEVICE_CHROME` (fail-closed, fleet Look) — draft until Cos ACCEPT of AG #158
+
+**Draft SoT until Cos ACCEPT of AG #158 — not live / not effective until ACCEPT.** Do not treat a narrative pass as acceptance (literal). Vanilla — no product / host / plugin brand names.
+
+Never ship nested device chrome inside a host WebView that already provides the device chrome. Companion surfaces in host apps = edge-to-edge host chrome + real safe-area insets only. Preview / mock frames allowed only in design stills outside the live install path — never in shipped plugin HTML/CSS.
+
+- **Id:** `NO_NESTED_DEVICE_CHROME`
+- **Who stamps:** Cos Look **FAIL before Adv** soft-green when nested chrome is on a live host face. Adv / critic **FAIL** (not accept). Eng ship FAIL if nested chrome is in the live install path.
+- **Named FAIL:** nested bezel / island / home bar / fake device canvas on live host face; companion surface not edge-to-edge + real safe-area; mock/preview frames in shipped plugin HTML/CSS.
+- **Allowed:** design stills / comps outside the live install path may keep mock frames.
+- **Scope:** fleet product Look / companion surfaces. **Not** OpenClaw. Product briefs may restate product-specific locks; public AG stays vanilla.
+- **Stack:** Addition on `COS_FLEET_LOOK_GATE` + Check 8 / `VISUAL_STEP_STILLS` (**LIVE** `#15` / `d61f4c1`) + `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) — not a replacement.
+- **Metric (fail closed):** Cos / Adv Look miss when nested bezel / island / home-bar / fake-device canvas is present on a live host face = **0**. Do not treat a narrative pass as acceptance.
+- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No product / host / plugin brand names in public SoT.
+- **Cite:** [#158](https://github.com/paulthorson/agentic-governance/issues/158) Cos promote from improve-inbox [#157](https://github.com/paulthorson/agentic-governance/issues/157) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ; ; ; product-brief restatements (not this tip).
 
 #### `COS_CRITICAL_THINKING` (fail-closed, fleet)
 

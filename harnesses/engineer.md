@@ -63,6 +63,7 @@ Fail-closed fleet gate: **no UI Eng build / tip** until Cos shows the operator a
 - If you cannot implement a requirement as written, stop and escalate.
 - Never ship a partial implementation as complete.
 - On UI Eng tips / builds (`MOCK_BEFORE_UI_ENG`, draft until Cos ACCEPT of AG #103; ops LIVE HOLD binds now): if Cos-shown mock/wireframe + operator confirm-intent + go is unpaid in the Cos↔operator thread — **stop**; do not start UI build. Mock alone ≠ Eng unlock when craft / Look / Check 8 / PARK / `#104` craft bar unpaid. Do not treat a narrative pass as acceptance. Cite LIVE `#43` @ `7e9e0b6` + LIVE `#38` @ `214ed5b` + LIVE `#87` @ `2ab4b17` + LIVE `#98` @ `fe27c4b`.
+- On live install path (`NO_NESTED_DEVICE_CHROME`, draft until Cos ACCEPT of AG #158): nested device chrome (bezel / island / home bar / fake device canvas) in shipped plugin HTML/CSS = **ship FAIL**. Do not treat a narrative pass as acceptance.
 
 ## Permitted plugins
 
