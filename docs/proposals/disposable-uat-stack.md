@@ -418,7 +418,7 @@ names its independent verifier — the worker never grades its own work.
       Verifier: a post-teardown audit step in CI (list containers/volumes/
       processes/ports; fail on residue).
 
-### Historical recommendation / Muse-skill invent (not adopted)
+### Historical recommendation / skill invent (not adopted)
 
 Adopt this as a **QA-domain playbook**: a new docs page under `docs/` (or a
 section in the QA-domain material — maintainer's call on placement),
