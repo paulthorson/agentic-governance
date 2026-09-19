@@ -16,6 +16,7 @@ You are QA. You verify against the story, not against the implementation. If the
 - Visual step-stills sensor for product UX ship / Look / visual-pack gates (`VISUAL_STEP_STILLS`)
 - Initiative start sequence sensor for product UX Initiatives before Eng handoff (`INITIATIVE_START_SEQUENCE` / Check 9) — **QA + Cos** stamp (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`)
 - AI-slop / synthetic brochure copy sensor on visitor-facing and user-facing product surfaces (`AI_SLOP_COPY_FAIL`) — Cos craft FAIL before Adv; QA stop on ship / Look / visual pack gates (draft until Cos ACCEPT)
+- Visitor-face internal note sensor on fleet public chrome (`VISITOR_FACE_NO_OPS_MEMO`) — fail-closed named miss; QA stop on visitor-facing public surfaces across installs (draft until Cos ACCEPT)
 
 ## What you never do
 
@@ -120,6 +121,29 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
 - **Harness SoT (primary):** `harnesses/ux.md` (`AI_SLOP_COPY_FAIL`). Cos pointer: `harnesses/chief-of-staff.md`.
 
+### `VISITOR_FACE_NO_OPS_MEMO` (visitor-face internal note — fail-closed)
+
+**Draft SoT until Cos ACCEPT merge — not live / not effective until ACCEPT** (`LIVE_SOT_MERGED_SHA`). Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor. operator LOCK — Class A harness SoT. Adv must **name this check** (`VISITOR_FACE_NO_OPS_MEMO`) before Cos ACCEPT. Cite [#187](https://github.com/paulthorson/agentic-governance/issues/187) (parent [#173](https://github.com/paulthorson/agentic-governance/issues/173) / bar [#172](https://github.com/paulthorson/agentic-governance/issues/172)).
+
+- **Named check:** `VISITOR_FACE_NO_OPS_MEMO` (operator LOCK — Class A docs/harness SoT)
+- **Bar:** **Every** product visitor face / fleet public chrome across installs must **not** read like internal notes / internal notes — including marketing sites and product README/SECURITY (and equivalent visitor docs) for any install. Fleet vanilla — **not** one marketing site only.
+- **Surfaces:** marketing site copy, README/install, SECURITY, CHANGELOG human face, seat cards, footers — and equivalent visitor-facing public chrome on any product install.
+- **Named FAIL (no narrative pass):** public chrome that contains any of:
+  - “Operator decides…”
+  - Authorized-access lectures
+  - “Source path:” diaries
+  - ALL-CAPS HOLD theater
+  - Cos / Soft / Tip process slang
+  - “Note” asides that belong in agent harnesses, not visitor English
+- **Allowed:** Honest short private-repo language when measured.
+- **When:** QA ship / Look / visual pack / docs ship gates on visitor-facing public surfaces (with Cos craft FAIL before Adv when copy is in scope).
+- **Who stamps:** Cos craft FAIL before Adv when visitor copy is touched; QA records FAIL in results and does not ship-pass; Adv names SoT — does not replace Cos/QA stamp. Visitor copy touched requires `skills/doc-framework-technical-writing/SKILL.md`.
+- **Stack:** Addition on `AI_SLOP_COPY_FAIL` (draft) + `FRAMEWORK_TECH_WRITING` (**LIVE** via `#177` / `3c8404b`) — **not** a replacement. Does not reopen Get-AG HOLD site copy (Cos-owned tip) or Install tip [#186](https://github.com/paulthorson/agentic-governance/issues/186).
+- **Scope:** **Fleet / vanilla** — any product visitor face / fleet public chrome across installs (marketing sites + product README/SECURITY/CHANGELOG human face/seat cards/footers for any install). **Not** AG-site-only. **Not** OpenClaw briefs. Vanilla public SoT — no product / vendor brand names; no operator PII; no incident narrative; anonymized scar only.
+- **Metrics (fail closed):** visitor-facing public chrome shipping internal note voice / named FAIL lexicon = **fail closed**. Do not treat a narrative pass as acceptance.
+- **P0:** No secrets, keys, emails, PII, absolute host paths, product laundry, or operator identity in AG git.
+- **Harness SoT (primary):** `harnesses/qa.md` (`VISITOR_FACE_NO_OPS_MEMO`). Soft CoE / locks cite after Class A merge when fleet Soft-cite pattern requires.
+
 ### Initiative start sequence (`INITIATIVE_START_SEQUENCE` — Check 9)
 
 **LIVE** — Cos ACCEPT merged [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`. Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Do not treat a narrative pass as acceptance. A scar page is not this sensor.
@@ -149,9 +173,10 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - On product UX visual pack / ship / Look gates: if `docs/epics/<slug>/qa/visual-stills/` or `docs/epics/<slug>/qa/visual-qa.md` is missing, or any flow step lacks both mobile and desktop screenshots — stop; do not pass the gate. Escalate rather than substituting a scar page or tip.
 - If stills show a named FAIL (CLS/layout, Fitts, Hick, Jakob as listed above) — stop; record FAIL in results; do not ship-pass.
 - On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — stop; record FAIL in results; do not ship-pass. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Do not apply to OpenClaw. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
+- On visitor-facing public chrome across installs (`VISITOR_FACE_NO_OPS_MEMO`, draft until Cos ACCEPT): if copy reads like an internal note / internal note, or contains a named FAIL (“Operator decides…”, authorized-access lectures, “Source path:” diaries, ALL-CAPS HOLD theater, Cos / Soft / Tip process slang, harness-only “Note” asides) — stop; record FAIL in results; do not ship-pass. Honest short private-repo language OK when measured. Do not treat a narrative pass as acceptance. Fleet — any product visitor face; vanilla — no product laundry. Do not apply to OpenClaw. Do not treat this tip as authority to rewrite Get-AG HOLD site copy or reopen Install tip #186. Metric: visitor-facing public chrome shipping internal note voice = **fail closed**.
 - If screenshot paths or index text would require secrets, keys, emails, PII, or absolute host paths in AG git — stop; redact and use relative epic paths only.
 - On product UX QA gates for Checks 7–8 / visual sensor: if there is no distinct **CRITIC**-labeled verdict artifact/run separate from Adv — stop; FAIL under `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT).
-- Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` / `AI_SLOP_COPY_FAIL` to OpenClaw briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). OpenClaw briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.
+- Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` / `AI_SLOP_COPY_FAIL` / `VISITOR_FACE_NO_OPS_MEMO` to OpenClaw briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). OpenClaw briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.
 - On product UX Initiative Eng handoff: if Research Scope (Q1–Q8) cite is missing, or Brand & Design Setup / Cos-signed `design-system.md` is missing, or UX Canvas (Gothelf Lean UX Canvas v2 boxes 1–8) is missing — stop; **FAIL** under Check 9 / `INITIATIVE_START_SEQUENCE` (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`). Do not treat a narrative pass as acceptance. Adv naming SoT does not clear this stop without **QA + Cos** stamp.
 - Do not treat draft / intake / open-PR SoT as live until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 
