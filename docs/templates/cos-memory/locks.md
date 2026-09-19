@@ -282,3 +282,12 @@
 - **Not:** inventing a read ban; vendor brands; product laundry; operator PII; local platform routing; ; auto-merge #26
 - **Cite when LIVE:** [#168](https://github.com/paulthorson/agentic-governance/pull/168) @ `42f48fb` — cite [#170](https://github.com/paulthorson/agentic-governance/issues/170) / epic [#169](https://github.com/paulthorson/agentic-governance/issues/169) + Check 1 absorbs [#167](https://github.com/paulthorson/agentic-governance/issues/167) + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b`
 - **Supersedes:** prior mail-only parent id on tip #168 (absorbed as Check 1 under this gate); not a replacement of improve LIVE #87 / #98
+
+## 2026-09-19 — `FRAMEWORK_TECH_WRITING` (fail-closed, public git — LIVE — AG #174 / #173)
+
+- **Who:** operator / Cos (AG [#174](https://github.com/paulthorson/agentic-governance/issues/174) / epic [#173](https://github.com/paulthorson/agentic-governance/issues/173); **LIVE** via [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b`) — PM owns human-facing require list; Eng/Cos Named FAIL cites; Adv Soft rematch on visitor-facing writing quality
+- **Plain text:** Skill `skills/doc-framework-technical-writing/SKILL.md` required for PM-listed public human-facing content. Eng/Cos Named FAIL cites. Do not treat a narrative pass as acceptance. Vanilla — no vendor laundry. Metric: unpaid skill on PM-listed public human-facing content / missing Eng or Cos Named FAIL cite = fail closed.
+- **Scope:** public git human-facing content (PM require list; Eng/Cos cites of the same skill)
+- **Not:** Soft theater invent; skill body rewrite; #175 B1 Get AG/clone work; vendor laundry; ; auto-merge #26
+- **Cite when LIVE:** [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b` — cite story [#174](https://github.com/paulthorson/agentic-governance/issues/174) / epic [#173](https://github.com/paulthorson/agentic-governance/issues/173)
+- **Supersedes:** none — addition; not a replacement of improve LIVE #87 / #98
