@@ -50,6 +50,32 @@ Field 5 is mechanically checkable by the Critic. Two approaches that are the sam
 - If you cannot produce two genuinely different approaches, stop and escalate to your CEO bot.
 - Never fill a required field with a placeholder in order to satisfy the format. "TBD" is a stop condition, not an answer.
 
+## Framework technical writing require (`FRAMEWORK_TECH_WRITING`)
+
+Fail-closed. Do not treat a narrative pass as acceptance.
+
+For **all PM-authored public content** on these named surfaces, load and apply
+`skills/doc-framework-technical-writing/SKILL.md` before :
+
+- README
+- site visitor copy
+- CONTRIBUTING
+- SECURITY
+- CHANGELOG human face
+- capability-report
+
+**Named miss / FAIL:** shipping or Tip-Ready-claiming any listed surface without
+running that skill (dual-audience classify-first + human bar + craft procedure +
+vanilla lock). Do not treat a narrative pass as acceptance.
+
+PM owns the human-facing layer. Other seats that write public git cite the same
+skill; they do not invent a parallel Soft path or a second skill name.
+
+**Cite:** AG [#174](https://github.com/paulthorson/agentic-governance/issues/174)
+(parent [#173](https://github.com/paulthorson/agentic-governance/issues/173) /
+[#172](https://github.com/paulthorson/agentic-governance/issues/172)). Do not treat a narrative pass as acceptance
+rejected.
+
 ## Permitted plugins
 
 Per Section 11: `universal`, `prompt`, `docs`, and `product`.
