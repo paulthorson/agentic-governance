@@ -29,8 +29,7 @@ formerly lived here is archived at
 
 ### Changed
 
-- Install section documents **HOLD — authorized access only** while this
-  GitHub repository is private (anonymous clone returns 404).
+- Install section notes the repository is private (clone needs GitHub access).
 - Root license is Apache License 2.0 (see `LICENSE` and `NOTICE`).
 - Setup wizard questions rewritten in plain language; data-source and network
   permission questions included.
@@ -39,7 +38,6 @@ formerly lived here is archived at
 
 ### Fixed
 
-- Honest Install path: no public install promise while the repo stays private.
 - MCP `get_standard` / `get_constitution` path resolution for domain plugins.
 - Setup wizard roster completion so finalize can write config.
 
