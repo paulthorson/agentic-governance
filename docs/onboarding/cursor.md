@@ -7,7 +7,7 @@ governed reviews.
 
 - [Cursor](https://cursor.com) installed
 - [uv](https://docs.astral.sh/uv/) installed
-- The repo cloned (see [README](../README.md#quick-start-any-system))
+- The repo cloned (see [README Install](../../README.md#install-framework))
 
 ## 1. Install the MCP server
 
