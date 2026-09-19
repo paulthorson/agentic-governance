@@ -142,7 +142,7 @@ Domains ship under `adversarial-*/` (UX, engineer, QA, researcher, universal, pr
 |---|---|
 | [`docs/capability-report.md`](docs/capability-report.md) | **What code actually does** (source of truth for capability claims) |
 | [`docs/claim-alignment-plan.md`](docs/claim-alignment-plan.md) | Claim alignment plan |
-| [`docs/Home.md`](docs/Home.md) | Wiki entry |
+| [`docs/Home.md`](docs/Home.md) | Docs overview |
 | [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) | Framework spec (includes advisory sections) |
 | [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md) | Addendum |
 | [`docs/deployment.md`](docs/deployment.md) | Remote MCP |

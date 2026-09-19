@@ -7,7 +7,7 @@ coding tool) so your OpenAI agents run governed reviews.
 
 - [ChatGPT](https://chatgpt.com) or [Codex](https://openai.com/codex) with MCP support
 - [uv](https://docs.astral.sh/uv/) installed
-- The repo cloned (see [README](../README.md#quick-start-any-system))
+- The repo cloned (see [README Install](../../README.md#install-framework))
 
 ## 1. Install the MCP server
 

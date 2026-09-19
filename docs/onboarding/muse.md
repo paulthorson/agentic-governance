@@ -10,7 +10,7 @@ or the framework's own bots — can reproduce it.
 
 ## Prerequisites
 
-- The repo cloned (see [README](../README.md#quick-start-any-system))
+- The repo cloned (see [README Install](../../README.md#install-framework))
 - Python 3.10+
 - A local review runner (the reference pattern below uses a thin wrapper
   around the framework's `run_review`; any equivalent that calls the

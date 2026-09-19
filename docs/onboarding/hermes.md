@@ -7,7 +7,7 @@ governed reviews.
 
 - [Hermes](https://hermes.ai) installed (an MCP-capable agent runtime)
 - [uv](https://docs.astral.sh/uv/) installed
-- The repo cloned (see [README](../README.md#quick-start-any-system))
+- The repo cloned (see [README Install](../../README.md#install-framework))
 
 ## 1. Install the MCP server
 

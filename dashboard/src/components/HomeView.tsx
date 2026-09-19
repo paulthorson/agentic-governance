@@ -30,7 +30,7 @@ const REPO_URL = 'https://github.com/paulthorson/agentic-governance';
 const CHANGELOG_URL = `${REPO_URL}/blob/main/CHANGELOG.md`;
 const CONTRIBUTE_URL = `${REPO_URL}/blob/main/CONTRIBUTING.md`;
 const IMPROVE_DOCS_URL = `${REPO_URL}/tree/main/docs/improve`;
-const README_URL = `${REPO_URL}#quick-start-any-system`;
+const README_URL = `${REPO_URL}#install-framework`;
 
 interface KpiRow extends Record<string, unknown> {
   name: string;
