@@ -20,7 +20,7 @@ The loop is governed by a constitution, not by style-guide taste.
 ## Quick start
 
 1. **Install the framework** — see [README Install](../README.md#install-framework)
-   (HOLD while the repository is private; authorized access only).
+   (repo is private; clone needs GitHub access).
 2. **Read what the code actually does** — [`capability-report.md`](capability-report.md).
 3. **Understand the loop** — [Architecture](Architecture.md).
 4. **Pick a domain** — [Domains](Domains.md) lists the adversary plugins.

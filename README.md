@@ -98,9 +98,7 @@ Listed subprocess / outbound / outside-write call sites refuse without `AG_APPRO
 
 ## Install (framework)
 
-**HOLD — authorized access only.** This GitHub repository is private. Anonymous visitors cannot open or clone it (the public repo URL returns 404). There is no public install path while the repository stays private. Do not treat the clone command below as a working path unless you already have authorized access.
-
-If you have authorized access:
+This GitHub repository is private, so clone and install only work if you already have access to it.
 
 ```bash
 git clone https://github.com/paulthorson/agentic-governance.git
