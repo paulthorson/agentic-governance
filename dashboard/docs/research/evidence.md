@@ -4,7 +4,7 @@
 **Cos GO:** 2026-09-13 — public dashboard FAIL on look; Research evidence SoT before Check 7/8 or Eng UI. 
 **Ownership:** AG Research owns this pack. AG UX owns Check 7 (flows/JTBD) and Check 8 (stills) after — **not in this PR**. 
 **Live surface audited:** https://www.agenticgovernance.app 
-**Scope:** ADV_COMP evidence for the public marketing+ops face only (not OpenClaw briefs, not admin SSO, not Check 7/8 artifacts, not Eng UI). 
+**Scope:** ADV_COMP evidence for the public marketing+ops face only (not OpenClaw briefs, not localhost metrics admin, not Check 7/8 artifacts, not Eng UI). 
 **No Check 7/8 in this PR.**
 
 ---

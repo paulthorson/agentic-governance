@@ -29,7 +29,11 @@ formerly lived here is archived at
 
 ### Changed
 
-- Install section notes the repository is private (clone needs GitHub access).
+- Localhost dashboard admin uses a localhost Host gate only; remote identity
+  login is removed (fail closed off-box).
+- Root README Install section rewritten as a stranger-facing clone → MCP →
+  wizard guide (no private-repo HOLD voice; Cos seating detail linked from
+  onboarding docs).
 - Root license is Apache License 2.0 (see `LICENSE` and `NOTICE`).
 - Setup wizard questions rewritten in plain language; data-source and network
   permission questions included.

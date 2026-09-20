@@ -1,41 +1,55 @@
 /**
- * Admin allowlist for Google SSO.
+ * Localhost-only gate for /admin metrics.
  *
- * Sole source: ADMIN_EMAILS env (comma-separated). There is no hardcoded
- * operator address. Empty / missing ADMIN_EMAILS → empty allowlist → nobody
- * can sign in (fail closed). Deployer must supply real Google account emails
- * via env. GitHub noreply addresses are not Google accounts and will not work
- * as Google OAuth login identities.
+ * Admin is intentionally open on local hostnames only. Remote identity login
+ * is not part of this app. Non-local Host headers fail closed (middleware
+ * redirects to public `/`).
  */
 
-function normalizeEmail(email: string): string {
-  return email.trim().toLowerCase();
+/** Hostnames treated as local for admin access. */
+const LOCAL_HOSTNAMES = new Set([
+  "localhost",
+  "127.0.0.1",
+  "[::1]",
+  "::1",
+  "0.0.0.0",
+]);
+
+/**
+ * Strip port from a Host / X-Forwarded-Host value.
+ * IPv6 bracket forms like `[::1]:3000` keep the brackets on the hostname.
+ */
+export function hostnameFromHostHeader(
+  hostHeader: string | null | undefined,
+): string | null {
+  if (!hostHeader) return null;
+  const raw = hostHeader.trim().toLowerCase();
+  if (!raw) return null;
+
+  if (raw.startsWith("[")) {
+    const end = raw.indexOf("]");
+    if (end === -1) return null;
+    return raw.slice(0, end + 1);
+  }
+
+  const colon = raw.lastIndexOf(":");
+  if (colon > -1 && /^\d+$/.test(raw.slice(colon + 1))) {
+    return raw.slice(0, colon);
+  }
+  return raw;
 }
 
-/** Parsed ADMIN_EMAILS env — empty/missing → []. */
-export function envAdminEmails(): string[] {
-  const raw = process.env.ADMIN_EMAILS;
-  if (!raw || !raw.trim()) return [];
-  return raw
-    .split(",")
-    .map((part) => normalizeEmail(part))
-    .filter((email) => email.length > 0 && email.includes("@"));
-}
-
-/** Effective allowlist: ADMIN_EMAILS only. Empty → nobody. */
-export function adminAllowlist(): string[] {
-  return [...new Set<string>(envAdminEmails())];
-}
-
-export function isAdminEmail(email: string | null | undefined): boolean {
-  if (!email) return false;
-  const list = adminAllowlist();
-  if (list.length === 0) return false; // fail closed
-  return list.includes(normalizeEmail(email));
-}
-
-/** Hint string for login UI when at least one allowlisted email exists. */
-export function primaryAdminEmailHint(): string | null {
-  const list = adminAllowlist();
-  return list[0] ?? null;
+/**
+ * True when the request Host is localhost / loopback / *.localhost.
+ * Empty or missing host → fail closed (false).
+ */
+export function isLocalAdminHost(
+  hostHeader: string | null | undefined,
+): boolean {
+  const hostname = hostnameFromHostHeader(hostHeader);
+  if (!hostname) return false;
+  if (LOCAL_HOSTNAMES.has(hostname)) return true;
+  // e.g. myapp.localhost (common local DNS convention)
+  if (hostname.endsWith(".localhost")) return true;
+  return false;
 }

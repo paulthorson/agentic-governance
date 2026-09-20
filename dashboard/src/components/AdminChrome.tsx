@@ -1,9 +1,8 @@
 'use client';
 
 import {AppShell} from '@ag-dashboard/core/AppShell';
-import {Button} from '@ag-dashboard/core/Button';
 import {Icon} from '@ag-dashboard/core/Icon';
-import {HStack, VStack} from '@ag-dashboard/core/Layout';
+import {VStack} from '@ag-dashboard/core/Layout';
 import {NavIcon} from '@ag-dashboard/core/NavIcon';
 import {
   SideNav,
@@ -14,7 +13,6 @@ import {
 import {Text} from '@ag-dashboard/core/Text';
 import {TopNav, TopNavHeading, TopNavItem} from '@ag-dashboard/core/TopNav';
 import {
-  ArrowRightStartOnRectangleIcon,
   ChartBarIcon,
   ClockIcon,
   DocumentTextIcon,
@@ -25,14 +23,12 @@ import {
 import {CubeIcon} from '@heroicons/react/24/outline';
 import {usePathname} from 'next/navigation';
 import type {ReactNode} from 'react';
-import {signOutAdmin} from '@/app/admin/actions';
 
 export type AdminChromeProps = {
-  email: string;
   children: ReactNode;
 };
 
-export function AdminChrome({email, children}: AdminChromeProps) {
+export function AdminChrome({children}: AdminChromeProps) {
   const pathname = usePathname();
 
   return (
@@ -71,26 +67,9 @@ export function AdminChrome({email, children}: AdminChromeProps) {
             </>
           }
           endContent={
-            <HStack gap={3} vAlign="center">
-              <Text type="supporting" color="secondary">
-                {email}
-              </Text>
-              <form action={signOutAdmin}>
-                <Button
-                  type="submit"
-                  label="Sign out"
-                  variant="ghost"
-                  size="sm"
-                  icon={
-                    <Icon
-                      icon={ArrowRightStartOnRectangleIcon}
-                      size="sm"
-                      color="inherit"
-                    />
-                  }
-                />
-              </form>
-            </HStack>
+            <Text type="supporting" color="secondary">
+              Localhost only
+            </Text>
           }
         />
       }

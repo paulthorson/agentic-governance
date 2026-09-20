@@ -1,6 +1,4 @@
-import {auth} from '@/auth';
 import {AdminOverviewView} from '@/components/AdminOverview';
-import {isAdminEmail} from '@/lib/admin-access';
 import {loadImproveReports} from '@/lib/improve';
 import {
   aggregateKpis,
@@ -9,15 +7,8 @@ import {
 } from '@/lib/kpis';
 import {loadScarIndex} from '@/lib/scars';
 import {allTractionAdminRows, loadTractionConfig} from '@/lib/traction';
-import {redirect} from 'next/navigation';
 
-export default async function AdminHomePage() {
-  const session = await auth();
-  const email = session?.user?.email ?? null;
-  if (!email || !isAdminEmail(email)) {
-    redirect('/admin/login');
-  }
-
+export default function AdminHomePage() {
   const reports = loadImproveReports();
   const kpis = aggregateKpis(reports);
   const series = buildKpiChartSeries(reports);
@@ -28,7 +19,6 @@ export default async function AdminHomePage() {
 
   return (
     <AdminOverviewView
-      email={email}
       kpis={kpis}
       series={series}
       hasMeasured={hasMeasured}

@@ -88,7 +88,7 @@ secrets/keys/emails/PII/host paths in digest artifacts; no invented tokens.
 - Template: [`_template.md`](./_template.md)
 - Changelog: [`../../CHANGELOG.md`](../../CHANGELOG.md)
 - Public dashboard: [`../../dashboard/`](../../dashboard/) (UI SoT = declared product design system)
-- Admin (Google SSO): [`../../dashboard/`](../../dashboard/) `/admin/*` — see dashboard README for Vercel env + OAuth
+- Admin (localhost only): [`../../dashboard/`](../../dashboard/) `/admin/*` — see dashboard README (remote identity login removed; localhost Host gate)
 - Traction gates: [`../../data/traction.json`](../../data/traction.json) — widgets stay hidden until Cos/operator set measured values ≥ `minVisible`
 - Cos harness SoT (`SELF_AUDIT_LOOP`): [`../../harnesses/chief-of-staff.md`](../../harnesses/chief-of-staff.md)
 - Initiative epic (Anonymous Improve Feedback — PRD / feeds this digest): [`../initiatives/anonymous-improve-feedback.md`](../initiatives/anonymous-improve-feedback.md)

@@ -1,6 +1,7 @@
 'use client';
 
 import {AppShell} from '@ag-dashboard/core/AppShell';
+import {Banner} from '@ag-dashboard/core/Banner';
 import {Button} from '@ag-dashboard/core/Button';
 import {Card} from '@ag-dashboard/core/Card';
 import {Divider} from '@ag-dashboard/core/Divider';
@@ -108,6 +109,8 @@ export type HomeViewProps = {
   hasMeasured: boolean;
   visibleTraction: TractionMetric[];
   gatedCount: number;
+  /** Set when a non-local visitor hit /admin and was redirected here. */
+  adminLocalOnlyNotice?: boolean;
 };
 
 export function HomeView({
@@ -117,6 +120,7 @@ export function HomeView({
   hasMeasured,
   visibleTraction,
   gatedCount,
+  adminLocalOnlyNotice = false,
 }: HomeViewProps) {
   return (
     <AppShell
@@ -154,6 +158,14 @@ export function HomeView({
       }
     >
       <VStack gap={8} maxWidth={1080}>
+        {adminLocalOnlyNotice ? (
+          <Banner
+            status="warning"
+            title="Admin is localhost only"
+            description="The metrics admin at /admin is available on this machine via localhost (for example http://localhost:3000/admin). Remote hosts cannot open admin; remote identity login is not offered."
+          />
+        ) : null}
+
         <VStack gap={4} id="kpis">
           <VStack gap={2}>
             <Heading level={1} type="display-3" textWrap="balance">

@@ -98,29 +98,38 @@ Listed subprocess / outbound / outside-write call sites refuse without `AG_APPRO
 
 ## Install (framework)
 
-This GitHub repository is private, so clone and install only work if you already have access to it.
+You need [Git](https://git-scm.com/), [uv](https://docs.astral.sh/uv/), and an agent host that can talk to an MCP server.
+
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/paulthorson/agentic-governance.git
 cd agentic-governance
-cd mcp && uv sync && uv run adversarial-mcp # stdio (default)
 ```
 
-Wire the MCP server into your agent, then run `setup_wizard_start` / `setup_wizard_answer`.
+2. **Install and start the MCP server** (stdio is the default)
 
-**Cos seating (install/setup — not deferred):** When the roster includes Chief of Staff (`cos`), the wizard **ASKS** Cos memory store mode (`private_git` OR `local_folder` — do not force one) and scaffolds from `docs/templates/cos-memory/` via the seating hook `mcp/adversarial_mcp/cos_memory_setup.py` (CLI stub: `scripts/cos_memory_setup.py`). operator + Cos clarified store = private git. See [`docs/onboarding/cos-seating.md`](docs/onboarding/cos-seating.md).
+```bash
+cd mcp
+uv sync
+uv run adversarial-mcp
+```
 
-Onboarding guides: [`docs/onboarding/`](docs/onboarding/).
+3. **Connect the server to your agent** 
+   Point your MCP-capable agent host at the `adversarial-mcp` command from the step above — exact wiring depends on the host.
 
-**Public face vs localhost:** Marketing homepage is [https://www.agenticgovernance.app](https://www.agenticgovernance.app) (site repo). The optional Next.js `dashboard/` app is **localhost-only** for operator/dev — **not required** to use the framework ([§7.3](docs/capability-report.md#73-dashboard-required)), and this framework repo must **not** bind a Vercel project to `dashboard/`.
+4. **Run the setup wizard** 
+   From your agent, call `setup_wizard_start`, then answer with `setup_wizard_answer` until it finishes. The wizard writes config under `config/` (roster, budget, network permission, and related files).
 
-Historical gap analysis lives under [`docs/quarantine/`](docs/quarantine/) (not live Class A SoT).
+More walkthroughs live under [`docs/onboarding/`](docs/onboarding/). If you seat a Chief of Staff role, memory-store choices are documented in [`docs/onboarding/cos-seating.md`](docs/onboarding/cos-seating.md) — that detail is not required to install the framework.
+
+**Optional localhost metrics app:** The `dashboard/` folder is a local Next.js preview for improve metrics. It is **not required** to use the framework. Admin pages work only on localhost (remote identity login removed; localhost Host gate only). Marketing site: [https://www.agenticgovernance.app](https://www.agenticgovernance.app).
 
 ---
 
 ## Setup wizard (BYOA)
 
-Conversational via MCP tools. Asks runtime, engine, budget model (framework units), roster, **Cos memory (when Cos is seated — install-time ASK)**, adversaries, escalation, quiet hours, autonomy, retries, research bounds, irreversible-action protection level, **network permission**, alert channel, and data-source paths. Writes `config/setup.md`, `config/roster.md`, persona blocks, and (when Cos is seated) `config/cos-memory/`.
+Conversational via MCP tools. It asks about your runtime, engine, budget model (framework units), roster, adversaries, escalation, quiet hours, autonomy, retries, research bounds, irreversible-action protection, **network permission**, alert channel, and data-source paths. When the roster includes a Chief of Staff, it also asks how to store that role’s private memory (details: [`docs/onboarding/cos-seating.md`](docs/onboarding/cos-seating.md)). It writes `config/setup.md`, `config/roster.md`, persona blocks, and (when Chief of Staff is seated) `config/cos-memory/`.
 
 **Reconcile, never layer** when adopting existing agents. **Re-runnable.** Agents absent from the roster are outside this framework’s config — the framework cannot introspect arbitrary runtimes.
 

@@ -11,7 +11,12 @@ import {
   visibleTractionMetrics,
 } from '@/lib/traction';
 
-export default function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{admin?: string}>;
+}) {
+  const params = await searchParams;
   const reports = loadImproveReports();
   const kpis = aggregateKpis(reports);
   const series = buildKpiChartSeries(reports);
@@ -28,6 +33,7 @@ export default function HomePage() {
       hasMeasured={hasMeasured}
       visibleTraction={visibleTraction}
       gatedCount={gatedCount}
+      adminLocalOnlyNotice={params.admin === 'local-only'}
     />
   );
 }

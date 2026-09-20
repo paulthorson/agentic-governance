@@ -64,12 +64,12 @@ Related SoT (do not reopen here):
 | **Living board UI** | `dashboard/src/app/page.tsx`, `HomeView.tsx`, `KpiPanel.tsx`, `TractionStrip.tsx` | Cos LOCK #3 — UI on site; numbers from AG feed pull |
 | Root layout / globals / providers | `dashboard/src/app/layout.tsx`, `globals.css`, `providers.tsx` | Site shell for public + admin twin |
 | **Admin twin UI** | `dashboard/src/app/admin/**`, `Admin*` components, admin login route | Cos LOCK #1 — UI on site; consumes AG feeds/corpus read-only |
-| Admin auth surface (site-hosted) | `auth.ts`, `middleware.ts`, `api/auth/**`, `lib/admin-access.ts` (as needed for `/admin` on site) | SSO env lives with **site** Vercel project that hosts admin twin UI |
+| Admin auth surface (site-hosted) | `auth.ts`, `middleware.ts`, `api/auth/**`, `lib/admin-access.ts` (as needed for `/admin` on site) | Admin twin on site should stay localhost-or-fail-closed; do not resurrect remote identity login on the framework dashboard |
 | **Anonymous Improve public UX** | Public consent / Get AG / improve CTA surfaces on the board (when shipped) | Cos LOCK #2 — public UX on site; corpus stays AG |
 | Public UX docs for face | `dashboard/docs/ux/*` (look / userflows / jtbd / visual stills for public `/` + admin twin craft) | Face craft packet travels with site repo |
 | Research that feeds the face | `dashboard/docs/research/*` | Keep internal; **no competitor/agency brand names on public chrome** |
 | Website design-system packet | `design-system.md` if present for website DS | Move with site face; do not strip AG constitution DS |
-| Site Next app shell | `package.json` / lockfile / `tsconfig` / `next.config` to run public `/` + `/admin` twin | May include next-auth for admin twin on site |
+| Site Next app shell | `package.json` / lockfile / `tsconfig` / `next.config` to run public `/` + `/admin` twin | Do not add remote identity login for admin twin without a separate operator GO |
 | Traction / board **consumer** | Client of `data/traction.json` + improve/KPI feeds | **Pull from AG** — never publish from site |
 | Site `vercel.json` | At **repo root** of `agentic-governance-site` | Root directory = repo root |
 
@@ -121,7 +121,7 @@ Related SoT (do not reopen here):
 | After [#55](https://github.com/paulthorson/agentic-governance/pull/55) **MERGED** + this plan ACCEPT | Eng execute full extract into site repo; wire build to that Vercel project |
 | Root Directory | **repo root** (site app at root — not nested `dashboard/`) |
 | Site `vercel.json` | Add at site repo root |
-| Site deploy env | Hosts public `/` **and** admin twin `/admin/*` (SSO env on **site** project once admin UI lives there) |
+| Site deploy env | Hosts public `/` **and** admin twin `/admin/*` (no remote identity login env on framework dashboard; site twin is a separate decision) |
 | Former framework Vercel (`agentic-governance` / three) | **DETACHED** from framework git — public face = site only; do not re-bind |
 
 ### Safest default after split (Cos OPEN Q LOCKs)

@@ -1,32 +1,24 @@
-import {NextResponse} from "next/server";
-import {auth} from "@/auth";
-import {isAdminEmail} from "@/lib/admin-access";
+import {NextResponse, type NextRequest} from "next/server";
+import {isLocalAdminHost} from "@/lib/admin-access";
 
 /**
- * Protect /admin/* behind Google SSO + allowlist.
- * /admin/login is reachable without a session so the operator can sign in.
+ * Protect /admin/* — localhost hostnames only.
+ * Non-local requests fail closed: redirect to public `/` with a clear notice.
+ * Remote identity login is not offered.
  */
-export default auth((req) => {
-  const {pathname} = req.nextUrl;
-  const isLogin = pathname === "/admin/login";
-  const email = req.auth?.user?.email ?? null;
-  const allowed = Boolean(email && isAdminEmail(email));
+export function middleware(req: NextRequest) {
+  const host =
+    req.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
+    req.headers.get("host");
 
-  if (isLogin) {
-    if (allowed) {
-      return NextResponse.redirect(new URL("/admin", req.nextUrl.origin));
-    }
+  if (isLocalAdminHost(host)) {
     return NextResponse.next();
   }
 
-  if (!allowed) {
-    const login = new URL("/admin/login", req.nextUrl.origin);
-    login.searchParams.set("callbackUrl", pathname);
-    return NextResponse.redirect(login);
-  }
-
-  return NextResponse.next();
-});
+  const home = new URL("/", req.nextUrl.origin);
+  home.searchParams.set("admin", "local-only");
+  return NextResponse.redirect(home);
+}
 
 export const config = {
   matcher: ["/admin", "/admin/:path*"],

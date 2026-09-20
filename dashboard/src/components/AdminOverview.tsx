@@ -97,7 +97,6 @@ function tokenRows(reports: ImproveReport[]): TokenRow[] {
 }
 
 export type AdminOverviewProps = {
-  email: string;
   kpis: AggregatedKpi[];
   series: ChartPoint[];
   hasMeasured: boolean;
@@ -108,7 +107,6 @@ export type AdminOverviewProps = {
 };
 
 export function AdminOverviewView({
-  email,
   kpis,
   series,
   hasMeasured,
@@ -142,9 +140,9 @@ export function AdminOverviewView({
           Internal improve admin
         </Heading>
         <Text type="body" color="secondary">
-          Signed in as {email}. Sensitive KPI views stay behind Google SSO —
-          public `/` never renders these rows. Labels stay honest: baseline /
-          unpaid when no measurement exists. No invented token or $ figures.
+          Localhost metrics only — public `/` never renders these rows. Labels
+          stay honest: baseline / unpaid when no measurement exists. No
+          invented token or $ figures. Remote identity login is not used here.
         </Text>
       </VStack>
 
