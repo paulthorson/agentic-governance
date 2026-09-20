@@ -291,3 +291,12 @@
 - **Not:** Soft theater invent; skill body rewrite; #175 B1 Get AG/clone work; vendor laundry; ; auto-merge #26
 - **Cite when LIVE:** [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b` — cite story [#174](https://github.com/paulthorson/agentic-governance/issues/174) / epic [#173](https://github.com/paulthorson/agentic-governance/issues/173)
 - **Supersedes:** none — addition; not a replacement of improve LIVE #87 / #98
+
+## 2026-09-19 — `VISITOR_FACE_NO_OPS_MEMO` (fail-closed, fleet — LIVE — AG #187 / #173)
+
+- **Who:** operator / Cos (AG [#187](https://github.com/paulthorson/agentic-governance/issues/187) / epic [#173](https://github.com/paulthorson/agentic-governance/issues/173) / bar [#172](https://github.com/paulthorson/agentic-governance/issues/172); **LIVE** via [#188](https://github.com/paulthorson/agentic-governance/pull/188) @ `757cf2a`) — Cos craft FAIL before Adv; QA stop on visitor-facing public surfaces; Adv names SoT
+- **Plain text:** Every product visitor face / fleet public chrome across installs must not read like internal notes / internal notes. Named FAIL: “Operator decides…”, authorized-access lectures, “Source path:” diaries, ALL-CAPS HOLD theater, Cos / Soft / Tip process slang, harness-only “Note” asides. Honest short private-repo language OK when measured. Do not treat a narrative pass as acceptance. Vanilla — no product laundry / no operator PII. Metric: visitor-facing public chrome shipping internal note voice = fail closed.
+- **Scope:** fleet / vanilla — any product visitor face / fleet public chrome across installs
+- **Not:** OpenClaw briefs; Get-AG HOLD site copy (Cos-owned tip); Install tip #186 reopen; product laundry; operator PII; ; auto-merge #26
+- **Cite when LIVE:** [#188](https://github.com/paulthorson/agentic-governance/pull/188) @ `757cf2a` — cite story [#187](https://github.com/paulthorson/agentic-governance/issues/187) / epic [#173](https://github.com/paulthorson/agentic-governance/issues/173) / bar [#172](https://github.com/paulthorson/agentic-governance/issues/172)
+- **Supersedes:** none — addition on `AI_SLOP_COPY_FAIL` + `FRAMEWORK_TECH_WRITING`; not a replacement
