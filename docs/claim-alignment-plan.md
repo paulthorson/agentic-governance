@@ -94,7 +94,7 @@ code, make it real; where not, say advisory.
 | `messaging.py` Discord `urlopen` / subprocess helper / `ALERT_COMMAND` | Outbound + subprocess | **YES** — network permission + approval for send |
 | `stuck-review-watchdog.py` `paperclipai` CLI | Subprocess (may network) | **YES** — approval before subprocess |
 | `veto-telemetry.py` → `send_alert` | Outbound (via messaging) | Covered if messaging gated |
-| Dashboard Google OAuth | Outbound (deployer-operated Next app) | **Document unchecked** in this framework process — separate deploy surface |
+| Dashboard admin (localhost Host gate) | Local Next app | **Document unchecked** for non-localhost Hosts — fail closed off-box; remote identity login removed |
 | `validate.py` `git apply --check` | Subprocess | **YES** — approval before git apply |
 | `setup_wizard.py` config/harness/runs writes | Own-dir (absolute path answers can escape) | Path-escape: treat absolute outside-repo as outside write → **checkpoint or refuse** |
 | `calibration-report.py --output` | Outside write possible | **YES** if path outside repo |
@@ -104,7 +104,7 @@ code, make it real; where not, say advisory.
 
 - Shared helper: require `AG_APPROVAL=1` (or a one-shot token file under `runs/`) before classified actions; without it, refuse with a clear error.
 - Apply first to: `validate.py` git apply, messaging egress, stuck-review `paperclipai`, Ollama generate, calibration-report outside-repo output.
-- Uncoverable / leave unchecked: dashboard Google OAuth & admin SSO; arbitrary agent runtimes not calling these scripts; operator shell outside the framework.
+- Uncoverable / leave unchecked: dashboard admin when Host is non-local (redirects; remote identity login removed); arbitrary agent runtimes not calling these scripts; operator shell outside the framework.
 
 ---
 
@@ -118,7 +118,7 @@ code, make it real; where not, say advisory.
 | README “governance **mechanical**” / CEO “paces spend” | Overclaims vs code; rewrite after capability report |
 | SECURITY “non-negotiable guarantees” | Several are process/advisory, not code walls — reword |
 | Git author/committer **configs that SET identity** | **None found** in tree (5.1). History rewrite **done** 2026-09-16 (operator GO) — see `docs/history-identity-scrub-2026-09-16.md` |
-| Personal email historically in dashboard allowlist / `.env.example` / README | **Scrubbed from tip** (5.3) — use `ADMIN_EMAILS` / placeholder `you@example.com` only; not git identity config |
+| Personal email historically in dashboard allowlist / `.env.example` / README | **Scrubbed from tip** (5.3) — remote identity login / email allowlist removed; admin is localhost Host only |
 | Prior personal GitHub username URL (5.4) | Read-only check → **HTTP 404**; tip scrubbed to `prior username` |
 | No wizard network permission; messaging egress unrestricted when webhook/command set | Fix in commits 8–9 |
 | Dashboard optional for framework use; marketing/admin surface | Report in capability report (7.3) |

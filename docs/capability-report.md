@@ -34,7 +34,7 @@ or gates is enforcement.
 | Ollama `urlopen` gated? | **YES** | `server.py:445–450` |
 | Outside-repo `calibration-report --output` gated? | **YES** | `scripts/calibration-report.py:100–119` `emit()` (`require_approval` at `:119`) |
 | Own-dir writes (`runs/`, `config/`, plugins) gated? | **NO** | By design — reversible / expected |
-| Dashboard Google OAuth gated by this helper? | **NO** — separate deploy surface | `dashboard/src/auth.ts:9–37` |
+| Dashboard admin gated by this helper? | **NO** — separate localhost Host gate in dashboard middleware | `dashboard/src/middleware.ts`; `dashboard/src/lib/admin-access.ts` |
 | Arbitrary agent shells outside these scripts gated? | **NO** | Unchecked |
 
 ---
@@ -60,7 +60,7 @@ or gates is enforcement.
 | 5.1 In-tree configs that SET `user.name` / `user.email` / `GIT_AUTHOR*` / `GIT_COMMITTER*` | **No in-tree identity config exists.** The committing agent's identity comes from its **host environment** (e.g. `~/.gitconfig`, process env), outside this repository and not controlled by it. | Repo-wide grep + `tests/test_published_claims.py:168–211` (`test_no_git_identity_config_uses_non_noreply_email`) |
 | 5.2 Changes made in-repo | **None in-tree** — host-side git identity is outside this repository and not controlled by it. Not a repository fix. | Same; durability row below |
 | Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (ephemeral host) (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
-| 5.3 Personal allowlist email (historical) | Was in allowlist; **removed** from functional code, tip prose, and git history (placeholder `noreply address` / `ADMIN_EMAILS`) | `admin-access.ts` now env-only; `docs/history-identity-scrub-2026-09-16.md` |
+| 5.3 Personal allowlist email (historical) | Was in allowlist; **removed**. Admin is now localhost Host only (remote identity login removed) | `admin-access.ts` localhost gate; `docs/history-identity-scrub-2026-09-16.md` |
 | Personal phone numbers in tree | **NO** found | Repo-wide grep (no matches) |
 | 5.4 Prior personal GitHub username URL | HTTP **404** (2026-09-14 probe); tip + history scrubbed to `prior username` | Read-only `curl -sI`; history scrub note |
 | History rewrite / `.mailmap` | **Done** 2026-09-16 (operator GO): `git-filter-repo` on `main`; author emails → `paulthorson@users.noreply.github.com` | `docs/history-identity-scrub-2026-09-16.md` |
@@ -87,19 +87,19 @@ or gates is enforcement.
 
 | Question | Answer | Cite |
 |---|---|---|
-| `dashboard/.env.example` AUTH values | Empty placeholders (`AUTH_SECRET=`, `AUTH_GOOGLE_ID=`, `AUTH_GOOGLE_SECRET=`) | `dashboard/.env.example:4–9` |
-| Commit that added them | `1bfa1a5` — empty values only | git history |
+| `dashboard/.env.example` remote-login keys | **None** — stub for optional local overrides only (localhost admin) | `dashboard/.env.example` |
+| Commit that historically added empty remote-login placeholders | `1bfa1a5` — empty values only; keys later removed | git history |
 | Real credentials committed in those env keys | **NO** evidence in example file | Same |
 | Admin token pages | Admin UI under `/admin/tokens` shows **placeholder KPI copy** (“Baseline / unpaid”); not live provider tokens | `dashboard/src/components/AdminTokens.tsx` (placeholder posture documented in dashboard README) |
 
-### 7.2 NextAuth Google
+### 7.2 Dashboard admin access (localhost only)
 
 | Question | Answer | Cite |
 |---|---|---|
-| Deployer must supply | `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, and `ADMIN_EMAILS` (Google emails; empty = nobody) | `dashboard/.env.example`; `dashboard/README.md` |
-| Default secret in repo | **NO** — empty `AUTH_*` example | `.env.example` |
-| Stores what where | Auth.js/NextAuth session cookies on the deployed host (Auth.js defaults); allowlist from `ADMIN_EMAILS` only | `dashboard/src/auth.ts`; `admin-access.ts` |
-| Hardcoded allowlist email | **NO** — empty hardcoded list; fail closed | `admin-access.ts` |
+| Remote identity login for admin? | **NO** — removed; localhost Host gate only | `dashboard/README.md`; `middleware.ts` |
+| How is `/admin` gated? | Request Host must be localhost / loopback / `*.localhost`; else redirect to `/` with `admin=local-only` | `dashboard/src/middleware.ts`; `admin-access.ts` |
+| Email allowlist? | **NO** — remote identity login removed | — |
+| Hardcoded allowlist email | **NO** | `admin-access.ts` |
 
 ### 7.3 Dashboard required?
 
@@ -112,12 +112,12 @@ or gates is enforcement.
 
 | Question | Answer | Cite |
 |---|---|---|
-| In-repo app routes | `/`, `/admin`, `/admin/login`, `/admin/reports`, `/admin/traction`, `/admin/tokens`, `/admin/cycle-time`, `/admin/scars`, `/api/auth/[.nextauth]` | `dashboard/src/app/**` |
-| Input | Google OAuth on admin login; public pages render content | `auth.ts`; `app/page.tsx` |
+| In-repo app routes | `/`, `/admin`, `/admin/login` (redirects to `/admin`), `/admin/reports`, `/admin/traction`, `/admin/tokens`, `/admin/cycle-time`, `/admin/scars` | `dashboard/src/app/**` |
+| Input | Public pages render content; `/admin` is localhost Host only (remote identity login removed) | `middleware.ts`; `app/page.tsx` |
 | Storage | Traction/improve content from repo files / synced content; no first-party DB module found in dashboard src for AG data | `dashboard/data/`, `docs/improve` sync script |
-| Cookies | Auth.js session cookies when admin SSO used; no custom cookie module found in `dashboard/src` | Grep: no `cookie` hits under `dashboard/src` |
+| Cookies | No remote-login session cookies; no custom cookie module found in `dashboard/src` | Grep: no `cookie` hits under `dashboard/src` |
 | Analytics (gtag/plausible/segment) | **NO** matches under `dashboard/src` | Grep |
-| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including the localhost dashboard UI kit packages, `next`, `next-auth`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json:7–25`; lockfile sharp entries |
+| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including the localhost dashboard UI kit packages and `next`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json`; lockfile sharp entries |
 
 ---
 

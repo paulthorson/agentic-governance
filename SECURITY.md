@@ -51,7 +51,7 @@ These are design goals and process rules. Only some have code gates today
 ### Unchecked (operator must assume open)
 
 - Agent runtimes and tools **not** calling the gated scripts/MCP entrypoints
-- Dashboard Google OAuth / admin SSO deploy surface ([§7.2–7.4](docs/capability-report.md#126-secrets-dashboard-site))
+- Dashboard admin is localhost Host only — remote identity login removed ([§7.2–7.4](docs/capability-report.md#126-secrets-dashboard-site))
 - Model-provider token and dollar spend
 - Absolute paths the operator points outside the repo when a helper does not gate them
 - Blind-review / veto / append-only as technical impossibilities (they are not)

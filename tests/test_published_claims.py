@@ -155,15 +155,18 @@ class TestPublishedClaims(unittest.TestCase):
                 if secretish.search(line) and not placeholder.search(val):
                     self.fail(f"possible real credential in {path}: {line}")
 
-        # .env.example AUTH_* must be empty
+        # .env.example must not ship remote-login / session secret key lines
         env_ex = REPO_ROOT / "dashboard" / ".env.example"
         if env_ex.exists():
-            for line in env_ex.read_text(encoding="utf-8").splitlines():
-                if line.startswith(("AUTH_SECRET=", "AUTH_GOOGLE_ID=", "AUTH_GOOGLE_SECRET=")):
-                    self.assertTrue(
-                        line.endswith("=") or line.split("=", 1)[1].strip() == "",
-                        f"non-empty auth secret in example: {line}",
-                    )
+            text = env_ex.read_text(encoding="utf-8")
+            for line in text.splitlines():
+                stripped = line.strip()
+                if stripped.startswith("#") or not stripped:
+                    continue
+                self.assertFalse(
+                    stripped.startswith("AUTH_") or stripped.startswith("ADMIN_EMAILS="),
+                    f"remote-login secret key line must not ship in .env.example: {stripped}",
+                )
 
     def test_no_git_identity_config_uses_non_noreply_email(self):
         """Claim: no shipped config sets git author/committer to a non-noreply address.
@@ -289,29 +292,75 @@ class TestPublishedClaims(unittest.TestCase):
             else:
                 os.environ["AG_APPROVAL"] = prev_ap
 
-    def test_admin_allowlist_empty_is_fail_closed_and_no_personal_default(self):
-        """Claim: ADMIN_EMAILS empty → nobody; allowlist is env-only (no hardcoded default)."""
-        src = (REPO_ROOT / "dashboard" / "src" / "lib" / "admin-access.ts").read_text(
+    def test_admin_localhost_gate_fail_closed_no_remote_login(self):
+        """Claim: /admin is localhost Host only; remote identity login removed."""
+        access = (REPO_ROOT / "dashboard" / "src" / "lib" / "admin-access.ts").read_text(
             encoding="utf-8"
         )
-        self.assertIn("fail closed", src.lower())
-        self.assertIn("ADMIN_EMAILS", src)
-        self.assertIn("process.env.ADMIN_EMAILS", src)
-        # adminAllowlist is env-only (calls envAdminEmails; no hardcoded array).
-        self.assertRegex(
-            src,
-            r"export function adminAllowlist\(\)[^{]*\{[^}]*envAdminEmails\(\)",
+        self.assertIn("fail closed", access.lower())
+        self.assertIn("isLocalAdminHost", access)
+        self.assertIn("localhost", access)
+        self.assertNotIn("isAdminEmail", access)
+        self.assertNotIn("process.env.ADMIN_EMAILS", access)
+
+        middleware = (REPO_ROOT / "dashboard" / "src" / "middleware.ts").read_text(
+            encoding="utf-8"
         )
-        self.assertNotIn("HARDCODED_ADMIN_EMAILS", src)
-        self.assertNotIn("PRIMARY_ADMIN_EMAIL", src)
-        self.assertNotRegex(src, r'HARDCODED_ADMIN_EMAILS\s*=\s*\[["\'][^"\']+@')
-        # No personal email defaults in the allowlist module.
-        self.assertNotIn("@gmail.com", src)
+        self.assertIn("isLocalAdminHost", middleware)
+        self.assertIn('set("admin", "local-only")', middleware)
+        self.assertNotIn('from "@/auth"', middleware)
+        self.assertNotIn("from '@/auth'", middleware)
+        self.assertNotIn("next-auth", middleware.lower())
+
+        # No Auth.js entrypoint / remote sign-in provider module on tip.
+        auth_ts = REPO_ROOT / "dashboard" / "src" / "auth.ts"
+        self.assertFalse(auth_ts.exists(), "dashboard/src/auth.ts must not exist")
+
+        nextauth_route = (
+            REPO_ROOT
+            / "dashboard"
+            / "src"
+            / "app"
+            / "api"
+            / "auth"
+            / "[...nextauth]"
+            / "route.ts"
+        )
+        self.assertFalse(
+            nextauth_route.exists(), "Auth.js catch-all API route must not exist"
+        )
+
+        pkg = (REPO_ROOT / "dashboard" / "package.json").read_text(encoding="utf-8")
+        self.assertNotIn("next-auth", pkg)
+
+        # No next-auth provider imports / remote sign-in actions under dashboard/src.
+        dash_src = REPO_ROOT / "dashboard" / "src"
+        for path in list(dash_src.rglob("*.ts")) + list(dash_src.rglob("*.tsx")):
+            body = path.read_text(encoding="utf-8")
+            self.assertNotIn(
+                "next-auth/providers",
+                body,
+                f"remote sign-in provider import must not exist: {path}",
+            )
+            self.assertNotIn("signInWith", body, f"unexpected remote sign-in action in {path}")
 
         env_ex = (REPO_ROOT / "dashboard" / ".env.example").read_text(encoding="utf-8")
         self.assertNotIn("@gmail.com", env_ex)
-        # Placeholder only (example.com — not a personal address).
-        self.assertRegex(env_ex, r"(?m)^ADMIN_EMAILS=you@example\.com\s*$")
+        for line in env_ex.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("#") or not stripped:
+                continue
+            self.assertFalse(
+                stripped.startswith("AUTH_") or stripped.startswith("ADMIN_EMAILS="),
+                f"remote-login secret key line must not ship: {stripped}",
+            )
+
+        login = (
+            REPO_ROOT / "dashboard" / "src" / "app" / "admin" / "login" / "page.tsx"
+        ).read_text(encoding="utf-8")
+        self.assertIn("redirect", login)
+        self.assertNotIn("allowlisted", login.lower())
+        self.assertNotIn("Sign in with", login)
 
     def test_no_personal_email_in_functional_config_defaults(self):
         """Claim: functional configs/defaults/allowlists lack personal email defaults.

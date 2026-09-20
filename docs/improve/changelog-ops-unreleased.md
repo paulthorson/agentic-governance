@@ -349,8 +349,8 @@ Do not treat this file as the product changelog. Product notes live in
  brief — OUT of framework repo).
 - **Dashboard public + admin split.** Same Vercel deploy (`dashboard/`): public
  marketing at `/` (KPI strip, Get AG CTA, traction gated by
- `data/traction.json`); admin at `/admin/*` behind Auth.js v5 Google SSO with
- allowlist via `ADMIN_EMAILS` only (env; no hardcoded addresses; prior
+ `data/traction.json`); admin at `/admin/*` behind localhost Host gate only; prior remote identity login with
+ allowlist via `[retired email allowlist]` only (env; no hardcoded addresses; prior
  personal default removed). Admin shows
  honest Baseline / unpaid token placeholders, cycle-time tables, improve
  report detail, raw traction (including below `minVisible`), and anonymized

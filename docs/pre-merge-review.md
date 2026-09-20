@@ -325,7 +325,7 @@ or gates is enforcement.
 | Ollama `urlopen` gated? | **YES** | `server.py:445–450` |
 | Outside-repo `calibration-report --output` gated? | **YES** | `scripts/calibration-report.py:100–119` `emit()` (`require_approval` at `:119`) |
 | Own-dir writes (`runs/`, `config/`, plugins) gated? | **NO** | By design — reversible / expected |
-| Dashboard Google OAuth gated by this helper? | **NO** — separate deploy surface | `dashboard/src/auth.ts:9–37` |
+| Dashboard admin gated by this helper? | **NO** — separate localhost Host gate in dashboard middleware | `dashboard/src/middleware.ts`; `admin-access.ts` |
 | Arbitrary agent shells outside these scripts gated? | **NO** | Unchecked |
 
 ---
@@ -351,7 +351,7 @@ or gates is enforcement.
 | 5.1 In-tree configs that SET `user.name` / `user.email` / `GIT_AUTHOR*` / `GIT_COMMITTER*` | **No in-tree identity config exists.** The committing agent's identity comes from its **host environment** (e.g. `~/.gitconfig`, process env), outside this repository and not controlled by it. | Repo-wide grep + `tests/test_published_claims.py:168–211` (`test_no_git_identity_config_uses_non_noreply_email`) |
 | 5.2 Changes made in-repo | **None in-tree** — host-side git identity is outside this repository and not controlled by it. Not a repository fix. | Same; durability row below |
 | Git identity durability across fresh environments | **Does not survive a fresh Cloud Agent / ephemeral VM.** Setting `~/.gitconfig` (ephemeral host) (or `GIT_AUTHOR_*` / `GIT_COMMITTER_*`) on one session does **not** ship with this branch or this repo. Every future session must set identity on the host before committing if operator / noreply authorship is required. This is **not** fixed by this PR. | Host filesystem only; no `.gitconfig` / identity setter in tree |
-| 5.3 Personal allowlist email (historical) | Was in allowlist; **removed** from functional code, tip prose, and git history (placeholder `noreply address` / `ADMIN_EMAILS`) | `admin-access.ts` now env-only; history scrub note |
+| 5.3 Personal allowlist email (historical) | Was in allowlist; **removed**. Admin is now localhost Host only (remote identity login removed) | `admin-access.ts` localhost gate; history scrub note |
 | Personal phone numbers in tree | **NO** found | Repo-wide grep (no matches) |
 | 5.4 Prior personal GitHub username URL | HTTP **404** (2026-09-14 probe); tip + history scrubbed to `prior username` | Read-only `curl -sI`; history scrub note |
 | History rewrite / `.mailmap` | **Done** 2026-09-16 (operator GO): `git-filter-repo` on `main` | `docs/history-identity-scrub-2026-09-16.md` |
@@ -378,19 +378,19 @@ or gates is enforcement.
 
 | Question | Answer | Cite |
 |---|---|---|
-| `dashboard/.env.example` AUTH values | Empty placeholders (`AUTH_SECRET=`, `AUTH_GOOGLE_ID=`, `AUTH_GOOGLE_SECRET=`) | `dashboard/.env.example:4–9` |
+| `dashboard/.env.example` AUTH values | **None** — stub for optional local overrides only (localhost admin; remote identity login removed) | `dashboard/.env.example` |
 | Commit that added them | `1bfa1a5` — empty values only | git history |
 | Real credentials committed in those env keys | **NO** evidence in example file | Same |
 | Admin token pages | Admin UI under `/admin/tokens` shows **placeholder KPI copy** (“Baseline / unpaid”); not live provider tokens | `dashboard/src/components/AdminTokens.tsx` (placeholder posture documented in dashboard README) |
 
-### 7.2 NextAuth Google
+### 7.2 Dashboard admin access (localhost only)
 
 | Question | Answer | Cite |
 |---|---|---|
-| Deployer must supply | `AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, and `ADMIN_EMAILS` (Google emails; empty = nobody) | `dashboard/.env.example`; `dashboard/README.md` |
-| Default secret in repo | **NO** — empty `AUTH_*` example | `.env.example` |
-| Stores what where | Auth.js/NextAuth session cookies on the deployed host (Auth.js defaults); allowlist from `ADMIN_EMAILS` only | `dashboard/src/auth.ts`; `admin-access.ts` |
-| Hardcoded allowlist email | **NO** — empty hardcoded list; fail closed | `admin-access.ts` |
+| Remote identity login for admin? | **NO** — removed; localhost Host gate only | `dashboard/README.md`; `middleware.ts` |
+| How is `/admin` gated? | Request Host must be localhost / loopback / `*.localhost`; else redirect to `/` with `admin=local-only` | `dashboard/src/middleware.ts`; `admin-access.ts` |
+| Email allowlist? | **NO** — remote identity login removed | — |
+| Hardcoded allowlist email | **NO** | `admin-access.ts` |
 
 ### 7.3 Dashboard required?
 
@@ -403,12 +403,12 @@ or gates is enforcement.
 
 | Question | Answer | Cite |
 |---|---|---|
-| In-repo app routes | `/`, `/admin`, `/admin/login`, `/admin/reports`, `/admin/traction`, `/admin/tokens`, `/admin/cycle-time`, `/admin/scars`, `/api/auth/[.nextauth]` | `dashboard/src/app/**` |
-| Input | Google OAuth on admin login; public pages render content | `auth.ts`; `app/page.tsx` |
+| In-repo app routes | `/`, `/admin`, `/admin/login` (redirects to `/admin`), `/admin/reports`, `/admin/traction`, `/admin/tokens`, `/admin/cycle-time`, `/admin/scars` | `dashboard/src/app/**` |
+| Input | Public pages render content; `/admin` is localhost Host only (remote identity login removed) | `middleware.ts`; `app/page.tsx` |
 | Storage | Traction/improve content from repo files / synced content; no first-party DB module found in dashboard src for AG data | `dashboard/data/`, `docs/improve` sync script |
-| Cookies | Auth.js session cookies when admin SSO used; no custom cookie module found in `dashboard/src` | Grep: no `cookie` hits under `dashboard/src` |
+| Cookies | No remote-login session cookies; no custom cookie module found in `dashboard/src` | Grep: no `cookie` hits under `dashboard/src` |
 | Analytics (gtag/plausible/segment) | **NO** matches under `dashboard/src` | Grep |
-| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including the localhost dashboard UI kit packages, `next`, `next-auth`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json:7–25`; lockfile sharp entries |
+| Clone-build deps that commonly break cold clones | `dashboard` needs `npm install` including the localhost dashboard UI kit packages and `next`; `prebuild` runs `sync-improve.mjs`. MCP needs `uv`/`pip` for `mcp`+`pydantic`. Native **sharp**/libvips platform packages may fail on unsupported OS/arch. | `dashboard/package.json`; lockfile sharp entries |
 
 ---
 
@@ -499,9 +499,9 @@ were stripped from the published README.
 | 14 | Messaging egress only if allow; unknown/deny = no egress | SECURITY.md:47 | messaging.py | test_wizard_unknown_network_permits_no_egress; test_messaging_blocks_without_network_allow_even_if_approved |
 | 15 | Approval checkpoints refuse without approval | SECURITY.md:48 | approval.py | test_approval_checkpoints_block_without_approval |
 | 16 | HTTP bind default 127.0.0.1 | SECURITY.md:49 | server.py | test_uvicorn_default_bind_is_loopback |
-| 17 | dashboard/.env.example AUTH_* empty placeholders | SECURITY.md:62 | dashboard/.env.example | test_no_shipped_config_contains_real_credential |
+| 17 | dashboard/.env.example has no remote-login secret keys | SECURITY.md / capability report | dashboard/.env.example | test_no_shipped_config_contains_real_credential |
 | 18 |.gitignore excludes.env / *.pem | SECURITY.md:61 |.gitignore:29–30 | test_gitignore_excludes_env_and_pem |
-| 19 | Empty ADMIN_EMAILS = nobody (fail closed); no personal hardcoded allowlist | dashboard README / capability report | admin-access.ts | test_admin_allowlist_empty_is_fail_closed_and_no_personal_default |
+| 19 | /admin localhost Host only (fail closed off-box); remote identity login removed | dashboard README / capability report | admin-access.ts; middleware.ts | test_admin_localhost_gate_fail_closed_no_remote_login |
 | 20 | No personal email in functional config/defaults | (this pack §1.5) | admin-access,.env.example, mcp, scripts, tests,.github | test_no_personal_email_in_functional_config_defaults |
 | 21 | Blind-review / human veto / append-only are instruction/process not walls | README.md:26,125; SECURITY.md:30–36 | constitutions (text) | NOTE — rewritten as instruction; no code wall claimed |
 | 22 | This software does not provide a safety guarantee | README.md:19; SECURITY.md:23 | N/A scope note | NOTE |
@@ -531,15 +531,15 @@ were stripped from the published README.
 
 ## 5.4 Answers
 
-### 1.1 Allowlist controls / read site / empty behavior
+### 1.1 Admin access controls / read site / empty behavior
 
-- **Controls:** which Google account emails may `signIn` / pass middleware / admin layouts for `/admin/*`.
-- **Read at:** `dashboard/src/lib/admin-access.ts` (`envAdminEmails`, `adminAllowlist`, `isAdminEmail`); called from `dashboard/src/auth.ts`, `middleware.ts`, admin pages.
-- **Empty behavior (after fix):** **fail closed — nobody.** Empty/missing `ADMIN_EMAILS` → `[]` → `isAdminEmail` returns false.
+- **Controls:** which Hostnames may reach `/admin/*` (localhost / loopback / `*.localhost` only).
+- **Read at:** `dashboard/src/lib/admin-access.ts` (`isLocalAdminHost`); called from `middleware.ts`.
+- **Off-box behavior:** **fail closed** — non-local Host → redirect to `/` with `admin=local-only`. No remote identity login path.
 
-### 1.3 Can `paulthorson@users.noreply.github.com` work as Google OAuth login?
+### 1.3 Is remote identity login still used for admin?
 
-**No.** Google OAuth returns a Google account email. `users.noreply.github.com` is not a Google identity. Allowlist therefore ships **without** a hardcoded address; deployer must set `ADMIN_EMAILS` to real Google account email(s). Documented in `dashboard/README.md` and `.env.example`.
+**No.** Remote identity login was removed. Admin metrics run on localhost only. Documented in `dashboard/README.md`.
 
 ### 1.5 Grep lists
 
@@ -547,16 +547,16 @@ were stripped from the published README.
 
 | Was | Action |
 |---|---|
-| `dashboard/src/lib/admin-access.ts` hardcoded `noreply address` | Removed; env-only |
-| `dashboard/.env.example` `ADMIN_EMAILS=` personal address | Placeholder `you@example.com` |
-| `dashboard/README.md` / login page hardcoded references | Rewritten |
-| `dashboard/src/app/admin/login/page.tsx` PRIMARY_ADMIN_EMAIL | Removed |
+| `dashboard/src/lib/admin-access.ts` email allowlist / remote identity login | Replaced with localhost Host gate |
+| `dashboard/.env.example` remote-login secret keys | Removed |
+| `dashboard/README.md` / login page remote-login promises | Rewritten to localhost-only |
+| `dashboard/src/app/admin/login/page.tsx` remote-login UI | Removed; redirects to `/admin` |
 
 **Incidental prose (tip scrubbed; history rewrite done 2026-09-16):**
 
 | Location | Note |
 |---|---|
-| `CHANGELOG.md` | Historical allowlist → `ADMIN_EMAILS` / no personal address |
+| `CHANGELOG.md` | Historical allowlist → localhost Host gate / no personal address |
 | `docs/claim-alignment-plan.md` | Audit note → redacted placeholders |
 | `docs/capability-report.md` | Historical/5.3 / 5.4 notes redacted |
 | Prior personal GitHub username / noreply | Tip scrubbed to `prior username` |
@@ -612,7 +612,7 @@ Qualifier text:
 
 ## 5.6 Could not do / why
 
-- Could not make GitHub noreply a Google SSO identity (Google product constraint).
+- Remote identity login for admin was retired; GitHub noreply was never a valid remote-login identity.
 - Tip-scrub PR did not rewrite git history (done later 2026-09-16 under separate operator GO — `docs/history-identity-scrub-2026-09-16.md`).
 - Did not mark PR ready or merge (forbidden).
 - Did not invent TERMS/PRIVACY or replacement legal text for deleted Get AGs (forbidden).
@@ -684,7 +684,7 @@ These are design goals and process rules. Only some have code gates today
 ### Unchecked (operator must assume open)
 
 - Agent runtimes and tools **not** calling the gated scripts/MCP entrypoints
-- Dashboard Google OAuth / admin SSO deploy surface ([§7.2–7.4](docs/capability-report.md#126-secrets-dashboard-site))
+- Dashboard admin is localhost Host only — remote identity login removed ([§7.2–7.4](docs/capability-report.md#126-secrets-dashboard-site))
 - Model-provider token and dollar spend
 - Absolute paths the operator points outside the repo when a helper does not gate them
 - Blind-review / veto / append-only as technical impossibilities (they are not)
