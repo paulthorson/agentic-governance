@@ -68,10 +68,8 @@ Record the chosen path in `profile.md` / `STORAGE_MODE.md` (mode + non-secret la
 ## What does NOT belong
 
 - Public product chrome, marketing copy, or Class B look/stills
-- Secrets, API keys, tokens, passwords
-- Emails, account names, or other PII dumps
+- Credentials or private operator data
 - Absolute host paths
-- private operator data
 - A framework-forced “must use git” or “must use local” rule (operator + Cos clarified store ≠ force-all-operators)
 
 **P0:** Examples in this template stay scrubbed. Soft “put everything in memory” = **REJECTED**.

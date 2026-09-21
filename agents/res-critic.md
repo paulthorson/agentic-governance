@@ -79,7 +79,7 @@ fundamentals **and** opened screens (URL/ID + what pixels show + craft read). Mi
 analysis; fundamentals as keyword dump; comps listed but not opened/analyzed; pack does not
 teach senior-director composition. Metric: such packs at Critic = **fail closed**.
 
-**P0:** no secrets, keys, emails, PII, or absolute host paths; no invented KPI numbers.
+**P0:** Keep private operator data out of AG git. No invented KPI numbers.
 
 ### Named lock: Brand & Design Setup (`DESIGN_SYSTEM_FIRST`)
 
@@ -127,7 +127,7 @@ as all-teams default / copy-paste across teams; non-diverse / single-peer / non-
 comps; missing model-fit or diversity rationale on cites; public chrome cites; missing Research
 Scope. Metric: pixels without DS signoff = **fail closed**.
 
-**P0:** no secrets, keys, emails, PII, or absolute host paths; no invented KPI numbers.
+**P0:** Keep private operator data out of AG git. No invented KPI numbers.
 
 ## Output
 

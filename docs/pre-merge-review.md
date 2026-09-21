@@ -10,29 +10,9 @@ Updated for operator LOCK — AG PUBLIC RELEASE EXECUTE (items 2–6). Settled p
 
 ## §1 Findings (items 2–6)
 
-### 2 — Remove Extra use-governor documents documents
+### 2 — Release legal posture
 
-| Action | Result |
-|---|---|
-| Delete `` | **Deleted** |
-| Delete `` | **Deleted** |
-| Delete `docs/legal/` if empty | **Removed** (directory gone) |
-| Replacements | **None** (standing rule) |
-
-**Files that referenced them (and what changed):**
-
-| File | Change |
-|---|---|
-| `docs/README.md` | Removed Get AG index rows; pointed at capability-report / pre-merge pack |
-| `docs/initiatives/README.md` | Removed Terms links; settled posture (no acceptance gate) |
-| `docs/initiatives/marketing-site-split.md` | Removed outline link; no acceptance gate |
-| `docs/initiatives/marketing-site-extract-plan.md` | Superseded acceptance-gate HOLD; removed outline paths |
-| `docs/initiatives/marketing-site-extract-execute.md` | Superseded T&Cs HOLD; removed outline paths |
-| `docs/initiatives/anonymous-improve-feedback.md` | Removed outline link; no acceptance gate |
-| `dashboard/README.md` | HOLD banner: look pixels only; Terms drafts removed |
-| `docs/capability-report.md` §12.7 item 7 | Removed “Get AG docs are separate DRAFT” |
-| `CHANGELOG.md` | Added Removed entry; marked prior Terms bullets historical (paths removed) |
-| `docs/pre-merge-review.md` | This pack; Item 10 → deleted |
+Settled: Apache-2.0 LICENSE + NOTICE only; **no acceptance gate**. No replacement legal text.
 
 ### 3.1 — Telemetry (author-control check)
 
@@ -103,9 +83,8 @@ Full current text embedded below (Items 9 / 9b). Eight SECURITY.md line cites fo
 | | |
 |---|---|
 | Path | `ledger/calibration-ledger.md` |
-| Entry | `2026-09-14 — COUNSEL_GATE (site [redacted])` |
-| Gap named | Instruction-only counsel gate in deleted outline §11.4; `LIVE_SOT_MERGED_SHA` still draft (`harnesses/chief-of-staff.md:178–184`); site PR #3 merged despite HOLD/DRAFT; no AG constitution rule for [redacted] |
-| Rule proposed | `COUNSEL_GATE_BEFORE_PROD` — **not implemented** in this PR |
+| Entry | `2026-09-14 — COUNSEL_GATE` |
+| Note | Short vanilla scar: draft legal artifacts are not production SoT until a named human records clearance |
 
 ### 5 — Release files
 
@@ -615,9 +594,7 @@ Qualifier text:
 - Remote identity login for admin was retired; GitHub noreply was never a valid remote-login identity.
 - Tip-scrub PR did not rewrite git history (done later 2026-09-16 under separate operator GO — `docs/history-identity-scrub-2026-09-16.md`).
 - Did not mark PR ready or merge (forbidden).
-- Did not invent TERMS/PRIVACY or replacement legal text for deleted Get AGs (forbidden).
-- Did **not** implement proposed `COUNSEL_GATE_BEFORE_PROD` (human reviews first; lands separately).
-- Site-repo acceptance gate cleanup is Cos-owned (out of scope for this AG agent).
+- Did not invent replacement legal text (forbidden).
 - Git identity durability is **not** a durable repo fix (see §1 / 3.5).
 
 ---
@@ -805,29 +782,10 @@ Use [`SECURITY.md`](SECURITY.md). Do not open a public issue for vulnerabilities
 
 ---
 
-## Item 10 — Get AG documents
+## Item 10 — Release legal posture
 
-**DELETED** on this tip (operator LOCK public release). No replacements.
+Apache-2.0 LICENSE + NOTICE only. No acceptance gate. Standing rule: agents do not draft replacement legal language.
 
-| Former path | Status |
-|---|---|
-| `` | **Deleted** |
-| `` | **Deleted** |
-| `docs/legal/` | **Removed** (empty) |
-
-Historical authorship remains in git history (`9b5bcd9`, `86e9808`, `c7bc7bc`, site `[redacted]`). Calibration entry records the draft→deploy gap. Standing rule: do not draft replacement legal language.
-
-NOTICE (current):
-
-```text
-Agentic Governance
-Copyright 2026 <copyright holder named in NOTICE>
-
-Licensed under the Apache License, Version 2.0.
-
-```
-
-*(Legal party text lives only in `NOTICE` / `LICENSE` — this embed is anonymized for public tip scrub.)*
 ---
 
 ## §6 Clean-clone

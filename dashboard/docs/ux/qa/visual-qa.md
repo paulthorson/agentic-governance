@@ -6,7 +6,7 @@
 **Stacked on:** `RESEARCH_BEFORE_ENHANCE` + Check 7 IA LIVE #21 @ `b2d703e` + `ADV_COMP` LIVE #20 @ `9721af1` (Adv PASS `b868672`). 
 **Research:** [`dashboard/docs/research/evidence.md`](../../research/evidence.md) — adopt Stripe KPI+spark, Linear update+rail, Datadog-equal (Better Stack / Neon / Cloudflare) board density. Do not copy Stripe widget soup, Better Stack wholesale dark-as-internal, or fake fill. 
 **UI SoT:** declared product design system as implementation; these stills are the **product face**, not a component scaffold. 
-**P0:** no secrets, keys, emails, PII, or absolute host paths.
+**P0:** Keep private operator data out of AG git.
 **Live QA:** Cos ACCEPT MERGED #22 @ `845abca` — Fitts/Hick FAIL on live `/` (competing primaries; mobile Get AG reserved-width).
 
 Numbers remain the live measured set only (Daily improve 4, Retros 2, AG PRs 2, Cycle time Baseline, Tokens unpaid, 5 traction gated, two measured days).

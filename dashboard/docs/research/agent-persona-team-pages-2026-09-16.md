@@ -81,7 +81,7 @@ Supporting (optional Adv open): NN/g About leadership strip https://www.nngroup.
 - Risk: pretty equal-weight agent grid with no role family → Hick overload + “who challenges whom?” unread. 
 - Risk: AI-slop seat blurbs if copy leaves Cos funnel. 
 - Risk: critics/adversaries omitted (governance story collapses). 
-- Research must not put PII, emails, keys, or private operator data in git.
+- Research must not put private operator data in git.
 
 ### competitor-hole
 
@@ -96,7 +96,7 @@ Supporting (optional Adv open): NN/g About leadership strip https://www.nngroup.
 - Flat Instagram-style face wallpaper 
 - Equal card weight for Cos and a single QA seat with no sectioning 
 - AI-generated “passionate about synergy” bios 
-- Secrets / tokens / PII / absolute paths / private operator data on public pages or in this pack 
+- Private operator data on public pages or in this pack 
 - Loop-chapter IA as the marketing spine (superseded) 
 - Internal design cites (Pentagram / 500 / AXM, etc.) on public chrome
 

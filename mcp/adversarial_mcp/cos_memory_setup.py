@@ -9,7 +9,7 @@ operator + Cos clarified store = private git (their operator memory).
 Framework Cos ASKS private_git OR local_folder — do not force one mode.
 Skeleton SoT: docs/templates/cos-memory/
 Local scaffold: config/cos-memory/ (gitignored)
-P0: no secrets/keys/emails/PII/absolute host paths.
+Keep private operator data out of AG git.
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ SCAFFOLD_REL = Path("config") / "cos-memory"
 
 
 def looks_like_forbidden_memory_label(value: str) -> bool:
-    """P0: reject absolute host paths, emails, and obvious secret-shaped labels."""
+    """P0: reject private operator data and obvious secret-shaped labels."""
     v = (value or "").strip()
     if not v:
         return True
@@ -49,7 +49,7 @@ def apply_at_cos_seating(
     Called by the setup wizard finalize path when Chief of Staff is seated.
     Supports both private_git and local_folder — same scaffold either way.
     private_git operators copy this pack into their private repo; local_folder
-    operators keep it under gitignored config/. Never writes absolute host paths.
+    operators keep it under gitignored config/. Never writes identifying host paths.
     """
     if not has_cos:
         return []
@@ -118,7 +118,7 @@ def apply_at_cos_seating(
         f"Keep this scaffold as your on-machine private store under "
         f"`{SCAFFOLD_REL.as_posix()}`.\n\n"
         "## P0\n\n"
-        "No secrets, keys, emails, PII, or absolute host paths.\n"
+        "Keep private operator data out of AG git.\n"
     )
     mode_path.write_text(mode_body, encoding="utf-8")
     written.append(mode_path)

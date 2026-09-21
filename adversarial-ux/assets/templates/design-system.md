@@ -31,7 +31,7 @@ product’s business model** and **why the set is diverse**.
 Agency design thinking (`DESIGN_AGENCY_BAR`) remains the permanent UX brain for every product
 UX seat.
 
-**P0:** No secrets, keys, emails, PII, or absolute host paths.
+**P0:** Keep private operator data out of AG git.
 
 ```yaml
 initiative: UNSET

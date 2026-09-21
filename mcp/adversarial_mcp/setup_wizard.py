@@ -174,7 +174,7 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "question": (
             "Give a short private label for this Cos memory store "
             "(e.g. cos-memory-private or desk-cos-memory). "
-            "Do NOT paste absolute host paths, emails, tokens, or secrets."
+            "Do NOT paste private operator data."
         ),
         "options": None,
     },
@@ -510,7 +510,7 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         "(CLI stub: scripts/cos_memory_setup.py).",
         "- Skeleton SoT: docs/templates/cos-memory/",
         "- Local scaffold (gitignored config/): config/cos-memory/",
-        "- Separate from public AG product surface. P0: no secrets/keys/emails/PII/host paths.",
+        "- Separate from public AG product surface. Keep private operator data out of AG git.",
         "",
         "## Escalation preferences (beyond Section 10.3 mandatory list)",
         f"- {answers.get('escalation_preferences', '') or '(unset)'}",
@@ -609,7 +609,7 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
                 f"  - skeleton: docs/templates/cos-memory/\n"
                 f"  - local scaffold: config/cos-memory/\n"
                 f"  - private structured locks/episodes only — not public product chrome.\n"
-                f"  - P0: no secrets/keys/emails/PII/host paths.\n"
+                f"  - Keep private operator data out of AG git.\n"
             )
         block = (
             f"You are {bot_name}, the {role} bot for {team}.\n\n"
@@ -981,7 +981,7 @@ def answer_wizard(repo_root: Path, value: str) -> dict[str, Any]:
             "question": q["id"],
             "error": (
                 "Cos memory label must be a short private name only — "
-                "no absolute host paths, emails, tokens, or secrets."
+                "no private operator data."
             ),
             "free_text": True,
         }

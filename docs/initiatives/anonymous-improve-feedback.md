@@ -10,7 +10,7 @@
 
 ## One-line promise
 
-Agentic Governance is **free**. The tradeoff is that operators share **anonymous basics** that help improve the framework. Richer diagnostic logs stay **opt-in**. Never secrets, tokens, PII, absolute paths, or private operator data.
+Agentic Governance is **free**. The tradeoff is that operators share **anonymous basics** that help improve the framework. Richer diagnostic logs stay **opt-in**.
 
 ---
 
@@ -22,14 +22,14 @@ Agentic Governance is **free**. The tradeoff is that operators share **anonymous
 - **Anonymous basics are on by default** — that is the privacy-respecting tradeoff that funds continuous improve.
 - **Richer diagnostic logs remain opt-in.**
 - Phrase publicly in plain English on **Get AG / download**: free because operators share anonymous improve signals.
-- Still **no secrets / PII** (and the rest of the privacy floor below).
+- Still keep private operator data out of improve payloads.
 
 ### Brand voice (Cos ADD LOCK from operator — AG site Brand Voice)
 
 - Brand beat: **“Worker bees need to feed the hive.”**
 - Use on **Get AG** + **consent** as headline / voice for the free tradeoff (anonymous basics that improve the framework).
 - Public chrome stays **plain English**. Metaphor is OK as headline/voice — **not** harness jargon, not a mascot layer.
-- Still: basics default on · richer logs opt-in · no secrets/PII.
+- Still: basics default on · richer logs opt-in.
 
 ### ADMIN TWIN (related product framing — operator LOCK)
 
@@ -44,7 +44,7 @@ Agentic Governance is **free**. The tradeoff is that operators share **anonymous
 |---|---|---|
 | Anonymous basics | **ON** | High-level usage / health signals only — **no identity** |
 | Richer diagnostic logs | **OPT-IN** | Never silently escalate |
-| Secrets / tokens / PII / absolute host paths / private operator data | **NEVER** | Existing P0 — FAIL closed |
+| Private operator data | **NEVER** | Fail closed |
 
 ---
 
@@ -64,7 +64,7 @@ We need a productized **Anonymous Improve Feedback** path that:
 ## Outcomes
 
 1. **Value exchange is public and plain.** Get AG / download states: free because operators share anonymous improve signals. Brand beat (“Worker bees need to feed the hive.”) may headline; chrome stays plain English.
-2. **Privacy floor holds.** Anonymous basics default on; richer logs opt-in only; zero secrets/tokens/PII/absolute paths/product sauce in payloads or AG git artifacts.
+2. **Privacy floor holds.** Anonymous basics default on; richer logs opt-in only; no private operator data in payloads or AG git artifacts.
 3. **Four lanes ship as product surfaces** (in-product + site CTAs where noted) — not ad-hoc chat dumps.
 4. **Signals feed the improve loop** (living board + Cos daily AG digest) as **measured-only** events — BLANK / hatch when unpaid; never invent counts.
 5. **Consent UX is research-backed** (HCI) before stories / Check 7 / pixels: clear off-switch; plain-English definition of “basics.” Research pack LIVE [#53](https://github.com/paulthorson/agentic-governance/pull/53) @ `eaa2efa2`.
@@ -79,7 +79,7 @@ We need a productized **Anonymous Improve Feedback** path that:
 | 1 | **Anonymous basics** | **ON** | Product runtime + Get AG / consent copy | High-level usage / health signals that help improve the framework — **no identity** |
 | 2 | **Bug reports** | Explicit submit | In-product + site CTA | Operator-filed bug reports into the improve intake |
 | 3 | **Improvement ideas** | Explicit submit | In-product + site CTA | Operator-filed ideas into the improve intake |
-| 4 | **Richer diagnostic logs** | **OPT-IN only** | Explicit consent control | Deeper diagnostics — never on by default; never secrets/PII |
+| 4 | **Richer diagnostic logs** | **OPT-IN only** | Explicit consent control | Deeper diagnostics — never on by default |
 
 **Destination for all lanes:** improve loop → living board → Cos daily AG digest — **measured only** (`docs/improve/`, public board honesty rules).
 
@@ -106,7 +106,7 @@ Initiative sequence reminder (LIVE named gates): Research Scope → hunt → Bra
 **Get AG / download (plain English):** 
 Agentic Governance is free because operators share anonymous improve signals that help the framework get better. You can turn basics off. Richer diagnostic logs are optional and off until you opt in. We never collect secrets, tokens, or personal data.
 
-**Get AG download (Class A — operator LOCK public release, settled):** Download / Get AG CTA requires **no acceptance gate**. Apache-2.0 LICENSE is the only use governor. [redacted] Get AG files were removed; no replacement legal text.
+**Get AG download (settled):** Download / Get AG CTA requires **no acceptance gate**. Apache-2.0 LICENSE is the only use governor.
 
 **Brand beat (headline / voice — OK):** 
 “Worker bees need to feed the hive.”
@@ -122,7 +122,7 @@ This tip is accepted as the Initiative epic plan when:
 - [x] Plain-English name **Anonymous Improve Feedback** is recorded.
 - [x] Value exchange is a **first-class product promise** (free ↔ anonymous basics default on; richer logs opt-in).
 - [x] Brand beat **“Worker bees need to feed the hive.”** is noted for Get AG + consent / AG site Brand Voice.
-- [x] Privacy floor (basics on / richer opt-in / never secrets·PII·paths·sauce) is explicit.
+- [x] Privacy floor (basics on / richer opt-in / no private operator data) is explicit.
 - [x] Lanes **1–4** are named with defaults and destinations.
 - [x] Destination = improve loop / living board / Cos daily digest — **measured only**.
 - [x] Sequencing cites UX Canvas filled SoT **#50 @ `6b24c4bc`** (gate **#48 @ `e9b4827`**), Research HCI consent pack **#53 @ `eaa2efa2`**, Check 7 when stories exist, Eng HOLD pending Cos craft + operator yes on `#39` look.
@@ -151,7 +151,7 @@ This tip is accepted as the Initiative epic plan when:
 - Reopening or amending `#39` look stills / craft tip (Eng HOLD; operator yes required separately).
 - Inventing UX Canvas boxes or skipping the Gothelf v2 filled canvas SoT ([#50](https://github.com/paulthorson/agentic-governance/pull/50) @ `6b24c4bc`).
 - Identity-bearing analytics, account graphs, or marketing attribution pixels.
-- Collecting secrets, tokens, emails, PII, absolute host paths, or private operator data “for debugging.”
+- Collecting private operator data “for debugging.”
 - Turning richer logs on by default, or dark-patterning the off-switch.
 - Making `/admin` a separate visual product (violates ADMIN TWIN).
 - Invented KPIs on the living board or Cos digest (measured-only / BLANK).
@@ -173,7 +173,7 @@ This tip is accepted as the Initiative epic plan when:
 | [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f` | `DESIGN_SYSTEM_FIRST` LIVE |
 | [`docs/improve/`](../improve/) | Cos daily AG digest / improve loop destination |
 | [`dashboard/README.md`](../../dashboard/README.md) | Public `/` + `/admin/*` twin surfaces |
-| Apache-2.0 LICENSE + NOTICE | Only use governor; Get AGs removed; no acceptance gate |
+| Apache-2.0 LICENSE + NOTICE | Only use governor; no acceptance gate |
 
 ---
 

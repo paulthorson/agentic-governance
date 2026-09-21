@@ -6,7 +6,7 @@
 **Ownership:** AG Research owns this pack (plain-English “basics,” clear off-switch, layered consent teach). **AG UX** composes screens **after** UX Canvas **LIVE** + Cos craft. **Eng HOLD** until **#39** operator yes. Research does **not** paint stills, write `look.md`, or touch `src`. 
 **Cite locks:** DESIGN_SYSTEM_FIRST **#45** @ `ead012f`; Brand & Design Setup + Research Scope **#46** @ `cdf1c41`; UX Canvas **#48** @ `e9b4827` (named next gate; contents TBD); DESIGN_AGENCY_BAR **#43** @ `7e9e0b6` (restraint — no agency playlist; Pentagram/500/AXM = AG-internal only, NEVER public). 
 **Destination (product fact):** improve loop / living board / Cos daily AG digest — **measured only**. 
-**Codes only:** pack examples use `P-01`… style; never secrets, tokens, PII, absolute paths, or private operator data. 
+**Codes only:** pack examples use `P-01`… style; keep private operator data out of this pack. 
 ** GDPR/ICO cites are high-level UX guidance for compose; Legal owns compliance.
 
 **Bar test:** If UX cannot answer the §0 compose questions from this pack alone — without inventing data categories or painting chrome — do not freeze / do not tip Eng.
@@ -33,7 +33,7 @@ If a still cannot be defended with §1–§6 vocabulary + product facts, it fail
 
 | Fact | Bound |
 | --- | --- |
-| Privacy defaults | **Anonymous basics ON by default**; **richer diagnostic logs OPT-IN**; never secrets / tokens / PII / absolute paths / private operator data. |
+| Privacy defaults | **Anonymous basics ON by default**; **richer diagnostic logs OPT-IN**; no private operator data. |
 | Lane 1 | Anonymous basics — **default-on** |
 | Lane 2 | Bug reports — **in-product + site CTA** (voluntary) |
 | Lane 3 | Improvement ideas — **in-product + site CTA** (voluntary) |
@@ -123,10 +123,9 @@ From S03–S05:
 
 **Never in basics (hard FAIL if collected here):**
 
-- Secrets, API tokens, auth cookies
-- PII (name, email, phone, address)
+- Credentials or private operator data
 - Absolute file paths, repo paths, command bodies, env values
-- Product private operator data / internal Cos / studio notes
+- Internal Cos / studio notes
 - Free-text bug/idea bodies unless user **explicitly** submits Lane 2/3
 - Richer diagnostic payloads (those are Lane 4 only)
 
@@ -135,7 +134,7 @@ From S03–S05:
 ### 4.2 Richer diagnostic logs (Lane 4 — explicit OPT-IN)
 
 **Plain English (proposed):** 
-“Richer diagnostic logs” means **extra technical detail you choose to send** when something breaks or you want a deeper bug report — still without secrets/tokens/PII/absolute paths/private operator data.
+“Richer diagnostic logs” means **extra technical detail you choose to send** when something breaks or you want a deeper bug report — still without private operator data.
 
 **In (only after explicit opt-in):**
 
@@ -143,7 +142,7 @@ From S03–S05:
 - Feature-flag / lane codes relevant to the failure
 - Optional user-authored note on a bug report (Lane 2) — treated as voluntary content, scrubbed of pasted secrets by Eng policy later
 
-**Still never:** absolute paths, tokens, PII, private operator data — even when opted in (product fact).
+**Still never:** private operator data — even when opted in (product fact).
 
 **Evidence anchors:** S07 revised to opt-in for non-minimal systems; S08 opt-in + never-collect; S09/S10 explicit permission + full capability without grant.
 
@@ -200,7 +199,7 @@ From S01–S02 + product facts:
 1. **Forced consent** — blocking the product until “Accept” with no equal refuse (S01, S02, S09). 
 2. **Hidden off** — Off only under “Learn more” / secondary page / unequal contrast (S01). 
 3. **Bundling** — richer diagnostics pre-included in “basics” or one Accept-all (S02 preselection; S06 specific). 
-4. **Collecting paths / tokens / PII / private operator data** in any lane (product fact). 
+4. **Collecting private operator data** in any lane (product fact). 
 5. **Confirmshaming** — “No thanks, I don’t want a better product” (S02). 
 6. **Nagging** — re-prompt loops after Off (S02). 
 7. **Unclear Close/X** that silently means Accept (S01). 

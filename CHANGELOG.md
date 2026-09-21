@@ -29,6 +29,8 @@ formerly lived here is archived at
 
 ### Changed
 
+- Public-page legal and privacy residual language removed. `COUNSEL_GATE`
+  recorded as a short vanilla scar. Apache-2.0 LICENSE only; no acceptance gate.
 - Localhost dashboard admin uses a localhost Host gate only; remote identity
   login is removed (fail closed off-box).
 - Root README Install section rewritten as a stranger-facing clone → MCP →
@@ -47,8 +49,8 @@ formerly lived here is archived at
 
 ### Removed
 
-- [redacted] Get AG/outline documents. Settled posture: free/open
-  source under Apache-2.0; LICENSE is the only use governor.
+- Extra use-governor documents. Settled posture: free/open source under Apache-2.0;
+  LICENSE is the only use governor.
 
 ## [0.1.1] — 2026-09-11
 

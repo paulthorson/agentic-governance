@@ -13,7 +13,7 @@ Usage:
 
 operator + Cos clarified store = private git.
 Framework ASK: private_git OR local_folder — do not force.
-P0: no secrets/keys/emails/PII/host paths.
+Keep private operator data out of AG git.
 """
 
 from __future__ import annotations
@@ -76,7 +76,7 @@ def main(argv: list[str] | None = None) -> int:
     if hook.looks_like_forbidden_memory_label(args.label):
         print(
             "error: label must be a short private name only — "
-            "no absolute host paths, emails, tokens, or secrets",
+            "no private operator data",
             file=sys.stderr,
         )
         return 2

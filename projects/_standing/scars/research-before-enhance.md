@@ -76,7 +76,6 @@ critiquing comps, or stores secrets in this repo → Adv **FAIL** before Cos→h
 
 ## P0 boundary
 
-This repo is public. Do **not** file: API keys, screenshot-library / MCP tokens or keys,
-account emails, PII, absolute host paths, private operator data, or product credentials. You may
+This repo is public. Do **not** file credentials or private operator data. You may
 say "use the operator's already-connected screenshot library / MCP" without naming vendor
 secrets or how to log in.
