@@ -7,7 +7,7 @@
 **Cite locks:** DESIGN_SYSTEM_FIRST **#45** @ `ead012f`; Brand & Design Setup + Research Scope **#46** @ `cdf1c41`; UX Canvas **#48** @ `e9b4827` (named next gate; contents TBD); DESIGN_AGENCY_BAR **#43** @ `7e9e0b6` (restraint — no agency playlist; Pentagram/500/AXM = AG-internal only, NEVER public). 
 **Destination (product fact):** improve loop / living board / Cos daily AG digest — **measured only**. 
 **Codes only:** pack examples use `P-01`… style; keep private operator data out of this pack. 
-** GDPR/ICO cites are high-level UX guidance for compose; Legal owns compliance.
+GDPR/ICO cites are high-level UX guidance for compose.
 
 **Bar test:** If UX cannot answer the §0 compose questions from this pack alone — without inventing data categories or painting chrome — do not freeze / do not tip Eng.
 
@@ -56,7 +56,7 @@ Adv / UX must **re-open** these URLs. Claims without a row here are out of pack.
 | S03 | https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/the-right-to-be-informed/what-methods-can-we-use-to-provide-privacy-information/ | Layered notices; just-in-time; dashboards; withdraw as easy as give |
 | S04 | https://privacypatterns.org/patterns/Layered-policy-design | Short notice → longer sections → full policy; highlight unexpected practices in foreground |
 | S05 | https://design.cnil.fr/en/design-patterns/layered-information/ | 2–3 layers max; first layer = purposes + controller + how to control; don’t bury rights |
-| S06 | https://gdpr.eu/what-is-gdpr/ | Consent = freely given, specific, informed, unambiguous; distinguishable; withdraw anytime; |
+| S06 | https://gdpr.eu/what-is-gdpr/ | Consent = freely given, specific, informed, unambiguous; distinguishable; withdraw anytime |
 | S07 | https://research.swtch.com/telemetry-opt-in | Transparent telemetry: richer/diagnostic-style collection → **opt-in (default off)**; clear what is / isn’t collected |
 | S08 | https://raidcli.dev/docs/telemetry | Opt-in anonymous telemetry; explicit never-collect list (paths, command bodies, env, identifiers); default **No**; preview / off / purge |
 | S09 | https://developer.apple.com/app-store/user-privacy-and-data-use/ | Explicit permission for unexpected/tracking-class use; no gating features on consent; no trick/force; purpose string |

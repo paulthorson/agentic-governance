@@ -507,7 +507,7 @@ Do not treat this file as the product changelog. Product notes live in
 - **Spec correction:** the Section 4 skeleton lists eight harness sections, but every harness carries a ninth — the Section 11 plugin allowlist. The allowlist is legitimately part of a harness; the spec (not the harnesses) is wrong. Noted for spec fix.
 
 ### Removed
-- **Extra use-governor documents (operator LOCK public release):** Settled posture: free/open source Apache-2.0; **no acceptance gate**; LICENSE is the only use governor.
+- Extra use-governor documents beyond Apache-2.0 LICENSE and NOTICE (operator LOCK public release). Settled posture: free/open source Apache-2.0; **no acceptance gate**; LICENSE is the only use governor.
 
 ### Fixed
 - `docs/spec-addendum-01.md` — **A16 self-contradiction caught and fixed.** A decision about where validation records live was recorded as DECIDED in `docs/proposals/a17-validation-record-home.md` while §A17 still said "Not decided. Do not implement." — two copies of a governance rule disagreeing, with no precedence rule. This is exactly the A16 open problem, occurring inside the file where A16 is written down. The fix renumbered the validation-record decision as **A20** (decided, distinct from A17), kept A17 open on its actual subject (no project repo for governance-repo work), renamed the proposal file to `a20-validation-record-home.md`, and recorded the occurrence in the A16 section as evidence the duplication problem is real and already biting.

@@ -49,10 +49,10 @@ Visible loop. Ship only what clears. **Not** a sandbox, certification, or guaran
 - No hype. No harness jargon scoreboards (`Improve · 4`, ROLE dumps, “measured SoT”). 
 - Land sells how the loop works. Drill-downs = past-tense micro-stories of what that chapter did.
 
-### Brand beat (operator LOCK — superseded for Get AG download)
+### Brand beat (operator LOCK — not a download trade)
 **“Worker bees need to feed the hive.”** 
-**Superseded 2026-09-14 for Get AG download:** does **not** frame the download trade. Get AG = **Apache 2.0 + LICENSE** (no anonymous-improve / free-tradeoff requirement on download). 
-Beat may still apply to **separate unpaid** Anonymous Improve / voluntary feedback surfaces — not the Get AG gate. Chrome stays plain English.
+Does **not** frame Get AG / download. Download is Apache-2.0 LICENSE only (no anonymous-improve / free-tradeoff requirement on download). 
+Beat may still apply to **separate unpaid** Anonymous Improve / voluntary feedback surfaces. Chrome stays plain English.
 
 ## Public copy honesty (operator LOCK — absorb AG #62)
 
@@ -145,7 +145,6 @@ Local `/admin` — **same look and craft** as the public living board; sensitive
 - **License = Apache 2.0** — AG `LICENSE` LIVE **#60**. Software use governed by **Apache 2.0 + LICENSE alone**.
 - **No acceptance gate anywhere** (no download accept step from agents).
 - **Cos/agents must never write, draft, or revise** legal language. **Site legal pages are human-authored only.**
-- Prior agent-drafted legal accept paths are **SUPERSEDED** for agent authorship.
 - **No default telemetry** on download. Anonymous Improve may remain separate unpaid.
 - Brand beat (“Worker bees…”) is **not** a download trade.
 

@@ -885,7 +885,7 @@ Product / marketing commands travel **Cos → PM → UX → Eng → QA**.
   - **(b) Marketing site copy drift**
   - **(c) README / git claim sync**
   - **Review categories (checklist items — not automatic merge blockers):** claims · telemetry · install promises · auth · license · public marketing face · data collection
-- **Who stamps:** **Cos stamp** on the checklist. **operator on novel legal** (litigation risk, new terms/privacy). Cos **flags operator** when litigation / terms / privacy may need update. Cos does **not** draft legal. **operator authors legal** (human-only). Adv names SoT — does not replace Cos stamp / operator authorship.
+- **Who stamps:** **Cos stamp** on the checklist. **operator on novel legal** (new terms/privacy). Cos **flags operator** when terms / privacy may need update. Cos does **not** draft legal. **operator authors legal** (human-only). Adv names SoT — does not replace Cos stamp / operator authorship.
 - **Metric (fail closed):** Material framework-change cycles where Cos skips the `RELEASE_COMPLIANCE` checklist (no pass/flag recorded) = **fail closed**. Agent-drafted legal = **fail closed** (REJECTED). Checklist items are **not** automatic merge blockers unless Cos escalates.
 - **Scope:** AG framework / product release path. **Not** OpenClaw briefs (unless already under `SURFACE_GATE_MATRIX`).
 - **Contrast (do not weaken):** Check 9 / `INITIATIVE_START_SEQUENCE` remains **fail-closed** before Eng handoff. Cos memory install ASK (`private_git` OR `local_folder`) remains **required** at Cos seating.

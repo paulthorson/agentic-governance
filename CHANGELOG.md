@@ -49,7 +49,7 @@ formerly lived here is archived at
 
 ### Removed
 
-- Extra use-governor documents. Settled posture: free/open source under Apache-2.0;
+- Extra use-governor documents beyond Apache-2.0 LICENSE and NOTICE.
   LICENSE is the only use governor.
 
 ## [0.1.1] — 2026-09-11
