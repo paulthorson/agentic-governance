@@ -31,8 +31,8 @@ Two corollaries worth keeping:
    every plain-attribute path, says so in the threat model, and names the
    real controls (registry human review reads the code — the AST scan is a
    tripwire, the review is the control — plus signatures and audit).
-   Disclosure without a compensating control is a residual; with one, it is
-   an architecture.
+   Disclosure without a compensating control leaves the residual uncovered;
+   with one, it is an architecture.
 
 Compounding note: this is the same depth-2 pattern as earlier builds —
 coordinator-executed reviews with framework adversary prompts applied to the

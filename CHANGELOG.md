@@ -29,8 +29,8 @@ formerly lived here is archived at
 
 ### Changed
 
-- Public-page legal and privacy residual language removed. `COUNSEL_GATE`
-  recorded as a short vanilla scar. Apache-2.0 LICENSE only; no acceptance gate.
+- `COUNSEL_GATE` recorded as a short vanilla scar. Apache-2.0 LICENSE only;
+  no acceptance gate.
 - Localhost dashboard admin uses a localhost Host gate only; remote identity
   login is removed (fail closed off-box).
 - Root README Install section rewritten as a stranger-facing clone → MCP →
