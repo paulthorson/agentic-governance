@@ -210,6 +210,7 @@
 - **Not:** Collapsing into #100; claiming #100 LIVE before Cos ACCEPT merge; seat↔seat / Class A / improve-inbox; operator babysitting wording; OpenClaw; ; auto-merge #26
 - **Cite when LIVE:** _(pending Cos ACCEPT of AG #102)_ — cite [#102](https://github.com/paulthorson/agentic-governance/issues/102) Cos amend + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` only (until #100 LIVE)
 - **Supersedes:** none — sibling to `COS_OPERATOR_PLAIN_ENGLISH` (not collapsed)
+- **Note:** Status-reminder AC absorbed / superseded by 2026-09-21 `OPERATOR_STATUS_CONTEXT_BAR` (AG #216). Do not keep this entry as a second unpaid reminder SoT after #216 LIVE. See dated absorb entry below.
 
 ## 2026-09-16 — `MOCK_BEFORE_UI_ENG` (fail-closed, fleet)
 
@@ -327,3 +328,21 @@
 - **Not:** listing real product brands in public AG; copying a filled product-repo index into this repo; a second vanilla SoT; inventing product laundry to illustrate the rule; OpenClaw briefs; ; auto-merge #26
 - **Cite when LIVE:** pending Cos ACCEPT merge SHA — cite LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + `WORKING_AGREEMENT_FLEET` VANILLA LOCK + standing note `projects/_standing/scars/multi-project-local-registry.md` + template `docs/templates/product-repo-projects.md`
 - **Supersedes:** none — addition that amends VANILLA / `WORKING_AGREEMENT_FLEET` / `COS_FEEDBACK_TO_IMPROVE` anonymize; not a replacement
+
+## 2026-09-21 — `OPERATOR_STATUS_CONTEXT_BAR` (fail-closed, fleet — DRAFT until Cos ACCEPT — AG #216)
+
+- **Who:** operator / Cos (AG [#216](https://github.com/paulthorson/agentic-governance/issues/216); **DRAFT** until Cos ACCEPT — Adv Soft rematch; Do not treat a narrative pass as acceptance; until Cos ACCEPT)
+- **Plain text:** Every Cos→operator status and decision card states six rules in everyday words: (1) product name + what it is (short phrase) + where we left off (one sentence); (2) unpaid item in everyday words; (3) explicit operator action or “operator must do nothing”; (4) ETA or the word pending — never invent times; (5) no process / team / infra lingo unless the operator asks (examples of banned class: tip, Ready, Gate, SW, WAF, HTTP status codes, Attack Challenge,, rematch, pack, SoT, and equivalents); (6) decision cards use the same everyday framing. Mid-thread exception: rule 1 only, same-product immediate back-and-forth; any product switch or cold reopen requires the full bar again; rules 2–6 still apply. Status structure lock — not a second ban-list SoT. Jargon sensor stays #190 COS_OPERATOR_PLAIN_ENGLISH_ENFORCE. Absorbs / supersedes #102 COS_PROJECT_CONTEXT_REMINDER status-reminder AC. Git pages stay OPERATOR_FACING_GIT_PLAIN_ENGLISH (LIVE #206 @ 722cd3a). TW bar stays FRAMEWORK_TECH_WRITING (LIVE #177 @ 3c8404b). Out of scope: visitor marketing; Feel rematch; audio inbox; invented ETAs. Vanilla — no product laundry / no operator PII. Metric: Cos→operator status / decision messages missing any of rules 1–4, or using banned lingo from rule 5 without operator ask = fail closed.
+- **Scope:** fleet Cos→operator chat status + decision cards
+- **Not:** a second ban-list SoT; #190 sensor land; visitor marketing rewrite; Feel rematch; audio inbox fold; inventing ETAs; GitHub-page law; product names / hardware brands / operator PII in public AG; OpenClaw; ; auto-merge #26
+- **Cite when LIVE:** pending Cos ACCEPT merge SHA — cite [#216](https://github.com/paulthorson/agentic-governance/issues/216) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + LIVE [#142](https://github.com/paulthorson/agentic-governance/issues/142) / [#143](https://github.com/paulthorson/agentic-governance/pull/143) @ `b65efe2` + LIVE [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b` + LIVE [#206](https://github.com/paulthorson/agentic-governance/pull/206) @ `722cd3a` + absorb [#102](https://github.com/paulthorson/agentic-governance/issues/102) + sensor [#190](https://github.com/paulthorson/agentic-governance/issues/190)
+- **Supersedes:** 2026-09-16 `COS_PROJECT_CONTEXT_REMINDER` status-reminder AC (AG #102) — wording / jargon sensor stays #142 / #190 (not collapsed)
+
+## 2026-09-21 — `COS_PROJECT_CONTEXT_REMINDER` absorb note (status-reminder AC → AG #216)
+
+- **Who:** operator / Cos (AG [#102](https://github.com/paulthorson/agentic-governance/issues/102) absorb into [#216](https://github.com/paulthorson/agentic-governance/issues/216))
+- **Plain text:** Operator-status reminder AC (product + what it is + last state) is absorbed / superseded by OPERATOR_STATUS_CONTEXT_BAR. Do not keep a second unpaid status-reminder SoT. When #216 is LIVE, close or fold #102 as absorbed. Mid-thread exception folds into #216 rule 1. Measure after LIVE on the six-rule status bar.
+- **Scope:** fleet Cos→operator channel — reminder AC only
+- **Not:** collapsing #190 jargon sensor; inventing a third ban SoT; claiming #216 LIVE before Cos ACCEPT
+- **Cite when LIVE:** pending Cos ACCEPT of AG #216 — cite [#102](https://github.com/paulthorson/agentic-governance/issues/102) absorb → [#216](https://github.com/paulthorson/agentic-governance/issues/216) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + LIVE [#142](https://github.com/paulthorson/agentic-governance/issues/142) / [#143](https://github.com/paulthorson/agentic-governance/pull/143) @ `b65efe2`
+- **Supersedes:** 2026-09-16 `COS_PROJECT_CONTEXT_REMINDER` status-reminder AC only — not a replacement of the wording channel
