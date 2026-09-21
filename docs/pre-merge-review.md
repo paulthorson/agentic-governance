@@ -347,7 +347,7 @@ or gates is enforcement.
 | Resolved Python licenses (local metadata) | mcp MIT; pydantic MIT; uvicorn/starlette/httpx BSD-3-Clause; certifi **MPL-2.0**; cryptography Apache-2.0 OR BSD-3-Clause; python-multipart Apache-2.0; typing-extensions PSF-2.0 | `importlib.metadata` after install |
 | GPL / AGPL in MCP set | **NO** found | — |
 | Dashboard `sharp-libvips*` | **LGPL-3.0-or-later** in lockfile | `dashboard/package-lock.json` (e.g. line 839+) |
-| LGPL obligation (sharp / libvips) | Distributing **binaries** that link LGPL libvips may require providing corresponding source / relink rights under LGPL-3.0-or-later. Source-only consumers of this repo who never ship those native binaries are not distributing the LGPL object. **Operator/redistributor must verify** their own distribution form. | Lockfile license field; |
+| LGPL obligation (sharp / libvips) | Distributing **binaries** that link LGPL libvips may require providing corresponding source / relink rights under LGPL-3.0-or-later. Source-only consumers of this repo who never ship those native binaries are not distributing the LGPL object. **Operator/redistributor must verify** their own distribution form. | Lockfile license field |
 
 ---
 
