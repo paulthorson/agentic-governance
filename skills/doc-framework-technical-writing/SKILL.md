@@ -57,8 +57,16 @@ Write as a technical writer for people who have never seen this repo.
 - Everyday words. Define a term the first time it appears.
 - Short sections. Sentence case headings.
 - Show the next action a person can take.
-- No private product names, hardware brands, operator identity,
-  project-specific paths, or vendor capture tools.
+- Write as professional enterprise software documentation: high-level
+  concepts, workflows, and methodologies. Forward-facing, accessible,
+  polished. Distill into clean docs with a TL;DR / executive bottom line
+  and structured sections.
+- Do not transcribe call notes, personal anecdote, chat voice, or
+  “someone said on a call…”.
+- No private product names, personal project names, private product paths,
+  hardware brands, operator identity, or vendor capture tools. Personal
+  project names and private product paths count as PII for framework
+  purposes.
 - No internal slang, ticket numbers as the only explanation, or "as we discussed."
 - No marketing-slop words (delve, unlock, elevate, seamless, robust, leverage,
   empower, journey).
@@ -132,8 +140,9 @@ Before on public content:
    scores are rejected.
 3. Links resolve; version and changelog human face stay aligned with git.
 4. Human bar and agent bar both pass for their classified surfaces.
-5. Vanilla lock holds (no product laundry, no operator PII, no vendor capture
-   tool names in shared framework text).
+5. Vanilla lock holds (no product laundry, no personal project names, no
+   private product paths, no operator PII, no vendor capture tool names in
+   shared framework text).
 
 Measured claims only. Do not invent delivery metrics, page counts, API counts,
 readability scores, or satisfaction percentages to prove the work.

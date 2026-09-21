@@ -2,7 +2,8 @@
 
 Cross-project Standing AG SoT — anonymized process locks and scars that are
 **not** tied to a single product tree. No secrets,
-tokens, host usernames, emails, absolute paths, or private operator data.
+tokens, host usernames, emails, absolute paths, personal project names,
+private product paths, or private operator data.
 
 | Path | Contents |
 |---|---|

@@ -203,7 +203,7 @@ Also cite already-LIVE `RESEARCH_HCI` Fitts · Hick · Jakob (and sibling fundam
 
 **Process:** Continual improve. Mock-before-build. Mocks from live product — Existing screen = capture the live product as users see it, then enhance / delta those frames. Capture method (URL / device / preview tool / etc.) lives on that product’s private brief / each installer’s bound environment — **not** in the shared framework. New / missing screen = wireframe only if physically possible on that surface (size / type / density / limits on the product brief). Fake / invented UI without live-base = **FAIL**. No hardware brand in fleet law. Living design-standards; 30 Laws PRIMARY https://lawsofux.com + SECONDARY keysjoao; WCAG 2.x AA Soft. Credentials place build → Cos notify → operator install/look. Every PRD opens with exec bottom line.
 
-**Technology:** Capture method on product brief / installer env only — not framework. Public git = no operator PII / no private product leakage. Agent inboxes = short-cadence + cross-seat learning report.
+**Technology:** Capture method on product brief / installer env only — not framework. Public git = no operator PII / no private product leakage. Personal project names and private product paths count as PII (`MULTI_PROJECT_LOCAL_REGISTRY` stacks VANILLA; not a second SoT). Agent inboxes = short-cadence + cross-seat learning report.
 
 - **Id / named check:** `WORKING_AGREEMENT_FLEET`
 - **Who stamps:** Cos primary. Adv challenges. UX binds craft / rematch seats.

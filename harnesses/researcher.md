@@ -107,7 +107,7 @@ Also cite LIVE `RESEARCH_HCI` Fitts · Hick · Jakob [#38](https://github.com/pa
 
 ## Working agreement fleet (`WORKING_AGREEMENT_FLEET`) + PRD exec TLDR (`PRD_EXEC_TLDR_FIRST`)
 
-**Draft SoT until Cos ACCEPT of AG #122 + #123 — not live / not effective until ACCEPT.** Do not treat a narrative pass as acceptance (literal). HIGH-LEVEL PROCESS ONLY. **VANILLA LOCK**. Research binds: HCI / UX-laws evidence + rematch live-base confirms; never invent SoT; never leak private product / vendor / hardware brands into framework.
+**Draft SoT until Cos ACCEPT of AG #122 + #123 — not live / not effective until ACCEPT.** Do not treat a narrative pass as acceptance (literal). HIGH-LEVEL PROCESS ONLY. **VANILLA LOCK**. Research binds: HCI / UX-laws evidence + rematch live-base confirms; never invent SoT; never leak private product / vendor / hardware brands, personal project names, or private product paths into framework (`MULTI_PROJECT_LOCAL_REGISTRY` stacks VANILLA; not a second SoT).
 
 - **Id / named checks:** `WORKING_AGREEMENT_FLEET` ([#122](https://github.com/paulthorson/agentic-governance/issues/122)) + `PRD_EXEC_TLDR_FIRST` ([#123](https://github.com/paulthorson/agentic-governance/issues/123))
 - **Research role:** Supply evidence that mocks start from live product as users see it; capture method stays on product brief / installer env. Agent-inbox short-cadence learning reports when Research is on the tip. Do not invent PRD bottom lines — Cos/PM own `PRD_EXEC_TLDR_FIRST`.
