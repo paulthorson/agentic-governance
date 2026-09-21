@@ -20,7 +20,7 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
   `RESEARCH_BEFORE_ENHANCE`.
 - **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ---
 

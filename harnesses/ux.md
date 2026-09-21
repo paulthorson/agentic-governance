@@ -45,7 +45,7 @@ Stories follow the standard template: Title, User Story, Requirements, Accessibi
 
 **Acceptance metric.** UX epics missing `userflows.md` / `jtbd.md` / Research cite (or explicit `NO_RESEARCH`→human) at Critic = **fail closed**.
 
-**Scope.** Product UX epics only — **not** OpenClaw briefs. P0: no PII, secrets, keys, emails, or absolute host paths in AG git.
+**Scope.** Product UX epics only — **not** OpenClaw briefs. Keep private operator data out of AG git.
 
 ### Draft locks (not live / not effective until Cos ACCEPT merge)
 
@@ -61,7 +61,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** Documents/binds existing stacks — does **not** replace any named gate. Check 8 is **LIVE** via `#15` / `d61f4c1` — cross-ref only; do not reopen.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### `CRITIC_SEPARATE_STAMP`
 
@@ -74,7 +74,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
   unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### `TOKEN_SOURCE_OR_BLANK`
 
@@ -85,7 +85,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** On Check 1 / `design.md` — does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
 - **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### `LIVE_SOT_MERGED_SHA`
 
@@ -96,7 +96,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** Gates Cos ACCEPT; does not replace `RESEARCH_BEFORE_ENHANCE` / Check 7 / Check 8 content — only liveness.
 - **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### `AI_SLOP_COPY_FAIL`
 
@@ -114,7 +114,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Sensor (fail-closed):** Cos + UX + QA grade copy on product surfaces before ship / Look / stills handoff. Stills / copy PR must hold founder voice (or cite Brand Voice packet that bans the lexicon + twin-attribute cadence). Scar/wiki page alone is not this sensor. Cos craft stamp **before** Adv.
 - **Who stamps:** Cos craft FAIL before Adv; UX Critic grades under Check 8 stack; QA stop on ship / Look / visual pack gates when slop copy is present. Adv names SoT — does not clear Cos/UX/QA stamp.
 - **Metrics (fail closed):** visitor/user-facing surfaces shipping AI-slop = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Out of scope for this SoT write:** rewriting live marketing pixels in this tip; OpenClaw briefs; inventing product Brand Voice for a concrete Initiative beyond the ban bar.
 
 #### `MOCK_BEFORE_UI_ENG`
@@ -152,7 +152,7 @@ Fleet enterprise/master craft raise on product UI. Stacks LIVE `DESIGN_AGENCY_BA
 - **Named remediation seat (Cos-locked before next UI Eng):** priority named on that product's private brief (path / surface). PM / UX / Research / Eng seats for that product. Explicit comps + agency-bar rematch + Cos mock GO before next UI Eng for the named-priority product. Other products still under fleet bar + mock-before-build; priority lives on the product brief — not fleet laundry.
 - **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) + `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) + LIVE improve `#87` @ `2ab4b17` + `#98` @ `fe27c4b` — **not** a replacement. LIVE ops HOLD mock-before-build until Cos lifts `#103` (do **not** soft-depend unpaid `#103` Class A body as sole cite).
 - **Metric (fail closed):** count of UI Eng tips / merges that ship product UI below enterprise/master craft bar without Cos craft PASS on Cos-routed stills. Target = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers.
 - **Cite:** [#104](https://github.com/paulthorson/agentic-governance/issues/104) Cos amend + [#43](https://github.com/paulthorson/agentic-governance/pull/43) LIVE @ `7e9e0b6` + [#38](https://github.com/paulthorson/agentic-governance/pull/38) LIVE @ `214ed5b` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + LIVE ops HOLD mock-before-build (until `#103` LIVE Class A).
 
 #### `UX_UI_CONSTITUTION` (epic core — AG #111)
@@ -192,7 +192,7 @@ Also cite already-LIVE `RESEARCH_HCI` Fitts · Hick · Jakob (and sibling fundam
   - Soft / deferred / “laws later” / tip-only = **REJECTED**
 - **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) + `RESEARCH_HCI` (**LIVE** `#38` / `214ed5b`) + `DESIGN_SYSTEM_FIRST` (**LIVE** `#45` / `ead012f`) + improve LIVE `#87` @ `2ab4b17` + `#98` @ `fe27c4b` + `#100`–`#104` via PR [#105](https://github.com/paulthorson/agentic-governance/pull/105) MERGED @ `023abf9` — **not** a replacement. Amends agency / HCI / DS_FIRST — not a second CoE.
 - **Metric (fail closed):** stacks epic `#111` metric — mocks shown to operator without UX-laws check + declared product design system + WCAG AA = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers.
 - **Cite:** [#113](https://github.com/paulthorson/agentic-governance/issues/113) Cos amend + [#111](https://github.com/paulthorson/agentic-governance/issues/111) Cos amend + [#43](https://github.com/paulthorson/agentic-governance/pull/43) LIVE @ `7e9e0b6` + [#38](https://github.com/paulthorson/agentic-governance/pull/38) LIVE @ `214ed5b` + [#45](https://github.com/paulthorson/agentic-governance/pull/45) LIVE @ `ead012f` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + [#105](https://github.com/paulthorson/agentic-governance/pull/105) MERGED @ `023abf9`.
 
 #### `WORKING_AGREEMENT_FLEET` (fail-closed, fleet) — draft until Cos ACCEPT of AG #122
@@ -235,7 +235,7 @@ Never ship nested device chrome inside a host WebView that already provides the 
 - **Allowed:** Design stills / comps outside the live install path may keep mock frames.
 - **Stack:** Addition on `COS_FLEET_LOOK_GATE` + Check 8 / `VISUAL_STEP_STILLS` (**LIVE** `#15` / `d61f4c1`) + `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) — **not** a replacement.
 - **Metric (fail closed):** Cos / Adv Look miss when nested bezel / island / home-bar / fake-device canvas is present on a live host face = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No product / host / plugin brand names in public SoT.
+- **P0:** Keep private operator data out of AG git. No product / host / plugin brand names in public SoT.
 - **Cite:** [#159](https://github.com/paulthorson/agentic-governance/pull/159) LIVE @ `95693e9` + [#158](https://github.com/paulthorson/agentic-governance/issues/158) Cos promote from improve-inbox [#157](https://github.com/paulthorson/agentic-governance/issues/157) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ; ; ; product-brief restatements (not this tip).
 
 ### LIVE locks (Cos ACCEPT merged — cite SHA)
@@ -258,7 +258,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Do-not-copy (named LIVE prohibition):** particle beads / marble pulses / cheesy “alive” effects as status. Scar trigger: AG **#39** tip `9b1bba2` pulse craft FAIL (big green dots/beads along lines). Correct pattern: **faint white colorization WITHIN the thin line** — no beads / dots / marble pulses. Cite RESEARCH_HCI **#38** @ `214ed5b`.
 - **Sensor (fail-closed):** Before stills → Cos craft: a craft brief naming restraint SoT + **what NOT to do**. Stills PR must include a **written craft defense** (why clean; what was rejected as cheesy / spectacle). A scar/wiki page alone is not this sensor. Cos craft stamp **before** Adv.
 - **Metrics (fail closed):** Cos craft FAIL holds for the listed spectacle / cheesy-alive patterns = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`)
 
@@ -283,7 +283,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
   - Missing Research Scope answers before the comps hunt
 - **Sensor (fail-closed):** Initiative packet includes `design-system.md` covering **tokens / type / space / motion / brand / do-not** **plus** **Experience principles** **plus** **Brand Voice** (tone, lexicon — words we use/never use — headline patterns, narrative drill-down voice; name **Brand Voice** explicitly) **plus** **Audience/promise** **plus** **Information-design rules** (measured-only; marks stay marks) **plus** Research cite **plus** a **fresh diverse** comps set; cites must **state why this set matches this product’s business model** and **why the set is diverse** (not one peer; not Pentagram/500/AXM-as-default); **Research Scope** (Q1–Q8) filed before hunt; **Cos signoff stamp** on Brand & Design Setup; then **UX Canvas** (Gothelf Lean UX Canvas v2 boxes 1–8; before screens) before Check 7 / Check 8 stills / Eng handoff. Comp cites internal-only. Template: `adversarial-ux/assets/templates/design-system.md`. A scar/wiki page alone is not this sensor. Eng handoff also gated by Check 9 / `INITIATIVE_START_SEQUENCE` (QA + Cos stamp; **LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`).
 - **Metrics (fail closed):** Holds where pixels shipped without DS signoff = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### UX Canvas (next gate after Brand & Design Setup)
 

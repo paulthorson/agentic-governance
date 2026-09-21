@@ -54,7 +54,7 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
   Roster seat unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury / QA gates; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### `SURFACE_GATE_MATRIX`
 
@@ -71,7 +71,7 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
   is routing only. Do not reopen Check 8.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ## The six checks
 
@@ -123,7 +123,7 @@ with per-step mobile **and** desktop screenshots. A scar page is not the sensor.
 layout-shift Highs (primary CTA wrap, chrome colliding with CTA, theme control stealing CTA
 row) = **fail closed**.
 
-**P0:** no secrets/keys/emails/PII/host paths in AG git.
+**P0:** Keep private operator data out of AG git.
 
 FAIL if the sensor or index is missing, or any step lacks mobile **or** desktop stills.
 Named visual FAIL grading (CLS/layout, Fitts, Hick, Jakob, Miller) is owned by **UX Critic
@@ -163,7 +163,7 @@ Check 6 VisualStills sensor (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
 - Metric hold (packs without stills = 0): PASS | FAIL | N/A
 - Graded by UX Critic Check 8: cited | missing cite
 - Critic stamp separate from Adv (`CRITIC_SEPARATE_STAMP`): yes | no — FAIL if no
-- P0 (no secrets/keys/emails/PII/host paths): PASS | FAIL
+- P0 (private operator data): PASS | FAIL
 
 ### Not checkable
 - <what you could not verify, and why>

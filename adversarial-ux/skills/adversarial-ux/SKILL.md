@@ -221,8 +221,7 @@ Check number.
 - Stack: on Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) +
   `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat
   unpaid note OK. Does **not** reopen Check 8.
-- Scope: product UX jury; all product teams; **not** OpenClaw. P0: no secrets/keys/emails/PII/
-  host paths in AG git.
+- Scope: product UX jury; all product teams; **not** OpenClaw. Keep private operator data out of AG git.
 
 ---
 

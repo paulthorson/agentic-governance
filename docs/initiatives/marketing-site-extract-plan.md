@@ -3,7 +3,7 @@
 **Plain-English name:** Marketing site extract (Eng plan) 
 **Type:** Class A ops / Eng extract plan — **PLAN ONLY** (no file moves, no pixels in this tip) 
 **Status:** **MERGED LIVE** — Cos ACCEPT [#56](https://github.com/paulthorson/agentic-governance/pull/56) @ `e7bb36e` (2026-09-14). PRODUCT [#55](https://github.com/paulthorson/agentic-governance/pull/55) **MERGED LIVE** @ `19e451f`. Extract execute **GO** — see companion status [`marketing-site-extract-execute.md`](./marketing-site-extract-execute.md). 
-**Owner seat:** Eng (+ Ops for Vercel); look pixels HOLD; Get AG acceptance-gate HOLD **superseded** (Apache-only settle) 
+**Owner seat:** Eng (+ Ops for Vercel); look pixels HOLD; Apache-2.0 LICENSE only (no acceptance gate) 
 **Companion PRODUCT epic (AG PM owns — do not overwrite):** [`docs/initiatives/marketing-site-split.md`](./marketing-site-split.md) — [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` (**MERGED LIVE**) 
 **Companion execute status:** [`marketing-site-extract-execute.md`](./marketing-site-extract-execute.md)
 
@@ -17,7 +17,7 @@
 
 **Eng HOLD look pixels** until operator yes (and stills / #39 craft clear). This plan does **not** authorize pixel work or `dashboard/src` look changes on AG.
 
-**operator LOCK 2026-09-14 — Get AG (superseded by release settle):** Prior acceptance-gate language is **void**. Settled posture: Apache-2.0 only; **no acceptance gate**; [redacted] Get AG files removed. **Eng HOLD Get AG CTA pixels** remains on #39 look craft only. Class A extract docs / ops OK; site-repo extract continues **in parallel**.
+**operator LOCK 2026-09-14 — Get AG (settled):** Apache-2.0 only; **no acceptance gate**. **Eng HOLD Get AG CTA pixels** remains on #39 look craft only. Class A extract docs / ops OK; site-repo extract continues **in parallel**.
 
 ---
 

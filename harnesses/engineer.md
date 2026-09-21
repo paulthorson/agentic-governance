@@ -80,7 +80,7 @@ Default DENY **unauthorized external side-effects** without Cos-thread GO naming
 - **Out of scope (read-only carve-out):** Reading / listing for inspection ≠ send / ≠ unauthorized external side-effect. This gate bans **outbound / mutating external actions** — it does **not** invent a read ban.
 - **Stack:** improve LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` — **not** a replacement. Cos-thread GO gate also in Cos harness.
 - **Metric (fail closed):** unpaid Cos GO external action / missing launch-brief fence / freelanced outbound personal-mail / provider-mail / wrong-actor action = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, personal emails, operator PII, vendor brands, or product laundry in public AG SoT.
+- **P0:** Keep private operator data out of public AG SoT.
 - **Cite:** [#170](https://github.com/paulthorson/agentic-governance/issues/170) + epic [#169](https://github.com/paulthorson/agentic-governance/issues/169) + Check 1 absorbs [#167](https://github.com/paulthorson/agentic-governance/issues/167) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ;.
 
 ## Operator-facing GitHub plain English (`OPERATOR_FACING_GIT_PLAIN_ENGLISH`)
@@ -104,7 +104,7 @@ Every GitHub page an operator uses to decide must open with an **executive botto
 - **Out of scope:** Rewriting every historical PR/issue; inventing a second technical writing skill; Cos chat enforcement (#190).
 - **Stack:** Addition on `FRAMEWORK_TECH_WRITING` (**LIVE** [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b`) — not a replacement. Sibling to Cos chat plain-English (#190 / #142) — not collapsed. Bottom-line pattern cites [#123](https://github.com/paulthorson/agentic-governance/issues/123) — not a merge of `PRD_EXEC_TLDR_FIRST`.
 - **Metric (fail closed):** Cos asks operator merge / undraft while operator-facing GitHub text lacks a top executive bottom line, is unreadable, jargon-heavy, or TW-lens FAIL = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, personal emails, operator PII, vendor brands, or product laundry in public AG SoT.
+- **P0:** Keep private operator data out of public AG SoT.
 - **Cite:** [#205](https://github.com/paulthorson/agentic-governance/issues/205) + [#123](https://github.com/paulthorson/agentic-governance/issues/123) bottom-line pattern + LIVE `FRAMEWORK_TECH_WRITING` [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b` / bar [#172](https://github.com/paulthorson/agentic-governance/issues/172) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ;. Soft CoE LIVE cite after Cos ACCEPT merge = separate Soft tip.
 
 ## Task-graph orchestration (`TASK_GRAPH_ORCHESTRATION`)
@@ -139,7 +139,7 @@ Four rules (from **upstream task-graphs reference**):
 - **Who / scope:** Eng + Cos / fleet + cloud EXECUTE multi-agent topology. Vanilla public SoT. **Not** knowledge-graph 9-stage / GraphRAG as fleet law.
 - **Who stamps:** Eng owns split+merge maps + self-HOLD; Cos routes topology + HARD absorb after LIVE; QA records Named fail; Adv Soft rematch (Do not treat a narrative pass as acceptance).
 - **Metric (fail closed):** fake-edge / fake-diamond / sequential swarm / unowned merge / spawn theater / gate theater / Do not treat a narrative pass as acceptance via narrative = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, personal emails, operator PII, or vendor brand names in prose beyond the provenance URL path.
+- **P0:** Keep private operator data out of AG git. No vendor brand names in prose beyond the provenance URL path.
 - **Provenance (URL only):** https://github.com/codejunkie99/graph-engineering/blob/master/graph-engineering/references/task-graphs.md — **upstream task-graphs reference**.
 - **Cite:** [#196](https://github.com/paulthorson/agentic-governance/issues/196) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ;.
 

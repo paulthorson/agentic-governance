@@ -110,7 +110,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
   **LIVE** via `#15` / `d61f4c1`) / `RESEARCH_BEFORE_ENHANCE`. Does not reopen Check 8.
 - **Scope:** All product teams. OpenClaw keeps existing scar files — do not force product retro path onto OpenClaw briefs.
 - **Metric:** Cos-closed epics missing retro = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### Draft lock: `LIVE_SOT_MERGED_SHA` (not live / not effective until Cos ACCEPT merge)
 
@@ -123,7 +123,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
   locks. Precedent: `#13` intake ≠ SoT. Do not reopen Check 8.
 - **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ## Permitted plugins
 

@@ -1,7 +1,7 @@
 # Standing scars
 
-Anonymized cross-project process locks filed as agentic-governance SoT. No
-secrets, tokens, emails, PII, absolute host paths, or private operator data.
+Anonymized cross-project process locks filed as agentic-governance SoT. Keep
+private operator data out of this repo.
 A scar documents a lock; **named sensors** in the constitution / agents are the
 gate.
 

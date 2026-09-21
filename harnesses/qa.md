@@ -61,7 +61,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** Documents/binds existing stacks — does **not** replace any named gate. Check 8 is **LIVE** via `#15` / `d61f4c1` — this lock only binds surface routing; do not reopen Check 8.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### `CRITIC_SEPARATE_STAMP` (when QA gates)
 
@@ -72,7 +72,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury / QA gates; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 #### `LIVE_SOT_MERGED_SHA`
 
@@ -84,7 +84,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
   `d61f4c1`) — only liveness of *these five* locks. Do not reopen Check 8.
 - **Scope:** AG harness writes + team execution; all product teams + OpenClaw ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### Visual step-stills (`VISUAL_STEP_STILLS` — Critic Check 8)
 
@@ -99,7 +99,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Metrics (fail closed):**
   - Visual QA packs / ship gates without per-step mobile **and** desktop stills = **fail closed**.
   - Marketing/dashboard layout-shift Highs (primary CTA wrap, chrome colliding with CTA, theme control stealing CTA row) = **fail closed**.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git (screenshot paths and index text included).
+- **P0:** Keep private operator data out of AG git (screenshot paths and index text included).
 - **Named FAIL (no soft / no etc.):**
   - **CLS/layout:** primary CTA row wraps or shifts when theme/chrome loads; reserved-space missing for theme control; dynamic banner pushes hero CTA.
   - **Fitts:** primary CTA shrinks/splits across wrap; theme toggle in CTA cluster.
@@ -120,7 +120,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** via `#43` / `7e9e0b6`) + Brand Voice / `DESIGN_SYSTEM_FIRST` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — **not** a replacement.
 - **Scope:** Product UX surfaces only (marketing + app chrome copy). **All** product UX teams. **Not** OpenClaw briefs.
 - **Metrics (fail closed):** visitor/user-facing surfaces shipping AI-slop = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Harness SoT (primary):** `harnesses/ux.md` (`AI_SLOP_COPY_FAIL`). Cos pointer: `harnesses/chief-of-staff.md`.
 
 ### `VISITOR_FACE_NO_OPS_MEMO` (visitor-face internal note — fail-closed)
@@ -143,7 +143,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** Addition on `AI_SLOP_COPY_FAIL` (draft) + `FRAMEWORK_TECH_WRITING` (**LIVE** via `#177` / `3c8404b`) — **not** a replacement. Does not reopen Get-AG HOLD site copy (Cos-owned tip) or Install tip [#186](https://github.com/paulthorson/agentic-governance/issues/186).
 - **Scope:** **Fleet / vanilla** — any product visitor face / fleet public chrome across installs (marketing sites + product README/SECURITY/CHANGELOG human face/seat cards/footers for any install). **Not** AG-site-only. **Not** OpenClaw briefs. Vanilla public SoT — no product / vendor brand names; no operator PII; no incident narrative; anonymized scar only.
 - **Metrics (fail closed):** visitor-facing public chrome shipping internal note voice / named FAIL lexicon = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, absolute host paths, personal project names, private product paths, product laundry, or operator identity in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Harness SoT (primary):** `harnesses/qa.md` (`VISITOR_FACE_NO_OPS_MEMO`). CoE Already LIVE + cos-memory locks cite [#188](https://github.com/paulthorson/agentic-governance/pull/188) @ `757cf2a`.
 
 ### Initiative start sequence (`INITIATIVE_START_SEQUENCE` — Check 9)
@@ -166,7 +166,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **Stack:** Addition on LIVE `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f` + UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull/48) @ `e9b4827` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — **not** a replacement. Does not reopen Check 7/8.
 - **Scope:** Product UX Initiatives only. **Not** OpenClaw.
 - **Metrics (fail closed):** Eng handoffs missing Research Scope cite, signed Brand & Design Setup, or UX Canvas (boxes 1–8) = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Supersedes:** Draft [#49](https://github.com/paulthorson/agentic-governance/pull/49) (Gothelf lock without a check id) — this tip absorbs Gothelf **and** adds standing Check 9.
 
 ### `TASK_GRAPH_ORCHESTRATION` (task-graph topology — fail-closed)
@@ -205,7 +205,7 @@ QA records a miss when public framework text under review lists personal product
 - **Stack:** Addition on `WORKING_AGREEMENT_FLEET` VANILLA LOCK + `COS_FEEDBACK_TO_IMPROVE` **LIVE** [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` — **not** a replacement.
 - **Scope:** **Fleet / vanilla** public AG git. **Not** OpenClaw briefs. **Not** a filled index inside a product repository.
 - **Metric (fail closed):** public AG tips that list personal product names or private product paths = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, personal project names, private product paths, absolute host paths, or operator identity in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Harness SoT (primary):** `harnesses/chief-of-staff.md`. Standing note: `projects/_standing/scars/multi-project-local-registry.md`. Template: `docs/templates/product-repo-projects.md`.
 
 ## Stop conditions
@@ -215,7 +215,7 @@ QA records a miss when public framework text under review lists personal product
 - If stills show a named FAIL (CLS/layout, Fitts, Hick, Jakob as listed above) — stop; record FAIL in results; do not ship-pass.
 - On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — stop; record FAIL in results; do not ship-pass. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Do not apply to OpenClaw. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
 - On visitor-facing public chrome across installs (`VISITOR_FACE_NO_OPS_MEMO`, **LIVE** [#188](https://github.com/paulthorson/agentic-governance/pull/188) @ `757cf2a` / story [#187](https://github.com/paulthorson/agentic-governance/issues/187)): if copy reads like an internal note / internal note, or contains a named FAIL (“Operator decides…”, authorized-access lectures, “Source path:” diaries, ALL-CAPS HOLD theater, Cos / Soft / Tip process slang, harness-only “Note” asides) — stop; record FAIL in results; do not ship-pass. Honest short private-repo language OK when measured. Do not treat a narrative pass as acceptance. Fleet — any product visitor face; vanilla — no product laundry. Do not apply to OpenClaw. Do not treat this tip as authority to rewrite Get-AG HOLD site copy or reopen Install tip #186. Metric: visitor-facing public chrome shipping internal note voice = **fail closed**.
-- If screenshot paths or index text would require secrets, keys, emails, PII, or absolute host paths in AG git — stop; redact and use relative epic paths only.
+- If screenshot paths or index text would require private operator data in AG git — stop; redact and use relative epic paths only.
 - On public AG framework git (`MULTI_PROJECT_LOCAL_REGISTRY`, draft until Cos ACCEPT): if the text under review lists personal product names, private product paths, or other operator PII, or copies a filled product-repo project index into this repo — **stop**; record FAIL; do not ship-pass. Public AG may show placeholders (`Project A` / `path/to/a/`) only. fail / **fail closed**. Do not treat a narrative pass as acceptance. Stacks `WORKING_AGREEMENT_FLEET` VANILLA LOCK + `COS_FEEDBACK_TO_IMPROVE` — not a second SoT.
 - On product UX QA gates for Checks 7–8 / visual sensor: if there is no distinct **CRITIC**-labeled verdict artifact/run separate from Adv — stop; FAIL under `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT).
 - Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` / `AI_SLOP_COPY_FAIL` / `VISITOR_FACE_NO_OPS_MEMO` to OpenClaw briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). OpenClaw briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.

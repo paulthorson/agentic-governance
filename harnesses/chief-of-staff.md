@@ -153,7 +153,7 @@ When governance watch finds a candidate change, write a proposal under `docs/pro
 - **Metrics (fail closed):**
   - Cos/operator hand-recommended AG meta-gaps the last audit should have fail-closed = **fail closed**.
   - Nag-only cycles (no unpaid item and no `AUDIT_CLEAR`) = **fail closed**.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git or digest artifacts. No invented tokens.
+- **P0:** Keep private operator data out of AG git. No invented tokens.
 - **Where:** Record the checklist + unpaid item(s) or `AUDIT_CLEAR` in the day's `docs/improve/YYYY-MM-DD.md` (standing self-audit section). A scar page alone is not this sensor.
 
 ### `AI_SLOP_COPY_FAIL` (copy bar — Cos craft before Adv; stacks on `DESIGN_AGENCY_BAR`)
@@ -167,7 +167,7 @@ When governance watch finds a candidate change, write a proposal under `docs/pro
 - **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** via `#43` / `7e9e0b6`) + Brand Voice / `DESIGN_SYSTEM_FIRST` + Check 7/8 — **not** a replacement.
 - **Scope:** All product UX teams — visitor/user-facing product surfaces. **Not** OpenClaw briefs.
 - **Metric (fail closed):** visitor/user-facing surfaces shipping AI-slop = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Harness SoT (primary):** `harnesses/ux.md`. Also: `harnesses/qa.md`. CoE Draft intake.
 
 ### Cos gate scar set (Class A docs SoT; cite-fold AG #91 pack + children #92–#97; amends LIVE #87 + LIVE #98)
@@ -202,7 +202,7 @@ When the human operator gives negative feedback / “we’re not doing something
 - **Not:** Inventing SoT the operator did not say; putting personal PII, personal project names, private product paths, or project marketing brand into framework git as fleet law; auto-merging look/Class B stills (); asking the human to babysit process wording / tip prose / queue hygiene.
 - **Stack:** `COS_CRITICAL_THINKING` **LIVE** [#80](https://github.com/paulthorson/agentic-governance/pull/80) @ `e75d3b0` + continuous AG improve / daily digest / post-epic retros + `SELF_AUDIT_LOOP` — addition, not replacement. Framework bifurcation: vanilla process only; marketing craft stays marketing-site scoped (#79 LIVE). **Addendum:** `COS_IMPROVE_INBOX` **LIVE** [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` — all-teams temp improve-inbox feed + Cos promote; [#88](https://github.com/paulthorson/agentic-governance/issues/88) = temp container pattern only.
 - **Metric (fail closed):** Negative operator feedback recorded in Cos memory / day log with **no** anonymized improve epic/story queued same day = **fail closed**. Do not treat a narrative pass as acceptance. Stacks `COS_IMPROVE_INBOX` unpaid-promote metric.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT. No personal project names or private product paths. Strip product brand kits / project-specific marketing craft from framework SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT. Strip product brand kits / project-specific marketing craft from framework SoT.
 - **Cite:** [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` (`COS_IMPROVE_INBOX`) + [#80](https://github.com/paulthorson/agentic-governance/pull/80) LIVE @ `e75d3b0` (`COS_CRITICAL_THINKING`) + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` (`COS_OPERATOR_LOOK_GATE` / Advercase marketing-only) + [#91](https://github.com/paulthorson/agentic-governance/issues/91)–[#97](https://github.com/paulthorson/agentic-governance/issues/97).
 
 #### `COS_IMPROVE_INBOX` (fail-closed, fleet) — addendum to `COS_FEEDBACK_TO_IMPROVE` LIVE #87 — **LIVE** [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`
@@ -221,7 +221,7 @@ All seated AG teams feed anonymized scars into a shared **improve-inbox** temp c
 - **Not:** A sibling SoT lock beside `COS_FEEDBACK_TO_IMPROVE`; inventing a second improve path; Cos-only feed; personal names/emails/secrets in inbox items; human babysit of inbox / wording; auto-merging look/Class B stills (); inventing PM/Eng/QA harness extras.
 - **Stack:** amends `COS_FEEDBACK_TO_IMPROVE` **LIVE** [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` — addition, not replacement. Temp container = [#88](https://github.com/paulthorson/agentic-governance/issues/88) + label `improve-inbox` (pattern only — not harness law).
 - **Metric (fail closed):** Unpaid improve-inbox item past the next Cos improve pass (≤4h) with **no** promote into improve epic/story (requirements + AC) = **fail closed**. Stacks `COS_FEEDBACK_TO_IMPROVE` metric. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT or inbox items.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT or inbox items.
 - **Cite:** [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#80](https://github.com/paulthorson/agentic-governance/pull/80) LIVE @ `e75d3b0` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#91](https://github.com/paulthorson/agentic-governance/issues/91)–[#97](https://github.com/paulthorson/agentic-governance/issues/97). Temp container cite: [#88](https://github.com/paulthorson/agentic-governance/issues/88).
 
 #### `SHIP_WITHOUT_SENSOR` (fail-closed, fleet) — draft until Cos ACCEPT of AG #92
@@ -234,7 +234,7 @@ Upload/Install ≠ CLOSED. Done-when = place-build stills PASS + **named Look li
 - **Not:** Chat KEEP as named Look line; tip-only soft close; Upload/Install alone as CLOSED; place-build stills / Look score unpaid while CLOSED.
 - **Stack:** `VISUAL_STEP_STILLS` + `COS_FLEET_LOOK_GATE` / product Look + Check 8 where applicable + `COS_OPERATOR_LOOK_GATE` phone SoT where marketing. Cite LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b`.
 - **Metric (fail closed):** Upload or Install alone stamps CLOSED while place-build stills or Look score unpaid = **fail closed**. Pack GO without named Look line as durable artifact on tip/PR = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#92](https://github.com/paulthorson/agentic-governance/issues/92) + [#91](https://github.com/paulthorson/agentic-governance/issues/91) + Check 8 / `VISUAL_STEP_STILLS` (**LIVE** `#15` / `d61f4c1`) + `COS_FLEET_LOOK_GATE` / `COS_OPERATOR_LOOK_GATE` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b`. Draft until Cos ACCEPT of AG #92.
 
 #### `DOCS_PASS_NE_PACK_GO` (fail-closed, fleet) — draft until Cos ACCEPT of AG #93
@@ -247,7 +247,7 @@ Check 7 / Eng-handoff PASS ≠ Cos pack GO. Pack GO is a separate Cos named stam
 - **Not:** Check 7 PASS as Eng pack GO; tip-only soft close; chat KEEP as Cos pack GO stamp.
 - **Stack:** Check 7 LIVE + `COS_FEEDBACK_TO_IMPROVE` / chain `COS_CHAIN_NO_SHORTCUT`. Cite LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b`.
 - **Metric (fail closed):** Check 7 PASS alone unlocks pack GO = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#93](https://github.com/paulthorson/agentic-governance/issues/93) + [#91](https://github.com/paulthorson/agentic-governance/issues/91) + Check 7 + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + `COS_CHAIN_NO_SHORTCUT`. Draft until Cos ACCEPT of AG #93.
 
 #### `VERBAL_PASS_NE_OPTICAL` (fail-closed, fleet) — draft until Cos ACCEPT of AG #94
@@ -260,7 +260,7 @@ Check 7 / Eng-handoff PASS ≠ Cos pack GO. Pack GO is a separate Cos named stam
 - **Not:** Verbal “looks good” as optical CLOSE; tip recordings alone replacing phone when marketing/product Look gate requires phone.
 - **Stack:** `VISUAL_STEP_STILLS` + Cos Look gates LIVE (`COS_OPERATOR_LOOK_GATE` / `COS_FLEET_LOOK_GATE`). Cite LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b`.
 - **Metric (fail closed):** Verbal alone stamps optical CLOSE = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#94](https://github.com/paulthorson/agentic-governance/issues/94) + [#91](https://github.com/paulthorson/agentic-governance/issues/91) + `VISUAL_STEP_STILLS` (**LIVE** `#15` / `d61f4c1`) + `COS_OPERATOR_LOOK_GATE` / `COS_FLEET_LOOK_GATE` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b`. Draft until Cos ACCEPT of AG #94.
 
 #### `CI_EMPTY_NE_MERGE_GATE` (fail-closed, fleet) — draft until Cos ACCEPT of AG #95
@@ -273,7 +273,7 @@ When status checks are **empty / none**: (1) **Fail-closed:** Cos must NOT treat
 - **Not:** Empty CI rollup as / merge Ready; Adv PASS alone as sole gate when CI is empty.
 - **Stack:** Cos PR sweep + `COS_FEEDBACK_TO_IMPROVE` / Class A docs path. Cite LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b`.
 - **Metric (fail closed):** Empty CI rollup treated as / merge Ready = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#95](https://github.com/paulthorson/agentic-governance/issues/95) + [#91](https://github.com/paulthorson/agentic-governance/issues/91) + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b`. Draft until Cos ACCEPT of AG #95.
 
 #### `CRITIC_SEAT_THRASH` / `CRITIC_SEPARATE_STAMP` (fail-closed, fleet) — draft until Cos ACCEPT of AG #96
@@ -286,7 +286,7 @@ When status checks are **empty / none**: (1) **Fail-closed:** Cos must NOT treat
 - **Not:** Dual wait after Adv PASS without seated Critic; collapsing Critic grades into Adv; treating Critic as a required second seated bot by default.
 - **Stack:** Cos/Adv harness Critic stamp language (`CRITIC_SEPARATE_STAMP`). Cite LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. Soft CONCERN #96 cite-fold absorb.
 - **Metric (fail closed):** Cos/Eng wait on Critic seat after Adv PASS while Critic is **not** seated on the tip = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#96](https://github.com/paulthorson/agentic-governance/issues/96) + [#91](https://github.com/paulthorson/agentic-governance/issues/91) + `CRITIC_SEPARATE_STAMP` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b`. Draft until Cos ACCEPT of AG #96.
 
 #### `CHAT_LOCK_NE_DURABLE_FOLD` (fail-closed, fleet) — draft until Cos ACCEPT of AG #97
@@ -299,7 +299,7 @@ Process locks in chat unpaid until same-day durable fold (harness / cos-memory /
 - **Not:** Chat-only lock with no durable fold; tip-only soft close; chat KEEP as durable fold.
 - **Stack:** `COS_FEEDBACK_TO_IMPROVE` LIVE #87 @ `2ab4b17` + `COS_IMPROVE_INBOX` LIVE #98 @ `fe27c4b` + improve-inbox promote.
 - **Metric (fail closed):** Chat-only lock with no durable fold by next Cos improve pass (≤4h) = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#97](https://github.com/paulthorson/agentic-governance/issues/97) + [#91](https://github.com/paulthorson/agentic-governance/issues/91) + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b`. Draft until Cos ACCEPT of AG #97.
 
 #### `COS_OPERATOR_PLAIN_ENGLISH` (fail-closed, fleet) — draft until Cos ACCEPT of AG #142 (absorb/supersede #100)
@@ -353,7 +353,7 @@ Does **not** bind: seat↔seat agent mail, Class A story/PR bodies, improve-inbo
 - **Not:** OpenClaw (unless later story Cos-locks fleet parity — ); seat↔seat / Class A / improve-inbox / Adv / Eng tip SoT (process vocab allowed there); merging with `AI_SLOP_COPY_FAIL`; operator babysitting the lexicon; SHOWTIME #127; ; auto-merge #26.
 - **Stack:** `COS_FEEDBACK_TO_IMPROVE` **LIVE** [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + `COS_IMPROVE_INBOX` **LIVE** [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + `COS_CRITICAL_THINKING` — addition, not replacement. Same-day improve path on violation. Sibling to `OPERATOR_STATUS_CONTEXT_BAR` (status structure — not collapsed) and to `COS_PROJECT_CONTEXT_REMINDER` (status-reminder AC absorbed by #216). Absorb/supersede incomplete [#100](https://github.com/paulthorson/agentic-governance/issues/100) land (ban list must include / ). Jargon **sensor** SoT stays [#190](https://github.com/paulthorson/agentic-governance/issues/190) — do not invent a third ban SoT.
 - **Metric (fail closed):** **0** jargon phrases in Cos→operator messages. Target = **0**. Any banned jargon / process slang in the operator thread = **fail closed** / same-day improve story. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#142](https://github.com/paulthorson/agentic-governance/issues/142) Cos expand (absorb/supersede [#100](https://github.com/paulthorson/agentic-governance/issues/100)) + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + `COS_CRITICAL_THINKING`. Draft until Cos ACCEPT of AG #142. Separate from SHOWTIME #127.
 
 #### `PLACE_BUILD_SEAT_PATH` (fail-closed) — draft until Cos ACCEPT of AG #101
@@ -384,7 +384,7 @@ Stacks place-build ship place-only / zombie-ops scar. Eng claiming “cannot pla
 - **Not:** Eng Install on operator device; operator place-build login/upload as standing routine path; place or Install alone as CLOSED / Look close; soft-merge Install into optical close; unpaid `#100` cite; OpenClaw; ; auto-merge #26; vendor/hardware/plugin brand names as fleet law.
 - **Stack:** `SHIP_WITHOUT_SENSOR` + Look / `VISUAL_STEP_STILLS` / verbal keep ≠ optical close — cite LIVE [#99](https://github.com/paulthorson/agentic-governance/pull/99) @ `4d73758`. Operator-facing place-build notifies use everyday words under Cos standing orders (even before `#100` lands). Cite LIVE #87 @ `2ab4b17` + LIVE #98 @ `fe27c4b` only for wording discipline — **do not cite unpaid `#100`**.
 - **Metric (fail closed):** count of routine-ship events where a seat asks the operator to place-build login or upload, OR Cos implies that path in operator-facing text. Target = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#101](https://github.com/paulthorson/agentic-governance/issues/101) Cos amend + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + [#99](https://github.com/paulthorson/agentic-governance/pull/99) LIVE @ `4d73758` / `SHIP_WITHOUT_SENSOR` + `VISUAL_STEP_STILLS`. Draft until Cos ACCEPT of AG #101.
 
 #### `COS_PROJECT_CONTEXT_REMINDER` (fail-closed, fleet) — draft until Cos ACCEPT of AG #102 — status-reminder AC absorbed by #216
@@ -412,7 +412,7 @@ When Cos names a project / side thread to the operator, Cos includes a **1–2 s
 - **Not:** A second unpaid status-reminder SoT after #216; collapsing wording into this lock; seat↔seat / Class A / improve-inbox; operator babysitting wording; OpenClaw; ; auto-merge #26.
 - **Stack:** Absorbed by `OPERATOR_STATUS_CONTEXT_BAR` (AG [#216](https://github.com/paulthorson/agentic-governance/issues/216)). Cite LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + LIVE expand [#142](https://github.com/paulthorson/agentic-governance/issues/142) / PR [#143](https://github.com/paulthorson/agentic-governance/pull/143) @ `b65efe2`.
 - **Metric (fail closed):** after #216 LIVE, measure on `OPERATOR_STATUS_CONTEXT_BAR` (rules 1–4 miss or rule 5 lingo without ask = **0**). Until then, bare project/side-thread names without reminder = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#102](https://github.com/paulthorson/agentic-governance/issues/102) Cos amend + absorb note → [#216](https://github.com/paulthorson/agentic-governance/issues/216) + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + [#142](https://github.com/paulthorson/agentic-governance/issues/142) / [#143](https://github.com/paulthorson/agentic-governance/pull/143) @ `b65efe2`.
 
 #### `OPERATOR_STATUS_CONTEXT_BAR` (fail-closed, fleet) — draft until Cos ACCEPT of AG #216
@@ -456,7 +456,7 @@ Every Chief of Staff status and every decision card written **to the operator** 
 - **Not:** A second ban-list SoT; #190 sensor land; visitor marketing rewrite; Feel rematch; audio inbox fold; inventing ETAs; GitHub-page law (that is #205/#206); seat↔seat / Class A / improve-inbox process vocab; product names / hardware brands / operator PII in public AG; OpenClaw; ; auto-merge #26.
 - **Stack:** Addition on LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` (`COS_FEEDBACK_TO_IMPROVE`) + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` (`COS_IMPROVE_INBOX`) + LIVE expand [#142](https://github.com/paulthorson/agentic-governance/issues/142) / PR [#143](https://github.com/paulthorson/agentic-governance/pull/143) @ `b65efe2` (`COS_OPERATOR_PLAIN_ENGLISH`) — not a replacement. Dual-audience stack: `FRAMEWORK_TECH_WRITING` LIVE [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b` + `OPERATOR_FACING_GIT_PLAIN_ENGLISH` LIVE [#206](https://github.com/paulthorson/agentic-governance/pull/206) @ `722cd3a` (Git vs chat stay separate). #190 remains jargon sensor. #102 status-reminder AC absorbed.
 - **Metric (fail closed):** Cos→operator status / decision messages missing any of rules 1–4, or using banned lingo from rule 5 without operator ask = **0**. Invented ETA = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, product laundry, hardware brands, or absolute host paths in public AG git. No personal names in tip SoT. No verbatim operator call transcription.
+- **P0:** Keep private operator data out of public AG git. No personal names in tip SoT. No verbatim operator call transcription.
 - **Cite:** [#216](https://github.com/paulthorson/agentic-governance/issues/216) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + LIVE [#142](https://github.com/paulthorson/agentic-governance/issues/142) / [#143](https://github.com/paulthorson/agentic-governance/pull/143) @ `b65efe2` + LIVE [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b` + LIVE [#206](https://github.com/paulthorson/agentic-governance/pull/206) @ `722cd3a` + absorb [#102](https://github.com/paulthorson/agentic-governance/issues/102) + sensor [#190](https://github.com/paulthorson/agentic-governance/issues/190). Draft until Cos ACCEPT of AG #216.
 
 #### `MOCK_BEFORE_UI_ENG` (fail-closed, fleet) — draft until Cos ACCEPT of AG #103
@@ -482,7 +482,7 @@ Every Chief of Staff status and every decision card written **to the operator** 
 - **Not:** narrative-pass UI Eng without mock+GO; treating room/seat affirmations as Cos lift; docs-only tips as UI narrative-pass; mock alone clearing craft/Look/Check 8/PARK/`#104`; OpenClaw; ; auto-merge #26.
 - **Stack:** `DESIGN_AGENCY_BAR` **LIVE** [#43](https://github.com/paulthorson/agentic-governance/pull/43) @ `7e9e0b6` + `RESEARCH_HCI` **LIVE** [#38](https://github.com/paulthorson/agentic-governance/pull/38) @ `214ed5b` + improve LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + `RESEARCH_BEFORE_ENHANCE` **LIVE** [#10](https://github.com/paulthorson/agentic-governance/pull/10) @ `bd63566` + Check 7 **LIVE** [#14](https://github.com/paulthorson/agentic-governance/pull/14) @ `36deb0e` + Check 8 / `VISUAL_STEP_STILLS` **LIVE** [#15](https://github.com/paulthorson/agentic-governance/pull/15) @ `d61f4c1` + `FLEET_DESIGN_CRAFT_RAISE` (draft AG #104 on this tip). Ops LIVE HOLD until Cos lifts.
 - **Metric (fail closed):** count of UI Eng builds / tips that start without Cos-shown mock/wireframe + operator confirm-intent + go in the Cos↔operator thread. Target = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers.
 - **Cite:** [#103](https://github.com/paulthorson/agentic-governance/issues/103) Cos amend + LIVE ops HOLD + cites above. Draft until Cos ACCEPT of AG #103.
 
 #### `FLEET_DESIGN_CRAFT_RAISE` (fail-closed, fleet) — draft until Cos ACCEPT of AG #104
@@ -503,7 +503,7 @@ Cos grades enterprise/master craft on Cos-routed product UI stills. Fail-closed.
 - **Not:** OpenClaw; Class A docs-only tips with no UI pixels; Feel stamps; soft-defer craft; claiming `#103` LIVE before Cos ACCEPT; ; auto-merge #26.
 - **Stack:** `DESIGN_AGENCY_BAR` **LIVE** [#43](https://github.com/paulthorson/agentic-governance/pull/43) @ `7e9e0b6` + `RESEARCH_HCI` **LIVE** [#38](https://github.com/paulthorson/agentic-governance/pull/38) @ `214ed5b` + LIVE improve [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + LIVE ops HOLD mock-before-build + `#103` DRAFT on this tip.
 - **Metric (fail closed):** UI Eng tips / merges that ship product UI below enterprise/master craft bar without Cos craft PASS on Cos-routed stills = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers.
 - **Cite:** [#104](https://github.com/paulthorson/agentic-governance/issues/104) Cos amend + [#43](https://github.com/paulthorson/agentic-governance/pull/43) LIVE @ `7e9e0b6` + [#38](https://github.com/paulthorson/agentic-governance/pull/38) LIVE @ `214ed5b` + [#87](https://github.com/paulthorson/agentic-governance/pull/87) LIVE @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) LIVE @ `fe27c4b` + LIVE ops HOLD mock-before-build + `#103` DRAFT on this tip.
 
 #### `UX_UI_CONSTITUTION` (epic core — AG #111) — draft until Cos ACCEPT of AG #111
@@ -524,7 +524,7 @@ Fail-closed UX/UI constitution epic core. Do not treat a narrative pass as accep
 - **Not:** A second CoE; landing `#112`/`#114`/`#115`/`#116`/`#118` on this tip; inventing WCAG 2.1/2.2 exact claim; OpenClaw; ; auto-merge #26; #106 tip fold.
 - **Stack:** `WORKING_AGREEMENT_FLEET` (draft AG #122) + `DESIGN_AGENCY_BAR` **LIVE** [#43](https://github.com/paulthorson/agentic-governance/pull/43) @ `7e9e0b6` + `RESEARCH_HCI` **LIVE** [#38](https://github.com/paulthorson/agentic-governance/pull/38) @ `214ed5b` + `DESIGN_SYSTEM_FIRST` **LIVE** [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f` + improve LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + `#100`–`#104` via PR [#105](https://github.com/paulthorson/agentic-governance/pull/105) MERGED @ `023abf9`.
 - **Metric (fail closed):** mocks shown to operator without UX-laws check + declared product design system + WCAG AA = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers.
 - **Cite:** [#111](https://github.com/paulthorson/agentic-governance/issues/111) Cos amend + [#122](https://github.com/paulthorson/agentic-governance/issues/122) + cites above.
 
 #### `UX_LAWS_GATE` (fail-closed, fleet) — draft until Cos ACCEPT of AG #113
@@ -543,7 +543,7 @@ Also cite LIVE `RESEARCH_HCI` Fitts · Hick · Jakob [#38](https://github.com/pa
 - **Not:** Dropping operator secondary URL; Eng-invented laws list; soft-accept law-breaks; OpenClaw; ; auto-merge #26; landing unpaid children `#112`/`#114`/`#115`/`#116`.
 - **Stack:** Addition on `DESIGN_AGENCY_BAR` **LIVE** [#43](https://github.com/paulthorson/agentic-governance/pull/43) @ `7e9e0b6` + `RESEARCH_HCI` **LIVE** [#38](https://github.com/paulthorson/agentic-governance/pull/38) @ `214ed5b` + `DESIGN_SYSTEM_FIRST` **LIVE** [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f` + improve LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + `#100`–`#104` via PR [#105](https://github.com/paulthorson/agentic-governance/pull/105) MERGED @ `023abf9` — AMEND agency/HCI/DS_FIRST, not a second CoE.
 - **Metric (fail closed):** stacks epic `#111` metric — mocks without UX-laws + DS + WCAG AA = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers.
 - **Cite:** [#113](https://github.com/paulthorson/agentic-governance/issues/113) Cos amend + [#111](https://github.com/paulthorson/agentic-governance/issues/111) Cos amend + cites above.
 
 #### `WORKING_AGREEMENT_FLEET` (fail-closed, fleet) — draft until Cos ACCEPT of AG #122
@@ -601,7 +601,7 @@ Excellence bar. Same-day write-down and fix. Everyday language with the operator
 - **Not:** Product-specific laundry / vendor hardware as law; a second CoE; inventing copy beyond approved PRD; inventing WCAG 2.1/2.2 exact claim; merging `#106` / PR `#119`; OpenClaw as default; ; auto-merge #26.
 - **Stack:** Amends LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + draft `#103` via PR [#105](https://github.com/paulthorson/agentic-governance/pull/105) MERGED @ `023abf9` + draft `#111` / `#113` on this tip + LIVE `#43`/`#38`/`#45` — **not** a replacement / not a second CoE.
 - **Metric (fail closed):** seats violating this working agreement = **0**. Do not treat a narrative pass as acceptance. Pack metric also: neg feedback without same-day story OR UI Eng without Cos mock + go OR mock without live-base / DS / laws + AA = **fail closed**.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers. Public framework git: no operator personal information, no personal project names, no private product paths, and no private product leakage.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers. Public framework git: keep private operator data out.
 - **Cite:** [#122](https://github.com/paulthorson/agentic-governance/issues/122) operator APPROVED PRD + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + PR [#105](https://github.com/paulthorson/agentic-governance/pull/105) MERGED @ `023abf9` + [#111](https://github.com/paulthorson/agentic-governance/issues/111) Cos amend + [#113](https://github.com/paulthorson/agentic-governance/issues/113).
 
 #### `PRD_EXEC_TLDR_FIRST` (fail-closed, fleet) — draft until Cos ACCEPT of AG #123
@@ -614,7 +614,7 @@ Every PRD opens with an executive-level TLDR / bottom line at the top. Do not tr
 - **Not:** PRD body without top bottom-line; inventing product laundry in the TLDR; OpenClaw; ; auto-merge #26.
 - **Stack:** `WORKING_AGREEMENT_FLEET` (draft AG #122) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`.
 - **Metric (fail closed):** PRD without top executive TLDR / bottom line = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip trailers.
+- **P0:** Keep private operator data out of AG git. No personal names in tip trailers.
 - **Cite:** [#123](https://github.com/paulthorson/agentic-governance/issues/123) + [#122](https://github.com/paulthorson/agentic-governance/issues/122) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`.
 
 #### `COS_FLEET_LOOK_GATE` (fail-closed, fleet)
@@ -635,7 +635,7 @@ Checklist (all required unless named HOLD with operator GO):
 - **Not:** Advercase / Process Instrument / brand webfont as fleet Ready; AG marketing face checklist stays under `COS_OPERATOR_LOOK_GATE` + `MARKETING_LIVE_FACE_NONREG`.
 - **Stack:** `COS_READY_MEANS` (product-equivalent Ready) + `COS_ONE_BRIEF_PER_TIP` + `COS_CHAIN_NO_SHORTCUT`. Addition alongside marketing look-gate — not a replacement of `COS_OPERATOR_LOOK_GATE`.
 - **Metric (fail closed):** Cos Look / Ready while phone/live-face SoT unpaid for that product, or tip gif/webm/stills alone treated as Ready, or unpaid polish silent, or product craft applied as Cos universal = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite:** [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78). Draft until Cos ACCEPT of AG #78.
 
 #### `NO_NESTED_DEVICE_CHROME` (fail-closed, fleet Look)
@@ -651,7 +651,7 @@ Never ship nested device chrome inside a host WebView that already provides the 
 - **Scope:** fleet product Look / companion surfaces. **Not** OpenClaw. Product briefs may restate product-specific locks; public AG stays vanilla.
 - **Stack:** Addition on `COS_FLEET_LOOK_GATE` + Check 8 / `VISUAL_STEP_STILLS` (**LIVE** `#15` / `d61f4c1`) + `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`) — not a replacement.
 - **Metric (fail closed):** Cos / Adv Look miss when nested bezel / island / home-bar / fake-device canvas is present on a live host face = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No product / host / plugin brand names in public SoT.
+- **P0:** Keep private operator data out of AG git. No product / host / plugin brand names in public SoT.
 - **Cite:** [#159](https://github.com/paulthorson/agentic-governance/pull/159) LIVE @ `95693e9` + [#158](https://github.com/paulthorson/agentic-governance/issues/158) Cos promote from improve-inbox [#157](https://github.com/paulthorson/agentic-governance/issues/157) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ; ; ; product-brief restatements (not this tip).
 
 #### `EXTERNAL_SIDE_EFFECT_GO_GATE` (fail-closed, fleet — P0 LIVE)
@@ -668,7 +668,7 @@ Cos-thread GO gate: default DENY unauthorized external side-effects without Cos-
 - **Scope:** fleet Eng / Cos / cloud EXECUTE. Vanilla public SoT.
 - **Stack:** improve LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` — not a replacement. Eng harness holds cloud EXECUTE fence.
 - **Metric (fail closed):** unpaid Cos GO external action / missing launch-brief fence / freelanced outbound personal-mail / provider-mail / wrong-actor action = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, personal emails, operator PII, vendor brands, or product laundry in public AG SoT.
+- **P0:** Keep private operator data out of public AG SoT.
 - **Cite:** [#170](https://github.com/paulthorson/agentic-governance/issues/170) + epic [#169](https://github.com/paulthorson/agentic-governance/issues/169) + Check 1 absorbs [#167](https://github.com/paulthorson/agentic-governance/issues/167) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ;.
 
 #### `OPERATOR_FACING_GIT_PLAIN_ENGLISH` (fail-closed, fleet — draft until Cos ACCEPT)
@@ -692,7 +692,7 @@ Operator-facing GitHub text must open with an **executive bottom line** (2–4 p
 - **Scope:** fleet Cos / Eng / Adv on operator-facing GitHub text. Vanilla public SoT.
 - **Stack:** Addition on `FRAMEWORK_TECH_WRITING` (**LIVE** [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b`) — not a replacement. Not a merge of #190 chat rule. Bottom-line pattern cites [#123](https://github.com/paulthorson/agentic-governance/issues/123) — not a merge of `PRD_EXEC_TLDR_FIRST`.
 - **Metric (fail closed):** Cos asks operator merge / undraft / while operator-facing GitHub text lacks a top executive bottom line, is unreadable, jargon-heavy, or TW-lens FAIL = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, personal emails, operator PII, vendor brands, or product laundry in public AG SoT.
+- **P0:** Keep private operator data out of public AG SoT.
 - **Cite:** [#205](https://github.com/paulthorson/agentic-governance/issues/205) + LIVE `FRAMEWORK_TECH_WRITING` [#177](https://github.com/paulthorson/agentic-governance/pull/177) @ `3c8404b` / bar [#172](https://github.com/paulthorson/agentic-governance/issues/172) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ;. Soft CoE LIVE cite after Cos ACCEPT merge = separate Soft tip.
 
 #### `TASK_GRAPH_ORCHESTRATION` (fail-closed, fleet — draft until Cos ACCEPT)
@@ -731,7 +731,7 @@ Four rules (from **upstream task-graphs reference**):
 - **Scope:** fleet Cos / Eng / QA task-graph topology. Vanilla public SoT. **Not** knowledge-graph 9-stage / GraphRAG as fleet law.
 - **Stack:** improve LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` + LIVE `EXTERNAL_SIDE_EFFECT_GO_GATE` — addition, not replacement.
 - **Metric (fail closed):** fake-edge fan-out / fake-diamond / sequential swarm / unowned merge / spawn theater / gate theater / Do not treat a narrative pass as acceptance via narrative / fleet-live claim without Muse+OpenClaw one-line ACK after LIVE = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, personal emails, operator PII, or vendor brand names in prose beyond the provenance URL path.
+- **P0:** Keep private operator data out of AG git. No vendor brand names in prose beyond the provenance URL path.
 - **Provenance (URL only):** https://github.com/codejunkie99/graph-engineering/blob/master/graph-engineering/references/task-graphs.md — **upstream task-graphs reference**.
 - **Cite:** [#196](https://github.com/paulthorson/agentic-governance/issues/196) + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ;.
 
@@ -762,7 +762,7 @@ This lock **amends** `WORKING_AGREEMENT_FLEET` VANILLA LOCK + `COS_FEEDBACK_TO_I
 - **Not:** listing real product brands in public AG; copying a filled product-repo index into this repo; a second vanilla SoT; inventing product laundry to illustrate the rule.
 - **Stack:** `WORKING_AGREEMENT_FLEET` VANILLA LOCK + `COS_FEEDBACK_TO_IMPROVE` **LIVE** [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + `COS_IMPROVE_INBOX` **LIVE** [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b` — addition, not replacement.
 - **Metric (fail closed):** public AG tips that list personal product names or private product paths = **0**. Shared multi-project repos without a local index / same-day update = **0**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, personal names, personal project names, private product paths, or absolute host paths in public AG git.
+- **P0:** Keep private operator data out of public AG git.
 - **Cite:** this harness + `projects/_standing/scars/multi-project-local-registry.md` + `docs/templates/product-repo-projects.md` + LIVE [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @ `fe27c4b`. ;.
 
 #### `COS_CRITICAL_THINKING` (fail-closed, fleet)
@@ -779,7 +779,7 @@ Before Cos routes any ask:
 - **Not:** Inventing SoT; tip-screenshot Ready; guessed ETAs; assuming unclear asks.
 - **Stack:** `COS_CHAIN_NO_SHORTCUT` + `COS_READY_MEANS` + `COS_FLEET_LOOK_GATE` + `COS_FEEDBACK_TO_IMPROVE` — addition, not replacement.
 - **Metric (fail closed):** Cos routes on an assumed SoT / guessed ETA / tip-screenshot Ready = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No personal names in tip SoT.
+- **P0:** Keep private operator data out of AG git. No personal names in tip SoT.
 - **Cite when LIVE:** [#80](https://github.com/paulthorson/agentic-governance/pull/80) LIVE @ `e75d3b0` — cite fold [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#82](https://github.com/paulthorson/agentic-governance/issues/82).
 
 #### `COS_OPERATOR_LOOK_GATE` (fail-closed)
@@ -799,7 +799,7 @@ Checklist (all required unless named HOLD with operator GO):
 - **Scope:** **AG marketing face** (live `www.agenticgovernance.app` / site tips). Not OpenClaw. Advercase / brand webfont / Process Instrument clause = **marketing-site-only** — **not** fleet.
 - **Stack:** phone-SoT scar + `MARKETING_LIVE_FACE_NONREG` + `COS_ONE_BRIEF_PER_TIP` item 5 — addition, not replacement. Advercase webfont stacks `MARKETING_LIVE_FACE_NONREG`. Does **not** replace `COS_FLEET_LOOK_GATE` for other products.
 - **Metric (fail closed):** operator LOOK while any checklist item unpaid = **fail closed**. Advercase / brand webfont Ready applied as unpaid on a **non-marketing** product tip = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Cite:** [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78). Do not cite #77 alone as Advercase scope SoT.
 
 #### `COS_ONE_BRIEF_PER_TIP` (fail-closed, fleet)
@@ -814,7 +814,7 @@ One non-negotiable brief per cloud tip / PR tip.
 - **Scope:** **fleet** — all product / marketing tips Cos surfaces or commands across seated AG teams — not marketing-only (Cos amend hole 2; reinforced AG #78).
 - **Stack:** `COS_OPERATOR_LOOK_GATE` item 5 + `COS_FLEET_LOOK_GATE` + `COS_CHAIN_NO_SHORTCUT`.
 - **Metric (fail closed):** mid-tip stacked scope without new tip / re-PARK = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Cite:** [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78).
 
 #### `COS_READY_MEANS` (fail-closed, fleet)
@@ -833,7 +833,7 @@ Explicitly **not** Ready:
 - **Scope:** **fleet** — all product / marketing tips Cos surfaces or commands — fleet Cos Ready definition whenever Cos stamps Ready for operator LOOK on any product (Cos amend hole 2; reinforced AG #78). **Exception (#79 LIVE):** Advercase / brand webfont / Process Instrument / stand-in-fonts Ready language applies only under AG marketing + `MARKETING_LIVE_FACE_NONREG` — cannot read as fleet Ready.
 - **Stack:** `COS_FLEET_LOOK_GATE` (product-equivalent) + `MARKETING_LIVE_FACE_NONREG` for Advercase / webfont clause.
 - **Metric (fail closed):** Ready claimed from stills / CI / Adv docs-alone / unpaid HOLD phone = **fail closed**. Advercase / brand webfont Ready applied as unpaid on a **non-marketing** product tip = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Cite:** [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78).
 
 #### `MARKETING_LIVE_FACE_NONREG` (fail-closed)
@@ -852,7 +852,7 @@ Any AG marketing tip that changes seats / chrome / persona surfaces must **prove
 - **Scope:** **AG marketing face** (live `www.agenticgovernance.app` / site tips). Advercase / brand webfont / Process Instrument = marketing-site-only — **not** fleet.
 - **Stack:** living-mesh + `DESIGN_AGENCY_BAR` + phone-SoT scar + `COS_OPERATOR_LOOK_GATE` item 2 + `COS_OPERATOR_LOOK_GATE` item 3 (Advercase / brand webfont).
 - **Metric (fail closed):** desktop prove while phone SoT unpaid = **fail closed**; seats/chrome/persona ship without desktop live-face prove or HOLD Eng = **fail closed**; Advercase / brand webfont Ready applied as unpaid on a **non-marketing** product tip = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Cite:** [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78). Do not cite #77 alone as Advercase scope SoT.
 
 #### `COS_CHAIN_NO_SHORTCUT` (fail-closed, fleet)
@@ -871,7 +871,7 @@ Product / marketing commands travel **Cos → PM → UX → Eng → QA**.
 - **Who stamps:** Cos + QA (QA verify line before operator LOOK). Adv names SoT — does not replace Cos/QA stamp.
 - **Stack:** `COS_ONE_BRIEF_PER_TIP` + `COS_FLEET_LOOK_GATE` + `COS_OPERATOR_LOOK_GATE` + `COS_CRITICAL_THINKING`. Operator LOCK 2026-09-16.
 - **Metric (fail closed):** Cos→Eng direct GO while PM/UX unpaid = **fail closed**; operator LOOK without QA verify line = **fail closed**. Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 - **Harness SoT:** `harnesses/chief-of-staff.md`. CoE Draft intake + `docs/templates/cos-memory/locks.md`.
 - **Cite:** [#76](https://github.com/paulthorson/agentic-governance/pull/76) @ `9b1b8c3` + [#79](https://github.com/paulthorson/agentic-governance/pull/79) LIVE @ `cbc4b5b` + [#78](https://github.com/paulthorson/agentic-governance/issues/78).
 
@@ -890,7 +890,7 @@ Product / marketing commands travel **Cos → PM → UX → Eng → QA**.
 - **Scope:** AG framework / product release path. **Not** OpenClaw briefs (unless already under `SURFACE_GATE_MATRIX`).
 - **Contrast (do not weaken):** Check 9 / `INITIATIVE_START_SEQUENCE` remains **fail-closed** before Eng handoff. Cos memory install ASK (`private_git` OR `local_folder`) remains **required** at Cos seating.
 - **Stack:** Addition on Check 7 + Check 8 + Check 9 + Cos memory seating + Class A LIVE gates — **not** a replacement.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths. No invented legal text in AG git.
+- **P0:** Keep private operator data out of AG git. No invented legal text.
 
 ## Triage procedure (P0 / P1)
 
@@ -949,7 +949,7 @@ On a signal: draft an amendment proposal; do not edit governance files. The huma
 - If four hours pass in open hours with neither delivery nor an explicit deferral log, stop and P0 the missed SLA (timeout = wizard-configured SLA, not hardcoded)
 - Never apply a governance edit yourself
 - On the daily 6pm ET improve digest self-audit (`SELF_AUDIT_LOOP`, when live): if the cycle has a checklist but neither a named unpaid improve/SoT item (`id` + owner + metric + AC) nor explicit `AUDIT_CLEAR` with evidence — stop; do not close the digest as a pass. Escalate rather than nag-only. Soft / tip / wiki / scar-without-unpaid do not clear this stop. Adv must not author the unpaid plan (`CRITIC_SEPARATE_STAMP`); project PMs ≠ AG constitution.
-- If digest or unpaid-item text would require secrets, keys, emails, PII, or absolute host paths in AG git — stop; redact first.
+- If digest or unpaid-item text would require private operator data in AG git — stop; redact first.
 - Before Cos-closing an epic or approving next-pack GO: require triad retro at `projects/<team>/retros/<epic-or-date>.md` (well / didn't / improve). Tip/scar/wiki-only ≠ sensor. Missing = FAIL under `RETRO_BEFORE_CLOSE` (draft until Cos ACCEPT). Product teams only; OpenClaw keeps scar files — do not force product retro path onto OpenClaw briefs.
 - Never mark intake / open PR / draft / muse as live SoT. Only human Cos ACCEPT after merge, citing merged commit SHA (or merged PR number), makes harness/constitution law live (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT). Precedent: `#13` intake ≠ SoT. Adv must challenge SoT-liveness claims that lack a merged SHA.
 - On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — Cos craft **FAIL before Adv**. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR` (**LIVE** `#43` / `7e9e0b6`). Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**. Do not apply to OpenClaw. Do not treat this draft as live until Cos ACCEPT merge cites a merged SHA.
@@ -987,7 +987,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
   **LIVE** via `#15` / `d61f4c1`) / `RESEARCH_BEFORE_ENHANCE`. Does not reopen Check 8.
 - **Scope:** All product teams. OpenClaw keeps existing scar files — do not force product retro path onto OpenClaw briefs.
 - **Metric:** Cos-closed epics missing retro = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### Draft lock: `LIVE_SOT_MERGED_SHA` (not live / not effective until Cos ACCEPT merge)
 
@@ -1000,7 +1000,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
   locks. Precedent: `#13` intake ≠ SoT. Do not reopen Check 8.
 - **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### Draft lock: `SURFACE_GATE_MATRIX` (not live / not effective until Cos ACCEPT merge)
 
@@ -1015,7 +1015,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
   **LIVE** via `#15` / `d61f4c1` — cross-ref only; do not reopen.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ## Permitted plugins
 

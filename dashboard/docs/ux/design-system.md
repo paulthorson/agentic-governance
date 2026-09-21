@@ -143,9 +143,9 @@ Local `/admin` — **same look and craft** as the public living board; sensitive
 ## Get AG / software use (operator LOCK STANDING 2026-09-14)
 
 - **License = Apache 2.0** — AG `LICENSE` LIVE **#60**. Software use governed by **Apache 2.0 + LICENSE alone**.
-- **No acceptance gate anywhere** (no acceptance gate, no [redacted], no “I agree” download gate from agents).
-- **Cos/agents must never write, draft, or revise** terms, privacy, cookie, EULA, warranty, liability, or indemnity language. **Site legal pages are human-authored only.**
-- Prior acceptance-gate / “as-is absolve” agent drafts are **SUPERSEDED** for agent authorship.
+- **No acceptance gate anywhere** (no download accept step from agents).
+- **Cos/agents must never write, draft, or revise** legal language. **Site legal pages are human-authored only.**
+- Prior agent-drafted legal accept paths are **SUPERSEDED** for agent authorship.
 - **No default telemetry** on download. Anonymous Improve may remain separate unpaid.
 - Brand beat (“Worker bees…”) is **not** a download trade.
 

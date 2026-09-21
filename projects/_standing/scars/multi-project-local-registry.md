@@ -68,8 +68,7 @@ paths into public Agentic Governance is a miss.
   names, private product paths, or other operator personal data.
 - **Stack:** Amends `WORKING_AGREEMENT_FLEET` vanilla lock +
   `COS_FEEDBACK_TO_IMPROVE` anonymize — **not** a second source of truth.
-- **P0:** No secrets, keys, emails, personal names, personal product names,
-  private product paths, or absolute host paths in public AG git.
+- **P0:** Keep private operator data out of public AG git.
 - **Cite:** this standing note + Chief of Staff harness + Quality harness P0 +
   `docs/templates/product-repo-projects.md` + LIVE
   [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17`

@@ -24,4 +24,4 @@
 
 ## Do not store here
 
-Secrets, keys, emails, PII, absolute host paths, public product chrome.
+Private operator data, public product chrome.

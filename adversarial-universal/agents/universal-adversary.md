@@ -90,7 +90,7 @@ product UX Critic Check), FAIL / raise BLOCKER if:
   or a new sidebar persona is invented.
 - Adv challenge is collapsed into AG authorship (violates `CRITIC_SEPARATE_STAMP` separation
   as referenced here; this SoT does not define that lock).
-- Scope bleeds into OpenClaw briefs, or P0 secrets/keys/emails/PII/host paths appear in AG
+- Scope bleeds into OpenClaw briefs, or private operator data appears in AG
   git or digest artifacts, or tokens are invented.
 
 SoT: `harnesses/chief-of-staff.md`. This lock does not define the other five AG locks.

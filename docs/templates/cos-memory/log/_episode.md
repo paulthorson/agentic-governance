@@ -1,6 +1,6 @@
 # YYYY-MM-DD — episode title
 
-**Store:** private only. **P0:** no secrets/keys/emails/PII/host paths.
+**Store:** private only. **P0:** Keep private operator data out of AG git.
 
 ## Context
 

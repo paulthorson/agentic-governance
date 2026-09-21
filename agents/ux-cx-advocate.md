@@ -44,7 +44,7 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
   raise BLOCKER. Soft "defer to Look" is rejected.
 - **`adv-comp-critique`:** Open the cited screens. Use them to find user harm in **our** flow
   and to name competitor gaps you must **not** copy. **Jury artifact (required before Pack /
-  Look):** opened screen IDs or URLs (no secrets, keys, emails, or host paths) **and** ≥1 hole
+  Look):** opened screen IDs or URLs (no private operator data) **and** ≥1 hole
   in our UI **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look
   **FAIL** / raise BLOCKER if there are no opened-screen cites or any field is missing. Comps
   are not gospel.
@@ -110,7 +110,7 @@ Only a human arbiter can clear what you raise. Say so in your output every time.
 - <item>
 
 ### Comp critique (ADV_COMP_CRITIQUE) — jury artifact (enhancement packs: FAIL if incomplete)
-- Screens opened (IDs or URLs; no secrets/keys/emails/host paths): <list or "none — BLOCKER">
+- Screens opened (IDs or URLs; no private operator data): <list or "none — BLOCKER">
 - Hole in our UI (≥1 required): <list or "none — BLOCKER">
 - Hole in competitor screen (≥1 required): <list or "none — BLOCKER">
 - Do-not-copy gap (≥1 required): <list or "none — BLOCKER">

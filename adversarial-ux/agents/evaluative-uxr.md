@@ -34,7 +34,7 @@ Hard gate. Soft / deferred comps-at-Look is **REJECTED**. A scar page is not thi
 - **`adv-comp-critique`:** Open the cited screens. Cite-or-fail that real pixels were used.
   Walk personas against **our** flow using those screens to find stalls. Also name competitor
   gaps / do-not-copy — comps are not gospel. **Jury artifact (required before Pack / Look):**
-  opened screen IDs or URLs (no secrets, keys, emails, or host paths) **and** ≥1 hole in our UI
+  opened screen IDs or URLs (no private operator data) **and** ≥1 hole in our UI
   **and** ≥1 hole in a competitor screen **and** one do-not-copy gap. Pack / Look **FAIL** if
   there are no opened-screen cites or any field is missing.
 - **`VISUAL_STEP_STILLS` (Critic Check 8 — LIVE `#15` / `d61f4c1`):** On product UX visual
@@ -107,7 +107,7 @@ name in your output. You do not hold the customer-harm veto. The Advocate does.
 
 ### Cite-real-screens + ADV_COMP_CRITIQUE — jury artifact (FAIL if incomplete on enhancement packs)
 - evidence.md / stills index present: yes | no | N/A (no-UI bug)
-- Screens opened (IDs or URLs; no secrets/keys/emails/host paths): <list or "none — FAIL">
+- Screens opened (IDs or URLs; no private operator data): <list or "none — FAIL">
 - Hole in our UI (≥1 required): <list or "none — FAIL">
 - Hole in competitor screen (≥1 required): <list or "none — FAIL">
 - Do-not-copy gap (≥1 required): <list or "none — FAIL">

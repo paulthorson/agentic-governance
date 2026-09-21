@@ -107,7 +107,7 @@ These apply to every run and need no adversary to raise them.
    (3) **also** poke holes in **competitor** screens — gaps exist; call them out; do not copy a
    hole because a big app has it, and (4) file do-not-copy gaps in the project knowledge backend
    and a PII-free AG retro. Comps are not gospel. **Jury artifact (required before Pack /
-   Look):** must name the opened screen IDs or URLs (no secrets, keys, emails, or host paths)
+   Look):** must name the opened screen IDs or URLs (no private operator data)
    **and** at least one hole in **our** UI **and** at least one hole in a **competitor** screen
    **and** one do-not-copy gap. **Named sensor (`adv-comp-critique`):** fail-closed on Pack /
    Look — Adv FAIL + Cos / QA / CEO reject if cites are missing, **or** the jury has no

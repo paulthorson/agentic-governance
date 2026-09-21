@@ -116,7 +116,7 @@ isolated pass. Silent dual-hat / Adv-only stamp = FAIL. If no Critic bot: Adv ru
 second pass labeled **CRITIC** — not folded into ADV prose. Stacks on Check 7 + Check 8
 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; does not
 replace. Does not reopen Check 8. Scope: product UX; not OpenClaw.
-Soft / tip / wiki-scar-only = **REJECTED**. P0: no secrets/keys/emails/PII/host paths.
+Soft / tip / wiki-scar-only = **REJECTED**. Keep private operator data out of AG git.
 
 ### `SURFACE_GATE_MATRIX` (draft until Cos ACCEPT)
 

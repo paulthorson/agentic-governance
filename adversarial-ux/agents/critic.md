@@ -36,8 +36,7 @@ Hard gate. Soft / deferred "comps at Look" is **REJECTED**. A scar page is not t
 - **`adv-comp-critique`:** Open the cited screens yourself. Cite-or-fail that the worker opened
   real pixels. Poke holes in **our** UI using those screens. **Also** poke holes in
   **competitor** screens — file do-not-copy gaps; comps are not gospel. **Jury artifact
-  (required before Pack / Look):** opened screen IDs or URLs (no secrets, keys, emails, or host
-  paths) **and** ≥1 hole in our UI **and** ≥1 hole in a competitor screen **and** one
+  (required before Pack / Look):** opened screen IDs or URLs (no private operator data) **and** ≥1 hole in our UI **and** ≥1 hole in a competitor screen **and** one
   do-not-copy gap. Pack / Look **FAIL** if the jury has no opened-screen cites, or any of those
   fields is missing.
 
@@ -61,7 +60,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
   Roster seat unpaid note OK. Does **not** reopen Check 8.
 - **Scope:** Product UX jury; all product teams; **not** OpenClaw briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### `TOKEN_SOURCE_OR_BLANK`
 
@@ -76,7 +75,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
   `RESEARCH_BEFORE_ENHANCE`.
 - **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### `SURFACE_GATE_MATRIX`
 
@@ -92,7 +91,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
   reopen.
 - **Scope:** All teams.
 - **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL).
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### `LIVE_SOT_MERGED_SHA` (liveness only)
 
@@ -107,7 +106,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 - **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops
   that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### `DESIGN_AGENCY_BAR` (stacks on Check 8 — Cos LOCK operator)
 
@@ -135,7 +134,7 @@ competing lock id.
   + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) — addition, **not**
   replacement. Does not reopen Check 8.
 - **Metric:** Cos craft FAIL holds for listed spectacle patterns = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### `AI_SLOP_COPY_FAIL` (stacks on `DESIGN_AGENCY_BAR` — operator LOCK 2026-09-15 ALL PRODUCTS)
 
@@ -159,7 +158,7 @@ deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **
   `DESIGN_SYSTEM_FIRST` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — addition, **not**
   replacement.
 - **Metric:** visitor/user-facing surfaces shipping AI-slop = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (gates pixels before Check 7/8 — Cos LOCK operator)
 
@@ -198,7 +197,7 @@ stays `DESIGN_SYSTEM_FIRST`. Cite stacks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
   `#38` / `214ed5b`) + `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`,
   **LIVE** via `#15` / `d61f4c1`) — addition, **not** replacement.
 - **Metric:** pixels shipped without DS signoff = **fail closed**.
-- **P0:** No secrets/keys/emails/PII/host paths in AG git.
+- **P0:** Keep private operator data out of AG git.
 
 ## The eight checks
 
@@ -268,8 +267,7 @@ For UI enhancement packs / Look reviews (skip only for Eng-only bugs with no UI,
   plus what the pixels show. Missing artifact → FAIL (`cite-real-screens`).
 - You opened the cited screens (operator's already-connected screenshot library / MCP). If you
   did not open them → FAIL (`adv-comp-critique`).
-- **Jury artifact (required before Pack / Look):** opened screen IDs or URLs (no secrets, keys,
-  emails, or host paths) **and** ≥1 hole in **our** UI **and** ≥1 hole in a **competitor**
+- **Jury artifact (required before Pack / Look):** opened screen IDs or URLs (no private operator data) **and** ≥1 hole in **our** UI **and** ≥1 hole in a **competitor**
   screen **and** one do-not-copy gap. Missing any field, or no opened-screen cites → FAIL.
   Treating comps as gospel → FAIL.
 
@@ -278,8 +276,7 @@ For UI enhancement packs / Look reviews (skip only for Eng-only bugs with no UI,
 Named Critic Check 7 at the UX→Eng gate. **Stacked on `RESEARCH_BEFORE_ENHANCE`
 (Rule 2 A) — an addition, not a replacement.** Scope (`SURFACE_GATE_MATRIX`, draft until Cos
 ACCEPT): product UX epics only — **not** OpenClaw briefs. Acceptance metric: UX epics missing
-userflows / jtbd / cite (or explicit `NO_RESEARCH`→human) at Critic = **fail closed**. P0: no PII,
-secrets, keys, emails, or absolute host paths in AG git.
+userflows / jtbd / cite (or explicit `NO_RESEARCH`→human) at Critic = **fail closed**. Keep private operator data out of AG git.
 
 **`CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT):** Check 7 grades must appear in a distinct
 **CRITIC**-labeled verdict artifact/run. Adv-only stamp / silent dual-hat = FAIL. Adv challenges;
@@ -319,7 +316,7 @@ product UX teams (every product UX team) — **not** OpenClaw briefs.
 stills = **fail closed**; marketing/dashboard layout-shift Highs (primary CTA wrap, chrome
 colliding with CTA, theme control stealing CTA row) = **fail closed**.
 
-**P0:** no secrets, keys, emails, PII, or absolute host paths in AG git.
+**P0:** Keep private operator data out of AG git.
 
 **Sensor (fail-closed):** `docs/epics/<slug>/qa/visual-stills/` with per-step mobile **and**
 desktop screenshots, indexed by `docs/epics/<slug>/qa/visual-qa.md` (step id → mobile path +
@@ -401,7 +398,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 
 ### Comp critique (Check 6) — jury artifact (FAIL if any field empty on enhancement packs)
 - Surface (`SURFACE_GATE_MATRIX`): product UX | wrong-surface FAIL | N/A
-- Screens opened (IDs or URLs; no secrets/keys/emails/host paths): <list or "none — FAIL">
+- Screens opened (IDs or URLs; no private operator data): <list or "none — FAIL">
 - Hole in our UI (≥1 required): <list or "none — FAIL">
 - Hole in competitor screen (≥1 required): <list or "none — FAIL">
 - Do-not-copy gap (≥1 required): <list or "none — FAIL">
@@ -427,7 +424,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - Adv jury (comps opened; ≥1 OUR hole; ≥1 COMP hole; do-not-copy; comps ≠ gospel): PASS | FAIL | N/A
 - Metric hold (packs without stills = 0; marketing/dashboard CLS Highs = 0): PASS | FAIL
 - Critic stamp separate from Adv (`CRITIC_SEPARATE_STAMP`): yes | no — FAIL if no
-- P0 (no secrets/keys/emails/PII/host paths): PASS | FAIL
+- P0 (private operator data): PASS | FAIL
 
 ### DESIGN_AGENCY_BAR (LIVE #43 / 7e9e0b6; stacks on Check 8 + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE)
 - Scope applicable: product UX stills / public marketing | N/A (not OpenClaw) | wrong-surface FAIL
@@ -503,7 +500,7 @@ is FAIL. Named FAIL bullets (CLS/layout, Fitts, Hick, Jakob; Miller when crowdin
 are listed above — no etc. Check 8 is stacked on `RESEARCH_BEFORE_ENHANCE` + Check 7 +
 `ADV_COMP_CRITIQUE`, not a replacement. Metrics: packs without step stills = **fail closed**;
 marketing/dashboard layout-shift Highs = **fail closed**. Scope: all product UX teams;
-not OpenClaw. P0: no secrets/keys/emails/PII/host paths in AG git.
+not OpenClaw. Keep private operator data out of AG git.
 
 **Draft until Cos ACCEPT (not live) — these five locks only:** `CRITIC_SEPARATE_STAMP` —
 Adv-only stamps on Checks 7–8 = **fail closed**. `TOKEN_SOURCE_OR_BLANK` — Check 1 never PASS when

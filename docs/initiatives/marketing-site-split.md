@@ -50,7 +50,7 @@ That conflates faces:
 4. **Get AG / download CTA URL** →
  `https://github.com/paulthorson/agentic-governance` (or release assets) — **NOT**
  the marketing repo. Settled release posture: **no acceptance gate**;
- Apache-2.0 LICENSE is the only use governor ([redacted] Get AG files removed).
+ Apache-2.0 LICENSE is the only use governor.
 5. **Marketing site PULLS** analytics / measured board feeds **FROM** the AG git
  (or a published feed from AG) — **read-only consume**; marketing git does **not**
  contain the framework.
@@ -135,7 +135,7 @@ stay-vs-move LOCKs). Execute tracks (separate PRs / ops) then prove:
 | A4 | Get AG / download CTA resolves to
  `https://github.com/paulthorson/agentic-governance` or AG release assets — **not**
  `agentic-governance-site`. Settled posture: **no acceptance gate**; Apache-2.0
- LICENSE only (Get AGs removed). |
+ LICENSE only. |
 | A5 | Marketing site consumes analytics / measured board feeds from AG (or published
  AG feed) **read-only**; no framework tree inside marketing git. |
 | A6 | Process/docs remain in AG git; look/stills that move do so under Class B / operator

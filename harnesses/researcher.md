@@ -68,7 +68,7 @@ On product Initiatives, Research collaborates with UX on the **`DESIGN_SYSTEM_FI
   - Screenshot collecting / completeness pack without craft analysis (fundamentals not applied; comps listed but not opened/analyzed; pack does not teach senior-director composition).
   - Soft / deferred / “comps later” / tip-only = **REJECTED**.
 - **Metrics (fail closed):** product UX Research packs that hand off without HCI fundamentals + opened-screen craft analysis in `evidence.md` (or equivalent) = **fail closed**. No Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No invented KPI numbers.
+- **P0:** Keep private operator data out of AG git. No invented KPI numbers.
 
 ## Fleet design craft raise (`FLEET_DESIGN_CRAFT_RAISE`)
 
@@ -154,7 +154,7 @@ Operator answers (required):
   - Comp cites in **public chrome** (cites are internal-only)
   - Missing Research Scope answers before the comps hunt
 - **Metrics (fail closed):** pixels shipped without DS signoff = **fail closed**. No Do not treat a narrative pass as acceptance.
-- **P0:** No secrets, keys, emails, PII, or absolute host paths in AG git. No invented KPI numbers.
+- **P0:** Keep private operator data out of AG git. No invented KPI numbers.
 
 ## Stop conditions
 
