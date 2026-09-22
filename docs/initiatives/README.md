@@ -12,6 +12,7 @@ These are not shipped-evidence folders (those stay under [`docs/proof/initiative
 | Marketing site split (PRODUCT) | Marketing site split (extract epic) | **MERGED LIVE** [#55](https://github.com/paulthorson/agentic-governance/pull/55) @ `19e451f` — operator LOCK; Cos craft PASS; Vercel CRITICAL PATH; stay-vs-move LOCKs; Get AG → AG git; never #39/#26 | [`marketing-site-split.md`](./marketing-site-split.md) |
 | Marketing site extract (ENG) | Marketing site extract plan | **MERGED LIVE** [#56](https://github.com/paulthorson/agentic-governance/pull/56) @ `e7bb36e` — Cos ACCEPT; Eng execute GO; look pixels HOLD | [`marketing-site-extract-plan.md`](./marketing-site-extract-plan.md) |
 | Marketing site extract execute (ENG) | Marketing site extract execute status | **Class A companion** — GO after #56 @ `e7bb36e`; AG = publisher + download; site extract **in parallel**; settled release posture: Apache-2.0 only, **no acceptance gate**; CTA pixels HOLD on #39 look | [`marketing-site-extract-execute.md`](./marketing-site-extract-execute.md) |
+| Making the framework ready for a new installer | Making the framework ready for a new installer | **Draft plan — awaiting review.** No implementation and no status recorded; do not merge. Five workstreams: public-page content check (candidate only), install and first-run proof, documentation and reusable role files, process records and rule status, localhost framework dashboard UX. Reviewed at `main @ a0a79ef` | [`ag-improvement-initiative-e2e/README.md`](./ag-improvement-initiative-e2e/README.md) |
 
 ## Rules
 
