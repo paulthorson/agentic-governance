@@ -52,6 +52,20 @@ formerly lived here is archived at
 - Extra use-governor documents beyond Apache-2.0 LICENSE and NOTICE.
   LICENSE is the only use governor.
 
+## [0.2.0] — 2026-09-24
+
+### Added
+- **Continuous Learning Loop** — repeated mistakes now convert into
+  progressively stronger prevention automatically. Failures are tagged
+  against a canonical failure-class registry
+  (`docs/learning-loop-registry.md`), recurrences are counted in the
+  retrospective, and lessons graduate from written convention (1st
+  occurrence) to mandatory pre-flight checklist item in briefs (2nd,
+  automatic) to fail-closed gate (3rd, maintainer-approved). New:
+  `docs/learning-loop.md`, `docs/templates/failure-class.md`,
+  `docs/adr/0008-continuous-learning-loop.md` (Proposed). Counts attach
+  to failure patterns, never to people.
+
 ## [0.1.1] — 2026-09-11
 
 ### Added
