@@ -64,8 +64,9 @@ red flag, not a pass.
    speculation as speculation.
 4. **Uncertainty is labeled.** Estimates, guesses, and unknowns are marked.
 
----
+5. **PII never enters work products.** No personal names, emails, phone numbers, or other identifying information in code, docs, tests, comments, or artifacts. Use 'the project owner' for prose references, fictional names (Jane Doe) for test data, and anonymous bot identities for commits. Phone numbers must use the fictional 555 range. The assistant's name must never appear. Personal name appears only in copyright attribution where legally required. Reviewers flag PII as a blocking issue.
 
+---
 ## Amendment procedure
 
 - Every human override is logged in `references/calibration-ledger.md`.
