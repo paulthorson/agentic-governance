@@ -72,3 +72,43 @@ patterns, never to people. See `docs/learning-loop.md` for the loop and
 - **Containment:** Convention: every claim a reader will act on carries
   its evidence link.
 - **Gate ref:** —
+
+---
+
+## FC-005: interaction-verified-by-render-only
+
+- **Title:** Interactive control verified by render/typecheck only
+- **Description:** An interactive control (drawer, dialog, gesture) passes
+  typecheck, lint, and static/DOM probes, but no agent ever actually
+  operates it — and it is broken at runtime (opens then closes, never
+  fires, focus lost). Independent verification occurred, so this is not
+  FC-001; the gap is that the verification never exercised the
+  interaction itself.
+- **Work types:** `build`, `review`
+- **First seen:** 2026-09-25
+- **Occurrences:** 1
+- **Rung:** 1
+- **Containment:** Convention: every interactive control added or fixed
+  gets a real interaction probe (click/keyboard via automation) plus a
+  genuine screenshot of the resulting state — never a DOM query alone.
+- **Gate ref:** —
+
+---
+
+## FC-006: deploy-blocked-by-commit-identity
+
+- **Title:** Deployment blocked by commit identity
+- **Description:** Work is committed under an anonymized bot identity that
+  the deploy platform does not recognize as a team member, so the
+  platform blocks the deployment ("must be a member of the team to
+  deploy"). The pipeline reports green everywhere else; the preview
+  never builds until the identity is authorized or the commits are
+  re-attributed to an authorized identity.
+- **Work types:** `deploy`, `release`
+- **First seen:** 2026-09-25
+- **Occurrences:** 1
+- **Rung:** 1
+- **Containment:** Convention: before opening a PR that needs a platform
+  preview, confirm the commit identity is authorized on that platform;
+  keep a per-repo record of which bot identity deploys cleanly.
+- **Gate ref:** —
