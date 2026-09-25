@@ -86,8 +86,9 @@ decision, the entry says so and routes to the human gate.
    `adv-comp-critique`) in `constitution/domains/ux.md` also applies. Scar SoT (docs only):
    `projects/_standing/scars/research-before-enhance.md`.
 
----
+7. **PII never enters work products.** No personal names, emails, phone numbers, or other identifying information in code, docs, tests, comments, or artifacts. Use 'the project owner' for prose references, fictional names (Jane Doe) for test data, and anonymous bot identities for commits. Phone numbers must use the fictional 555 range. The assistant's name must never appear. Personal name appears only in copyright attribution where legally required. Reviewers flag PII as a blocking issue.
 
+---
 ## Amendment procedure
 
 - Every human override is logged in `references/calibration-ledger.md`.

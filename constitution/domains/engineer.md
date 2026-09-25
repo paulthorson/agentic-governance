@@ -86,8 +86,9 @@ These apply to every run and need no adversary to raise them.
 5. **Uncertainty is labeled.** Any claim the worker is not confident of is marked as an estimate
    or an assumption.
 
----
+6. **PII never enters work products.** No personal names, emails, phone numbers, or other identifying information in code, docs, tests, comments, or artifacts. Use 'the project owner' for prose references, fictional names (Jane Doe) for test data, and anonymous bot identities for commits. Phone numbers must use the fictional 555 range. The assistant's name must never appear. Personal name appears only in copyright attribution where legally required. Reviewers flag PII as a blocking issue.
 
+---
 ## Amendment procedure
 
 A rule is not permanent, and it does not change casually.
