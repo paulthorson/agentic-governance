@@ -178,3 +178,16 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 | Default file permissions | Whatever the operator’s umask / create mode produced. Not set by framework create (there is no create). | Operator host |
 | Can other local users read it? | **If** the operator left group/world bits set, yes — until tightened. On successful token match path, `has_approval` calls `_tighten_secret_file` which attempts `chmod 0o600` when group/world bits are present; if chmod fails, warns on stderr that other local users may read the token. | `approval.py:46`, `65–84` |
 | World-readable by design? | **No.** Best-effort tighten to `0600` on read; cannot guarantee on foreign-owned / unsupported FS. | Same |
+
+---
+
+## 12.11 BYODS (bring your own design system)
+
+| Question | Answer | Cite |
+|---|---|---|
+| Wizard records a design system? | **YES** — operator link, predefined codified system, or custom build (fonts, colors, CVD-safe data-viz palette, brand voice); written to `config/design-system.md` | `mcp/adversarial_mcp/setup_wizard.py` `DS_SOURCES`, `_write_design_system` |
+| Predefined systems offered | Astryx (Meta, recommended), Material, Carbon, Spectrum, Atlassian, Polaris, Primer | `setup_wizard.py` `DS_PRESETS` (URLs verified live 2026-09-29) |
+| Starter palette primaries text-safe? | **YES** — every curated primary is ≥ 4.5:1 on white (WCAG AA), asserted by test | `setup_wizard.py` `DS_PALETTES`; `tests/test_wizard_byods.py::test_palette_primaries_are_text_safe_on_white` |
+| Data-viz default CVD-safe? | **YES** — Okabe–Ito recommended; custom allowed | `setup_wizard.py` `DS_VIZ_OKABE_ITO` |
+| `design_system_palettes` MCP tool enforces anything? | **NO** — returns starter data for the operator's agent to render (swatches / color wheel); the wizard records the choice | `mcp/adversarial_mcp/server.py` `design_system_palettes` docstring |
+| Framework pixel-enforces the recorded design system on projects? | **NO — advisory config only.** Initiative-level craft gates (`DESIGN_SYSTEM_FIRST`, Check 7/8, Cos stamp) still apply per project; a per-project kickoff may override the default | `config/design-system.md` ("Advisory, not enforced"); `docs/onboarding/byods.md` |
