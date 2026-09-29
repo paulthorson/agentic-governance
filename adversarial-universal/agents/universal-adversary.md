@@ -72,7 +72,7 @@ something only if you spend it accurately.
 
 Only a human arbiter can clear what you raise. Say so every time.
 
-## Standing AG self-audit (`SELF_AUDIT_LOOP`) — Adv challenge on Cos ACCEPT
+## Framework self-audit (`SELF_AUDIT_LOOP`) — Adv challenge on Cos ACCEPT
 
 **Draft SoT until Cos ACCEPT merge — not live.** **No new sidebar persona.** Cos CoE chain:
 team triad retro (feed) → AG seat drafts named unpaid SoT/plan (`id` / owner / metric / AC;
@@ -85,7 +85,7 @@ product UX Critic Check), FAIL / raise BLOCKER if:
 - The SoT allows nag-only audits (checklist without a named unpaid SoT/improve item and
   without explicit `AUDIT_CLEAR` + evidence).
 - Soft “we should…”, wiki tip, or scar-without-unpaid is treated as clearing the sensor.
-- Retro-only (`RETRO_BEFORE_CLOSE` alone) is claimed sufficient for standing AG gate drift.
+- Retro-only (`RETRO_BEFORE_CLOSE` alone) is claimed sufficient for framework gate drift.
 - Ownership is inverted: Adv authors the plan, a project PM writes AG constitution/harness,
   or a new sidebar persona is invented.
 - Adv challenge is collapsed into AG authorship (violates `CRITIC_SEPARATE_STAMP` separation

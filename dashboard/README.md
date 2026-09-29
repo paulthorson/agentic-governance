@@ -21,7 +21,7 @@ Next.js **localhost** app with two surfaces (route-split) — run with `npm run 
 | Surface | Routes | Auth | What you see |
 |---|---|---|---|
 | Public | `/` (marketing) | None | Measured/baseline KPIs from improve reports; traction **only** when `value ≥ minVisible`; never invents numbers; never shows admin-only raw gates |
-| Admin | `/admin`, `/admin/reports`, `/admin/traction`, `/admin/tokens`, `/admin/cycle-time`, `/admin/scars` | Localhost Host only (fail closed off-box) | Token placeholders (honest Baseline / unpaid), cycle-time tables, full improve report detail, traction raw values **including** below `minVisible` / null, anonymized scar index |
+| Admin | `/admin`, `/admin/reports`, `/admin/traction`, `/admin/tokens`, `/admin/cycle-time`, `/admin/scars` | Localhost Host only (fail closed off-box) | Token placeholders (honest Baseline / unpaid), cycle-time tables, full improve report detail, traction raw values **including** below `minVisible` / null, scar index (titles and status only) |
 
 Public launch rule: traction stays hidden until Cos raises measured values past thresholds in `data/traction.json`. Admin may show unpaid / baseline labels honestly. **Do not invent live token/$ numbers.** No Studio PII in the repo or UI.
 

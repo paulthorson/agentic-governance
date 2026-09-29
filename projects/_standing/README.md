@@ -1,9 +1,9 @@
-# Standing AG (cross-project)
+# Cross-project operating practices
 
-Cross-project Standing AG SoT — anonymized process locks and scars that are
-**not** tied to a single product tree. Keep private operator data,
-personal project names, and private product paths out of this repo.
+Practices that apply across products, not to a single product tree. Keep
+personal data, personal project names, and private product paths out of this
+repository.
 
 | Path | Contents |
 |---|---|
-| [`scars/`](scars/) | Standing process locks / scars (anonymized) |
+| [`scars/`](scars/) | Recorded cross-project operating practices |

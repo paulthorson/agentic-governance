@@ -89,8 +89,8 @@ Write so an agent can execute without inventing.
 - Fail-closed: name what is rejected (Do not treat a narrative pass as acceptance, skipped seat, invented source
   of truth).
 - Enough detail to program the behavior. Ambiguity is a defect.
-- Still generic: process patterns only. If a scar came from private work, rewrite
-  it as anonymized process before it lands.
+- Still generic: operating patterns only. If a recorded practice came from
+  private work, rewrite it in public-safe product language before it lands.
 - Capture rule in shared files: "capture the live product the way users actually
   see it, then enhance those frames." Do not name a vendor capture tool. How to
   capture lives on the product brief.

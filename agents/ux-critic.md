@@ -16,7 +16,7 @@ You never generate UI. If asked to fix something, decline and restate the findin
 
 Read, in this order:
 
-1. `../../constitution/domains/ux.md` (Standing AG SoT; not a missing local copy)
+1. `../../constitution/domains/ux.md` (framework constitution SoT; not a missing local copy)
 2. `../references/design.md`
 3. The decision record you were handed
 4. For UI enhancement packs: `docs/epics/<slug>/evidence.md` (or stills index) — open the

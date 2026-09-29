@@ -1,14 +1,27 @@
 # Multi-project local registry
 
-**Project:** Standing AG (cross-project) 
-**Filed:** 2026-09-21 (Standing AG — anonymized process lock) 
-**Status:** DRAFT until Chief of Staff ACCEPT merge cites a merged SHA 
-**Kind:** process lock / repository operating practice 
-**Lock name:** `MULTI_PROJECT_LOCAL_REGISTRY` 
-**Check / sensor:** public framework git stays generic; filled project indexes stay in the product repository 
-**Required artifact (product repo):** a local project index in that same repository (for example `PROJECTS.md` or an equivalent context map) 
-**Metric:** public framework tips that list personal product names or private product paths = **0** (hold) 
-**Scope:** any product or work repository that holds more than one distinct project or user-facing surface. Not external-runtime briefs.
+**Status:** Draft until Chief of Staff ACCEPT merge cites a merged SHA.
+
+**What this practice is for:** Keep a filled project index in the product
+repository when that repository holds more than one distinct project or
+user-facing surface.
+
+**When it applies:** Any product or work repository with more than one
+distinct project or user-facing surface. Does not apply to external-runtime
+briefs.
+
+**Recorded:** 2026-09-21
+
+**Lock name:** `MULTI_PROJECT_LOCAL_REGISTRY`
+
+**Sensor:** Public framework git stays generic. Filled project indexes stay
+in the product repository.
+
+**Required evidence (product repo):** A local project index in that same
+repository (for example `PROJECTS.md` or an equivalent context map).
+
+**Miss:** A public framework tip that lists personal product names or private
+product paths.
 
 ## Bottom line
 
@@ -52,9 +65,9 @@ For framework purposes, treat the following as personal data:
 - private product paths
 - other operator personal information (names, emails, host paths, secrets)
 
-Public framework git captures anonymized generic learnings and operating
-patterns only. A tip that lands personal product names or private product
-paths into public Agentic Governance is a miss.
+Public framework git captures generic learnings and operating patterns only.
+A tip that lands personal product names or private product paths into public
+Agentic Governance is a miss.
 
 ## Agent lock
 
@@ -68,7 +81,7 @@ paths into public Agentic Governance is a miss.
   names, private product paths, or other operator personal data.
 - **Stack:** Amends `WORKING_AGREEMENT_FLEET` public-tree lock +
   `COS_FEEDBACK_TO_IMPROVE` anonymize — **not** a second source of truth.
-- **Cite:** this standing note + Chief of Staff harness + Quality harness +
+- **Cite:** this practice page + Chief of Staff harness + Quality harness +
   `docs/templates/product-repo-projects.md` + LIVE
   [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17`
   + LIVE [#98](https://github.com/paulthorson/agentic-governance/pull/98) @

@@ -241,9 +241,9 @@ export function AdminOverviewView({
         {scarTable.length === 0 ? (
           <Card padding={4}>
             <HStack gap={2} vAlign="center">
-              <StatusDot variant="neutral" label="No scars filed" />
+              <StatusDot variant="neutral" label="No practices recorded" />
               <Text type="body" color="secondary">
-                Baseline — no anonymized scars in projects/*/scars/.
+                No recorded practices in projects/*/scars/.
               </Text>
             </HStack>
           </Card>
@@ -256,7 +256,7 @@ export function AdminOverviewView({
               {key: 'project', header: 'Project'},
               {key: 'title', header: 'Scar'},
               {key: 'status', header: 'Status'},
-              {key: 'filed', header: 'Filed'},
+              {key: 'filed', header: 'Recorded'},
             ]}
           />
         )}

@@ -2,9 +2,9 @@ import {existsSync, readdirSync, readFileSync, statSync} from "node:fs";
 import {join} from "node:path";
 
 /**
- * Anonymized scar index for admin only.
- * Reads project scar markdown under projects/<name>/scars/ (titles + status only).
- * Never surfaces Studio PII, secrets, machine paths, or unpaid token/dollar figures.
+ * Scar index for admin only.
+ * Reads practice markdown under projects/<name>/scars/ (titles + status only).
+ * Never surfaces personal data, secrets, machine paths, or unpaid token/dollar figures.
  */
 
 export type ScarIndexEntry = {
@@ -32,13 +32,15 @@ function parseScarMeta(
 ): ScarIndexEntry {
   const titleMatch = raw.match(/^#\s+(.+)$/m);
   const statusMatch = raw.match(/\*\*Status:\*\*\s*(.+)$/m);
-  const filedMatch = raw.match(/\*\*Filed:\*\*\s*(.+)$/m);
+  const recordedMatch =
+    raw.match(/\*\*Recorded:\*\*\s*(.+)$/m) ??
+    raw.match(/\*\*Filed:\*\*\s*(.+)$/m);
   return {
     project,
     filename,
     title: titleMatch?.[1]?.trim() ?? filename,
     status: statusMatch?.[1]?.trim() ?? "unknown",
-    filed: filedMatch?.[1]?.trim() ?? null,
+    filed: recordedMatch?.[1]?.trim() ?? null,
   };
 }
 
@@ -67,13 +69,13 @@ export function loadScarIndex(): ScarIndex {
     return {
       entries,
       sourceNote:
-        "Anonymized scar SoT under projects/<name>/scars/. Titles and status only - no Studio PII.",
+        "Operating practices under projects/<name>/scars/. Titles and status only — no personal data.",
     };
   }
 
   return {
     entries: [],
     sourceNote:
-      "No projects/<name>/scars/ tree found. Scar index stays empty until Cos files anonymized scars.",
+      "No projects/<name>/scars/ tree found. Scar index stays empty until practice pages exist there.",
   };
 }

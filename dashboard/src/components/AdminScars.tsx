@@ -39,8 +39,8 @@ export function AdminScarsView({
           Scar index
         </Heading>
         <Text type="body" color="secondary">
-          Anonymized Standing AG scars only (title + status). No Studio PII,
-          secrets, or machine paths.
+          Cross-project operating practices (title and status only). No
+          personal data, secrets, or machine paths.
         </Text>
       </VStack>
 
@@ -48,8 +48,8 @@ export function AdminScarsView({
 
       {rows.length === 0 ? (
         <EmptyState
-          title="No scars filed"
-          description="Baseline — projects/*/scars/ has no anonymized scar markdown yet."
+          title="No practices recorded"
+          description="No recorded practices under projects/*/scars/ yet."
         />
       ) : (
         <Table
@@ -60,7 +60,7 @@ export function AdminScarsView({
             {key: 'project', header: 'Project'},
             {key: 'title', header: 'Scar'},
             {key: 'status', header: 'Status'},
-            {key: 'filed', header: 'Filed'},
+            {key: 'filed', header: 'Recorded'},
             {key: 'filename', header: 'File'},
           ]}
         />
