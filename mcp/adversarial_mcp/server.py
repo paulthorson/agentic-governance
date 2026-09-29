@@ -32,6 +32,7 @@ from mcp.server.fastmcp import FastMCP
 
 from . import setup_wizard
 from . import spend as spend_meter
+from . import updates as update_check
 from .spend import SpendCapExceeded
 
 # ---------------------------------------------------------------------------
@@ -699,7 +700,31 @@ def framework_status() -> dict[str, Any]:
         "verdict_log": str(VERDICT_LOG),
         "verdict_count": sum(1 for _ in VERDICT_LOG.open() if _.strip()) if VERDICT_LOG.exists() else 0,
         "spend": spend_meter.spend_status(REPO_ROOT),
+        "version": update_check.CURRENT_VERSION,
     }
+
+
+@mcp.tool()
+def get_version() -> dict[str, Any]:
+    """Return the framework's own version (single source of truth)."""
+    return {
+        "version": update_check.CURRENT_VERSION,
+        "changelog_url": update_check.CHANGELOG_URL,
+        "releases_url": update_check.RELEASES_URL,
+    }
+
+
+@mcp.tool()
+def check_updates(force: bool = False) -> dict[str, Any]:
+    """Check whether a newer framework version is published.
+
+    Opt-in: only runs when the operator explicitly enabled update checks
+    (AG_UPDATE_CHECK=allow, or "## Update checks" / "- allow" in
+    config/setup.md) AND their network permission is "allow". Otherwise
+    returns checked=False with a reason. Results are cached for 24h unless
+    force=True. Never raises.
+    """
+    return update_check.check_for_updates(force=force, repo_root=REPO_ROOT)
 
 
 def main() -> None:
