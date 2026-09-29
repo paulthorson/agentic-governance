@@ -58,7 +58,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 - **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` /
   `d61f4c1`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either.
   Roster seat unpaid note OK. Does **not** reopen Check 8.
-- **Scope:** Product UX jury; all product teams; **not** OpenClaw briefs.
+- **Scope:** Product UX jury; all product teams; **not** external-runtime briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -73,7 +73,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
   digests cite a named source or label **BLANK**.
 - **Stack:** On Check 1 / `design.md` — does not invent a token feed or replace
   `RESEARCH_BEFORE_ENHANCE`.
-- **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
+- **Scope:** AG improve digests + product UX Critic Check 1; **not** external-runtime briefs.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -81,29 +81,29 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 
 - **Id:** `SURFACE_GATE_MATRIX`
 - **Slot:** Cross-cutting Scope lines on Checks 6/7/8 and harnesses.
-- **FAIL:** Applying product-UX gates to OpenClaw briefs, or omitting product-UX gates on
+- **FAIL:** Applying product-UX gates to external-runtime briefs, or omitting product-UX gates on
   product surfaces.
 - **Matrix:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`)
-  + `ADV_COMP_CRITIQUE`; OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
+  + `ADV_COMP_CRITIQUE`; external-runtime briefs = `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Scope lines below name the matrix; wrong-surface FAIL explicit.
 - **Stack:** Documents/binds existing stacks — does not replace any named gate. Check 8
   (`VISUAL_STEP_STILLS`) is **LIVE** via `#15` / `d61f4c1` — cross-ref / routing only; do not
   reopen.
 - **Scope:** All teams.
-- **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL).
+- **Metric:** external-runtime briefs failed for missing userflows/stills = **fail closed** (false-FAIL).
 - **P0:** Keep private operator data out of AG git.
 
 ### `LIVE_SOT_MERGED_SHA` (liveness only)
 
 - **Id:** `LIVE_SOT_MERGED_SHA`
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge (liveness only).
-- **FAIL:** Treating this draft (or intake / open PR / muse) as live operator LOCK. Only Cos ACCEPT
+- **FAIL:** Treating this draft (or intake / open PR / draft) as live operator LOCK. Only Cos ACCEPT
   + merged SHA is live. Precedent: `#13` intake ≠ SoT.
 - **Sensor:** Cite merged SHA / merged PR when claiming live SoT; this file's draft headers say
   not live / not effective until Cos ACCEPT merge.
 - **Stack:** Does not replace Check 7 / Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` /
   `d61f4c1`) / `RESEARCH_BEFORE_ENHANCE` content — only liveness.
-- **Scope:** AG harness/constitution writes + team execution; all product teams + OpenClaw ops
+- **Scope:** AG harness/constitution writes + team execution; all product teams + external-runtime ops
   that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
@@ -118,7 +118,7 @@ competing lock id.
 - **Id:** `DESIGN_AGENCY_BAR`
 - **Slot:** Product UX stills / public marketing faces — Cos craft gate **before** Adv; Critic
   grades under Check 8 stack.
-- **Who / scope:** Every product UX seat — **not** OpenClaw briefs.
+- **Who / scope:** Every product UX seat — **not** external-runtime briefs.
 - **Bar:** Top-agency craft — restraint, hierarchy, type, space, micro-interaction. Prefer **one
   strong quiet option** (Apple / Linear restraint SoT) over stacking effects.
 - **FAIL (Cos craft FAIL before Adv):** cheesy effects; spectacle as craft (particle beads /
@@ -145,7 +145,7 @@ deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. Adv must **
 - **Id:** `AI_SLOP_COPY_FAIL`
 - **Slot:** Visitor-facing and user-facing product surfaces — Cos craft gate **before** Adv;
   Critic grades under Check 8 stack / Brand Voice.
-- **Who / scope:** Every product UX seat — **not** OpenClaw briefs.
+- **Who / scope:** Every product UX seat — **not** external-runtime briefs.
 - **Bar:** **Human / Substack / Direct founder voice only.** AI-slop / synthetic brochure copy =
   **FAIL**.
 - **FAIL (Cos craft FAIL before Adv):** banned lexicon examples — not exhaustive (Brand Voice
@@ -172,7 +172,7 @@ stays `DESIGN_SYSTEM_FIRST`. Cite stacks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
   Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
 - **Slot:** Initiative packet — design system **before** web / UI pixels / stills / screens; Cos
   stamp before Check 7 / Check 8 stills / Eng handoff. **Research Scope** before comps hunt.
-- **Who / scope:** Every product team UX + Research — **not** OpenClaw.
+- **Who / scope:** Every product team UX + Research — **not** external-runtime briefs.
 - **Bar / order:** Design system is the FIRST Initiative deliverable. Research + UX collaborate;
   Cos signoff in early Initiative. Agency design thinking (restraint, hierarchy, type, space, one
   strong quiet option) is permanent UX brain — stacks `DESIGN_AGENCY_BAR`; not a splash tip.
@@ -258,7 +258,7 @@ Read the acceptance record in the artifact. Ask whether the role received input 
 ### Check 6: Cited real screens + comp critique (`cite-real-screens` + `adv-comp-critique`)
 
 **Scope (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT):** product UX surfaces only — **not**
-OpenClaw briefs (OpenClaw = `MORNING_BRIEF_CITE_OR_BLANK` only). Wrong-surface application =
+external-runtime briefs (external runtime = `MORNING_BRIEF_CITE_OR_BLANK` only). Wrong-surface application =
 FAIL.
 
 For UI enhancement packs / Look reviews (skip only for Eng-only bugs with no UI, and say so):
@@ -275,7 +275,7 @@ For UI enhancement packs / Look reviews (skip only for Eng-only bugs with no UI,
 
 Named Critic Check 7 at the UX→Eng gate. **Stacked on `RESEARCH_BEFORE_ENHANCE`
 (Rule 2 A) — an addition, not a replacement.** Scope (`SURFACE_GATE_MATRIX`, draft until Cos
-ACCEPT): product UX epics only — **not** OpenClaw briefs. Acceptance metric: UX epics missing
+ACCEPT): product UX epics only — **not** external-runtime briefs. Acceptance metric: UX epics missing
 userflows / jtbd / cite (or explicit `NO_RESEARCH`→human) at Critic = **fail closed**. Keep private operator data out of AG git.
 
 **`CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT):** Check 7 grades must appear in a distinct
@@ -310,7 +310,7 @@ COMP hole + do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps are not go
 **When:** QA ship / Look / visual pack gates on product UX surfaces (after Check 7
 Eng-handoff artifacts exist when applicable). Skip only when the work is not a product UX
 surface (say so). **Scope:** product UX surfaces only (marketing + app chrome) for **all**
-product UX teams (every product UX team) — **not** OpenClaw briefs.
+product UX teams (every product UX team) — **not** external-runtime briefs.
 
 **Metrics (fail closed):** visual QA packs / ship gates without per-step mobile **and** desktop
 stills = **fail closed**; marketing/dashboard layout-shift Highs (primary CTA wrap, chrome
@@ -346,7 +346,7 @@ FAIL if any of the following:
   craft FAIL before Adv when visitor/user-facing product copy is AI-slop / synthetic brochure
   voice, uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute
   cadence. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Metric:
-  visitor/user-facing surfaces shipping AI-slop = **fail closed**. Not OpenClaw.
+  visitor/user-facing surfaces shipping AI-slop = **fail closed**. Not external-runtime briefs.
 - **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup (LIVE `#45` / `ead012f` — stack before this
   Check):** FAIL when Initiative stills / web / screens ship without Cos-signed
   `design-system.md` (tokens / type / space / motion / brand / do-not + Experience principles +
@@ -403,8 +403,8 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - Hole in competitor screen (≥1 required): <list or "none — FAIL">
 - Do-not-copy gap (≥1 required): <list or "none — FAIL">
 
-### Userflows + JTBD (Check 7) — stacked on RESEARCH_BEFORE_ENHANCE; product UX only (not OpenClaw)
-- Scope applicable (`SURFACE_GATE_MATRIX`): product UX epic | N/A (not OpenClaw / out of scope) | wrong-surface FAIL
+### Userflows + JTBD (Check 7) — stacked on RESEARCH_BEFORE_ENHANCE; product UX only (not external-runtime briefs)
+- Scope applicable (`SURFACE_GATE_MATRIX`): product UX epic | N/A (not external-runtime briefs / out of scope) | wrong-surface FAIL
 - userflows.md present + Mermaid (entry/success/error-empty/exits): yes | no
 - jtbd.md present: yes | no
 - Research cite: yes | no | partial | NO_RESEARCH→human
@@ -413,7 +413,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - Critic stamp separate from Adv (`CRITIC_SEPARATE_STAMP`): yes | no — FAIL if no
 
 ### Visual step-stills (Check 8 / `VISUAL_STEP_STILLS`) — LIVE `#15` / `d61f4c1`; stacked on RESEARCH_BEFORE_ENHANCE + Check 7 + ADV_COMP_CRITIQUE
-- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (marketing + app chrome), all product teams | N/A (not OpenClaw / out of scope) | wrong-surface FAIL
+- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (marketing + app chrome), all product teams | N/A (not external-runtime briefs / out of scope) | wrong-surface FAIL
 - Sensor `docs/epics/<slug>/qa/visual-stills/` + index `qa/visual-qa.md`: present | missing — FAIL
 - Per-step mobile AND desktop stills: yes | no — FAIL if no
 - CLS/layout High (CTA wrap/shift; missing theme reserved-space; dynamic banner pushes hero CTA): PASS | FAIL | N/A
@@ -427,7 +427,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - P0 (private operator data): PASS | FAIL
 
 ### DESIGN_AGENCY_BAR (LIVE #43 / 7e9e0b6; stacks on Check 8 + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE)
-- Scope applicable: product UX stills / public marketing | N/A (not OpenClaw) | wrong-surface FAIL
+- Scope applicable: product UX stills / public marketing | N/A (not external-runtime briefs) | wrong-surface FAIL
 - Craft brief (restraint SoT + what NOT to do) before stills: present | missing — FAIL
 - Written craft defense on stills PR (why clean; what rejected): present | missing — FAIL
 - Spectacle-as-craft (beads / marble pulses / confetti / glow-as-craft / cheesy “alive”): PASS | FAIL | N/A
@@ -440,7 +440,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 
 ### AI_SLOP_COPY_FAIL (draft until Cos ACCEPT; stacks on DESIGN_AGENCY_BAR + Brand Voice)
 - Adv named check `AI_SLOP_COPY_FAIL`: yes | no — HOLD ACCEPT if no
-- Scope applicable: visitor/user-facing product surfaces | N/A (not OpenClaw) | wrong-surface FAIL
+- Scope applicable: visitor/user-facing product surfaces | N/A (not external-runtime briefs) | wrong-surface FAIL
 - Human / Substack / Direct founder voice held: yes | no — FAIL if no
 - Banned lexicon (examples — not exhaustive; Brand Voice judgment): none | present — FAIL if present
 - Twin-attribute cadence: none | present — FAIL if present
@@ -450,7 +450,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - Not live until Cos ACCEPT merged SHA (`LIVE_SOT_MERGED_SHA`): acknowledged | violated
 
 ### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (LIVE #45 / ead012f; stacks on DESIGN_AGENCY_BAR + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE + Check 7/8)
-- Scope applicable: product Initiative UX+Research | N/A (not OpenClaw) | wrong-surface FAIL
+- Scope applicable: product Initiative UX+Research | N/A (not external-runtime briefs) | wrong-surface FAIL
 - Design / Experience / Branding paramount (Eng follows signed craft): held | violated — FAIL if violated
 - Research Scope (Q1–Q8) before comps hunt: complete | missing — FAIL if missing
 - `design-system.md` present (tokens / type / space / motion / brand / do-not): yes | no — FAIL if no
@@ -500,12 +500,12 @@ is FAIL. Named FAIL bullets (CLS/layout, Fitts, Hick, Jakob; Miller when crowdin
 are listed above — no etc. Check 8 is stacked on `RESEARCH_BEFORE_ENHANCE` + Check 7 +
 `ADV_COMP_CRITIQUE`, not a replacement. Metrics: packs without step stills = **fail closed**;
 marketing/dashboard layout-shift Highs = **fail closed**. Scope: all product UX teams;
-not OpenClaw. Keep private operator data out of AG git.
+not external-runtime briefs. Keep private operator data out of AG git.
 
 **Draft until Cos ACCEPT (not live) — these five locks only:** `CRITIC_SEPARATE_STAMP` —
 Adv-only stamps on Checks 7–8 = **fail closed**. `TOKEN_SOURCE_OR_BLANK` — Check 1 never PASS when
-UNSET; blank-as-measured = FAIL. `SURFACE_GATE_MATRIX` — product UX gates vs OpenClaw
-`MORNING_BRIEF_CITE_OR_BLANK` only; false-FAIL OpenClaw for missing userflows/stills = **fail closed**. `LIVE_SOT_MERGED_SHA` — this draft is not effective until Cos ACCEPT merge cites a
+UNSET; blank-as-measured = FAIL. `SURFACE_GATE_MATRIX` — product UX gates vs external-runtime briefs
+`MORNING_BRIEF_CITE_OR_BLANK` only; false-FAIL external-runtime briefs for missing userflows/stills = **fail closed**. `LIVE_SOT_MERGED_SHA` — this draft is not effective until Cos ACCEPT merge cites a
 merged SHA. `RETRO_BEFORE_CLOSE` — Cos/CEO close gate (harness SoT). Check 8
 (`VISUAL_STEP_STILLS`) is already **LIVE** on main via `#15` / `d61f4c1` — do not reopen.
 HOLD ACCEPT on these five until Adv PASS.
@@ -520,7 +520,7 @@ AI-slop / synthetic brochure copy on visitor/user-facing product surfaces = FAIL
 Substack / Direct founder voice only. Ban lexicon examples — not exhaustive (Brand Voice
 judgment). Twin-attribute cadence banned. Stacks on `DESIGN_AGENCY_BAR`. Adv must **name
 `AI_SLOP_COPY_FAIL`** before Cos ACCEPT. Do not mark LIVE until Cos ACCEPT MERGED SHA. Not
-OpenClaw. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
+external runtime. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
 
 **LIVE — Brand & Design Setup (`DESIGN_SYSTEM_FIRST`):** Cos LOCK operator — Design, Experience, and
 Branding are paramount; engineering follows signed craft. **LIVE** via `#45` / `ead012f`.

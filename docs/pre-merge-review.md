@@ -436,7 +436,7 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 | What `scripts/veto-telemetry.py` sends | On `--watch` (and not `--dry-run`): a veto alert string via `messaging.send_alert` (domain, verdict, ticket, rule, hits). Without `--watch`, local report/JSON/stdout only — **no** outbound send. | `veto-telemetry.py` (`send_alert` in `--watch` path); gates in `messaging.py` |
 | Where it sends | Only through `messaging.send_alert` → operator `ALERT_WEBHOOK_URL` (Discord) and/or `ALERT_COMMAND`, and only if `network_permission=allow` **and** approval present. Env names are messaging/`ALERT_*` (and optional `NETWORK_PERMISSION`). | `veto-telemetry.py` (calls `send_alert`); `messaging.py:126–163`; gates at `:134–153` |
 | Non-empty default destination authored into this repo? | **(a)** No default destination points **outside** the operator's machine or **to the author** — `ALERT_*` defaults are all `""`. **(b)** One non-empty default exists: `OLLAMA_URL` → `http://localhost:11434` (`mcp/adversarial_mcp/server.py:433`) — **loopback only**, operator machine. | `messaging.py:40–43`; `server.py:433` |
-| Fallback helper path | Optional local helper `REPO_ROOT.parent / ".openclaw/workspace/scripts/post-to-discord.py"` **if that file exists on the operator host** — not shipped in this repo; not an author-controlled remote URL. | `messaging.py:97–108` |
+| Fallback helper path | Optional local helper `REPO_ROOT.parent / ".local/workspace/scripts/post-to-discord.py"` **if that file exists on the operator host** — not shipped in this repo; not an author-controlled remote URL. | `messaging.py:97–108` |
 
 ---
 

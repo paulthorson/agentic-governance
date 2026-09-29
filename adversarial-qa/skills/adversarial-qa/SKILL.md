@@ -115,13 +115,13 @@ When QA gates (esp. product UX visual / Check 7–8 / stills sensor): file **QA 
 isolated pass. Silent dual-hat / Adv-only stamp = FAIL. If no Critic bot: Adv runs critic.md
 second pass labeled **CRITIC** — not folded into ADV prose. Stacks on Check 7 + Check 8
 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; does not
-replace. Does not reopen Check 8. Scope: product UX; not OpenClaw.
+replace. Does not reopen Check 8. Scope: product UX; not external-runtime briefs.
 Soft / tip / wiki-scar-only = **REJECTED**. Keep private operator data out of AG git.
 
 ### `SURFACE_GATE_MATRIX` (draft until Cos ACCEPT)
 
 Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE**
-via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. OpenClaw briefs = `MORNING_BRIEF_CITE_OR_BLANK`
+via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. external-runtime briefs = `MORNING_BRIEF_CITE_OR_BLANK`
 only. Wrong-surface FAIL explicit. HOLD ACCEPT until Adv PASS.
 
 ---

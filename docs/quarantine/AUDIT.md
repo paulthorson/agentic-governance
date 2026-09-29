@@ -115,7 +115,7 @@ An enterprise MCP server that exposes the review system to any MCP-capable clien
 
 ### P4 — MCP server
 7. Build `mcp/` server (Node or Python) implementing the tool surface in 2.6; register in
-   OpenClaw + Cursor + Claude MCP config.
+   external runtime + Cursor + Claude MCP config.
 
 ### P5 — Tooling
 8. `adv` CLI + dry-run test harness + stuck-ticket watchdog.

@@ -58,7 +58,7 @@ channel.
 
 ## Governance
 
-- Tickets: `muse/2026-09-13/roadmap-exec/init-07-{consent,safety,mentor-profile,session-kit,warm-path,cli}`
+- Tickets: `contributor/2026-09-13/roadmap-exec/init-07-{consent,safety,mentor-profile,session-kit,warm-path,cli}`
 - **6/6 review domains ALLOW** (qa: critic, edge-case-reviewer,
   quality-advocate per ticket), 0 structural vetos, append-only verdicts.
 - Adversarial review found 8 real issues across 3 workstreams; all fixed

@@ -33,7 +33,6 @@ following support MCP **tools** (which is all this server needs):
 | Claude Desktop App | Full MCP support |
 | Claude Code | See [claude-code.md](claude-code.md) |
 | Cursor | See [cursor.md](cursor.md) |
-| OpenClaw | See [openclaw.md](openclaw.md) |
 | ChatGPT / Codex | See [chatgpt-codex.md](chatgpt-codex.md) |
 | Hermes | See [hermes.md](hermes.md) |
 | Cline | Tools + resources |

@@ -8,7 +8,7 @@
 **Check / sensor:** public framework git stays generic; filled project indexes stay in the product repository 
 **Required artifact (product repo):** a local project index in that same repository (for example `PROJECTS.md` or an equivalent context map) 
 **Metric:** public framework tips that list personal product names or private product paths = **0** (hold) 
-**Scope:** any product or work repository that holds more than one distinct project or user-facing surface. Not OpenClaw briefs.
+**Scope:** any product or work repository that holds more than one distinct project or user-facing surface. Not external-runtime briefs.
 
 ## Bottom line
 

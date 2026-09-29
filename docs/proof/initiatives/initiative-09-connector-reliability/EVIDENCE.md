@@ -74,7 +74,7 @@ submits; no fill and no submit proceeds on a flagged page).
 
 ## Governance
 
-- Tickets: `muse/2026-09-13/roadmap-exec/init-09/{provider-contract,ats-connectors,session-rescue,reliability-scorecard,communication-connectors,calendar-handoff,integration-surfaces}`
+- Tickets: `contributor/2026-09-13/roadmap-exec/init-09/{provider-contract,ats-connectors,session-rescue,reliability-scorecard,communication-connectors,calendar-handoff,integration-surfaces}`
 - **7/7 review domains ALLOW** (qa/engineer), 0 structural vetos, append-only verdicts.
 - Adversarial review found 3 real defects, all fixed and re-verified before
   verdicts: (1) a parallel invented budget table mismatching enforcement

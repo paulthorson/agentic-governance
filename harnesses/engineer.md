@@ -133,7 +133,7 @@ Four rules (from **upstream task-graphs reference**):
 
 **fail lexicon (named — Do not treat a narrative pass as acceptance via narrative REJECTED):** `fake-edge` · `fake-diamond` · `sequential swarm` · `amp without merge owner` · `spawn theater` · `gate theater` · Do not treat a narrative pass as acceptance via narrative.
 
-**HARD absorb (Cos-owned post-merge; Eng lands SoT text here):** After LIVE merge Cos tips BYOE seats (Muse + OpenClaw) with the four rules and requires one-line ACK each before fleet-live claim.. Eng does not freestyle product laundry beyond those seating names.
+**HARD absorb (Cos-owned post-merge; Eng lands SoT text here):** After LIVE merge Cos tips BYOE seats with the four rules and requires one-line ACK each before fleet-live claim.. Eng does not freestyle product laundry beyond those seating names.
 
 - **Id / named check:** `TASK_GRAPH_ORCHESTRATION`
 - **Who / scope:** Eng + Cos / fleet + cloud EXECUTE multi-agent topology. Vanilla public SoT. **Not** knowledge-graph 9-stage / GraphRAG as fleet law.

@@ -1,7 +1,7 @@
 # Adversarial Agents MCP Server
 
 Exposes the adversarial review framework as callable MCP tools so any agent
-(Claude Code, Cursor, OpenClaw, or a custom client) can run a governed review
+(Claude Code, Cursor, external runtime, or a custom client) can run a governed review
 without re-reading the framework files.
 
 ## Tools
@@ -48,7 +48,7 @@ Point `ADVERSARIAL_ROOT` at the repo if it isn't `~/adversarial-agents`.
 
 **Cursor** (`.cursor/mcp.json`): same shape.
 
-**OpenClaw** (`openclaw.json` → `mcp.servers`): same command/args.
+**external runtime** (`external-runtime config` → `mcp.servers`): same command/args.
 
 ## Notes
 

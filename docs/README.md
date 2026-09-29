@@ -29,7 +29,7 @@ touch the relevant page here.
 | [[Constitution]] | The four constitutional rules and the amendment procedure |
 | [[Vetoes]] | Hard vetoes per domain; only a human clears one |
 | [[Calibration]] | The calibration ledger and how verdicts are recorded |
-| [[MCP]] | MCP server tools, wiring into Claude/Cursor/OpenClaw |
+| [[MCP]] | MCP server tools, wiring into Claude/Cursor/external runtime |
 | [[Paperclip]] | Agent roster, routing, mandatory-review rule |
 | [[Tooling]] | validate.py, CI workflow, consolidate script |
 | [[Roadmap]] | Gaps, planned agents, enterprise hardening |

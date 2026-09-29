@@ -29,7 +29,7 @@ audit behavior.
 
 ## Governance
 
-- Ticket `muse/2026-09-13/roadmap-exec/init-11/core` (security): first review
+- Ticket `contributor/2026-09-13/roadmap-exec/init-11/core` (security): first review
   returned **KICK_BACK** — the blind review demonstrated 5 working bypasses:
   (1) `ctx._host` traversal allowed self-minting confirmation tokens;
   (2) mutable context scopes shared with host checks allowed scope escalation;
@@ -40,7 +40,7 @@ audit behavior.
   deep-frozen manifests with enforcement reading the frozen copy, extended
   import bans, bare `open()` as a hard violation) and re-verified — re-review
   **ALLOW**.
-- Ticket `muse/2026-09-13/roadmap-exec/init-11/platform` (qa): **ALLOW** —
+- Ticket `contributor/2026-09-13/roadmap-exec/init-11/platform` (qa): **ALLOW** —
   scaffold generates all 8 surfaces and the scaffolded extension passes the
   full policy suite; signing was upgraded HMAC→Ed25519 during review with
   registry publisher-pubkey pinning; install pinning + upgrade review +

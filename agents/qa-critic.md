@@ -52,7 +52,7 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
 - **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` /
   `d61f4c1`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either.
   Roster seat unpaid note OK. Does **not** reopen Check 8.
-- **Scope:** Product UX jury / QA gates; all product teams; **not** OpenClaw briefs.
+- **Scope:** Product UX jury / QA gates; all product teams; **not** external-runtime briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -60,17 +60,17 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
 
 - **Id:** `SURFACE_GATE_MATRIX`
 - **Slot:** Cross-cutting Scope lines in harnesses/ux.md, harnesses/qa.md, Critic Checks 6/7/8,
-  OpenClaw brief sensor docs.
-- **FAIL:** Applying product-UX gates (incl. this stills sensor) to OpenClaw briefs, or omitting
+  external-runtime brief sensor docs.
+- **FAIL:** Applying product-UX gates (incl. this stills sensor) to external-runtime briefs, or omitting
   them on product surfaces.
 - **Matrix:** Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`,
-  **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; OpenClaw briefs =
+  **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`; external-runtime briefs =
   `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Scope lines name the matrix; wrong-surface FAIL explicit.
 - **Stack:** Does not replace Check 8 SoT — Check 8 is **LIVE** via `#15` / `d61f4c1`; this lock
   is routing only. Do not reopen Check 8.
 - **Scope:** All teams.
-- **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed**.
+- **Metric:** external-runtime briefs failed for missing userflows/stills = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
 ## The six checks
@@ -105,10 +105,10 @@ Read the acceptance record in the artifact. Ask whether the role received input 
 ### Check 6: Visual step-stills sensor present (`VISUAL_STEP_STILLS`)
 
 For product UX ship / Look / visual pack gates (marketing + app chrome; **all** product UX
-teams; **not** OpenClaw briefs). Skip only when out of scope and say so.
+teams; **not** external-runtime briefs). Skip only when out of scope and say so.
 
-**Scope (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT):** product UX only. OpenClaw briefs =
-`MORNING_BRIEF_CITE_OR_BLANK` only. Wrong-surface FAIL = applying this sensor to OpenClaw, or
+**Scope (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT):** product UX only. external-runtime briefs =
+`MORNING_BRIEF_CITE_OR_BLANK` only. Wrong-surface FAIL = applying this sensor to external-runtime briefs, or
 omitting it on product UX. Check 8 (`VISUAL_STEP_STILLS`) grades are **LIVE** via `#15` /
 `d61f4c1` — do not reopen. `CRITIC_SEPARATE_STAMP` (draft) requires a Critic-labeled verdict
 separate from Adv on those grades.
@@ -158,7 +158,7 @@ Check 6 VisualStills sensor (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
 - Fewer than two distinct strategies: YES | NO
 
 ### Visual step-stills sensor (QA owns; UX Critic Check 8 grades FAIL criteria)
-- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (all product teams) | N/A (not OpenClaw / out of scope) | wrong-surface FAIL
+- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (all product teams) | N/A (not external-runtime briefs / out of scope) | wrong-surface FAIL
 - `qa/visual-stills/` + `qa/visual-qa.md` present with per-step mobile AND desktop: yes | no
 - Metric hold (packs without stills = 0): PASS | FAIL | N/A
 - Graded by UX Critic Check 8: cited | missing cite

@@ -38,7 +38,7 @@ must precede the P0 craft audit. The P0 audit is now unblocked.
 
 ## Governance
 
-- Ticket: `muse/2026-09-13/roadmap-exec/capture`
+- Ticket: `contributor/2026-09-13/roadmap-exec/capture`
 - Review rounds opened: 1 (`qa` domain, framework `ag_review.py`; structural
   veto scan clean, no veto triggered)
 - Adversary agents executed: critic, edge-case-reviewer, quality-advocate
@@ -107,7 +107,7 @@ must precede the P0 craft audit. The P0 audit is now unblocked.
   covered by tests; server hooks are thin guarded wrappers (no direct unit
   test; accepted as minor, disclosed).
 - EVIDENCE: verdict ALLOW recorded append-only under
-  `muse/2026-09-13/roadmap-exec/capture`; commit `e44fb5a` on the product repository's
+  `contributor/2026-09-13/roadmap-exec/capture`; commit `e44fb5a` on the product repository's
   `main`; full-suite numbers measured 2026-09-13.
 - ASSUMPTION: "100% of confirmed submissions after enablement are captured"
   — true for the three hooked write paths by construction; unproven against

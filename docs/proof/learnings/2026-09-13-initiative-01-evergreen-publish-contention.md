@@ -35,5 +35,5 @@ commit onto its owner's branch ref, resetting the initiative branch to
 ## What changed
 
 Initiative 01's proof published cleanly from an isolated worktree on
-`muse/proof-initiative-01-outcomes-capture-2026-09-13`, based on the latest
+`contributor/proof-initiative-01-outcomes-capture-2026-09-13`, based on the latest
 `main`, with the Initiative 05 commit re-homed to its owner's branch.

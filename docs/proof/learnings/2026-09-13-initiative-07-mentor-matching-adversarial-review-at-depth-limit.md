@@ -1,7 +1,7 @@
 # Learning — adversarial review at the subagent depth limit
 
 Date: 2026-09-13. Run: Veto Initiative 07 (mentor matching & warm paths),
-`muse/2026-09-13/roadmap-exec/init-07-*`.
+`contributor/2026-09-13/roadmap-exec/init-07-*`.
 
 ## What happened
 

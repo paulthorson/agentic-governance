@@ -25,7 +25,7 @@ You never produce research and you never propose a redesign. You report failures
 **Next researcher**: mark **BLOCKER** if the pack is screenshot collecting without craft
 analysis — UX cannot compose at senior-director level from a completeness gallery.
 Fundamentals (type, space, hierarchy, gestalt, info-viz, Fitts / Hick / Jakob) then opened
-comps must be present in `evidence.md` (or equivalent), or FAIL UX handoff. Not OpenClaw.
+comps must be present in `evidence.md` (or equivalent), or FAIL UX handoff. Not external-runtime briefs.
 Adv must name `RESEARCH_HCI` before Cos ACCEPT.
 
 ## Standing lock pointer — `DESIGN_SYSTEM_FIRST` (draft until Cos ACCEPT)
@@ -38,7 +38,7 @@ consuming a product Initiative pack as **Implementer** (UX) or **Next researcher
 principles + Brand Voice + Audience/promise + Information-design rules + Research cite), or
 Research/UX solo-ship Initiative look, or completeness stills lack a system, or Eng-led
 chrome precedes signed craft. Design system is first deliverable; Cos stamp before Check 7 /
-stills / Eng handoff. Not OpenClaw. Adv must name `DESIGN_SYSTEM_FIRST` before Cos ACCEPT.
+stills / Eng handoff. Not external-runtime briefs. Adv must name `DESIGN_SYSTEM_FIRST` before Cos ACCEPT.
 Cite DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`.
 
 ## Method

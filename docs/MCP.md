@@ -1,7 +1,7 @@
 # MCP
 
 The framework ships an MCP server (`mcp/`) that exposes the adversarial review
-loop as callable tools. Any agent — Claude Code, Cursor, OpenClaw, or a custom
+loop as callable tools. Any agent — Claude Code, Cursor, external runtime, or a custom
 client — can run a governed review without re-reading the framework files.
 
 ## Tools
@@ -47,7 +47,7 @@ Point `ADVERSARIAL_ROOT` at the repo if it isn't `<framework-root>`.
 }
 ```
 
-**Cursor** (`.cursor/mcp.json`): same shape. **OpenClaw** (`openclaw.json` →
+**Cursor** (`.cursor/mcp.json`): same shape. **external runtime** (`external-runtime config` →
 `mcp.servers`): same command/args.
 
 ## Design notes

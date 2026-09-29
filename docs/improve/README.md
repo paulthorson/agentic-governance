@@ -33,7 +33,7 @@ a contribute CTA.
 - **Sensor:** Named source in the KPI table **or** explicit **BLANK** / `not measured yet`.
   Soft / tip / wiki-scar-only ≠ sensor.
 - **Stack:** Does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
-- **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
+- **Scope:** AG improve digests + product UX Critic Check 1; **not** external-runtime briefs.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -80,7 +80,7 @@ When live, each Cos 6pm ET improve digest cycle must record **BOTH**:
    a project PM into AG constitution/harness.
 
 Nag-only digests FAIL. This loop is an addition on the daily digest + `RETRO_BEFORE_CLOSE`,
-not a replacement. Scope: AG harness + Cos improve / self-heal — not OpenClaw briefs. Keep private operator data out of digest artifacts.
+not a replacement. Scope: AG harness + Cos improve / self-heal — not external-runtime briefs. Keep private operator data out of digest artifacts.
 
 ## Related paths
 

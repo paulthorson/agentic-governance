@@ -9,7 +9,7 @@
 **Required artifact:** `docs/epics/<slug>/evidence.md` (or stills index) — real-screen source URLs + what the pixels show — **before** PM hands brief to UX / before first story 
 **Metric:** enhancement packs without cited real-screen evidence = **0** (hold) 
 **Secondary:** `evidence.md` present before first story = **required** 
-**Scope:** product UX / Research + adversarial UX jury (explicitly **not** OpenClaw morning-brief gate; not Eng-only bugs with no UI)
+**Scope:** product UX / Research + adversarial UX jury (explicitly **not** external-runtime morning-brief gate; not Eng-only bugs with no UI)
 
 ## Symptom
 

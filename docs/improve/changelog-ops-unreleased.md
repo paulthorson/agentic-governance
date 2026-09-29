@@ -21,9 +21,9 @@ Do not treat this file as the product changelog. Product notes live in
   **Who stamps:** Cos craft FAIL before Adv; UX Critic grades; QA stop on ship / Look / visual
   pack gates. Adv challenges / names SoT — does not replace Cos/UX/QA stamp. **Metric (fail closed):**
   visitor/user-facing surfaces shipping AI-slop = **fail closed**. Soft / deferred / tip /
-  wiki-scar-only = **REJECTED**. **Scope:** all product UX — **not** OpenClaw. **P0:** no
+  wiki-scar-only = **REJECTED**. **Scope:** all product UX — **not** external-runtime briefs. **P0:** no
   Keep private operator data out of AG git. Out of scope: rewriting live marketing pixels in this tip;
-  OpenClaw briefs. SoT: `harnesses/ux.md` (primary) + `harnesses/qa.md` +
+  external-runtime briefs. SoT: `harnesses/ux.md` (primary) + `harnesses/qa.md` +
   `harnesses/chief-of-staff.md`; UX Critic + CX / Evaluative pointers + flat `agents/ux-*`
   copies; adversarial-ux skill pointer; design-system Brand Voice lexicon pointer; CoE Already
   LIVE + spec §5.2 / §5.4 / §13.6 index pointers.
@@ -50,21 +50,21 @@ Do not treat this file as the product changelog. Product notes live in
   only — **not** product UX Check 7 / Check 8 / Check 9. Closes residual named
   unpaid in question-wait-guard [#66](https://github.com/paulthorson/agentic-governance/pull/66).
   Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`). Keep private operator data out of AG git.
-- **OpenClaw question-wait-guard scar SoT** (docs only; `QUESTION_WAIT_GUARD`;
+- **External-runtime question-wait-guard scar SoT** (docs only; `QUESTION_WAIT_GUARD`;
   question-wait-guard script + cron every 2 min; main session `blocked_tool_call`
   hangs ≥120s without auto-abort = **0** hold) — CLOSED harness scar SoT (Studio
   private / product brief — OUT of framework repo). CLOSED harness scar for
   `agent:main:main` hung on masked-token / secret `question.waitAnswer` (default
-  15m timeout too long). Scope: OpenClaw Studio session ops only — **not** product
+  15m timeout too long). Scope: external-runtime session ops only — **not** product
   UX Check 7 / Check 8. Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`).
   Keep private operator data out of AG git.
-- **OpenClaw gateway single-owner + stale-install recycle scar SoT** (docs only;
+- **External-runtime gateway single-owner + stale-install recycle scar SoT** (docs only;
   `GATEWAY_SINGLE_OWNER` + `STALE_INSTALL_RECYCLE`; gateway-health-guard–style
   scheduled sensor; competing gateway process count = **0** hold while LaunchAgent
   loaded) — CLOSED harness scar SoT (Studio private / product brief — OUT of
   framework repo). CLOSED
   harness scar for dual-owner recycle races + install-changed `UNAVAILABLE` under a
-  long-lived PID. Scope: OpenClaw Studio gateway ops only — **not** product UX
+  long-lived PID. Scope: external-runtime gateway ops only — **not** product UX
   Check 7 / Check 8. Draft until Cos ACCEPT after Adv (`LIVE_SOT_MERGED_SHA`).
   Keep private operator data out of AG git.
 - **Check 9 / `INITIATIVE_START_SEQUENCE` (operator LOCK Cos plain 2026-09-15 — now LIVE via [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`):**
@@ -77,7 +77,7 @@ Do not treat this file as the product changelog. Product notes live in
   Stacks on LIVE `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45)
   @ `ead012f` + UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull/48) @
   `e9b4827` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — addition, not replacement. Scope: product
-  UX Initiatives only — **not** OpenClaw. Check 9 free on main (no collision). Supersedes draft
+  UX Initiatives only — **not** external-runtime briefs. Check 9 free on main (no collision). Supersedes draft
   [#49](https://github.com/paulthorson/agentic-governance/pull/49) (Gothelf without check id).
   **Metric (fail closed):** Eng handoffs missing Research Scope cite, signed Brand & Design Setup, or
   UX Canvas (boxes 1–8) = **fail closed**. Do not treat a narrative pass as acceptance. SoT: `harnesses/qa.md` + UX/Research
@@ -100,7 +100,7 @@ Do not treat this file as the product changelog. Product notes live in
   merge blockers): claims · telemetry · install promises · auth · license · public marketing face ·
   data collection. **Who stamps:** Cos stamp; **operator on novel legal**. Cos flags operator; Cos does not
   draft legal. **Metric (fail closed):** skipped Cos checklist after material framework change = **fail closed**; agent-drafted legal = **fail closed**. **Scope:** AG framework / product release path — not
-  OpenClaw (unless `SURFACE_GATE_MATRIX`). Check 9 stays fail-closed; Cos memory install ASK stays.
+  external runtime (unless `SURFACE_GATE_MATRIX`). Check 9 stays fail-closed; Cos memory install ASK stays.
   SoT: `harnesses/chief-of-staff.md` + CoE Already LIVE.
 
 - **Eng extract execute status (Class A companion):** After Eng plan [#56](https://github.com/paulthorson/agentic-governance/pull/56) **Cos ACCEPT MERGED LIVE** @ `e7bb36e` — extract execute **GO** (site-repo extract continues **in parallel**). Site face → `paulthorson/agentic-governance-site`; this repo remains feed/corpus publisher + framework download. Path: `docs/initiatives/marketing-site-extract-execute.md`. Settled Get AG posture: Apache-2.0 only; no acceptance gate.
@@ -147,7 +147,7 @@ Do not treat this file as the product changelog. Product notes live in
   Eng; design system + Experience + Branding lead Initiative; **engineering follows signed
   craft**). Design system is the **FIRST Initiative deliverable** for **every product UX +
   Research seat** (every product seat, and
-  future) — **not OpenClaw.** **Bar / order:** bake DS before any web / UI pixels / stills /
+  future) — **not external-runtime briefs.** **Bar / order:** bake DS before any web / UI pixels / stills /
   screens; Research + UX collaborate; Cos signoff in early Initiative. Agency design thinking
   (restraint, hierarchy, type, space, one strong quiet option) is **permanent UX brain** —
   stacks `DESIGN_AGENCY_BAR`; not a one-off splash tip. **Required `design-system.md`
@@ -169,14 +169,14 @@ Do not treat this file as the product changelog. Product notes live in
   ACCEPT merge. Do **not** mark LIVE until Cos ACCEPT MERGED SHA. Cite prior locks:
   DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`; RESEARCH_HCI **#38** @ `214ed5b`. **P0:** no
   Keep private operator data out of AG git. Out of scope: inventing a token feed; filling a concrete
-  product Initiative `design-system.md`; OpenClaw briefs; amending prior stills PNGs. SoT:
+  product Initiative `design-system.md`; external-runtime briefs; amending prior stills PNGs. SoT:
   `harnesses/ux.md` + `harnesses/researcher.md`; template; adversarial-ux /
   adversarial-researcher critic tables + Adv pointers + flat `agents/*` copies; skill
   pointers; CoE + spec Section 5.0 / 5.2 index pointers.
 
 - **Draft SoT: `DESIGN_AGENCY_BAR` — not live / not effective until Cos ACCEPT merge.** Cos
   LOCK operator agency craft bar for **every product UX seat** — **product UX stills / public marketing
-  faces only; not OpenClaw briefs.** **Bar:** design as if from a top agency — restraint,
+  faces only; not external-runtime briefs.** **Bar:** design as if from a top agency — restraint,
   hierarchy, type, space, micro-interaction; prefer **one strong quiet option** (Apple / Linear
   restraint SoT) over stacking effects. **Stack:** addition on `RESEARCH_HCI` +
   `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via
@@ -200,7 +200,7 @@ Do not treat this file as the product changelog. Product notes live in
 
 - **Draft SoT: `RESEARCH_HCI` — not live / not effective until Cos ACCEPT merge.** Master's
   HCI craft bar for **every product Research seat** — **Product UX Research only;
-  not OpenClaw briefs; not AG-dashboard-only.** **Stack:** addition on
+  not external-runtime briefs; not AG-dashboard-only.** **Stack:** addition on
   `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — **not** a replacement; cite-real-screens still
   required. **Bar:** fundamentals **THEN** opened comps — type, space, hierarchy, gestalt,
   info-viz, Fitts / Hick / Jakob with craft analysis; expert comps opened and cited (for
@@ -235,7 +235,7 @@ Do not treat this file as the product changelog. Product notes live in
   replacement; audits the other five locks (`CRITIC_SEPARATE_STAMP`, `TOKEN_SOURCE_OR_BLANK`,
   `RETRO_BEFORE_CLOSE`, `LIVE_SOT_MERGED_SHA`, `SURFACE_GATE_MATRIX`) once SoT-live — this PR
   does **not** define those five. **Scope:** AG harness + Cos improve digest / self-heal —
-  **not** OpenClaw briefs. **Metrics (fail closed):** Cos/operator hand-recommended AG meta-gaps the
+  **not** external-runtime briefs. **Metrics (fail closed):** Cos/operator hand-recommended AG meta-gaps the
   last audit should have fail-closed = **0**; nag-only cycles (no unpaid item and no
   `AUDIT_CLEAR`) = **0**. Keep private operator data out of AG git. Soft / deferred / tip / wiki-scar-only = REJECTED. SoT:
   `harnesses/chief-of-staff.md`; digest pointer `docs/improve/README.md`; light Adv challenge
@@ -252,35 +252,35 @@ Do not treat this file as the product changelog. Product notes live in
      silent dual-hat = FAIL. Sensor: Critic template filed as **CRITIC** (isolated); if no
      Critic bot, Adv runs critic.md second pass labeled CRITIC — not folded into ADV prose.
      Stack: Check 7 + Check 8 + `ADV_COMP_CRITIQUE` (Critic grades; Adv challenges). Scope:
-     product UX jury; all product teams; not OpenClaw. Metric: Adv-only stamps on Checks 7–8
+     product UX jury; all product teams; not external-runtime briefs. Metric: Adv-only stamps on Checks 7–8
      = **fail closed**.
   2. **`TOKEN_SOURCE_OR_BLANK`** — Slot: Critic Check 1 + `design.md` `token_source` /
      improve-digest path. FAIL: Check 1 PASS while UNSET; invented tokens; blank-as-measured.
      Sensor: Check 1 = UNVERIFIABLE (never PASS) when UNSET; digests cite named source or
      **BLANK**. Stack: on Check 1 / design.md — does not invent token feed or replace
-     `RESEARCH_BEFORE_ENHANCE`. Scope: AG improve digests + product UX Check 1; not OpenClaw.
+     `RESEARCH_BEFORE_ENHANCE`. Scope: AG improve digests + product UX Check 1; not external-runtime briefs.
      Metric: invented or blank-as-measured token reports = **fail closed**.
   3. **`RETRO_BEFORE_CLOSE`** — Slot: Cos/CEO close gate (not a Critic Check). FAIL: epic
      CLOSED / next-pack GO without triad retro in AG git. Sensor:
      `projects/<team>/retros/<epic-or-date>.md` (well / didn't / improve); tip/scar/wiki ≠
      sensor. Stack: after ship/close; does not replace Check 7/8 / `RESEARCH_BEFORE_ENHANCE`.
-     Scope: all product teams; OpenClaw keeps scars (do not force product retro path). Metric:
+     Scope: all product teams; BYOE seats keep scars (do not force product retro path). Metric:
      Cos-closed epics missing retro = **fail closed**.
   4. **`LIVE_SOT_MERGED_SHA`** — Slot: Studio→AG→Cos ACCEPT + Adv challenge. FAIL: treating
-     intake / open PR / draft / muse as live operator LOCK; only Cos ACCEPT + merged SHA is live
+     intake / open PR / draft as live operator LOCK; only Cos ACCEPT + merged SHA is live
      (precedent `#13` intake ≠ SoT). Sensor: cite merged SHA/PR; draft headers say not live /
      not effective until Cos ACCEPT merge. Stack: liveness only — does not replace Check 7/8 /
-     `RESEARCH_BEFORE_ENHANCE` content. Scope: AG harness writes + all product teams + OpenClaw
+     `RESEARCH_BEFORE_ENHANCE` content. Scope: AG harness writes + all product teams + external runtime
      ops citing AG law. Metric: teams executing unmerged intake as SoT = **fail closed**.
   5. **`SURFACE_GATE_MATRIX`** — Slot: Scope lines in ux/qa harnesses, Critic Checks 6/7/8,
-     OpenClaw brief docs. FAIL: product-UX gates on OpenClaw briefs, or omitted on product
+     external-runtime brief docs. FAIL: product-UX gates on external-runtime briefs, or omitted on product
      surfaces. Matrix: Product UX = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 +
-     `ADV_COMP_CRITIQUE`; OpenClaw = `MORNING_BRIEF_CITE_OR_BLANK` only. Sensor: named Scope
+     `ADV_COMP_CRITIQUE`; external runtime = `MORNING_BRIEF_CITE_OR_BLANK` only. Sensor: named Scope
      lines; wrong-surface FAIL explicit. Stack: binds existing stacks — replaces none. Scope:
-     all teams. Metric: OpenClaw briefs failed for missing userflows/stills = **fail closed**.
+     all teams. Metric: external-runtime briefs failed for missing userflows/stills = **fail closed**.
   SoT: `harnesses/ux.md`, `harnesses/qa.md`, `harnesses/ceo.md`, `harnesses/chief-of-staff.md`;
   adversarial-ux/qa critics + flat copies; `design.md`; improve README/template; workflow
-  skills; OpenClaw README + morning-brief scar cross-ref; product-seat retros pointer.
+  skills; external-runtime README + morning-brief scar cross-ref; product-seat retros pointer.
 
 - **Draft SoT: `VISUAL_STEP_STILLS` (Critic Check 8) — not live / not effective until Cos
   ACCEPT merge.** Fail-closed visual step-stills sensor for product UX ship / Look / visual
@@ -295,7 +295,7 @@ Do not treat this file as the product changelog. Product notes live in
   (primary CTA wrap, chrome colliding with CTA, theme control stealing CTA row) = **0**.
   **Scope:** product UX surfaces only (marketing + app chrome); **all** product UX teams
   (every product UX team, and any
-  other product UX team) — **not** OpenClaw briefs. **P0:** Keep private operator data out of AG git
+  other product UX team) — **not** external-runtime briefs. **P0:** Keep private operator data out of AG git
   paths in AG git. **Named FAIL (no etc.):** CLS/layout (CTA wrap/shift when theme/chrome
   loads; reserved-space missing for theme control; dynamic banner pushes hero CTA); Fitts
   (CTA shrinks/splits; theme toggle in CTA cluster); Hick (>1 competing primary in same thumb
@@ -311,7 +311,7 @@ Do not treat this file as the product changelog. Product notes live in
   key error/empty, exits) + `jtbd.md` + Research cite, **or** explicit `NO_RESEARCH` →
   escalate to human (do not invent). Check 7 is **stacked on `RESEARCH_BEFORE_ENHANCE`**,
   not a replacement. Metric: UX epics missing those at Critic = **fail closed**. Scope:
-  product UX epics only — **not** OpenClaw briefs. Keep private operator data out of AG git. Stop
+  product UX epics only — **not** external-runtime briefs. Keep private operator data out of AG git. Stop
   conditions for missing/misaligned artifacts; CX Advocate + Evaluative UXR treat Mermaid
   flows as the flow under review and note when not checked vs research. SoT:
   `harnesses/ux.md`; adversarial-ux critic/advocates + flat `agents/ux-*` copies.
@@ -326,16 +326,16 @@ Do not treat this file as the product changelog. Product notes live in
   or URLs (no private operator data) **and** ≥1 hole in our UI **and** ≥1 hole in a
   competitor screen **and** one do-not-copy gap — Pack/Look FAIL if no opened-screen cites.
   Comps are not gospel. Metric: enhancement packs without cited real-screen evidence = fail closed.
-  Scope: product UX/Research + adversarial UX jury (not OpenClaw morning-brief). SoT:
+  Scope: product UX/Research + adversarial UX jury (not external-runtime morning-brief). SoT:
   `constitution/domains/ux.md`, `constitution/domains/researcher.md`,
   `projects/_standing/scars/research-before-enhance.md`, adversarial-ux agents + desk-research
   pointers. Keep private operator data out of AG git.
-- **OpenClaw morning-brief cite-or-blank scar SoT** (docs only;
+- **external-runtime morning-brief cite-or-blank scar SoT** (docs only;
   `MORNING_BRIEF_CITE_OR_BLANK` Rule 2 A; `validate-brief-grounding.py`
   fail-closed before Discord) — CLOSED harness scar SoT (Studio private /
   product brief — OUT of framework repo). CLOSED harness scar
-  for invented meetings after KICK_BACK+rewrite; OpenClaw morning briefs only.
-- **OpenClaw bridge-guard false-clobber scar SoT** (docs only; structural vs
+  for invented meetings after KICK_BACK+rewrite; external runtime morning briefs only.
+- **external runtime bridge-guard false-clobber scar SoT** (docs only; structural vs
   content check named) — CLOSED harness scar SoT (Studio private / product
   brief — OUT of framework repo).
 - **Dashboard public + admin split.** Same Vercel deploy (`dashboard/`): public
@@ -346,10 +346,10 @@ Do not treat this file as the product changelog. Product notes live in
   honest Baseline / unpaid token placeholders, cycle-time tables, improve
   report detail, raw traction (including below `minVisible`), and anonymized
   scar index — never invents live token/$ numbers; no Studio PII.
-- **OpenClaw pin-enforce scar SoT** — CLOSED harness scar SoT (Studio private /
+- **external runtime pin-enforce scar SoT** — CLOSED harness scar SoT (Studio private /
   product brief — OUT of framework repo) (docs only; Cos
-  canonicalizes on OpenClaw Eng’s draft, not Bridge paste). CLOSED harness scar
-  for silent downgrade via nightly `npm update -g openclaw` vs pin; documents
+  canonicalizes on external-runtime briefs Eng’s draft, not Bridge paste). CLOSED harness scar
+  for silent downgrade via nightly `npm update -g <external-runtime>` vs pin; documents
   the pin-enforce process lock only — no framework-policy invention beyond that
   lock.
 - **Continuous improve reporting path.** Daily markdown reports live under

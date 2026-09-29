@@ -21,7 +21,7 @@ lint_command: UNSET # e.g. pnpm lint
 typecheck_command: UNSET # e.g. pnpm typecheck
 build_command: UNSET # e.g. pnpm build
 ci_provider: UNSET # e.g. github-actions
-config_validate_command: UNSET # e.g. "openclaw config validate" for gateway config
+config_validate_command: UNSET # e.g. "config validate" for gateway config
 last_verified: UNSET
 ```
 

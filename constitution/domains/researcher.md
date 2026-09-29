@@ -81,7 +81,7 @@ decision, the entry says so and routes to the human gate.
    this AG repo. **Named sensor (`cite-real-screens`):** fail-closed (a scar/wiki page is not
    the gate). Missing cites → Adv FAIL; Cos / QA / CEO reject. Secondary: `evidence.md` before
    first story = **required**. Metric: enhancement packs without cited real-screen evidence =
-   **0** (hold). Scope: product UX / Research (not OpenClaw morning-brief gate; not Eng-only
+   **0** (hold). Scope: product UX / Research (not external-runtime morning-brief gate; not Eng-only
    bugs with no UI). When the pack hits adversarial UX, Clause B (`ADV_COMP_CRITIQUE` /
    `adv-comp-critique`) in `constitution/domains/ux.md` also applies. Scar SoT (docs only):
    `projects/_standing/scars/research-before-enhance.md`.

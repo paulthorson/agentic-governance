@@ -132,7 +132,7 @@ Tone, vocabulary (**lexicon**), headline patterns, and narrative drill-down voic
   journey, revolutionize, cutting-edge; twin-attribute cadence; synthetic brochure / AI-slop
   pitch. **Bar:** Human / Substack / Direct founder voice only on visitor/user-facing product
   surfaces. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**. Stacks
-  `DESIGN_AGENCY_BAR`. Not OpenClaw.
+  `DESIGN_AGENCY_BAR`. Not external-runtime briefs.
 
 ### Headline patterns
 - Pattern A:

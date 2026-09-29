@@ -6,7 +6,7 @@
 ## Context
 
 The review loop lives in the framework files. Any agent (Claude, Cursor,
-OpenClaw) that wants to run a review must re-read the framework. An MCP server
+external runtime) that wants to run a review must re-read the framework. An MCP server
 exposes the loop as callable tools.
 
 ## Decision

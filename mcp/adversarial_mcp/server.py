@@ -1,7 +1,7 @@
 """Adversarial Agents MCP server.
 
 Exposes the adversarial review framework as callable MCP tools so any agent
-(Claude, Cursor, OpenClaw, or a custom client) can run a governed review,
+(Claude, Cursor, external runtime, or a custom client) can run a governed review,
 check a hard veto, record/query verdicts, and inventory the framework.
 
 The server reads the framework directly from the repo layout:

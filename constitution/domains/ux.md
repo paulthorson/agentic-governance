@@ -114,7 +114,7 @@ These apply to every run and need no adversary to raise them.
    opened-screen cites, **or** the jury artifact omits our-hole / competitor-hole /
    do-not-copy, **or** the jury treated comps as uncriticizable gospel.
 
-   Scope: product UX / Research + adversarial UX jury (not OpenClaw morning-brief gate; not
+   Scope: product UX / Research + adversarial UX jury (not external-runtime morning-brief gate; not
    Eng-only bugs with no UI). Scar SoT (docs only — not the gate):
    `projects/_standing/scars/research-before-enhance.md`.
 

@@ -54,13 +54,13 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 #### `SURFACE_GATE_MATRIX`
 
 - **Id:** `SURFACE_GATE_MATRIX`
-- **Slot:** Cross-cutting Scope lines in `harnesses/ux.md`, this harness, Critic Checks 6/7/8, OpenClaw brief sensor docs.
-- **FAIL:** Applying product-UX gates to OpenClaw briefs, **or** omitting product-UX gates on product surfaces.
-- **Matrix:** **Product UX** = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. **OpenClaw briefs** = `MORNING_BRIEF_CITE_OR_BLANK` only.
+- **Slot:** Cross-cutting Scope lines in `harnesses/ux.md`, this harness, Critic Checks 6/7/8, external-runtime brief sensor docs.
+- **FAIL:** Applying product-UX gates to external-runtime briefs, **or** omitting product-UX gates on product surfaces.
+- **Matrix:** **Product UX** = `RESEARCH_BEFORE_ENHANCE` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE`. **external-runtime briefs** = `MORNING_BRIEF_CITE_OR_BLANK` only.
 - **Sensor:** Harness/critic Scope lines name this matrix; wrong-surface FAIL is explicit.
 - **Stack:** Documents/binds existing stacks — does **not** replace any named gate. Check 8 is **LIVE** via `#15` / `d61f4c1` — this lock only binds surface routing; do not reopen Check 8.
 - **Scope:** All teams.
-- **Metric:** OpenClaw briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
+- **Metric:** external-runtime briefs failed for missing userflows/stills = **fail closed** (false-FAIL count).
 - **P0:** Keep private operator data out of AG git.
 
 #### `CRITIC_SEPARATE_STAMP` (when QA gates)
@@ -70,7 +70,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **FAIL:** Visual / Check 7–8 gates lack a distinct Critic-labeled verdict artifact/run separate from Adv; silent dual-hat = FAIL.
 - **Sensor:** QA Critic template block filed as **QA CRITIC** / **CRITIC** (isolated pass). If no Critic bot: Adv runs critic.md second pass labeled **CRITIC** — not folded into ADV prose.
 - **Stack:** On Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) + `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat unpaid note OK. Does **not** reopen Check 8.
-- **Scope:** Product UX jury / QA gates; all product teams; **not** OpenClaw briefs.
+- **Scope:** Product UX jury / QA gates; all product teams; **not** external-runtime briefs.
 - **Metric:** Adv-only stamps on Checks 7–8 = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -78,11 +78,11 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 
 - **Id:** `LIVE_SOT_MERGED_SHA`
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge (liveness only).
-- **FAIL:** Treating intake / open PR / draft / muse as live operator LOCK or harness law. Only Cos ACCEPT + merged SHA is live. Precedent: `#13` intake ≠ SoT.
+- **FAIL:** Treating intake / open PR / draft as live operator LOCK or harness law. Only Cos ACCEPT + merged SHA is live. Precedent: `#13` intake ≠ SoT.
 - **Sensor:** SoT claims cite merged commit SHA (or merged PR number); open/draft headers say **not live / not effective until Cos ACCEPT merge**.
 - **Stack:** Gates Cos ACCEPT; does not replace Check 8 content (**LIVE** via `#15` /
   `d61f4c1`) — only liveness of *these five* locks. Do not reopen Check 8.
-- **Scope:** AG harness writes + team execution; all product teams + OpenClaw ops that cite AG law.
+- **Scope:** AG harness writes + team execution; all product teams + external-runtime ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -95,7 +95,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **When:** QA ship / Look / visual pack gates on product UX surfaces (after Check 7 Eng-handoff artifacts exist when applicable).
 - **Who:** QA owns stills sensor; UX Critic Check 8 grades presence + FAIL criteria; Adv opens best-in-class comps and files ≥1 OUR hole + ≥1 COMP hole + do-not-copy (theme-on-CTA-row, dynamic-banner CLS). Comps are not gospel.
 - **Stack:** Addition on `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + Critic Check 7 + `ADV_COMP_CRITIQUE` — **not** a replacement.
-- **Scope:** Product UX surfaces only (marketing + app chrome). **All** product UX teams (every product UX team). **Not** OpenClaw briefs.
+- **Scope:** Product UX surfaces only (marketing + app chrome). **All** product UX teams (every product UX team). **Not** external-runtime briefs.
 - **Metrics (fail closed):**
   - Visual QA packs / ship gates without per-step mobile **and** desktop stills = **fail closed**.
   - Marketing/dashboard layout-shift Highs (primary CTA wrap, chrome colliding with CTA, theme control stealing CTA row) = **fail closed**.
@@ -118,7 +118,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **When:** QA ship / Look / visual pack gates on product UX surfaces (with Cos craft FAIL before Adv).
 - **Who stamps:** Cos craft FAIL before Adv; UX Critic grades; QA records FAIL in results and does not ship-pass. Adv names SoT — does not replace Cos/UX/QA stamp.
 - **Stack:** Addition on `DESIGN_AGENCY_BAR` (**LIVE** via `#43` / `7e9e0b6`) + Brand Voice / `DESIGN_SYSTEM_FIRST` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — **not** a replacement.
-- **Scope:** Product UX surfaces only (marketing + app chrome copy). **All** product UX teams. **Not** OpenClaw briefs.
+- **Scope:** Product UX surfaces only (marketing + app chrome copy). **All** product UX teams. **Not** external-runtime briefs.
 - **Metrics (fail closed):** visitor/user-facing surfaces shipping AI-slop = **fail closed**. Do not treat a narrative pass as acceptance.
 - **P0:** Keep private operator data out of AG git.
 - **Harness SoT (primary):** `harnesses/ux.md` (`AI_SLOP_COPY_FAIL`). Cos pointer: `harnesses/chief-of-staff.md`.
@@ -141,7 +141,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
 - **When:** QA ship / Look / visual pack / docs ship gates on visitor-facing public surfaces (with Cos craft FAIL before Adv when copy is in scope).
 - **Who stamps:** Cos craft FAIL before Adv when visitor copy is touched; QA records FAIL in results and does not ship-pass; Adv names SoT — does not replace Cos/QA stamp. Visitor copy touched requires `skills/doc-framework-technical-writing/SKILL.md`.
 - **Stack:** Addition on `AI_SLOP_COPY_FAIL` (draft) + `FRAMEWORK_TECH_WRITING` (**LIVE** via `#177` / `3c8404b`) — **not** a replacement. Does not reopen Get-AG HOLD site copy (Cos-owned tip) or Install tip [#186](https://github.com/paulthorson/agentic-governance/issues/186).
-- **Scope:** **Fleet / vanilla** — any product visitor face / fleet public chrome across installs (marketing sites + product README/SECURITY/CHANGELOG human face/seat cards/footers for any install). **Not** AG-site-only. **Not** OpenClaw briefs. Vanilla public SoT — no product / vendor brand names; no operator PII; no incident narrative; anonymized scar only.
+- **Scope:** **Fleet / vanilla** — any product visitor face / fleet public chrome across installs (marketing sites + product README/SECURITY/CHANGELOG human face/seat cards/footers for any install). **Not** AG-site-only. **Not** external-runtime briefs. Vanilla public SoT — no product / vendor brand names; no operator PII; no incident narrative; anonymized scar only.
 - **Metrics (fail closed):** visitor-facing public chrome shipping internal note voice / named FAIL lexicon = **fail closed**. Do not treat a narrative pass as acceptance.
 - **P0:** Keep private operator data out of AG git.
 - **Harness SoT (primary):** `harnesses/qa.md` (`VISITOR_FACE_NO_OPS_MEMO`). CoE Already LIVE + cos-memory locks cite [#188](https://github.com/paulthorson/agentic-governance/pull/188) @ `757cf2a`.
@@ -164,7 +164,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**. A sca
   7. What’s the most important thing we need to learn first?
   8. What’s the least amount of work to learn the next most important thing?
 - **Stack:** Addition on LIVE `DESIGN_SYSTEM_FIRST` [#45](https://github.com/paulthorson/agentic-governance/pull/45) @ `ead012f` + UX Canvas name [#48](https://github.com/paulthorson/agentic-governance/pull/48) @ `e9b4827` + Check 7 + Check 8 (`VISUAL_STEP_STILLS`) — **not** a replacement. Does not reopen Check 7/8.
-- **Scope:** Product UX Initiatives only. **Not** OpenClaw.
+- **Scope:** Product UX Initiatives only. **Not** external-runtime briefs.
 - **Metrics (fail closed):** Eng handoffs missing Research Scope cite, signed Brand & Design Setup, or UX Canvas (boxes 1–8) = **fail closed**. Do not treat a narrative pass as acceptance.
 - **P0:** Keep private operator data out of AG git.
 - **Supersedes:** Draft [#49](https://github.com/paulthorson/agentic-governance/pull/49) (Gothelf lock without a check id) — this tip absorbs Gothelf **and** adds standing Check 9.
@@ -182,7 +182,7 @@ QA records Named fail when / multi-agent packs violate the four rules (from **up
 
 **fail lexicon (named — Do not treat a narrative pass as acceptance via narrative REJECTED):** `fake-edge` · `fake-diamond` · `sequential swarm` · `amp without merge owner` · `spawn theater` · `gate theater` · Do not treat a narrative pass as acceptance via narrative.
 
-**HARD absorb (Cos-owned post-merge):** After LIVE merge Cos tips Muse + OpenClaw; one-line ACK each before fleet-live.. QA does not stamp fleet-live.
+**HARD absorb (Cos-owned post-merge):** After LIVE merge Cos tips BYOE seats; one-line ACK each before fleet-live.. QA does not stamp fleet-live.
 
 - **Id / named check:** `TASK_GRAPH_ORCHESTRATION`
 - **Who stamps:** QA records Named fail in results; Cos/Eng own topology; Adv Soft rematch (Do not treat a narrative pass as acceptance). Cos owns HARD absorb tip+ACK after LIVE.
@@ -203,7 +203,7 @@ QA records a miss when public framework text under review lists personal product
 - **When:** QA ship / docs ship gates on public framework git (tips, harness cites, standing notes, templates).
 - **Who stamps:** Cos primary vanilla gate; QA records FAIL in results and does not ship-pass; Adv may challenge. Does not replace `WORKING_AGREEMENT_FLEET` VANILLA LOCK or `COS_FEEDBACK_TO_IMPROVE` anonymize.
 - **Stack:** Addition on `WORKING_AGREEMENT_FLEET` VANILLA LOCK + `COS_FEEDBACK_TO_IMPROVE` **LIVE** [#87](https://github.com/paulthorson/agentic-governance/pull/87) @ `2ab4b17` — **not** a replacement.
-- **Scope:** **Fleet / vanilla** public AG git. **Not** OpenClaw briefs. **Not** a filled index inside a product repository.
+- **Scope:** **Fleet / vanilla** public AG git. **Not** external-runtime briefs. **Not** a filled index inside a product repository.
 - **Metric (fail closed):** public AG tips that list personal product names or private product paths = **0**. Do not treat a narrative pass as acceptance.
 - **P0:** Keep private operator data out of AG git.
 - **Harness SoT (primary):** `harnesses/chief-of-staff.md`. Standing note: `projects/_standing/scars/multi-project-local-registry.md`. Template: `docs/templates/product-repo-projects.md`.
@@ -213,12 +213,12 @@ QA records a miss when public framework text under review lists personal product
 - If acceptance criteria are untestable as written, stop and escalate rather than inventing an interpretation.
 - On product UX visual pack / ship / Look gates: if `docs/epics/<slug>/qa/visual-stills/` or `docs/epics/<slug>/qa/visual-qa.md` is missing, or any flow step lacks both mobile and desktop screenshots — stop; do not pass the gate. Escalate rather than substituting a scar page or tip.
 - If stills show a named FAIL (CLS/layout, Fitts, Hick, Jakob as listed above) — stop; record FAIL in results; do not ship-pass.
-- On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — stop; record FAIL in results; do not ship-pass. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Do not apply to OpenClaw. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
-- On visitor-facing public chrome across installs (`VISITOR_FACE_NO_OPS_MEMO`, **LIVE** [#188](https://github.com/paulthorson/agentic-governance/pull/188) @ `757cf2a` / story [#187](https://github.com/paulthorson/agentic-governance/issues/187)): if copy reads like an internal note / internal note, or contains a named FAIL (“Operator decides…”, authorized-access lectures, “Source path:” diaries, ALL-CAPS HOLD theater, Cos / Soft / Tip process slang, harness-only “Note” asides) — stop; record FAIL in results; do not ship-pass. Honest short private-repo language OK when measured. Do not treat a narrative pass as acceptance. Fleet — any product visitor face; vanilla — no product laundry. Do not apply to OpenClaw. Do not treat this tip as authority to rewrite Get-AG HOLD site copy or reopen Install tip #186. Metric: visitor-facing public chrome shipping internal note voice = **fail closed**.
+- On visitor-facing or user-facing product surfaces (`AI_SLOP_COPY_FAIL`, draft until Cos ACCEPT): if copy is AI-slop / synthetic brochure voice, or uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute cadence — stop; record FAIL in results; do not ship-pass. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Do not apply to external-runtime briefs. Metric: visitor/user-facing surfaces shipping AI-slop = **fail closed**.
+- On visitor-facing public chrome across installs (`VISITOR_FACE_NO_OPS_MEMO`, **LIVE** [#188](https://github.com/paulthorson/agentic-governance/pull/188) @ `757cf2a` / story [#187](https://github.com/paulthorson/agentic-governance/issues/187)): if copy reads like an internal note / internal note, or contains a named FAIL (“Operator decides…”, authorized-access lectures, “Source path:” diaries, ALL-CAPS HOLD theater, Cos / Soft / Tip process slang, harness-only “Note” asides) — stop; record FAIL in results; do not ship-pass. Honest short private-repo language OK when measured. Do not treat a narrative pass as acceptance. Fleet — any product visitor face; vanilla — no product laundry. Do not apply to external-runtime briefs. Do not treat this tip as authority to rewrite Get-AG HOLD site copy or reopen Install tip #186. Metric: visitor-facing public chrome shipping internal note voice = **fail closed**.
 - If screenshot paths or index text would require private operator data in AG git — stop; redact and use relative epic paths only.
 - On public AG framework git (`MULTI_PROJECT_LOCAL_REGISTRY`, draft until Cos ACCEPT): if the text under review lists personal product names, private product paths, or other operator PII, or copies a filled product-repo project index into this repo — **stop**; record FAIL; do not ship-pass. Public AG may show placeholders (`Project A` / `path/to/a/`) only. fail / **fail closed**. Do not treat a narrative pass as acceptance. Stacks `WORKING_AGREEMENT_FLEET` VANILLA LOCK + `COS_FEEDBACK_TO_IMPROVE` — not a second SoT.
 - On product UX QA gates for Checks 7–8 / visual sensor: if there is no distinct **CRITIC**-labeled verdict artifact/run separate from Adv — stop; FAIL under `CRITIC_SEPARATE_STAMP` (draft until Cos ACCEPT).
-- Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` / `AI_SLOP_COPY_FAIL` / `VISITOR_FACE_NO_OPS_MEMO` to OpenClaw briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). OpenClaw briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.
+- Do not apply Check 7 / Check 8 / `VISUAL_STEP_STILLS` / Check 9 / `INITIATIVE_START_SEQUENCE` / `AI_SLOP_COPY_FAIL` / `VISITOR_FACE_NO_OPS_MEMO` to external-runtime briefs (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT). external-runtime briefs use `MORNING_BRIEF_CITE_OR_BLANK` only.
 - On product UX Initiative Eng handoff: if Research Scope (Q1–Q8) cite is missing, or Brand & Design Setup / Cos-signed `design-system.md` is missing, or UX Canvas (Gothelf Lean UX Canvas v2 boxes 1–8) is missing — stop; **FAIL** under Check 9 / `INITIATIVE_START_SEQUENCE` (**LIVE** [#64](https://github.com/paulthorson/agentic-governance/pull/64) @ `a9a4327`). Do not treat a narrative pass as acceptance. Adv naming SoT does not clear this stop without **QA + Cos** stamp.
 - Do not treat draft / intake / open-PR SoT as live until Cos ACCEPT merge cites a merged SHA (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT).
 - On / multi-agent topology (`TASK_GRAPH_ORCHESTRATION`, draft until Cos ACCEPT of AG [#196](https://github.com/paulthorson/agentic-governance/issues/196)): if results show **fake-edge**, **fake-diamond**, **sequential swarm**, **amp without merge owner**, **spawn theater**, **gate theater**, or Do not treat a narrative pass as acceptance via narrative — **stop**; record Named fail; do not ship-pass. Do not treat a narrative pass as acceptance. Provenance: https://github.com/codejunkie99/graph-engineering/blob/master/graph-engineering/references/task-graphs.md — **upstream task-graphs reference**. Cite LIVE `EXTERNAL_SIDE_EFFECT_GO_GATE` id only for external-action stack.

@@ -1,7 +1,7 @@
 # Approval must be content-pinned and self-invalidating
 
 2026-09-13 — from the Initiative 05 application-studio build
-(`muse/2026-09-13/roadmap-exec/init-05/ws4`, engineer domain, ALLOW).
+(`contributor/2026-09-13/roadmap-exec/init-05/ws4`, engineer domain, ALLOW).
 
 ## What happened
 

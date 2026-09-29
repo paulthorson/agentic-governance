@@ -4,7 +4,7 @@
 **Cos GO:** 2026-09-13 — public dashboard FAIL on look; Research evidence SoT before Check 7/8 or Eng UI. 
 **Ownership:** AG Research owns this pack. AG UX owns Check 7 (flows/JTBD) and Check 8 (stills) after — **not in this PR**. 
 **Live surface audited:** https://www.agenticgovernance.app 
-**Scope:** ADV_COMP evidence for the public marketing+ops face only (not OpenClaw briefs, not localhost metrics admin, not Check 7/8 artifacts, not Eng UI). 
+**Scope:** ADV_COMP evidence for the public marketing+ops face only (not external-runtime briefs, not localhost metrics admin, not Check 7/8 artifacts, not Eng UI). 
 **No Check 7/8 in this PR.**
 
 ---
@@ -142,7 +142,7 @@ Supporting ops-board stills (card chrome / spark vocabulary, not toast): [Stripe
 ## 9. Constraints locked by Cos (2026-09-13)
 
 - No invented KPI / token / money / visitor / revenue numbers.
-- Public `/` = marketing + ops face (not admin, not Studio PII, not OpenClaw brief chrome).
+- Public `/` = marketing + ops face (not admin, not Studio PII, not external-runtime brief chrome).
 - Daily improve: collapse on `/` or move to `/reports` — not fold hero dump.
 - Strip internal launch copy from public marketing ("Cos unlocks", private-repo asides).
 - Motion only from measured feeds (improve MD, merged PRs, retros) — no **fake ticker**, no **invented pulse**, no **simulated live**.

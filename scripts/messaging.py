@@ -92,7 +92,7 @@ def _send_discord(message: str) -> bool:
         except Exception as e:
             print(f"WARN: Discord webhook failed: {e}", file=sys.stderr)
     # Fallback: post-to-discord.py helper (uses the configured bot token).
-    helper = REPO_ROOT.parent / ".openclaw" / "workspace" / "scripts" / "post-to-discord.py"
+    helper = REPO_ROOT.parent / ".local" / "workspace" / "scripts" / "post-to-discord.py"
     if helper.exists():
         try:
             subprocess.run(

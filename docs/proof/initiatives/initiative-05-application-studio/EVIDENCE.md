@@ -21,9 +21,9 @@ Initiative 00's context gate.
 
 ## Governance — the real arc (16 verdict records: 12 ALLOW, 4 KICK_BACK)
 
-Tickets: `muse/2026-09-13/roadmap-exec/init-05/ws1`–`ws6`,
-`muse/2026-09-13/roadmap-exec/init-05` (epic blind reviews),
-`muse/2026-09-14/roadmap-exec/init-05-finalmile`.
+Tickets: `contributor/2026-09-13/roadmap-exec/init-05/ws1`–`ws6`,
+`contributor/2026-09-13/roadmap-exec/init-05` (epic blind reviews),
+`contributor/2026-09-14/roadmap-exec/init-05-finalmile`.
 
 1. **First pass (5 ALLOW):** ws1 (contracts + versioned variants), ws2
    (evidence library), ws3 (ATS readiness), ws4 (diff + packet), ws6

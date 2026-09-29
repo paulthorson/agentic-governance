@@ -210,7 +210,7 @@ SPEND_UNIT_QUALIFIER = (
 WIZARD_FLOW: list[dict[str, Any]] = [
     {
         "id": "runtime",
-        "question": "What tool or system runs your AI agents? (Examples: Claude Code, Cursor, OpenClaw, ChatGPT, a custom setup. This only affects how each agent's instructions are wrapped — it never changes the rules.)",
+        "question": "What tool or system runs your AI agents? (Examples: Claude Code, Cursor, external runtime, ChatGPT, a custom setup. This only affects how each agent's instructions are wrapped — it never changes the rules.)",
         "options": None,
     },
     {

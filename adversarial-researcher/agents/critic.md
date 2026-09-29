@@ -61,7 +61,7 @@ tip-only, or wiki/scar-page-only language is **REJECTED**.
 screens still required; this check grades the craft bar on top.
 
 **When / scope:** Product UX Research packs for **every product Research seat** (every product Research seat).
-**Not** OpenClaw briefs. Skip only when the work is not product UX Research (say so → N/A).
+**Not** external-runtime briefs. Skip only when the work is not product UX Research (say so → N/A).
 
 **Bar:** Master's HCI. Fundamentals **THEN** opened comps (order load-bearing):
 
@@ -95,7 +95,7 @@ Critic Check 7 + Check 8 — an addition, not a replacement.**
 **Paramount:** **Design, Experience, and Branding are paramount** — not optional polish after
 Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
 
-**When / scope:** Product Initiatives for **every product UX + Research seat** (every product seat). **Not** OpenClaw.
+**When / scope:** Product Initiatives for **every product UX + Research seat** (every product seat). **Not** external-runtime briefs.
 Skip only when the work is not a product Initiative (say so → N/A).
 
 **Bar / order:** Design system is the FIRST Initiative deliverable — before web / UI pixels /
@@ -143,7 +143,7 @@ Check 6 RESEARCH_HCI: PASS | FAIL | N/A
 DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f): PASS | FAIL | N/A
 
 ### RESEARCH_HCI (LIVE #38 / 214ed5b; stacked on RESEARCH_BEFORE_ENHANCE)
-- Surface: product UX Research | OpenClaw / non-product → N/A | wrong-surface FAIL
+- Surface: product UX Research | external runtime / non-product → N/A | wrong-surface FAIL
 - Fundamentals cited with craft analysis (type, space, hierarchy, gestalt, info-viz, Fitts/Hick/Jakob): yes | no — FAIL if no on product UX Research
 - Opened screens cited (URL/ID + pixels + craft read): yes | no — FAIL if no on product UX Research
 - Fundamentals BEFORE comps (order): yes | no | n/a — FAIL if comps-first without fundamentals
@@ -152,7 +152,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f): PASS | FAIL | N
 - Metric hold (completeness-without-craft packs = 0): PASS | FAIL
 
 ### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (LIVE #45 / ead012f; stacked on DESIGN_AGENCY_BAR + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE + Check 7/8)
-- Surface: product Initiative UX+Research | OpenClaw / non-product → N/A | wrong-surface FAIL
+- Surface: product Initiative UX+Research | external runtime / non-product → N/A | wrong-surface FAIL
 - Design / Experience / Branding paramount (Eng follows signed craft): held | violated — FAIL if violated
 - Research Scope (Q1–Q8) before comps hunt: complete | missing — FAIL if missing
 - `design-system.md` (tokens / type / space / motion / brand / do-not): yes | no — FAIL if no

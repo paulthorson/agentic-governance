@@ -18,7 +18,7 @@ Soft / deferred / tip / wiki-scar-only = **REJECTED**.
   cite a named source or label **BLANK**.
 - **Stack:** On Check 1 / this file — does not invent a token feed or replace
   `RESEARCH_BEFORE_ENHANCE`.
-- **Scope:** AG improve digests + product UX Critic Check 1; **not** OpenClaw.
+- **Scope:** AG improve digests + product UX Critic Check 1; **not** external-runtime briefs.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 

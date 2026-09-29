@@ -14,7 +14,7 @@ explicit fallback — not by narrowing scope.
 
 ## Governance
 
-- Ticket: `muse/2026-09-13/roadmap-p0-scope`
+- Ticket: `contributor/2026-09-13/roadmap-p0-scope`
 - Round 2: product ALLOW, QA ALLOW, UX ALLOW, critic KICK_BACK (5 findings)
 - Final: **4/4 seats ALLOW** — fresh critic re-review returned SHIP, all 5
   findings verified resolved with quotable language

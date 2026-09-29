@@ -14,7 +14,7 @@ local web dashboard, and terminal dashboard.
 
 ## Governance
 
-- Ticket: `muse/2026-09-13/design-system-monorepo`
+- Ticket: `contributor/2026-09-13/design-system-monorepo`
 - **7/7 review domains ALLOW** (fresh reviewers, append-only verdicts)
 - UX track: user flows, JTBD job stories, explicit research validation — first-class
   review inputs, not an appendix
