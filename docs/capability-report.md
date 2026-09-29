@@ -96,7 +96,7 @@ This repository does not store or set a git author identity.
 | Question | Answer | Cite |
 |---|---|---|
 | Remote identity login for admin? | **NO** — removed; localhost Host gate only | `dashboard/README.md`; `middleware.ts` |
-| How is `/admin` gated? | Request Host must be localhost / loopback / `*.localhost`. Client `X-Forwarded-Host` is ignored unless `AG_TRUST_X_FORWARDED_HOST` is set. Empty host fails closed. Else redirect to `/` with `admin=local-only` | `dashboard/src/middleware.ts`; `admin-access.ts` |
+| How is `/admin` gated? | Request Host must be localhost / loopback / `*.localhost`. Unspecified-bind Host is not local. Client `X-Forwarded-Host` is ignored unless `AG_TRUST_X_FORWARDED_HOST` is set. Empty host fails closed. Else redirect to `/` with `admin=local-only` | `dashboard/src/middleware.ts`; `admin-access.ts` |
 | Email allowlist? | **NO** — remote identity login removed | — |
 | Hardcoded allowlist email | **NO** | `admin-access.ts` |
 

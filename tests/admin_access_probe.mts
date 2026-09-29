@@ -76,6 +76,20 @@ const cases: Array<{
     expectLocal: true,
     expectTrust: false,
   },
+  {
+    name: "host-0.0.0.0-denied",
+    header: {host: "0.0.0.0"},
+    env: {},
+    expectHost: "0.0.0.0",
+    expectLocal: false,
+  },
+  {
+    name: "host-0.0.0.0-port-denied",
+    header: {host: "0.0.0.0:3000"},
+    env: {},
+    expectHost: "0.0.0.0:3000",
+    expectLocal: false,
+  },
 ];
 
 const results = cases.map((c) => {

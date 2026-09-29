@@ -300,6 +300,8 @@ class TestPublishedClaims(unittest.TestCase):
         self.assertIn("fail closed", access.lower())
         self.assertIn("isLocalAdminHost", access)
         self.assertIn("localhost", access)
+        self.assertNotIn('"0.0.0.0"', access)
+        self.assertNotIn("'0.0.0.0'", access)
         self.assertNotIn("isAdminEmail", access)
         self.assertNotIn("process.env.ADMIN_EMAILS", access)
 
@@ -460,6 +462,16 @@ class TestPublishedClaims(unittest.TestCase):
         )
         self.assertIn("resolveRequestHost", middleware)
         self.assertNotIn('headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||', middleware)
+        host_test = (REPO_ROOT / "tests" / "test_admin_host.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertNotIn("skipUnless", host_test)
+        self.assertNotIn("skipIf", host_test)
+        probe = (REPO_ROOT / "tests" / "admin_access_probe.mts").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("host-0.0.0.0-denied", probe)
+        self.assertIn("host-0.0.0.0-port-denied", probe)
 
     def test_http_transport_refuses_non_loopback_without_token(self):
         """Claim: MCP HTTP off loopback requires MCP_AUTH_TOKEN."""
