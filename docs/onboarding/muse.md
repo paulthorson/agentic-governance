@@ -82,6 +82,14 @@ keeping:
 Run the setup wizard to declare your roster and reconcile existing
 instructions. See [BYOA](byoa.md) for the full walkthrough.
 
+## 5b. Bring your own design system (BYODS)
+
+After adoption, the wizard records your design system — your own link, a
+predefined codified system (Astryx recommended), or a custom build walked
+through together (fonts, colors, CVD-safe data-viz palette, brand voice).
+New projects start from it by default, or per project at kickoff. See
+[BYODS](byods.md).
+
 ## 6. Contribute back
 
 Muse-originated learnings follow the per-contributor intake convention:
