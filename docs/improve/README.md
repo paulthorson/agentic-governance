@@ -33,7 +33,7 @@ a contribute CTA.
 - **Sensor:** Named source in the KPI table **or** explicit **BLANK** / `not measured yet`.
   Soft / tip / wiki-scar-only ≠ sensor.
 - **Stack:** Does not invent a token feed or replace `RESEARCH_BEFORE_ENHANCE`.
-- **Scope:** AG improve digests + product UX Critic Check 1; **not** external runtime.
+- **Scope:** AG improve digests + product UX Critic Check 1; **not** external-runtime briefs.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
