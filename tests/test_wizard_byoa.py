@@ -55,6 +55,7 @@ def _valid_answers():
         "issues_file": "/tmp/issues.json",
         "verdict_log": "/tmp/verdicts.jsonl",
         "multi_team": "no",
+        "design_system_source": "skip",
     }
 
 

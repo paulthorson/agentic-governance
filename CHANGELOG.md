@@ -5,6 +5,36 @@ All notable changes to Agentic Governance.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] — 2026-09-29
+
+### Added
+
+- **BYODS — bring your own design system (setup wizard).** After BYOA
+  adoption, the wizard records the operator's visual foundation so new
+  projects start building immediately instead of designing from scratch:
+  paste a link to your own design system repo/docs, pick a predefined
+  codified system to start from, or build a custom one together in the
+  wizard. Predefined systems: Astryx (Meta's open-source, agent-ready
+  system with MCP tooling — recommended when agents author the UI),
+  Google Material Design, IBM Carbon, Adobe Spectrum, Atlassian Design
+  System, Shopify Polaris, GitHub Primer. Custom build walks through
+  primary/secondary fonts (free Google Font recommendations, custom
+  allowed), primary/secondary/tertiary brand colors as hex codes (answer
+  `help` for curated, contrast-checked starter palettes — every primary
+  is text-safe at ≥ 4.5:1 on white, WCAG AA), a color-vision-deficiency-safe
+  data-viz palette (Okabe–Ito recommended, custom allowed), and brand voice
+  (six example styles, or `i-have-one-already` with sample text now or
+  deferred to the first project kickoff). Recorded to
+  `config/design-system.md`; use as the default every new project starts
+  from (fast development) or re-run per project at kickoff (case by case).
+  New `design_system_palettes` MCP tool returns the starter data as
+  structured JSON for the operator's agent to render natively (swatches,
+  color wheel). Honest limit, stated in the docs: the framework records the
+  design system as advisory config — it does not pixel-enforce it in code;
+  initiative-level craft gates (`DESIGN_SYSTEM_FIRST`, Check 7/8, Cos
+  stamp) still apply per project. New: `docs/onboarding/byods.md`,
+  `tests/test_wizard_byods.py`, capability-report §12.11.
+
 ## [Unreleased]
 
 Product-facing notes for human visitors. Agent/ops scar and SoT narrative that

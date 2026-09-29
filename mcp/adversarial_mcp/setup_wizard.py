@@ -29,6 +29,7 @@ for a complete one.
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -50,6 +51,90 @@ BUDGET_MODELS = ["metered", "billed", "not-yet-known"]
 ADVERSARIAL_STATES = ["in-play", "not-in-play"]
 MULTI_TEAM_CHOICES = ["yes", "no"]
 NETWORK_PERMISSIONS = ["allow", "deny", "unknown"]
+
+# --- BYODS: bring your own design system --------------------------------------
+# Wizard sources: the operator's own design system (link), a predefined
+# codified design system (start building immediately), or a custom build
+# (fonts, colors, data-viz colors, brand voice walked through in the wizard).
+DS_SOURCES = ["i-have-a-link", "choose-predefined", "build-custom", "skip"]
+
+# Predefined codified design systems. Astryx is Meta's open-source,
+# agent-ready system (MCP tooling for agentic IDEs) — the recommended
+# default when agents author the UI. URLs verified live 2026-09-29.
+DS_PRESETS: dict[str, tuple[str, str]] = {
+    "astryx": (
+        "Astryx (Meta) — agent-ready, MCP tooling, recommended",
+        "https://github.com/facebook/astryx",
+    ),
+    "material": ("Material Design (Google)", "https://m3.material.io"),
+    "carbon": ("Carbon (IBM)", "https://carbondesignsystem.com"),
+    "spectrum": ("Spectrum (Adobe)", "https://spectrum.adobe.com"),
+    "atlassian": ("Atlassian Design System", "https://atlassian.design"),
+    "polaris": ("Polaris (Shopify)", "https://polaris.shopify.com"),
+    "primer": ("Primer (GitHub)", "https://primer.style"),
+}
+
+# Font recommendations are free Google Fonts (custom always allowed).
+DS_FONTS_PRIMARY = [
+    "Inter (recommended)",
+    "Roboto",
+    "Open Sans",
+    "Lato",
+    "DM Sans",
+    "Source Sans 3",
+    "IBM Plex Sans",
+    "custom",
+]
+DS_FONTS_SECONDARY = [
+    "Space Grotesk",
+    "Poppins",
+    "Playfair Display",
+    "IBM Plex Serif",
+    "Source Serif 4",
+    "custom",
+]
+
+# Curated starter palettes for operators without brand colors.
+# Primaries are text-safe: >= 4.5:1 contrast on white (WCAG AA), verified by
+# computation 2026-09-29. Secondaries/tertiaries are accent-grade (large
+# elements, graphics — not body text).
+DS_PALETTES: dict[str, tuple[str, str, str, str]] = {
+    "ocean": ("Ocean", "#0B5FFF", "#00A6B6", "#FF6B4A"),
+    "forest": ("Forest", "#1B7A3D", "#5B8C2A", "#D97706"),
+    "plum": ("Plum", "#7C3AED", "#DB2777", "#F59E0B"),
+    "ink": ("Ink", "#1F2937", "#4B5563", "#2563EB"),
+    "teal": ("Teal", "#0F766E", "#0284C7", "#EA580C"),
+}
+
+# CVD-safe (color-vision-deficiency) data-viz palette, recommended default:
+# Okabe–Ito, the standard colorblind-safe qualitative set.
+DS_VIZ_OKABE_ITO = [
+    "#E69F00",
+    "#56B4E9",
+    "#009E73",
+    "#F0E442",
+    "#0072B2",
+    "#D55E00",
+    "#CC79A7",
+    "#000000",
+]
+DS_VIZ_CHOICES = ["okabe-ito (CVD-safe, recommended)", "custom"]
+
+# Brand voice styles offered in the wizard. "i-have-one-already" lets the
+# operator paste sample text now or defer it to the first project kickoff.
+BRAND_VOICES = [
+    "direct-founder — plain-spoken, first person, no fluff",
+    "warm-expert — knowledgeable, encouraging, jargon-free",
+    "playful-challenger — witty, bold, anti-establishment",
+    "minimal-luxury — quiet, precise, confident",
+    "technical-precision — exact, terse, spec-like",
+    "community-coach — inclusive, motivating, practical",
+    "i-have-one-already",
+]
+
+# Scope: the recorded design system is either the default every new project
+# starts from (fast development), or re-run per project at kickoff.
+DS_SCOPES = ["default", "per-project"]
 
 # Shown next to every operator-facing spend/budget number (same surface).
 SPEND_UNIT_QUALIFIER = (
@@ -327,6 +412,139 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         "question": "Is there a role your team needs that doesn't exist yet? Give the role name, or 'none' to skip. The wizard will walk you through defining it and create its instructions.",
         "options": None,
     },
+    # --- BYODS: bring your own design system ---
+    # Runs after BYOA adoption. Records the operator's design system (or a
+    # codified/custom starter) to config/design-system.md so new projects can
+    # start from it immediately instead of designing from scratch.
+    {
+        "id": "design_system_source",
+        "question": (
+            "Bring your own design system: how should new projects get their "
+            "visual foundation? 'i-have-a-link' = paste a link to your design "
+            "system repo or docs. 'choose-predefined' = pick a codified design "
+            "system to start building immediately (Astryx is Meta's agent-ready "
+            "system with MCP tooling — recommended when agents author the UI). "
+            "'build-custom' = we walk through fonts, colors, data-viz colors, "
+            "and brand voice together. 'skip' = no design system recorded."
+        ),
+        "options": DS_SOURCES,
+    },
+    {
+        "id": "design_system_link",
+        "if_answer": [["design_system_source", "i-have-a-link"]],
+        "question": "Paste the link to your design system (a repo or docs URL, starting with http:// or https://).",
+        "options": None,
+    },
+    {
+        "id": "design_system_preset",
+        "if_answer": [["design_system_source", "choose-predefined"]],
+        "question": "Which codified design system should projects start from?",
+        "options": list(DS_PRESETS),
+    },
+    {
+        "id": "ds_font_primary",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "question": "Primary font for UI text? (All recommendations are free Google Fonts — pick 'custom' to name your own.)",
+        "options": DS_FONTS_PRIMARY,
+    },
+    {
+        "id": "ds_font_primary_custom",
+        "if_answer": [["ds_font_primary", "custom"]],
+        "question": "Name the custom primary font.",
+        "options": None,
+    },
+    {
+        "id": "ds_font_secondary",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "question": "Secondary font for headings and display? (Pick 'custom' to name your own.)",
+        "options": DS_FONTS_SECONDARY,
+    },
+    {
+        "id": "ds_font_secondary_custom",
+        "if_answer": [["ds_font_secondary", "custom"]],
+        "question": "Name the custom secondary font.",
+        "options": None,
+    },
+    {
+        "id": "ds_color_primary",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "question": (
+            "Primary brand color as a hex code (e.g. #1B6DE0). No brand colors "
+            "defined yet? Answer 'help' and I'll offer curated, contrast-checked "
+            "starter palettes to pick from."
+        ),
+        "options": None,
+    },
+    {
+        "id": "ds_palette_pick",
+        "if_answer": [["ds_color_primary", "help"]],
+        "question": (
+            "Pick a starter palette. Each primary is text-safe (>= 4.5:1 contrast "
+            "on white, WCAG AA); secondaries and tertiaries are accent-grade. "
+            "ocean = Ocean — #0B5FFF / #00A6B6 / #FF6B4A. "
+            "forest = Forest — #1B7A3D / #5B8C2A / #D97706. "
+            "plum = Plum — #7C3AED / #DB2777 / #F59E0B. "
+            "ink = Ink — #1F2937 / #4B5563 / #2563EB. "
+            "teal = Teal — #0F766E / #0284C7 / #EA580C."
+        ),
+        "options": list(DS_PALETTES),
+    },
+    {
+        "id": "ds_color_secondary",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "if_answer_not": [["ds_color_primary", "help"]],
+        "question": "Secondary brand color as a hex code (e.g. #00A6B6).",
+        "options": None,
+    },
+    {
+        "id": "ds_color_tertiary",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "if_answer_not": [["ds_color_primary", "help"]],
+        "question": "Tertiary brand color as a hex code (e.g. #FF6B4A).",
+        "options": None,
+    },
+    {
+        "id": "ds_viz_palette",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "question": (
+            "Data-viz colors: we recommend a color-vision-deficiency-safe (CVD) "
+            "palette — Okabe–Ito, the standard colorblind-safe set "
+            "(#E69F00, #56B4E9, #009E73, #F0E442, #0072B2, #D55E00, #CC79A7, "
+            "#000000). Use the recommended set, or pick 'custom' to paste your own."
+        ),
+        "options": DS_VIZ_CHOICES,
+    },
+    {
+        "id": "ds_viz_custom",
+        "if_answer": [["ds_viz_palette", "custom"]],
+        "question": "Paste your data-viz colors as comma-separated hex codes (e.g. #E69F00, #56B4E9, #009E73).",
+        "options": None,
+    },
+    {
+        "id": "ds_brand_voice",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "question": "Which brand voice should product copy use? (Pick 'i-have-one-already' to supply your own.)",
+        "options": BRAND_VOICES,
+    },
+    {
+        "id": "ds_brand_voice_sample",
+        "if_answer": [["ds_brand_voice", "i-have-one-already"]],
+        "question": (
+            "Paste sample text in your brand voice now, or type 'later' — "
+            "we'll ask for it at the first project kickoff."
+        ),
+        "options": None,
+    },
+    {
+        "id": "ds_scope",
+        "if_answer_not": [["design_system_source", "skip"]],
+        "question": (
+            "Use this design system as the default for every new project "
+            "(fast development), or run this section again per project at "
+            "kickoff (case by case)?"
+        ),
+        "options": DS_SCOPES,
+    },
 ]
 
 # --- state persistence -------------------------------------------------------
@@ -381,7 +599,10 @@ def _enabled(
 
     Supports if_budget (budget model match), if_alert_channel (alert channel
     match), if_alert_channel_other (alert channel is not discord),
-    if_issue_source (issue source match), and if_has_cos (Cos seated on roster).
+    if_issue_source (issue source match), if_has_cos (Cos seated on roster),
+    and the generic if_answer / if_answer_not conditions: each is a list of
+    [question_id, value] pairs; if_answer requires ALL pairs to match the
+    answers so far, if_answer_not requires NONE of them to match.
     """
     cond = q.get("if_budget")
     if cond is not None:
@@ -396,6 +617,14 @@ def _enabled(
         return answers.get("issue_source") == cond
     if q.get("if_has_cos"):
         return _roster_has_cos(roster)
+    pairs = q.get("if_answer")
+    if pairs is not None:
+        if not all(answers.get(qid) == qval for qid, qval in pairs):
+            return False
+    pairs = q.get("if_answer_not")
+    if pairs is not None:
+        if any(answers.get(qid) == qval for qid, qval in pairs):
+            return False
     return True
 
 
@@ -438,6 +667,30 @@ def _current_question(state: dict[str, Any]) -> dict[str, Any] | None:
 def _looks_like_forbidden_memory_label(value: str) -> bool:
     """P0 wrapper — seating hook owns the rule (install-time, not README-only)."""
     return looks_like_forbidden_memory_label(value)
+
+
+_HEX_RE = re.compile(r"^#(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3})$")
+_URL_RE = re.compile(r"^https?://\S+$", re.IGNORECASE)
+
+
+def _looks_like_hex(value: str) -> bool:
+    """True for #RGB / #RRGGBB hex color codes."""
+    return bool(_HEX_RE.match(value.strip()))
+
+
+def _looks_like_url(value: str) -> bool:
+    """True for http(s) URLs. Guards the BYODS design-system link."""
+    return bool(_URL_RE.match(value.strip()))
+
+
+def _ds_font(answers: dict[str, Any], key: str) -> str:
+    """Resolve a font answer: 'custom' reads the free-text follow-up."""
+    val = answers.get(key, "") or ""
+    if val == "custom":
+        custom = answers.get(f"{key}_custom", "") or ""
+        return custom or "(unset custom font)"
+    # strip the " (recommended)" style suffixes for the recorded value
+    return val.split(" (")[0] if val else "(unset)"
 
 
 # --- config writers ----------------------------------------------------------
@@ -562,6 +815,14 @@ def _write_setup(repo_root: Path, answers: dict[str, Any]) -> Path:
         f"- issues file (if file source): {answers.get('issues_file', '') or '(unset)'}",
         f"- verdict log (telemetry): {answers.get('verdict_log', '') or '(unset)'}",
         "",
+        "## Design system (BYODS)",
+        f"- source: {answers.get('design_system_source', '') or '(unset)'}",
+        f"- link: {answers.get('design_system_link', '') or '(unset)'}",
+        f"- preset: {answers.get('design_system_preset', '') or '(unset)'}",
+        f"- scope: {answers.get('ds_scope', '') or '(unset)'} "
+        "('default' = every new project starts from this; 'per-project' = re-run at kickoff)",
+        "- full record: config/design-system.md (advisory config — not pixel-enforced in code)",
+        "",
     ]
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return p
@@ -625,6 +886,8 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
             f"violation, not a correction.\n\n"
             f"Your default project repo is {repo}, unless your assignment names another.\n"
             f"You write only to your own folder in the epic you were handed.\n"
+            f"Default design system: config/design-system.md — start new projects from it "
+            f"unless the project kickoff overrides it.\n"
             f"{memory_note}"
         )
         # one persona block per roster row; the runtime is the (thin) wrapper
@@ -986,6 +1249,37 @@ def answer_wizard(repo_root: Path, value: str) -> dict[str, Any]:
             "free_text": True,
         }
 
+    # BYODS: design-system link must be a URL; colors must be hex codes.
+    if q["id"] == "design_system_link" and not _looks_like_url(value):
+        return {
+            "status": "invalid",
+            "question": q["id"],
+            "error": "That doesn't look like a URL — paste a link starting with http:// or https://.",
+            "free_text": True,
+        }
+    if q["id"] in ("ds_color_primary", "ds_color_secondary", "ds_color_tertiary"):
+        if q["id"] == "ds_color_primary" and value.lower() == "help":
+            pass  # routes to the curated starter-palette picker
+        elif not _looks_like_hex(value):
+            return {
+                "status": "invalid",
+                "question": q["id"],
+                "error": "Use a hex code like #1B6DE0, or answer 'help' for starter palettes.",
+                "free_text": True,
+            }
+    if q["id"] == "ds_viz_custom":
+        parts = [p.strip() for p in value.split(",") if p.strip()]
+        if not parts or not all(_looks_like_hex(p) for p in parts):
+            return {
+                "status": "invalid",
+                "question": q["id"],
+                "error": "Use comma-separated hex codes, e.g. #E69F00, #56B4E9, #009E73.",
+                "free_text": True,
+            }
+    # Brand-voice sample may be deferred to the first project kickoff.
+    if q["id"] == "ds_brand_voice_sample" and value.lower() == "later":
+        value = "__PENDING__"
+
     state["answers"][q["id"]] = value
     _save_state(repo_root, state)
     nxt = _next_question(state)
@@ -1047,6 +1341,7 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
     roster_path = _write_roster(repo_root, roster)
     persona_paths = _write_personas(repo_root, roster, answers)
     adoption_path = _write_adoption(repo_root, state)
+    design_system_path = _write_design_system(repo_root, answers)
     data_files = _write_data_files(repo_root, answers)
     # Cos seating hook — required at install/setup when Cos is seated (not README-only).
     cos_memory_files = apply_at_cos_seating(
@@ -1064,6 +1359,7 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
             "roster": str(roster_path),
             "personas": [str(p) for p in persona_paths],
             "adoption": str(adoption_path) if adoption_path else None,
+            "design_system": str(design_system_path) if design_system_path else None,
             "data_files": [str(p) for p in data_files],
             "cos_memory": [str(p) for p in cos_memory_files],
         },
@@ -1076,6 +1372,14 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
 
 def _completion_note(answers: dict[str, Any], has_cos: bool = False) -> str:
     parts: list[str] = []
+    ds_source = answers.get("design_system_source", "") or ""
+    if ds_source and ds_source != "skip":
+        ds_scope = answers.get("ds_scope", "") or "(unset)"
+        parts.append(
+            f"Design system recorded (source: {ds_source}, scope: {ds_scope}). "
+            "New projects start from config/design-system.md for fast development; "
+            "a per-project kickoff may override it."
+        )
     if answers.get("multi_team") == "yes":
         parts.append(
             "Multi-team mode: CEOs escalate via Cos; Cos owns the morning queue; "
@@ -1124,6 +1428,107 @@ def _write_data_files(repo_root: Path, answers: dict[str, Any]) -> list[Path]:
         vp.write_text("", encoding="utf-8")
         written.append(vp)
     return written
+
+
+def _write_design_system(repo_root: Path, answers: dict[str, Any]) -> Path | None:
+    """BYODS: write the operator's design system record to config/design-system.md.
+
+    The recorded system is the default new projects start from (fast
+    development) when ds_scope is 'default'; when 'per-project', the BYODS
+    questions are re-run at each project kickoff instead. Returns None when
+    the operator skipped the design-system section.
+    """
+    source = answers.get("design_system_source", "") or ""
+    if source in ("", "skip"):
+        return None
+    p = repo_root / "config" / "design-system.md"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# Design system (BYODS)",
+        "",
+        "Recorded by the conversational setup wizard. This is the operator's "
+        "design system of record: new projects start from it so they can build "
+        "immediately instead of designing from scratch.",
+        "",
+        f"Source: {source}",
+        f"Scope: {answers.get('ds_scope', '') or '(unset)'} "
+        "('default' = every new project starts from this; 'per-project' = re-run "
+        "this section at each project kickoff)",
+        "",
+    ]
+    if source == "i-have-a-link":
+        lines += [
+            "## Operator's design system",
+            f"- link: {answers.get('design_system_link', '') or '(unset)'}",
+            "",
+        ]
+    elif source == "choose-predefined":
+        preset = answers.get("design_system_preset", "") or ""
+        name, url = DS_PRESETS.get(preset, ("(unknown preset)", ""))
+        lines += [
+            "## Predefined codified design system",
+            f"- preset: {preset}",
+            f"- name: {name}",
+            f"- url: {url}",
+            "",
+        ]
+    elif source == "build-custom":
+        # colors: palette pick maps to its hex trio; otherwise explicit hexes
+        palette_id = answers.get("ds_palette_pick", "") or ""
+        if palette_id in DS_PALETTES:
+            pname, phex, shex, thex = DS_PALETTES[palette_id]
+            color_note = f"starter palette '{palette_id}' ({pname})"
+        else:
+            phex = answers.get("ds_color_primary", "") or "(unset)"
+            shex = answers.get("ds_color_secondary", "") or "(unset)"
+            thex = answers.get("ds_color_tertiary", "") or "(unset)"
+            color_note = "operator hex codes"
+        # viz palette: recommended CVD-safe Okabe–Ito, or custom
+        viz_choice = answers.get("ds_viz_palette", "") or ""
+        if viz_choice == "custom":
+            viz = answers.get("ds_viz_custom", "") or "(unset)"
+        else:
+            viz = ", ".join(DS_VIZ_OKABE_ITO) + " (Okabe–Ito, CVD-safe)"
+        # brand voice sample may be deferred to the first project kickoff
+        sample = answers.get("ds_brand_voice_sample", "") or ""
+        if sample == "__PENDING__":
+            sample_note = "PENDING — ask for it at the first project kickoff"
+        elif sample:
+            sample_note = sample
+        else:
+            sample_note = "(none)"
+        lines += [
+            "## Fonts (free Google Fonts unless marked custom)",
+            f"- primary: {_ds_font(answers, 'ds_font_primary')}",
+            f"- secondary: {_ds_font(answers, 'ds_font_secondary')}",
+            "",
+            "## Colors",
+            f"- primary: {phex}",
+            f"- secondary: {shex}",
+            f"- tertiary: {thex}",
+            f"- source: {color_note}",
+            "- primaries are text-safe (>= 4.5:1 on white, WCAG AA); "
+            "secondaries/tertiaries are accent-grade",
+            "",
+            "## Data-viz colors (CVD-safe recommended)",
+            f"- {viz}",
+            "",
+            "## Brand voice",
+            f"- style: {answers.get('ds_brand_voice', '') or '(unset)'}",
+            f"- sample: {sample_note}",
+            "",
+        ]
+    lines += [
+        "## Advisory, not enforced",
+        "The framework records this design system as config; it does not "
+        "pixel-enforce it in code. Initiative-level craft gates "
+        "(DESIGN_SYSTEM_FIRST, Check 7/8, Cos stamp) still apply per project — "
+        "a per-project kickoff may override this default with its own "
+        "design-system.md.",
+        "",
+    ]
+    p.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return p
 
 
 def _write_adoption(repo_root: Path, state: dict[str, Any]) -> Path | None:

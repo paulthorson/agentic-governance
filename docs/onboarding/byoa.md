@@ -45,6 +45,11 @@ question. It covers:
   knobs.
 - **Autonomy ladder** (A2), **retry budgets** (A3), **audit cadence** (A4), **research
   bounds** (A12.4), **irreversible-action protection** (A14).
+- **Design system (BYODS)** — your own link, a predefined codified system
+  (Astryx recommended), or a custom build: fonts, colors, CVD-safe data-viz
+  palette, brand voice. Recorded to `config/design-system.md` as the default
+  new projects start from, or re-run per project at kickoff. Full walkthrough:
+  [byods.md](byods.md).
 
 Answers are written to `config/setup.md` and `config/roster.md`. The wizard is
 **re-runnable** — a later run adds to the roster rather than replacing it.
