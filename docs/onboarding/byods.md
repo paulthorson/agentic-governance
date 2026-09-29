@@ -52,6 +52,33 @@ At the end of the section the wizard asks about scope:
 - **per-project** — the BYODS questions are re-run at each project kickoff,
   case by case.
 
+## Detail tokens: quick setup vs define-each
+
+A custom build continues past voice with the rest of the codified tokens.
+First the wizard asks: **quick** (recommended values, no further questions)
+or **define-each** (walk through every token)?
+
+| Token | Recommended (quick) | Define-each |
+|---|---|---|
+| Neutrals (bg/surface/text/muted/border) | Cool gray ramp | Pick warm-gray, true-neutral, or paste 5 hexes |
+| Dark mode | Auto — light + dark ramps | light-only, dark-only, or paste 5 dark hexes |
+| Corner radius | Rounded — 8px | sharp, pill, or custom (e.g. 6px) |
+| Icon set | Lucide | Material Symbols, Heroicons, or custom |
+| Logo / brand assets | — | link, `later` (kickoff), or `none` |
+| Type scale | 12/14/16/20/24/32/48px | custom pixel list |
+| Spacing grid | 8pt grid | 4pt grid or custom |
+| Shadows / elevation | subtle | none, pronounced, or custom |
+| Motion | subtle, 150–250ms ease-out, honors prefers-reduced-motion | none, expressive, or custom |
+| Breakpoints | 640/768/1024/1280px | custom pixel list |
+
+## Machine-readable tokens
+
+Every build also writes `config/design-tokens.json` — W3C-DTCG-flavored
+`$value`/`$type` tokens (colors, fonts, radius, spacing, shadows, motion,
+breakpoints, icons, logo, brand voice) so agents and build tooling can
+import the system directly instead of parsing prose. Link/predefined
+sources write a reference entry pointing at the external system.
+
 A per-project kickoff may always override the default: initiative-level
 craft gates (`DESIGN_SYSTEM_FIRST`, Check 7/8, Cos stamp) still apply, and
 the initiative packet's `design-system.md` wins for that project.

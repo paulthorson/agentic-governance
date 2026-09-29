@@ -1,5 +1,6 @@
 import {HomeView} from '@/components/HomeView';
 import {loadImproveReports} from '@/lib/improve';
+import {loadUpdateStatus} from '@/lib/updates';
 import {
   aggregateKpis,
   buildKpiChartSeries,
@@ -24,6 +25,7 @@ export default async function HomePage({
   const traction = loadTractionConfig();
   const visibleTraction = visibleTractionMetrics(traction);
   const gatedCount = hiddenTractionCount(traction);
+  const updateStatus = loadUpdateStatus();
 
   return (
     <HomeView
@@ -34,6 +36,7 @@ export default async function HomePage({
       visibleTraction={visibleTraction}
       gatedCount={gatedCount}
       adminLocalOnlyNotice={params.admin === 'local-only'}
+      updateStatus={updateStatus}
     />
   );
 }

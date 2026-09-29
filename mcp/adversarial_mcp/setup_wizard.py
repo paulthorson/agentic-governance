@@ -136,6 +136,65 @@ BRAND_VOICES = [
 # starts from (fast development), or re-run per project at kickoff.
 DS_SCOPES = ["default", "per-project"]
 
+# --- BYODS detail tokens (quick setup vs define-each) -------------------------
+# After the core custom build (fonts, colors, viz, voice), the operator picks
+# "quick" (recommended values below, no further questions) or "define-each"
+# (walk through every token). Every question offers its recommended value.
+DS_DETAIL_MODES = ["quick (recommended)", "define-each"]
+
+# Neutral ramps: bg / surface / text / muted / border, light + dark.
+# (Slate-, stone-, and neutral-flavored ramps; hexes are fixed constants.)
+DS_NEUTRALS: dict[str, tuple[str, dict[str, str], dict[str, str]]] = {
+    "cool-gray": (
+        "Cool gray",
+        {"bg": "#F8FAFC", "surface": "#FFFFFF", "text": "#0F172A",
+         "muted": "#64748B", "border": "#E2E8F0"},
+        {"bg": "#0F172A", "surface": "#1E293B", "text": "#F1F5F9",
+         "muted": "#94A3B8", "border": "#334155"},
+    ),
+    "warm-gray": (
+        "Warm gray",
+        {"bg": "#FAFAF9", "surface": "#FFFFFF", "text": "#1C1917",
+         "muted": "#78716C", "border": "#E7E5E4"},
+        {"bg": "#1C1917", "surface": "#292524", "text": "#FAFAF9",
+         "muted": "#A8A29E", "border": "#44403C"},
+    ),
+    "true-neutral": (
+        "True neutral",
+        {"bg": "#FAFAFA", "surface": "#FFFFFF", "text": "#171717",
+         "muted": "#737373", "border": "#E5E5E5"},
+        {"bg": "#0A0A0A", "surface": "#171717", "text": "#FAFAFA",
+         "muted": "#A3A3A3", "border": "#262626"},
+    ),
+}
+DS_NEUTRAL_CHOICES = [
+    "cool-gray (recommended)", "warm-gray", "true-neutral", "custom",
+]
+DS_DARK_MODES = [
+    "auto (recommended) — light + dark ramps",
+    "light-only",
+    "dark-only",
+    "custom",
+]
+DS_RADIUS_STYLES = ["rounded (recommended) — 8px", "sharp — 2px", "pill — full", "custom"]
+DS_RADIUS_VALUES = {"rounded": "8px", "sharp": "2px", "pill": "9999px"}
+DS_ICON_SETS = ["lucide (recommended)", "material-symbols", "heroicons", "custom"]
+DS_TYPE_SCALE_DEFAULT = [12, 14, 16, 20, 24, 32, 48]
+DS_TYPE_SCALE_CHOICES = ["recommended — 12/14/16/20/24/32/48px", "custom"]
+DS_SPACING_CHOICES = ["8pt grid (recommended)", "4pt grid", "custom"]
+DS_SPACING_DEFAULT = "8pt grid"
+DS_SHADOW_CHOICES = ["subtle (recommended)", "none", "pronounced", "custom"]
+DS_SHADOW_DEFAULT = "subtle"
+DS_MOTION_CHOICES = [
+    "subtle (recommended) — 150–250ms ease-out, honors prefers-reduced-motion",
+    "none",
+    "expressive",
+    "custom",
+]
+DS_MOTION_DEFAULT = "subtle — 150–250ms ease-out, honors prefers-reduced-motion"
+DS_BREAKPOINTS_DEFAULT = [640, 768, 1024, 1280]
+DS_BREAKPOINTS_CHOICES = ["recommended — 640/768/1024/1280px", "custom"]
+
 # Shown next to every operator-facing spend/budget number (same surface).
 SPEND_UNIT_QUALIFIER = (
     "This framework cannot see or limit what you spend with your model provider. "
@@ -535,6 +594,144 @@ WIZARD_FLOW: list[dict[str, Any]] = [
         ),
         "options": None,
     },
+    # --- BYODS detail tokens: quick setup vs define-each ---
+    {
+        "id": "ds_detail",
+        "if_answer": [["design_system_source", "build-custom"]],
+        "question": (
+            "Quick setup for the remaining design tokens (neutrals, dark mode, "
+            "corners, icons, logo, type scale, spacing, shadows, motion, "
+            "breakpoints) using recommended values — or define each one?"
+        ),
+        "options": DS_DETAIL_MODES,
+    },
+    {
+        "id": "ds_neutral_style",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": (
+            "Neutral palette for backgrounds, text grays, and borders? "
+            "(Pick 'custom' to paste your own bg/surface/text/muted/border hexes.)"
+        ),
+        "options": DS_NEUTRAL_CHOICES,
+    },
+    {
+        "id": "ds_neutral_custom",
+        "if_answer": [["ds_neutral_style", "custom"]],
+        "question": (
+            "Paste your neutrals as five comma-separated hex codes in order: "
+            "background, surface, text, muted, border "
+            "(e.g. #F8FAFC, #FFFFFF, #0F172A, #64748B, #E2E8F0)."
+        ),
+        "options": None,
+    },
+    {
+        "id": "ds_dark_mode",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Dark mode? ('auto' ships light + dark ramps; 'custom' pastes your own five dark hexes.)",
+        "options": DS_DARK_MODES,
+    },
+    {
+        "id": "ds_dark_custom",
+        "if_answer": [["ds_dark_mode", "custom"]],
+        "question": (
+            "Paste your dark-mode neutrals as five comma-separated hex codes: "
+            "background, surface, text, muted, border."
+        ),
+        "options": None,
+    },
+    {
+        "id": "ds_radius",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Corner radius style? ('custom' names your own, e.g. 6px.)",
+        "options": DS_RADIUS_STYLES,
+    },
+    {
+        "id": "ds_radius_custom",
+        "if_answer": [["ds_radius", "custom"]],
+        "question": "Your corner radius (e.g. 6px, or 'full' for pill).",
+        "options": None,
+    },
+    {
+        "id": "ds_icons",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Icon set? ('custom' names your own set or URL.)",
+        "options": DS_ICON_SETS,
+    },
+    {
+        "id": "ds_icons_custom",
+        "if_answer": [["ds_icons", "custom"]],
+        "question": "Name your icon set (or paste its URL).",
+        "options": None,
+    },
+    {
+        "id": "ds_logo",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": (
+            "Link to your logo / brand assets (logo files, favicon). "
+            "Type 'later' to add it at the first project kickoff, or 'none'."
+        ),
+        "options": None,
+    },
+    {
+        "id": "ds_type_scale",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Type scale? ('custom' pastes your own comma-separated pixel sizes.)",
+        "options": DS_TYPE_SCALE_CHOICES,
+    },
+    {
+        "id": "ds_type_scale_custom",
+        "if_answer": [["ds_type_scale", "custom"]],
+        "question": "Your type scale as comma-separated pixel sizes (e.g. 12, 14, 16, 20, 24, 32, 48).",
+        "options": None,
+    },
+    {
+        "id": "ds_spacing",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Spacing grid? ('custom' describes your own.)",
+        "options": DS_SPACING_CHOICES,
+    },
+    {
+        "id": "ds_spacing_custom",
+        "if_answer": [["ds_spacing", "custom"]],
+        "question": "Describe your spacing grid (e.g. 4pt grid, 6px base unit).",
+        "options": None,
+    },
+    {
+        "id": "ds_shadows",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Shadows / elevation? ('custom' describes your own.)",
+        "options": DS_SHADOW_CHOICES,
+    },
+    {
+        "id": "ds_shadows_custom",
+        "if_answer": [["ds_shadows", "custom"]],
+        "question": "Describe your shadow / elevation style.",
+        "options": None,
+    },
+    {
+        "id": "ds_motion",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Motion / animation? ('custom' describes your own.)",
+        "options": DS_MOTION_CHOICES,
+    },
+    {
+        "id": "ds_motion_custom",
+        "if_answer": [["ds_motion", "custom"]],
+        "question": "Describe your motion style (durations, easing).",
+        "options": None,
+    },
+    {
+        "id": "ds_breakpoints",
+        "if_answer": [["ds_detail", "define-each"]],
+        "question": "Responsive breakpoints? ('custom' pastes your own comma-separated pixel widths.)",
+        "options": DS_BREAKPOINTS_CHOICES,
+    },
+    {
+        "id": "ds_breakpoints_custom",
+        "if_answer": [["ds_breakpoints", "custom"]],
+        "question": "Your breakpoints as comma-separated pixel widths (e.g. 640, 768, 1024, 1280).",
+        "options": None,
+    },
     {
         "id": "ds_scope",
         "if_answer_not": [["design_system_source", "skip"]],
@@ -671,11 +868,17 @@ def _looks_like_forbidden_memory_label(value: str) -> bool:
 
 _HEX_RE = re.compile(r"^#(?:[0-9a-fA-F]{6}|[0-9a-fA-F]{3})$")
 _URL_RE = re.compile(r"^https?://\S+$", re.IGNORECASE)
+_RADIUS_RE = re.compile(r"^(\d+(\.\d+)?(px|rem|em|%)?|full)$", re.IGNORECASE)
 
 
 def _looks_like_hex(value: str) -> bool:
     """True for #RGB / #RRGGBB hex color codes."""
     return bool(_HEX_RE.match(value.strip()))
+
+
+def _looks_like_radius(value: str) -> bool:
+    """True for CSS-like radii: 6px, 0.5rem, 50%, or 'full'."""
+    return bool(_RADIUS_RE.match(value.strip()))
 
 
 def _looks_like_url(value: str) -> bool:
@@ -691,6 +894,81 @@ def _ds_font(answers: dict[str, Any], key: str) -> str:
         return custom or "(unset custom font)"
     # strip the " (recommended)" style suffixes for the recorded value
     return val.split(" (")[0] if val else "(unset)"
+
+
+def _ds_choice(answers: dict[str, Any], key: str, default: str) -> str:
+    """Resolve a detail-token answer: 'custom' reads the free-text follow-up,
+    quick mode (unanswered) returns the recommended default."""
+    val = answers.get(key, "") or ""
+    if val == "custom":
+        return answers.get(f"{key}_custom", "") or "(unset custom value)"
+    if not val:
+        return default
+    return val.split(" (")[0]
+
+
+def _ds_int_list(answers: dict[str, Any], key: str, default: list[int]) -> list[int]:
+    """Resolve a numeric-list token (type scale, breakpoints)."""
+    val = answers.get(key, "") or ""
+    if val == "custom":
+        raw = answers.get(f"{key}_custom", "") or ""
+        return [int(p.strip()) for p in raw.split(",") if p.strip().isdigit()] or default
+    return default if not val else default
+
+
+def _ds_neutrals(answers: dict[str, Any]) -> tuple[str, dict[str, str], dict[str, str] | None]:
+    """Resolve the neutral ramp: (style_name, light, dark_or_None).
+
+    Quick mode (or unset) returns the recommended cool-gray ramp with its
+    dark pair. 'custom' parses the five-hex free-text answer.
+    """
+    keys = ["bg", "surface", "text", "muted", "border"]
+    style = (answers.get("ds_neutral_style", "") or "").split(" (")[0]
+    dark_mode = (answers.get("ds_dark_mode", "") or "").split(" (")[0]
+    if not style:
+        style = "cool-gray"  # quick setup
+    if style == "custom":
+        raw = answers.get("ds_neutral_custom", "") or ""
+        light = dict(zip(keys, [p.strip() for p in raw.split(",") if p.strip()]))
+    else:
+        _name, light, _dark_pair = DS_NEUTRALS.get(style, DS_NEUTRALS["cool-gray"])
+    dark: dict[str, str] | None = None
+    if dark_mode in ("", "auto"):
+        if style == "custom":
+            raw = answers.get("ds_dark_custom", "") or ""
+            parts = [p.strip() for p in raw.split(",") if p.strip()]
+            dark = dict(zip(keys, parts)) if len(parts) == 5 else None
+        else:
+            _name, _light, dark = DS_NEUTRALS.get(style, DS_NEUTRALS["cool-gray"])
+    elif dark_mode == "dark-only":
+        if style == "custom":
+            raw = answers.get("ds_dark_custom", "") or ""
+            parts = [p.strip() for p in raw.split(",") if p.strip()]
+            dark = dict(zip(keys, parts)) if len(parts) == 5 else None
+            light = dark or light
+        else:
+            _name, _light, dark = DS_NEUTRALS.get(style, DS_NEUTRALS["cool-gray"])
+            light = dark or light
+    # "light-only": dark stays None
+    return style, light, dark
+
+
+def _ds_radius(answers: dict[str, Any]) -> str:
+    val = (answers.get("ds_radius", "") or "").split(" (")[0]
+    if not val:
+        return DS_RADIUS_VALUES["rounded"]  # quick setup
+    if val == "custom":
+        return answers.get("ds_radius_custom", "") or "(unset)"
+    return DS_RADIUS_VALUES.get(val, DS_RADIUS_VALUES["rounded"])
+
+
+def _ds_logo(answers: dict[str, Any]) -> str:
+    val = answers.get("ds_logo", "") or ""
+    if val == "__PENDING__":
+        return "PENDING — ask for it at the first project kickoff"
+    if val == "__NONE__":
+        return "(none)"
+    return val or "(unset)"
 
 
 # --- config writers ----------------------------------------------------------
@@ -887,7 +1165,8 @@ def _write_personas(repo_root: Path, roster: list[list[str]], answers: dict[str,
             f"Your default project repo is {repo}, unless your assignment names another.\n"
             f"You write only to your own folder in the epic you were handed.\n"
             f"Default design system: config/design-system.md — start new projects from it "
-            f"unless the project kickoff overrides it.\n"
+            f"unless the project kickoff overrides it. "
+            f"Machine-readable tokens: config/design-tokens.json.\n"
             f"{memory_note}"
         )
         # one persona block per roster row; the runtime is the (thin) wrapper
@@ -1276,6 +1555,46 @@ def answer_wizard(repo_root: Path, value: str) -> dict[str, Any]:
                 "error": "Use comma-separated hex codes, e.g. #E69F00, #56B4E9, #009E73.",
                 "free_text": True,
             }
+    # BYODS detail tokens: custom neutrals/dark ramps are five hexes;
+    # radius is a length or 'full'; scales/breakpoints are numbers.
+    if q["id"] in ("ds_neutral_custom", "ds_dark_custom"):
+        parts = [p.strip() for p in value.split(",") if p.strip()]
+        if len(parts) != 5 or not all(_looks_like_hex(p) for p in parts):
+            return {
+                "status": "invalid",
+                "question": q["id"],
+                "error": "Use five comma-separated hex codes: background, surface, text, muted, border.",
+                "free_text": True,
+            }
+    if q["id"] == "ds_radius_custom" and not _looks_like_radius(value):
+        return {
+            "status": "invalid",
+            "question": q["id"],
+            "error": "Use a radius like 6px, 0.5rem, or 'full'.",
+            "free_text": True,
+        }
+    if q["id"] in ("ds_type_scale_custom", "ds_breakpoints_custom"):
+        parts = [p.strip() for p in value.split(",") if p.strip()]
+        if not parts or not all(p.isdigit() for p in parts):
+            return {
+                "status": "invalid",
+                "question": q["id"],
+                "error": "Use comma-separated pixel numbers, e.g. 12, 14, 16, 20, 24, 32, 48.",
+                "free_text": True,
+            }
+    if q["id"] == "ds_logo":
+        low = value.lower()
+        if low == "later":
+            value = "__PENDING__"
+        elif low == "none":
+            value = "__NONE__"
+        elif not _looks_like_url(value):
+            return {
+                "status": "invalid",
+                "question": q["id"],
+                "error": "Paste a link starting with http:// or https:// — or type 'later' or 'none'.",
+                "free_text": True,
+            }
     # Brand-voice sample may be deferred to the first project kickoff.
     if q["id"] == "ds_brand_voice_sample" and value.lower() == "later":
         value = "__PENDING__"
@@ -1342,6 +1661,7 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
     persona_paths = _write_personas(repo_root, roster, answers)
     adoption_path = _write_adoption(repo_root, state)
     design_system_path = _write_design_system(repo_root, answers)
+    design_tokens_path = _write_design_tokens(repo_root, answers)
     data_files = _write_data_files(repo_root, answers)
     # Cos seating hook — required at install/setup when Cos is seated (not README-only).
     cos_memory_files = apply_at_cos_seating(
@@ -1360,6 +1680,7 @@ def _finalize(repo_root: Path, state: dict[str, Any]) -> dict[str, Any]:
             "personas": [str(p) for p in persona_paths],
             "adoption": str(adoption_path) if adoption_path else None,
             "design_system": str(design_system_path) if design_system_path else None,
+            "design_tokens": str(design_tokens_path) if design_tokens_path else None,
             "data_files": [str(p) for p in data_files],
             "cos_memory": [str(p) for p in cos_memory_files],
         },
@@ -1518,6 +1839,35 @@ def _write_design_system(repo_root: Path, answers: dict[str, Any]) -> Path | Non
             f"- sample: {sample_note}",
             "",
         ]
+        # Detail tokens: quick setup uses recommended values; define-each
+        # answers resolve through the _ds_* helpers.
+        nstyle, nlight, ndark = _ds_neutrals(answers)
+        dark_mode = (answers.get("ds_dark_mode", "") or "").split(" (")[0] or "auto (quick setup)"
+        lines += [
+            "## Neutrals",
+            f"- style: {nstyle}",
+            f"- dark mode: {dark_mode}",
+            "- light: " + ", ".join(f"{k} {v}" for k, v in nlight.items()),
+        ]
+        if ndark:
+            lines.append("- dark: " + ", ".join(f"{k} {v}" for k, v in ndark.items()))
+        lines += [
+            "",
+            "## Shape, icons, assets",
+            f"- corner radius: {_ds_radius(answers)}",
+            f"- icons: {_ds_choice(answers, 'ds_icons', 'lucide')}",
+            f"- logo / brand assets: {_ds_logo(answers)}",
+            "",
+            "## Type & layout",
+            f"- type scale (px): {', '.join(str(x) for x in _ds_int_list(answers, 'ds_type_scale', DS_TYPE_SCALE_DEFAULT))}",
+            f"- spacing: {_ds_choice(answers, 'ds_spacing', DS_SPACING_DEFAULT)}",
+            f"- shadows: {_ds_choice(answers, 'ds_shadows', DS_SHADOW_DEFAULT)}",
+            f"- motion: {_ds_choice(answers, 'ds_motion', DS_MOTION_DEFAULT)}",
+            f"- breakpoints (px): {', '.join(str(x) for x in _ds_int_list(answers, 'ds_breakpoints', DS_BREAKPOINTS_DEFAULT))}",
+            "",
+            "Machine-readable tokens: config/design-tokens.json",
+            "",
+        ]
     lines += [
         "## Advisory, not enforced",
         "The framework records this design system as config; it does not "
@@ -1528,6 +1878,94 @@ def _write_design_system(repo_root: Path, answers: dict[str, Any]) -> Path | Non
         "",
     ]
     p.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return p
+
+
+def _write_design_tokens(repo_root: Path, answers: dict[str, Any]) -> Path | None:
+    """BYODS: write machine-readable design tokens to config/design-tokens.json.
+
+    W3C-DTCG-flavored ($value/$type) so agents and build tooling can import
+    the tokens directly instead of parsing prose. Written for the custom
+    build; link/predefined sources reference their external system.
+    """
+    source = answers.get("design_system_source", "") or ""
+    if source in ("", "skip"):
+        return None
+    p = repo_root / "config" / "design-tokens.json"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    color = lambda v: {"$value": v, "$type": "color"}
+    if source == "build-custom":
+        palette_id = answers.get("ds_palette_pick", "") or ""
+        if palette_id in DS_PALETTES:
+            _pname, phex, shex, thex = DS_PALETTES[palette_id]
+        else:
+            phex = answers.get("ds_color_primary", "") or "#000000"
+            shex = answers.get("ds_color_secondary", "") or "#000000"
+            thex = answers.get("ds_color_tertiary", "") or "#000000"
+        viz_choice = answers.get("ds_viz_palette", "") or ""
+        if viz_choice == "custom":
+            viz = [c.strip() for c in (answers.get("ds_viz_custom", "") or "").split(",") if c.strip()]
+        else:
+            viz = DS_VIZ_OKABE_ITO
+        nstyle, nlight, ndark = _ds_neutrals(answers)
+        tokens: dict[str, Any] = {
+            "$description": "BYODS design tokens — recorded by the setup wizard (advisory config, not pixel-enforced).",
+            "source": source,
+            "scope": answers.get("ds_scope", "") or "(unset)",
+            "color": {
+                "brand": {
+                    "primary": color(phex),
+                    "secondary": color(shex),
+                    "tertiary": color(thex),
+                },
+                "neutral": {
+                    "style": nstyle,
+                    "light": {k: color(v) for k, v in nlight.items()},
+                    **({"dark": {k: color(v) for k, v in ndark.items()}} if ndark else {}),
+                },
+                "dataViz": {
+                    "palette": [color(c) for c in viz],
+                    "cvdSafe": viz_choice != "custom",
+                },
+            },
+            "font": {
+                "family": {
+                    "primary": {"$value": _ds_font(answers, "ds_font_primary"), "$type": "fontFamily"},
+                    "secondary": {"$value": _ds_font(answers, "ds_font_secondary"), "$type": "fontFamily"},
+                },
+                "scale": {
+                    "$value": _ds_int_list(answers, "ds_type_scale", DS_TYPE_SCALE_DEFAULT),
+                    "$type": "fontSizes",
+                },
+            },
+            "radius": {"$value": _ds_radius(answers), "$type": "borderRadius"},
+            "spacing": {"$value": _ds_choice(answers, "ds_spacing", DS_SPACING_DEFAULT), "$type": "other"},
+            "shadow": {"$value": _ds_choice(answers, "ds_shadows", DS_SHADOW_DEFAULT), "$type": "other"},
+            "motion": {"$value": _ds_choice(answers, "ds_motion", DS_MOTION_DEFAULT), "$type": "other"},
+            "breakpoints": {
+                "$value": _ds_int_list(answers, "ds_breakpoints", DS_BREAKPOINTS_DEFAULT),
+                "$type": "other",
+            },
+            "icons": {"$value": _ds_choice(answers, "ds_icons", "lucide"), "$type": "other"},
+            "logo": {"$value": _ds_logo(answers), "$type": "other"},
+            "brandVoice": {
+                "style": answers.get("ds_brand_voice", "") or "(unset)",
+                "sample": answers.get("ds_brand_voice_sample", "") or "(none)",
+            },
+        }
+    else:
+        ref = answers.get("design_system_link", "") or ""
+        if source == "choose-predefined":
+            preset = answers.get("design_system_preset", "") or ""
+            _name, url = DS_PRESETS.get(preset, ("(unknown)", ""))
+            ref = url
+        tokens = {
+            "$description": "BYODS design tokens — external design system; tokens live in the linked system.",
+            "source": source,
+            "scope": answers.get("ds_scope", "") or "(unset)",
+            "externalReference": ref,
+        }
+    p.write_text(json.dumps(tokens, indent=2) + "\n", encoding="utf-8")
     return p
 
 

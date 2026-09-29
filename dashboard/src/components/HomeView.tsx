@@ -26,6 +26,7 @@ import {TractionGate} from '@/components/TractionStrip';
 import type {ImproveKpi, ImproveReport} from '@/lib/improve';
 import type {AggregatedKpi, ChartPoint} from '@/lib/kpis';
 import type {TractionMetric} from '@/lib/traction';
+import type {UpdateStatus} from '@/lib/updates';
 
 const REPO_URL = 'https://github.com/paulthorson/agentic-governance';
 const CHANGELOG_URL = `${REPO_URL}/blob/main/CHANGELOG.md`;
@@ -111,6 +112,8 @@ export type HomeViewProps = {
   gatedCount: number;
   /** Set when a non-local visitor hit /admin and was redirected here. */
   adminLocalOnlyNotice?: boolean;
+  /** Latest update-check status (null when the check never ran). */
+  updateStatus?: UpdateStatus | null;
 };
 
 export function HomeView({
@@ -121,6 +124,7 @@ export function HomeView({
   visibleTraction,
   gatedCount,
   adminLocalOnlyNotice = false,
+  updateStatus = null,
 }: HomeViewProps) {
   return (
     <AppShell
@@ -158,6 +162,13 @@ export function HomeView({
       }
     >
       <VStack gap={8} maxWidth={1080}>
+        {updateStatus?.update_available ? (
+          <Banner
+            status="info"
+            title={`Update available: ${updateStatus.current_version} → ${updateStatus.latest_version}`}
+            description={`A newer framework version is published. Read the changelog, then pull the repo to upgrade. Last checked ${new Date(updateStatus.checked_at ?? 0).toLocaleDateString()}.`}
+          />
+        ) : null}
         {adminLocalOnlyNotice ? (
           <Banner
             status="warning"
