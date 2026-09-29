@@ -14,13 +14,17 @@ uv run adversarial-mcp # stdio transport (default for MCP clients)
 
 ```bash
 cd mcp
-MCP_AUTH_TOKEN=<token> MCP_RATE_LIMIT=60 \
-  uv run adversarial-mcp --transport streamable-http --port 8000 --mount-path /mcp
+# Export MCP_AUTH_TOKEN and optionally MCP_RATE_LIMIT first.
+uv run adversarial-mcp --transport streamable-http --port 8000 --mount-path /mcp
 ```
 
-- `MCP_AUTH_TOKEN` — when set, every HTTP request must carry
-  `Authorization: Bearer <token>` (401 otherwise).
-- `MCP_RATE_LIMIT` — requests per minute per IP (429 over the limit).
+- `MCP_AUTH_TOKEN` — export this environment variable to the shared bearer
+  token before starting the server. When it is set, every HTTP request must
+  carry `Authorization: Bearer` with that same value (401 otherwise). For
+  local trials, a clearly fake stand-in such as `YOUR_TOKEN_HERE` is enough.
+- `MCP_RATE_LIMIT` — export this environment variable to the
+  requests-per-minute-per-IP cap (429 over the limit). A typical starting
+  value is 60.
 - `--mount-path` — the HTTP path the MCP endpoint is served at (default `/mcp`).
 
 ## Production hardening
