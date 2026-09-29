@@ -323,7 +323,7 @@ def setup_wizard_answer(answer: str) -> dict[str, Any]:
     next question, or the completion summary when the wizard is done. For bounded
     questions, answer must be one of the offered options; for roster rows, send
     'done' to finish the roster. On completion writes config/setup.md,
-    config/roster.md, config/design-system.md (BYODS), persona blocks under
+    config/roster.md, config/design-system.md + config/design-tokens.json (BYODS), persona blocks under
     config/personas/, and — when Chief of Staff is seated — Cos memory scaffold via cos_memory_setup.apply_at_cos_seating
     (install/setup seating hook; not a deferred README-only step)."""
     return setup_wizard.answer_wizard(REPO_ROOT, answer)
@@ -334,10 +334,11 @@ def design_system_palettes() -> dict[str, Any]:
     """Return the curated design-system starter data used by the setup wizard's
     BYODS step: contrast-checked starter palettes, the recommended CVD-safe
     data-viz palette (Okabe-Ito), free Google Font recommendations, brand
-    voice styles, and predefined codified design systems. The operator's agent
-    renders these natively (swatches, a color-wheel picker, option lists) and
-    passes the operator's choice back through setup_wizard_answer(); the
-    framework records the choice as config — it does not pixel-enforce it."""
+    voice styles, predefined codified design systems, neutral ramps, corner
+    radius styles, and icon sets. The operator's agent renders these natively
+    (swatches, a color-wheel picker, option lists) and passes the operator's
+    choice back through setup_wizard_answer(); the framework records the choice
+    as config — it does not pixel-enforce it."""
     return {
         "starter_palettes": [
             {
@@ -351,6 +352,21 @@ def design_system_palettes() -> dict[str, Any]:
             }
             for pid, (name, phex, shex, thex) in setup_wizard.DS_PALETTES.items()
         ],
+        "neutral_ramps": [
+            {
+                "id": nid,
+                "name": name,
+                "light": light,
+                "dark": dark,
+                "note": "bg / surface / text / muted / border.",
+            }
+            for nid, (name, light, dark) in setup_wizard.DS_NEUTRALS.items()
+        ],
+        "radius_styles": [
+            {"id": rid, "value": value}
+            for rid, value in setup_wizard.DS_RADIUS_VALUES.items()
+        ],
+        "icon_sets": setup_wizard.DS_ICON_SETS,
         "data_viz_cvd_safe": {
             "name": "Okabe-Ito (recommended)",
             "colors": setup_wizard.DS_VIZ_OKABE_ITO,

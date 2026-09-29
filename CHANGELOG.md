@@ -34,6 +34,18 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   initiative-level craft gates (`DESIGN_SYSTEM_FIRST`, Check 7/8, Cos
   stamp) still apply per project. New: `docs/onboarding/byods.md`,
   `tests/test_wizard_byods.py`, capability-report §12.11.
+- **BYODS detail tokens + machine-readable tokens.** The custom build now
+  continues with a quick-setup vs define-each gate: quick applies
+  recommended values with no further questions; define-each walks through
+  neutral ramps (bg/surface/text/muted/border, cool/warm/true-neutral or
+  custom hexes), dark mode (auto light+dark ramps, light-only, dark-only,
+  custom), corner radius (rounded/sharp/pill/custom), icon set (Lucide,
+  Material Symbols, Heroicons, custom), logo/brand-asset link (`later`
+  defers to kickoff), type scale, spacing grid, shadows, motion (honors
+  prefers-reduced-motion), and breakpoints — every question offering its
+  recommended value. Every build also writes `config/design-tokens.json`
+  (W3C-DTCG-flavored `$value`/`$type` tokens) for agents and build tooling
+  to import directly; link/predefined sources write a reference entry.
 
 ## [Unreleased]
 

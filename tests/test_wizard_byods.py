@@ -57,6 +57,7 @@ def _base_answers(**over):
         "multi_team": "no",
         "adopt_existing": "__DONE__",
         "define_new_role": "__SKIP__",
+        "ds_detail": "quick (recommended)",
     }
     a.update(over)
     return a
@@ -281,6 +282,228 @@ class WizardByodsTest(unittest.TestCase):
         for pid, (name, url) in sw.DS_PRESETS.items():
             self.assertTrue(url.startswith("https://"), pid)
             self.assertTrue(name, pid)
+
+    # --- BYODS detail tokens: quick vs define-each ---
+
+    def _drive_with_overrides(self, extra):
+        answered = {}
+
+        def fn(qid):
+            return extra.get(qid, _base_answers().get(qid, "x"))
+
+        r = sw.start_wizard(self.root)
+        steps = 0
+        roster_done = False
+        while r["status"] == "question" and steps < 120:
+            steps += 1
+            qid = r["question_id"]
+            answered[qid] = True
+            if qid == "roster":
+                val = "bot1 | engineer | team-a | ~/proj" if not roster_done else "done"
+                roster_done = True
+            elif qid == "adopt_existing":
+                val = "done"
+            elif qid == "define_new_role":
+                val = "none"
+            else:
+                val = fn(qid)
+            r = sw.answer_wizard(self.root, val)
+            if r["status"] != "question":
+                break
+        return r, answered
+
+    def test_quick_setup_writes_recommended_tokens(self):
+        import json
+
+        r, answered = self._drive_with_overrides({
+            "design_system_source": "build-custom",
+            "ds_font_primary": "Inter (recommended)",
+            "ds_font_secondary": "Space Grotesk",
+            "ds_color_primary": "#1B6DE0",
+            "ds_color_secondary": "#00A6B6",
+            "ds_color_tertiary": "#FF6B4A",
+            "ds_viz_palette": "okabe-ito (CVD-safe, recommended)",
+            "ds_brand_voice": "warm-expert — knowledgeable, encouraging, jargon-free",
+            "ds_scope": "default",
+        })
+        self.assertEqual(r["status"], "complete")
+        # quick mode: no detail questions asked
+        for qid in ("ds_neutral_style", "ds_radius", "ds_icons", "ds_type_scale",
+                    "ds_spacing", "ds_shadows", "ds_motion", "ds_breakpoints"):
+            self.assertNotIn(qid, answered, qid)
+        tokens = json.loads((self.root / "config" / "design-tokens.json").read_text())
+        self.assertEqual(tokens["source"], "build-custom")
+        self.assertEqual(tokens["color"]["brand"]["primary"]["$value"], "#1B6DE0")
+        self.assertEqual(tokens["color"]["neutral"]["style"], "cool-gray")
+        self.assertEqual(tokens["color"]["neutral"]["light"]["bg"]["$value"], "#F8FAFC")
+        self.assertIn("dark", tokens["color"]["neutral"])  # auto dark ramp
+        self.assertTrue(tokens["color"]["dataViz"]["cvdSafe"])
+        self.assertEqual(tokens["font"]["scale"]["$value"], [12, 14, 16, 20, 24, 32, 48])
+        self.assertEqual(tokens["radius"]["$value"], "8px")
+        self.assertEqual(tokens["icons"]["$value"], "lucide")
+        self.assertEqual(tokens["breakpoints"]["$value"], [640, 768, 1024, 1280])
+        # persona references the tokens file
+        persona = (self.root / "config" / "personas" / "bot1.md").read_text()
+        self.assertIn("config/design-tokens.json", persona)
+
+    def test_define_each_with_customs(self):
+        import json
+
+        r, answered = self._drive_with_overrides({
+            "design_system_source": "build-custom",
+            "ds_font_primary": "Roboto",
+            "ds_font_secondary": "Poppins",
+            "ds_color_primary": "#1B6DE0",
+            "ds_color_secondary": "#00A6B6",
+            "ds_color_tertiary": "#FF6B4A",
+            "ds_viz_palette": "okabe-ito (CVD-safe, recommended)",
+            "ds_brand_voice": "minimal-luxury — quiet, precise, confident",
+            "ds_detail": "define-each",
+            "ds_neutral_style": "custom",
+            "ds_neutral_custom": "#111111, #222222, #EEEEEE, #999999, #333333",
+            "ds_dark_mode": "light-only",
+            "ds_radius": "custom",
+            "ds_radius_custom": "6px",
+            "ds_icons": "custom",
+            "ds_icons_custom": "https://example.com/icons",
+            "ds_logo": "later",
+            "ds_type_scale": "custom",
+            "ds_type_scale_custom": "13, 15, 18, 24, 36",
+            "ds_spacing": "4pt grid",
+            "ds_shadows": "none",
+            "ds_motion": "none",
+            "ds_breakpoints": "custom",
+            "ds_breakpoints_custom": "600, 900, 1200",
+            "ds_scope": "per-project",
+        })
+        self.assertEqual(r["status"], "complete")
+        for qid in ("ds_neutral_style", "ds_neutral_custom", "ds_radius_custom",
+                    "ds_type_scale_custom", "ds_breakpoints_custom"):
+            self.assertIn(qid, answered, qid)
+        tokens = json.loads((self.root / "config" / "design-tokens.json").read_text())
+        self.assertEqual(tokens["color"]["neutral"]["style"], "custom")
+        self.assertEqual(tokens["color"]["neutral"]["light"]["bg"]["$value"], "#111111")
+        self.assertNotIn("dark", tokens["color"]["neutral"])  # light-only
+        self.assertEqual(tokens["radius"]["$value"], "6px")
+        self.assertEqual(tokens["icons"]["$value"], "https://example.com/icons")
+        self.assertEqual(tokens["logo"]["$value"],
+                         "PENDING — ask for it at the first project kickoff")
+        self.assertEqual(tokens["font"]["scale"]["$value"], [13, 15, 18, 24, 36])
+        self.assertEqual(tokens["spacing"]["$value"], "4pt grid")
+        self.assertEqual(tokens["breakpoints"]["$value"], [600, 900, 1200])
+        md = (self.root / "config" / "design-system.md").read_text()
+        self.assertIn("## Neutrals", md)
+        self.assertIn("## Shape, icons, assets", md)
+        self.assertIn("## Type & layout", md)
+        self.assertIn("config/design-tokens.json", md)
+
+    def test_detail_custom_validation(self):
+        bad = {
+            "ds_neutral_custom": ("#111111, #222222", "five comma-separated hex codes"),
+            "ds_radius_custom": ("huge", "a radius like 6px"),
+            "ds_type_scale_custom": ("big, bigger", "comma-separated pixel numbers"),
+            "ds_breakpoints_custom": ("wide", "comma-separated pixel numbers"),
+        }
+        for qid, (bad_val, hint) in bad.items():
+            with self.subTest(qid=qid):
+                # fresh wizard state per subtest (state file persists in self.root)
+                import shutil
+                shutil.rmtree(self.root / "config", ignore_errors=True)
+                parent = {
+                    "ds_neutral_custom": ("ds_neutral_style", "custom"),
+                    "ds_radius_custom": ("ds_radius", "custom"),
+                    "ds_type_scale_custom": ("ds_type_scale", "custom"),
+                    "ds_breakpoints_custom": ("ds_breakpoints", "custom"),
+                }[qid]
+                defaults = dict(_base_answers())
+                defaults.update({
+                    "design_system_source": "build-custom",
+                    "ds_font_primary": "Roboto",
+                    "ds_font_secondary": "Poppins",
+                    "ds_color_primary": "#1B6DE0",
+                    "ds_color_secondary": "#00A6B6",
+                    "ds_color_tertiary": "#FF6B4A",
+                    "ds_viz_palette": "okabe-ito (CVD-safe, recommended)",
+                    "ds_brand_voice": "direct-founder — plain-spoken, first person, no fluff",
+                    "ds_detail": "define-each",
+                    "ds_neutral_style": "cool-gray (recommended)",
+                    "ds_dark_mode": "auto (recommended) — light + dark ramps",
+                    "ds_radius": "rounded (recommended) — 8px",
+                    "ds_icons": "lucide (recommended)",
+                    "ds_logo": "none",
+                    "ds_type_scale": "recommended — 12/14/16/20/24/32/48px",
+                    "ds_spacing": "8pt grid (recommended)",
+                    "ds_shadows": "subtle (recommended)",
+                    "ds_motion": "subtle (recommended) — 150–250ms ease-out, honors prefers-reduced-motion",
+                    "ds_breakpoints": "recommended — 640/768/1024/1280px",
+                    "ds_scope": "default",
+                    parent[0]: parent[1],
+                })
+                # drive from scratch to the custom question under test
+                r = sw.start_wizard(self.root)
+                steps = 0
+                roster_done = False
+                while r["status"] == "question" and r["question_id"] != qid and steps < 120:
+                    steps += 1
+                    cq = r["question_id"]
+                    if cq == "roster":
+                        v = "bot1 | engineer | team-a | ~/proj" if not roster_done else "done"
+                        roster_done = True
+                    elif cq == "adopt_existing":
+                        v = "done"
+                    elif cq == "define_new_role":
+                        v = "none"
+                    else:
+                        v = defaults.get(cq, "x")
+                    r = sw.answer_wizard(self.root, v)
+                self.assertEqual(r["status"], "question")
+                self.assertEqual(r["question_id"], qid)
+                r = sw.answer_wizard(self.root, bad_val)
+                self.assertEqual(r["status"], "invalid", qid)
+                self.assertIn(hint.split()[0], r["error"])
+
+    def test_logo_none_and_dark_only(self):
+        import json
+
+        r, _ = self._drive_with_overrides({
+            "design_system_source": "build-custom",
+            "ds_font_primary": "Roboto",
+            "ds_font_secondary": "Poppins",
+            "ds_color_primary": "#1B6DE0",
+            "ds_color_secondary": "#00A6B6",
+            "ds_color_tertiary": "#FF6B4A",
+            "ds_viz_palette": "okabe-ito (CVD-safe, recommended)",
+            "ds_brand_voice": "direct-founder — plain-spoken, first person, no fluff",
+            "ds_detail": "define-each",
+            "ds_neutral_style": "warm-gray",
+            "ds_dark_mode": "dark-only",
+            "ds_radius": "sharp — 2px",
+            "ds_icons": "heroicons",
+            "ds_logo": "none",
+            "ds_type_scale": "recommended — 12/14/16/20/24/32/48px",
+            "ds_spacing": "8pt grid (recommended)",
+            "ds_shadows": "subtle (recommended)",
+            "ds_motion": "subtle (recommended) — 150–250ms ease-out, honors prefers-reduced-motion",
+            "ds_breakpoints": "recommended — 640/768/1024/1280px",
+            "ds_scope": "default",
+        })
+        self.assertEqual(r["status"], "complete")
+        tokens = json.loads((self.root / "config" / "design-tokens.json").read_text())
+        self.assertEqual(tokens["logo"]["$value"], "(none)")
+        # dark-only: light ramp replaced by the dark ramp
+        self.assertEqual(tokens["color"]["neutral"]["light"]["bg"]["$value"], "#1C1917")
+
+    def test_predefined_source_writes_reference_tokens(self):
+        import json
+
+        r, _ = self._drive_with_overrides({
+            "design_system_source": "choose-predefined",
+            "design_system_preset": "carbon",
+            "ds_scope": "default",
+        })
+        self.assertEqual(r["status"], "complete")
+        tokens = json.loads((self.root / "config" / "design-tokens.json").read_text())
+        self.assertEqual(tokens["externalReference"], "https://carbondesignsystem.com")
 
 
 if __name__ == "__main__":
