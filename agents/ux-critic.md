@@ -73,7 +73,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
   digests cite a named source or label **BLANK**.
 - **Stack:** On Check 1 / `design.md` — does not invent a token feed or replace
   `RESEARCH_BEFORE_ENHANCE`.
-- **Scope:** AG improve digests + product UX Critic Check 1; **not** external runtime.
+- **Scope:** AG improve digests + product UX Critic Check 1; **not** external-runtime briefs.
 - **Metric:** Improve reports with invented or blank-as-measured tokens = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -97,13 +97,13 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 
 - **Id:** `LIVE_SOT_MERGED_SHA`
 - **Slot:** AG Studio→AG→Cos ACCEPT path + Adv framework challenge (liveness only).
-- **FAIL:** Treating this draft (or intake / open PR / contributor) as live operator LOCK. Only Cos ACCEPT
+- **FAIL:** Treating this draft (or intake / open PR / draft) as live operator LOCK. Only Cos ACCEPT
   + merged SHA is live. Precedent: `#13` intake ≠ SoT.
 - **Sensor:** Cite merged SHA / merged PR when claiming live SoT; this file's draft headers say
   not live / not effective until Cos ACCEPT merge.
 - **Stack:** Does not replace Check 7 / Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` /
   `d61f4c1`) / `RESEARCH_BEFORE_ENHANCE` content — only liveness.
-- **Scope:** AG harness/constitution writes + team execution; all product teams + external runtime ops
+- **Scope:** AG harness/constitution writes + team execution; all product teams + external-runtime ops
   that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
@@ -172,7 +172,7 @@ stays `DESIGN_SYSTEM_FIRST`. Cite stacks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
   Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
 - **Slot:** Initiative packet — design system **before** web / UI pixels / stills / screens; Cos
   stamp before Check 7 / Check 8 stills / Eng handoff. **Research Scope** before comps hunt.
-- **Who / scope:** Every product team UX + Research — **not** external runtime.
+- **Who / scope:** Every product team UX + Research — **not** external-runtime briefs.
 - **Bar / order:** Design system is the FIRST Initiative deliverable. Research + UX collaborate;
   Cos signoff in early Initiative. Agency design thinking (restraint, hierarchy, type, space, one
   strong quiet option) is permanent UX brain — stacks `DESIGN_AGENCY_BAR`; not a splash tip.
@@ -346,7 +346,7 @@ FAIL if any of the following:
   craft FAIL before Adv when visitor/user-facing product copy is AI-slop / synthetic brochure
   voice, uses banned lexicon (examples — not exhaustive; Brand Voice judgment), or twin-attribute
   cadence. Human / Substack / Direct founder voice only. Stacks `DESIGN_AGENCY_BAR`. Metric:
-  visitor/user-facing surfaces shipping AI-slop = **fail closed**. Not external runtime.
+  visitor/user-facing surfaces shipping AI-slop = **fail closed**. Not external-runtime briefs.
 - **`DESIGN_SYSTEM_FIRST` / Brand & Design Setup (LIVE `#45` / `ead012f` — stack before this
   Check):** FAIL when Initiative stills / web / screens ship without Cos-signed
   `design-system.md` (tokens / type / space / motion / brand / do-not + Experience principles +
@@ -403,8 +403,8 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - Hole in competitor screen (≥1 required): <list or "none — FAIL">
 - Do-not-copy gap (≥1 required): <list or "none — FAIL">
 
-### Userflows + JTBD (Check 7) — stacked on RESEARCH_BEFORE_ENHANCE; product UX only (not external runtime)
-- Scope applicable (`SURFACE_GATE_MATRIX`): product UX epic | N/A (not external runtime / out of scope) | wrong-surface FAIL
+### Userflows + JTBD (Check 7) — stacked on RESEARCH_BEFORE_ENHANCE; product UX only (not external-runtime briefs)
+- Scope applicable (`SURFACE_GATE_MATRIX`): product UX epic | N/A (not external-runtime briefs / out of scope) | wrong-surface FAIL
 - userflows.md present + Mermaid (entry/success/error-empty/exits): yes | no
 - jtbd.md present: yes | no
 - Research cite: yes | no | partial | NO_RESEARCH→human
@@ -413,7 +413,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - Critic stamp separate from Adv (`CRITIC_SEPARATE_STAMP`): yes | no — FAIL if no
 
 ### Visual step-stills (Check 8 / `VISUAL_STEP_STILLS`) — LIVE `#15` / `d61f4c1`; stacked on RESEARCH_BEFORE_ENHANCE + Check 7 + ADV_COMP_CRITIQUE
-- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (marketing + app chrome), all product teams | N/A (not external runtime / out of scope) | wrong-surface FAIL
+- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (marketing + app chrome), all product teams | N/A (not external-runtime briefs / out of scope) | wrong-surface FAIL
 - Sensor `docs/epics/<slug>/qa/visual-stills/` + index `qa/visual-qa.md`: present | missing — FAIL
 - Per-step mobile AND desktop stills: yes | no — FAIL if no
 - CLS/layout High (CTA wrap/shift; missing theme reserved-space; dynamic banner pushes hero CTA): PASS | FAIL | N/A
@@ -427,7 +427,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - P0 (private operator data): PASS | FAIL
 
 ### DESIGN_AGENCY_BAR (LIVE #43 / 7e9e0b6; stacks on Check 8 + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE)
-- Scope applicable: product UX stills / public marketing | N/A (not external runtime) | wrong-surface FAIL
+- Scope applicable: product UX stills / public marketing | N/A (not external-runtime briefs) | wrong-surface FAIL
 - Craft brief (restraint SoT + what NOT to do) before stills: present | missing — FAIL
 - Written craft defense on stills PR (why clean; what rejected): present | missing — FAIL
 - Spectacle-as-craft (beads / marble pulses / confetti / glow-as-craft / cheesy “alive”): PASS | FAIL | N/A
@@ -440,7 +440,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 
 ### AI_SLOP_COPY_FAIL (draft until Cos ACCEPT; stacks on DESIGN_AGENCY_BAR + Brand Voice)
 - Adv named check `AI_SLOP_COPY_FAIL`: yes | no — HOLD ACCEPT if no
-- Scope applicable: visitor/user-facing product surfaces | N/A (not external runtime) | wrong-surface FAIL
+- Scope applicable: visitor/user-facing product surfaces | N/A (not external-runtime briefs) | wrong-surface FAIL
 - Human / Substack / Direct founder voice held: yes | no — FAIL if no
 - Banned lexicon (examples — not exhaustive; Brand Voice judgment): none | present — FAIL if present
 - Twin-attribute cadence: none | present — FAIL if present
@@ -450,7 +450,7 @@ DESIGN_SYSTEM_FIRST / Brand & Design Setup (LIVE #45 / ead012f; before Check 7/8
 - Not live until Cos ACCEPT merged SHA (`LIVE_SOT_MERGED_SHA`): acknowledged | violated
 
 ### Brand & Design Setup (`DESIGN_SYSTEM_FIRST`) (LIVE #45 / ead012f; stacks on DESIGN_AGENCY_BAR + RESEARCH_HCI + RESEARCH_BEFORE_ENHANCE + Check 7/8)
-- Scope applicable: product Initiative UX+Research | N/A (not external runtime) | wrong-surface FAIL
+- Scope applicable: product Initiative UX+Research | N/A (not external-runtime briefs) | wrong-surface FAIL
 - Design / Experience / Branding paramount (Eng follows signed craft): held | violated — FAIL if violated
 - Research Scope (Q1–Q8) before comps hunt: complete | missing — FAIL if missing
 - `design-system.md` present (tokens / type / space / motion / brand / do-not): yes | no — FAIL if no
@@ -500,12 +500,12 @@ is FAIL. Named FAIL bullets (CLS/layout, Fitts, Hick, Jakob; Miller when crowdin
 are listed above — no etc. Check 8 is stacked on `RESEARCH_BEFORE_ENHANCE` + Check 7 +
 `ADV_COMP_CRITIQUE`, not a replacement. Metrics: packs without step stills = **fail closed**;
 marketing/dashboard layout-shift Highs = **fail closed**. Scope: all product UX teams;
-not external runtime. Keep private operator data out of AG git.
+not external-runtime briefs. Keep private operator data out of AG git.
 
 **Draft until Cos ACCEPT (not live) — these five locks only:** `CRITIC_SEPARATE_STAMP` —
 Adv-only stamps on Checks 7–8 = **fail closed**. `TOKEN_SOURCE_OR_BLANK` — Check 1 never PASS when
-UNSET; blank-as-measured = FAIL. `SURFACE_GATE_MATRIX` — product UX gates vs external runtime
-`MORNING_BRIEF_CITE_OR_BLANK` only; false-FAIL external runtime for missing userflows/stills = **fail closed**. `LIVE_SOT_MERGED_SHA` — this draft is not effective until Cos ACCEPT merge cites a
+UNSET; blank-as-measured = FAIL. `SURFACE_GATE_MATRIX` — product UX gates vs external-runtime briefs
+`MORNING_BRIEF_CITE_OR_BLANK` only; false-FAIL external-runtime briefs for missing userflows/stills = **fail closed**. `LIVE_SOT_MERGED_SHA` — this draft is not effective until Cos ACCEPT merge cites a
 merged SHA. `RETRO_BEFORE_CLOSE` — Cos/CEO close gate (harness SoT). Check 8
 (`VISUAL_STEP_STILLS`) is already **LIVE** on main via `#15` / `d61f4c1` — do not reopen.
 HOLD ACCEPT on these five until Adv PASS.

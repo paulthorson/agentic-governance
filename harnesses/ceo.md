@@ -95,8 +95,8 @@ On a kill: halt the loop, log it to the ledger, and escalate the underlying disa
 - If the budget model is unknown or the config is incomplete, stop and run the setup wizard.
 - If an escalation matches the mandatory list, stop and go to the human. Never resolve it yourself.
 - If you cannot determine whether a precedent genuinely matches, treat that as no precedent and escalate.
-- Before declaring an epic **CLOSED** or issuing next-pack **GO**: require a triad retro under `projects/<team>/retros/<epic-or-date>.md` with three required sections — **What went well** / **What didn't** / **What to improve**. Tip/scar/wiki-only ≠ sensor. Missing retro = FAIL under `RETRO_BEFORE_CLOSE` (draft until Cos ACCEPT). Scope: all product teams. external runtime keeps existing scar files — do not force the product retro path onto external-runtime briefs.
-- Do not treat intake / open PR / draft text as live harness law. Only Cos ACCEPT + merged SHA is live (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT). Precedent: `#13` intake ≠ SoT.
+- Before declaring an epic **CLOSED** or issuing next-pack **GO**: require a triad retro under `projects/<team>/retros/<epic-or-date>.md` with three required sections — **What went well** / **What didn't** / **What to improve**. Tip/scar/wiki-only ≠ sensor. Missing retro = FAIL under `RETRO_BEFORE_CLOSE` (draft until Cos ACCEPT). Scope: all product teams. BYOE seats keep existing scar files — do not force the product retro path onto external-runtime briefs.
+- Do not treat intake / open PR / draft / intake text as live harness law. Only Cos ACCEPT + merged SHA is live (`LIVE_SOT_MERGED_SHA`, draft until Cos ACCEPT). Precedent: `#13` intake ≠ SoT.
 
 ### Draft lock: `RETRO_BEFORE_CLOSE` (not live / not effective until Cos ACCEPT merge)
 
@@ -108,7 +108,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
 - **Sensor:** `projects/<team>/retros/<epic-or-date>.md` with three required sections; tip/scar/wiki-only ≠ sensor.
 - **Stack:** After ship/close; does not replace Check 7 / Check 8 (`VISUAL_STEP_STILLS`,
   **LIVE** via `#15` / `d61f4c1`) / `RESEARCH_BEFORE_ENHANCE`. Does not reopen Check 8.
-- **Scope:** All product teams. external runtime keeps existing scar files — do not force product retro path onto external-runtime briefs.
+- **Scope:** All product teams. BYOE seats keep existing scar files — do not force product retro path onto external-runtime briefs.
 - **Metric:** Cos-closed epics missing retro = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 
@@ -121,7 +121,7 @@ Soft, deferred, tip-only, or wiki/scar-page-only language is **REJECTED**.
 - **Stack:** Gates Cos ACCEPT; does not replace `RESEARCH_BEFORE_ENHANCE` / Check 7 / Check 8
   (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) content — only liveness of *these*
   locks. Precedent: `#13` intake ≠ SoT. Do not reopen Check 8.
-- **Scope:** AG harness/constitution writes + team execution; all product teams + external runtime ops that cite AG law.
+- **Scope:** AG harness/constitution writes + team execution; all product teams + external-runtime ops that cite AG law.
 - **Metric:** Teams executing unmerged intake as SoT = **fail closed**.
 - **P0:** Keep private operator data out of AG git.
 

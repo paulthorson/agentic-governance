@@ -95,7 +95,7 @@ Critic Check 7 + Check 8 — an addition, not a replacement.**
 **Paramount:** **Design, Experience, and Branding are paramount** — not optional polish after
 Eng. Design system + Experience + Branding lead Initiative; **engineering follows signed craft**.
 
-**When / scope:** Product Initiatives for **every product UX + Research seat** (every product seat). **Not** external runtime.
+**When / scope:** Product Initiatives for **every product UX + Research seat** (every product seat). **Not** external-runtime briefs.
 Skip only when the work is not a product Initiative (say so → N/A).
 
 **Bar / order:** Design system is the FIRST Initiative deliverable — before web / UI pixels /

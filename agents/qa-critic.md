@@ -108,7 +108,7 @@ For product UX ship / Look / visual pack gates (marketing + app chrome; **all** 
 teams; **not** external-runtime briefs). Skip only when out of scope and say so.
 
 **Scope (`SURFACE_GATE_MATRIX`, draft until Cos ACCEPT):** product UX only. external-runtime briefs =
-`MORNING_BRIEF_CITE_OR_BLANK` only. Wrong-surface FAIL = applying this sensor to external runtime, or
+`MORNING_BRIEF_CITE_OR_BLANK` only. Wrong-surface FAIL = applying this sensor to external-runtime briefs, or
 omitting it on product UX. Check 8 (`VISUAL_STEP_STILLS`) grades are **LIVE** via `#15` /
 `d61f4c1` — do not reopen. `CRITIC_SEPARATE_STAMP` (draft) requires a Critic-labeled verdict
 separate from Adv on those grades.
@@ -158,7 +158,7 @@ Check 6 VisualStills sensor (`VISUAL_STEP_STILLS`): PASS | FAIL | N/A
 - Fewer than two distinct strategies: YES | NO
 
 ### Visual step-stills sensor (QA owns; UX Critic Check 8 grades FAIL criteria)
-- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (all product teams) | N/A (not external runtime / out of scope) | wrong-surface FAIL
+- Scope applicable (`SURFACE_GATE_MATRIX`): product UX surface (all product teams) | N/A (not external-runtime briefs / out of scope) | wrong-surface FAIL
 - `qa/visual-stills/` + `qa/visual-qa.md` present with per-step mobile AND desktop: yes | no
 - Metric hold (packs without stills = 0): PASS | FAIL | N/A
 - Graded by UX Critic Check 8: cited | missing cite
