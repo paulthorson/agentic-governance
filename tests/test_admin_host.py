@@ -11,7 +11,21 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 PROBE = REPO_ROOT / "tests" / "admin_access_probe.mts"
 
 
+def _node_major() -> int:
+    try:
+        out = subprocess.check_output(["node", "-v"], text=True).strip()
+    except (OSError, subprocess.CalledProcessError):
+        return 0
+    if not out.startswith("v"):
+        return 0
+    try:
+        return int(out[1:].split(".", 1)[0])
+    except ValueError:
+        return 0
+
+
 class TestAdminHostResolution(unittest.TestCase):
+    @unittest.skipUnless(_node_major() >= 22, "Node 22+ required to load the TypeScript admin host helper")
     def test_resolve_request_host_cases(self):
         result = subprocess.run(
             ["node", "--experimental-strip-types", "--no-warnings", str(PROBE)],
