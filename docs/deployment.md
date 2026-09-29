@@ -14,14 +14,18 @@ uv run adversarial-mcp # stdio transport (default for MCP clients)
 
 ```bash
 cd mcp
-# Export MCP_AUTH_TOKEN and optionally MCP_RATE_LIMIT first.
+# Export MCP_AUTH_TOKEN (required off loopback) and optionally MCP_RATE_LIMIT.
 uv run adversarial-mcp --transport streamable-http --port 8000 --mount-path /mcp
 ```
 
-- `MCP_AUTH_TOKEN` — export this environment variable to the shared bearer
-  token before starting the server. When it is set, every HTTP request must
-  carry `Authorization: Bearer` with that same value (401 otherwise). For
-  local trials, a clearly fake stand-in such as `YOUR_TOKEN_HERE` is enough.
+- `MCP_AUTH_TOKEN` — shared bearer token. HTTP transport requires a non-empty
+  value unless the server binds loopback only (`127.0.0.1`, `::1`, or
+  `localhost`). Off loopback (`0.0.0.0`, `::`, or any other non-loopback
+  address) a missing token is refused. Every HTTP request must carry
+  `Authorization: Bearer` with that same value (401 otherwise). Loopback
+  without a token starts only with a warning; set a token for any shared
+  use. For a local trial, a clearly fake stand-in such as `YOUR_TOKEN_HERE`
+  is enough.
 - `MCP_RATE_LIMIT` — export this environment variable to the
   requests-per-minute-per-IP cap (429 over the limit). A typical starting
   value is 60.
@@ -75,6 +79,8 @@ bearer auth, the client sends the token in the `Authorization` header. See
 - mTLS (Option A) is the strongest auth for machine-to-machine; use it when the
   client supports client certificates.
 - The server binds `127.0.0.1` by default for HTTP. LAN exposure requires an
-  explicit `--host 0.0.0.0` (prints a warning). Prefer loopback behind a proxy.
+  explicit `--host 0.0.0.0`, a non-empty `MCP_AUTH_TOKEN`, and prints a
+  warning. A non-loopback bind without a token is refused. Prefer loopback
+  behind a proxy.
 - Verdicts append to `runs/verdicts.jsonl` (gitignored) — real review history
   is never committed.

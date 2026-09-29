@@ -1,15 +1,15 @@
 import {NextResponse, type NextRequest} from "next/server";
-import {isLocalAdminHost} from "@/lib/admin-access";
+import {isLocalAdminHost, resolveRequestHost} from "@/lib/admin-access";
 
 /**
  * Protect /admin/* — localhost hostnames only.
  * Non-local requests fail closed: redirect to public `/` with a clear notice.
  * Remote identity login is not offered.
+ * Host is preferred; client X-Forwarded-Host is ignored unless
+ * AG_TRUST_X_FORWARDED_HOST is set. Empty host fails closed.
  */
 export function middleware(req: NextRequest) {
-  const host =
-    req.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
-    req.headers.get("host");
+  const host = resolveRequestHost(req.headers);
 
   if (isLocalAdminHost(host)) {
     return NextResponse.next();

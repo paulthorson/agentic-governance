@@ -46,7 +46,8 @@ These are design goals and process rules. Only some have code gates today
 | Spend (framework units) | Gated MCP reviews refuse at configured numeric cap | capability report §12.1 |
 | Network permission | Messaging egress only if `allow`; unknown/deny = no egress | §12.3 |
 | Approval checkpoints | Listed subprocess/outbound/outside-write sites refuse without `AG_APPROVAL=1`, `AG_APPROVAL_TOKEN`+`runs/approval.token`, or `runs/approval.ok` | §12.2 |
-| HTTP bind | Default `127.0.0.1`; LAN requires explicit `--host` | §12.3 |
+| HTTP bind | Default `127.0.0.1`; LAN requires explicit `--host` and a non-empty `MCP_AUTH_TOKEN` | §12.3 |
+| Dashboard HTTP headers | CSP `'self'` + `frame-ancestors 'none'` + `object-src 'none'`; `X-Frame-Options: DENY`; `nosniff`; strict-origin referrer; restrictive Permissions-Policy | `dashboard/next.config.ts` |
 
 ### Unchecked (operator must assume open)
 

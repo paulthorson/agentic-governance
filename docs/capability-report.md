@@ -47,9 +47,10 @@ or gates is enforcement.
 | Options | `allow` \| `deny` \| `unknown` | `setup_wizard.py:40` `NETWORK_PERMISSIONS` |
 | UNKNOWN / missing → egress? | **NO** (no egress) | `messaging.py:78–80`; `load_network_permission` default `unknown` at `messaging.py:57–58`, `75` |
 | Messaging respects permission? | **YES** | `messaging.py:134–141` |
-| MCP HTTP default bind | `127.0.0.1` | `server.py:660–662`, `689` |
-| LAN bind | Explicit `--host 0.0.0.0` (etc.) + stderr warning | `server.py:681–688` |
-| Stdio transport default? | **YES** | `server.py:656–657` |
+| MCP HTTP default bind | `127.0.0.1` | `server.py:779–785` |
+| MCP HTTP auth | Non-stdio requires non-empty `MCP_AUTH_TOKEN` except loopback (warns); non-loopback without token is refused; bearer compare uses `hmac.compare_digest` | `server.py:751–763`, `797–819` |
+| LAN bind | Explicit `--host 0.0.0.0` (etc.) + `MCP_AUTH_TOKEN` required + stderr warning | `server.py:801–826` |
+| Stdio transport default? | **YES** | `server.py:775–776` |
 
 ---
 
@@ -95,7 +96,7 @@ This repository does not store or set a git author identity.
 | Question | Answer | Cite |
 |---|---|---|
 | Remote identity login for admin? | **NO** — removed; localhost Host gate only | `dashboard/README.md`; `middleware.ts` |
-| How is `/admin` gated? | Request Host must be localhost / loopback / `*.localhost`; else redirect to `/` with `admin=local-only` | `dashboard/src/middleware.ts`; `admin-access.ts` |
+| How is `/admin` gated? | Request Host must be localhost / loopback / `*.localhost`. Client `X-Forwarded-Host` is ignored unless `AG_TRUST_X_FORWARDED_HOST` is set. Empty host fails closed. Else redirect to `/` with `admin=local-only` | `dashboard/src/middleware.ts`; `admin-access.ts` |
 | Email allowlist? | **NO** — remote identity login removed | — |
 | Hardcoded allowlist email | **NO** | `admin-access.ts` |
 

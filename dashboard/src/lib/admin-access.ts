@@ -53,3 +53,34 @@ export function isLocalAdminHost(
   if (hostname.endsWith(".localhost")) return true;
   return false;
 }
+
+const TRUST_FORWARDED_HOST_VALUES = new Set(["1", "true", "yes", "on"]);
+
+/**
+ * Whether to trust client-supplied X-Forwarded-Host for the admin gate.
+ * Default off. Enable only behind a proxy that overwrites that header.
+ */
+export function trustForwardedHost(
+  env: Record<string, string | undefined> = process.env,
+): boolean {
+  const raw = (env.AG_TRUST_X_FORWARDED_HOST ?? "").trim().toLowerCase();
+  return TRUST_FORWARDED_HOST_VALUES.has(raw);
+}
+
+/**
+ * Hostname used for the admin gate.
+ *
+ * Default: the Host header only. Client X-Forwarded-Host is ignored unless
+ * AG_TRUST_X_FORWARDED_HOST is set. Empty or missing host → null (fail closed).
+ */
+export function resolveRequestHost(
+  headers: {get(name: string): string | null},
+  env: Record<string, string | undefined> = process.env,
+): string | null {
+  const host = headers.get("host")?.trim() || "";
+  if (trustForwardedHost(env)) {
+    const forwarded = headers.get("x-forwarded-host")?.split(",")[0]?.trim() || "";
+    if (forwarded) return forwarded;
+  }
+  return host || null;
+}

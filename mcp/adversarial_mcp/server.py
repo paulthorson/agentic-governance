@@ -21,6 +21,7 @@ real review history never gets committed.
 
 from __future__ import annotations
 
+import hmac
 import json
 import os
 import re
@@ -727,6 +728,41 @@ def check_updates(force: bool = False) -> dict[str, Any]:
     return update_check.check_for_updates(force=force, repo_root=REPO_ROOT)
 
 
+LOOPBACK_BIND_HOSTS = frozenset({"127.0.0.1", "::1", "localhost"})
+
+
+def _normalize_bind_host(host: str) -> str:
+    h = (host or "").strip().lower()
+    if h.startswith("[") and h.endswith("]"):
+        return h[1:-1]
+    return h
+
+
+def is_loopback_bind(host: str) -> bool:
+    """True for 127.0.0.1, ::1, and localhost (bracketed IPv6 accepted)."""
+    return _normalize_bind_host(host) in LOOPBACK_BIND_HOSTS
+
+
+def http_auth_token() -> str:
+    """Non-empty MCP_AUTH_TOKEN, or empty string if unset or whitespace."""
+    return os.environ.get("MCP_AUTH_TOKEN", "").strip()
+
+
+def refuse_http_without_token(host: str, token: str) -> bool:
+    """True when HTTP must not start: token missing and bind is off loopback."""
+    return not token and not is_loopback_bind(host)
+
+
+def bearer_token_matches(authorization: str, token: str) -> bool:
+    """Constant-time compare of Authorization against Bearer <token>."""
+    expected = f"Bearer {token}".encode("utf-8")
+    provided = authorization.encode("utf-8")
+    if len(provided) != len(expected):
+        hmac.compare_digest(expected, expected)
+        return False
+    return hmac.compare_digest(provided, expected)
+
+
 def main() -> None:
     """Run the MCP server.
 
@@ -744,32 +780,51 @@ def main() -> None:
         "--host",
         default="127.0.0.1",
         help="HTTP bind address (default 127.0.0.1). Use --host 0.0.0.0 only when "
-             "you intentionally expose the server on the LAN; that prints a warning.",
+             "you intentionally expose the server on the LAN; that requires "
+             "MCP_AUTH_TOKEN and prints a warning.",
     )
     args = ap.parse_args()
 
     if args.transport == "stdio":
         mcp.run(transport="stdio")
-    else:
-        # streamable-http / sse: run the server over HTTP. FastMCP's run()
-        # with a non-stdio transport serves the server on the given port.
-        import sys
-        import uvicorn
-        # Optional bearer-token auth for remote deployments (MCP_AUTH_TOKEN).
-        # When set, every HTTP request must carry Authorization: Bearer <token>.
-        auth_token = os.environ.get("MCP_AUTH_TOKEN", "")
-        app = mcp.streamable_http_app() if args.transport == "streamable-http" else mcp.sse_app()
-        if auth_token:
-            app = _auth_middleware(app, auth_token)
-        # Default bind is loopback only. LAN exposure requires an explicit --host.
-        if args.host in ("0.0.0.0", "::", "[::]"):
-            print(
-                "WARNING: binding MCP HTTP transport to "
-                f"{args.host} exposes it on all interfaces (LAN/WAN reachable if "
-                "the host is). Prefer 127.0.0.1 behind a reverse proxy.",
-                file=sys.stderr,
-            )
-        uvicorn.run(app, host=args.host, port=args.port)
+        return
+
+    # streamable-http / sse: run the server over HTTP. FastMCP's run()
+    # with a non-stdio transport serves the server on the given port.
+    import sys
+    import uvicorn
+
+    # HTTP transport: require a bearer token off loopback. Loopback may omit
+    # MCP_AUTH_TOKEN only with a loud warning. Non-loopback without a token
+    # is refused (0.0.0.0 / :: and any other non-loopback bind).
+    auth_token = http_auth_token()
+    if refuse_http_without_token(args.host, auth_token):
+        print(
+            "ERROR: MCP_AUTH_TOKEN is required when the HTTP transport binds "
+            f"off loopback (host={args.host}). Set a non-empty MCP_AUTH_TOKEN "
+            "or bind 127.0.0.1, ::1, or localhost.",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
+    if not auth_token:
+        print(
+            "WARNING: MCP_AUTH_TOKEN is unset. HTTP transport is bound to "
+            f"{args.host} without a bearer token. Set MCP_AUTH_TOKEN for any "
+            "shared or remote use.",
+            file=sys.stderr,
+        )
+
+    app = mcp.streamable_http_app() if args.transport == "streamable-http" else mcp.sse_app()
+    if auth_token:
+        app = _auth_middleware(app, auth_token)
+    if not is_loopback_bind(args.host):
+        print(
+            "WARNING: binding MCP HTTP transport to "
+            f"{args.host} exposes it on a non-loopback interface (LAN/WAN "
+            "reachable if the host is). Prefer 127.0.0.1 behind a reverse proxy.",
+            file=sys.stderr,
+        )
+    uvicorn.run(app, host=args.host, port=args.port)
 
 
 def _auth_middleware(app, token: str):
@@ -781,9 +836,6 @@ def _auth_middleware(app, token: str):
     deployments; it does not replace a full auth layer (e.g. mTLS or an API
     gateway) for production.
     """
-    import asyncio
-    import time
-
     rate_limit = int(os.environ.get("MCP_RATE_LIMIT", "0"))  # 0 = disabled
     # per-IP sliding window: {ip: [timestamps]}
     hits: dict[str, list[float]] = {}
@@ -794,7 +846,7 @@ def _auth_middleware(app, token: str):
             return
         headers = dict(scope.get("headers", []))
         auth = headers.get(b"authorization", b"").decode("utf-8", "ignore")
-        if auth != f"Bearer {token}":
+        if not bearer_token_matches(auth, token):
             await send({
                 "type": "http.response.start",
                 "status": 401,

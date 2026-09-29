@@ -44,6 +44,7 @@ Open `/admin` on localhost. Requests whose Host is not a local hostname are redi
 ## Access (localhost gate)
 
 - Middleware (`src/middleware.ts`) allows `/admin/*` only when the request Host is `localhost`, loopback (`127.0.0.1` / `::1`), or `*.localhost`.
+- Client `X-Forwarded-Host` is ignored unless `AG_TRUST_X_FORWARDED_HOST` is enabled (default off). Empty Host fails closed.
 - Remote identity login is removed. Admin is a localhost Host gate only.
 - Legacy path `/admin/login` redirects to `/admin` on localhost.
 - Non-local `/admin` requests fail closed → redirect to public `/` with clear copy.

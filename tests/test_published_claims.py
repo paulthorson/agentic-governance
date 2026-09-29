@@ -431,6 +431,47 @@ class TestPublishedClaims(unittest.TestCase):
         )
         self.assertNotIn("dashboard/", server)
 
+    def test_dashboard_sends_restrictive_security_headers(self):
+        """Claim: dashboard responses include CSP self-only and clickjacking headers."""
+        src = (REPO_ROOT / "dashboard" / "next.config.ts").read_text(encoding="utf-8")
+        self.assertIn("async headers()", src)
+        self.assertIn("default-src 'self'", src)
+        self.assertIn("frame-ancestors 'none'", src)
+        self.assertIn("object-src 'none'", src)
+        self.assertIn('value: "DENY"', src)
+        self.assertIn("X-Frame-Options", src)
+        self.assertIn("X-Content-Type-Options", src)
+        self.assertIn("nosniff", src)
+        self.assertIn("strict-origin-when-cross-origin", src)
+        self.assertIn("Permissions-Policy", src)
+        self.assertIn("camera=()", src)
+        self.assertIn("geolocation=()", src)
+
+    def test_admin_host_ignores_forwarded_host_by_default(self):
+        """Claim: admin gate uses Host; X-Forwarded-Host is opt-in."""
+        access = (REPO_ROOT / "dashboard" / "src" / "lib" / "admin-access.ts").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("AG_TRUST_X_FORWARDED_HOST", access)
+        self.assertIn("resolveRequestHost", access)
+        self.assertIn("fail closed", access.lower())
+        middleware = (REPO_ROOT / "dashboard" / "src" / "middleware.ts").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("resolveRequestHost", middleware)
+        self.assertNotIn('headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||', middleware)
+
+    def test_http_transport_refuses_non_loopback_without_token(self):
+        """Claim: MCP HTTP off loopback requires MCP_AUTH_TOKEN."""
+        src = (REPO_ROOT / "mcp" / "adversarial_mcp" / "server.py").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("refuse_http_without_token", src)
+        self.assertIn("hmac.compare_digest", src)
+        deploy = (REPO_ROOT / "docs" / "deployment.md").read_text(encoding="utf-8")
+        self.assertIn("Off loopback", deploy)
+        self.assertIn("missing token is refused", deploy)
+
 
 if __name__ == "__main__":
     unittest.main()
