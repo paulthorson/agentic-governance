@@ -1,0 +1,373 @@
+#!/usr/bin/env python3
+"""
+Stuck-review watchdog for the adversarial-agents framework.
+
+Detects `in_review` tickets that have been sitting without a verdict for too
+long — the assigned adversary agent is down, paused, or stalled. Alerts via
+Discord so a human can intervene before the pipeline silently stalls.
+
+Logic:
+  1. Load `in_review` issues from a data source (Paperclip by default, or a
+     generic JSON file for non-Paperclip teams).
+  2. For each, compute how long since `lastActivityAt` (or `updatedAt`).
+  3. If older than the staleness threshold, it is stuck.
+  4. Alert (Discord) for each stuck ticket, unless already alerted recently
+     (dedupe via a state file).
+
+Data source (ADR-0007):
+  The watchdog is data-source-agnostic. It reads a list of in_review issues
+  and applies the same staleness/dedupe/alert logic regardless of where the
+  issues come from. Two sources are built in:
+
+  --source paperclip (default)
+      Shells out to `paperclipai issue list --status in_review --json`.
+      This is the framework host default adapter.
+
+  --source file --issues-file <path>
+      Reads a JSON file (or stdin with `-`) containing a list of issue
+      dicts. Any team's store (GitHub PR review state, a file ledger in the
+      epic folder, Linear, Jira) can be adapted by emitting this shape:
+      [{"identifier", "title", "assigneeAgentId", "lastActivityAt"|"updatedAt"}]
+
+Usage:
+  python3 scripts/stuck-review-watchdog.py [--stale-minutes 120] [--dry-run]
+  python3 scripts/stuck-review-watchdog.py --json [--stale-minutes 120] [--dry-run]
+  python3 scripts/stuck-review-watchdog.py --source file --issues-file issues.json
+  python3 scripts/stuck-review-watchdog.py --source file --issues-file - < issues.json
+
+Machine-parseable output:
+  With `--json` (or `--format json`), the watchdog emits a single, versioned
+  JSON document to stdout for the whole run. The human-readable report remains
+  the default and is byte-for-byte unchanged when the flag is absent. See
+  scripts/stuck-review-watchdog.schema.md for the schema reference.
+
+Config (env):
+  PAPERCLIP_COMPANY_ID   company id (default: auto-detect; paperclip source only)
+  STUCK_STATE_FILE       path to dedupe state (default: runs/stuck-watchdog.json)
+
+Alerts (via scripts/messaging.py, not read directly here):
+  ALERT_CHANNEL / ALERT_WEBHOOK_URL / ALERT_COMMAND / ALERT_TO
+  NETWORK_PERMISSION   optional override: allow | deny | unknown
+"""
+import argparse
+import json
+import os
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+# Shared messaging: sends alerts to the operator's configured channel
+# (discord/whatsapp/imessage/generic), set by the setup wizard.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from messaging import send_alert # noqa: E402
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+STATE_FILE = Path(os.environ.get("STUCK_STATE_FILE", REPO_ROOT / "runs" / "stuck-watchdog.json"))
+
+# Version of the machine-parseable JSON schema. Bump when the emitted shape
+# changes; consumers must treat an unknown version as incompatible.
+SCHEMA_VERSION = "1"
+
+# Adversary agents by id (the reviewers that should clear in_review tickets).
+# If a ticket is in_review and assigned to one of these, it is waiting on a verdict.
+ADVERSARY_AGENT_IDS = {
+    "42432a98-9ff2-445b-bd2f-d7aced2ac003": "Adversarial Engineer",
+    "4b51f379-66fc-4414-ac19-02b56c2d5e02": "Adversarial QA",
+    "efa203bc-ff0e-4d4c-bec5-0324f9f22585": "Adversarial UX",
+    "7d798b0e-fdd2-4231-bfd7-e35ee4bbe050": "Adversarial Researcher",
+    "d60f5755-af59-49cd-bb94-337521106061": "Adversarial Universal",
+    "276d36c5-c1ae-4946-bd48-344734510c3d": "Adversarial Security",
+    "390d2d66-6d84-4f89-b55e-54024bbd21ef": "Adversarial Privacy",
+    "d5701004-429c-410b-8fcc-15eab4e9217a": "Adversarial Compliance",
+    "bf531c06-3198-4522-b3b8-474db019d2b9": "Adversarial Product",
+    "60da788b-4f36-4154-899e-72f718f9a3f5": "Adversarial Ops",
+    "badc169b-2cd6-4593-8a1d-c5125bb81ebd": "Adversarial Docs",
+}
+
+def get_company_id() -> str:
+    env = os.environ.get("PAPERCLIP_COMPANY_ID")
+    if env:
+        return env
+    # Auto-detect from the Paperclip instance.
+    companies = Path.home() / ".paperclip" / "instances" / "default" / "companies"
+    if companies.is_dir():
+        entries = [d for d in companies.iterdir() if d.is_dir()]
+        if len(entries) == 1:
+            return entries[0].name
+    raise SystemExit("Could not determine company id. Set PAPERCLIP_COMPANY_ID.")
+
+def query_in_review(company_id: str) -> tuple[list[dict], dict | None]:
+    """Query Paperclip for in_review issues via the CLI.
+
+    Returns (issues, error). On success error is None. On failure issues is []
+    and error is a machine-readable descriptor {"reason", "message"} so the
+    caller can distinguish a genuine empty result from a failed query (F5).
+    """
+    cmd = [
+        "paperclipai", "issue", "list",
+        "--company-id", company_id,
+        "--status", "in_review",
+        "--json",
+    ]
+    scripts_dir = str(Path(__file__).resolve().parent)
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    from approval import ApprovalRequired, require_approval
+
+    try:
+        require_approval("paperclip_subprocess", REPO_ROOT)
+    except ApprovalRequired as e:
+        print(f"WARN: paperclipai blocked without approval: {e}", file=sys.stderr)
+        return [], {"reason": "approval_required", "message": str(e)}
+    try:
+        out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+    except (subprocess.TimeoutExpired, FileNotFoundError) as e:
+        print(f"WARN: could not query Paperclip: {e}", file=sys.stderr)
+        return [], {"reason": "query_failed", "message": str(e)}
+    if out.returncode != 0:
+        print(f"WARN: paperclipai issue list failed: {out.stderr.strip()}", file=sys.stderr)
+        return [], {"reason": "query_failed", "message": out.stderr.strip()}
+    try:
+        return json.loads(out.stdout), None
+    except json.JSONDecodeError:
+        print("WARN: could not parse paperclipai output", file=sys.stderr)
+        return [], {"reason": "parse_error", "message": "could not parse paperclipai output"}
+
+def query_in_review_file(path: str) -> tuple[list[dict], dict | None]:
+    """Read in_review issues from a JSON file (or stdin with '-').
+
+    The file is a JSON list of issue dicts with the same shape the Paperclip
+    adapter returns: each has identifier (or id), title, assigneeAgentId, and
+    lastActivityAt (or updatedAt). This is the generic adapter that lets any
+    team's store feed the watchdog (ADR-0007).
+    """
+    try:
+        if path == "-":
+            raw = sys.stdin.read()
+        else:
+            raw = Path(path).read_text(encoding="utf-8")
+    except OSError as e:
+        return [], {"reason": "read_failed", "message": str(e)}
+    try:
+        data = json.loads(raw)
+    except json.JSONDecodeError as e:
+        return [], {"reason": "parse_error", "message": str(e)}
+    if not isinstance(data, list):
+        return [], {"reason": "shape_error", "message": "expected a JSON list of issues"}
+    return data, None
+
+def load_issues(args) -> tuple[list[dict], dict | None]:
+    """Load in_review issues from the configured source (ADR-0007).
+
+    Returns (issues, error). On success error is None. On failure issues is []
+    and error is a machine-readable descriptor {"reason", "message"} so the
+    caller can distinguish a genuine empty result from a failed query.
+    """
+    if args.source == "file":
+        return query_in_review_file(args.issues_file)
+    # Default: Paperclip adapter.
+    return query_in_review(args.company_id)
+
+def load_config() -> dict:
+    """Read the data-source config from config/setup.md (written by the wizard).
+
+    Returns a dict with keys issue_source, issues_file, verdict_log. Missing
+    or unparseable config returns empty values; the caller falls back to CLI
+    flags / defaults.
+    """
+    cfg = {}
+    p = REPO_ROOT / "config" / "setup.md"
+    if not p.exists():
+        return cfg
+    try:
+        for line in p.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line.startswith("- issue source (watchdog):"):
+                cfg["issue_source"] = line.split(":", 1)[1].strip()
+            elif line.startswith("- issues file (if file source):"):
+                cfg["issues_file"] = line.split(":", 1)[1].strip()
+            elif line.startswith("- verdict log (telemetry):"):
+                cfg["verdict_log"] = line.split(":", 1)[1].strip()
+    except OSError:
+        return {}
+    return cfg
+
+def parse_ts(ts: str | None) -> float | None:
+    if not ts:
+        return None
+    try:
+        return datetime.fromisoformat(ts.replace("Z", "+00:00")).timestamp()
+    except ValueError:
+        return None
+
+def load_state() -> dict:
+    if STATE_FILE.exists():
+        try:
+            return json.loads(STATE_FILE.read_text())
+        except (json.JSONDecodeError, OSError):
+            return {}
+    return {}
+
+def save_state(state: dict) -> None:
+    STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STATE_FILE.write_text(json.dumps(state, indent=2))
+
+def collect_stuck(issues: list[dict], args, now: float, state: dict) -> list[dict]:
+    """Return stuck-ticket dicts: identifier, title, reviewer, age_min, reason.
+
+    Shared by the human and JSON paths so the two surfaces cannot drift.
+    """
+    stale_secs = args.stale_minutes * 60
+    stuck = []
+    for issue in issues:
+        ident = issue.get("identifier", issue.get("id", "?"))
+        assignee = issue.get("assigneeAgentId", "")
+        last = parse_ts(issue.get("lastActivityAt") or issue.get("updatedAt"))
+        if last is None:
+            continue
+        age_min = (now - last) / 60
+        if age_min < args.stale_minutes:
+            continue
+        reviewer = ADVERSARY_AGENT_IDS.get(assignee, "unknown reviewer")
+        # Dedupe: skip if we already alerted for this ticket recently.
+        last_alert = state.get(ident)
+        if last_alert and (now - last_alert) < stale_secs:
+            continue
+        stuck.append({
+            "identifier": ident,
+            "title": issue.get("title", "")[:120],
+            "reviewer": reviewer,
+            "age_min": round(age_min),
+            "reason": f"In in_review for {age_min:.0f} min with no verdict. Adversary may be down/paused.",
+        })
+    return stuck
+
+def build_report(args) -> dict:
+    """Build the machine-parseable JSON report document for the run."""
+    now = time.time()
+    run = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "mode": "dry_run" if args.dry_run else "alert",
+        "source": args.source,
+    }
+    base = {"schema_version": SCHEMA_VERSION, "run": run}
+
+    issues, err = load_issues(args)
+    if err is not None:
+        return {**base, "status": "error", "error": err, "tickets": []}
+    if not issues:
+        return {**base, "status": "ok_no_findings", "tickets": []}
+    state = load_state()
+    stuck = collect_stuck(issues, args, now, state)
+    if not stuck:
+        return {**base, "status": "ok_no_findings", "tickets": []}
+    return {**base, "status": "ok_with_findings", "tickets": stuck}
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--stale-minutes", type=int, default=120,
+                    help="in_review tickets older than this are stuck (default 120)")
+    ap.add_argument("--dry-run", action="store_true", help="report without alerting")
+    ap.add_argument("--json", action="store_true",
+                    help="emit a single versioned JSON document to stdout")
+    ap.add_argument("--format", choices=["text", "json"], default="text",
+                    help="output format; --json is an alias for --format json")
+    ap.add_argument("--source", choices=["paperclip", "file", "none"], default="paperclip",
+                    help="data source for in_review issues (default paperclip; ADR-0007)")
+    ap.add_argument("--issues-file", default=None,
+                    help="JSON file of in_review issues for --source file ('-' for stdin)")
+    ap.add_argument("--company-id", default=None,
+                    help="Paperclip company id (overrides PAPERCLIP_COMPANY_ID / auto-detect)")
+    args = ap.parse_args()
+
+    json_mode = args.json or args.format == "json"
+
+    # Fall back to the wizard-written config (config/setup.md) when CLI flags
+    # are not given, so the watchdog is configured at setup time (ADR-0007).
+    cfg = load_config()
+    if args.source == "paperclip" and cfg.get("issue_source") in ("file", "none"):
+        args.source = cfg["issue_source"]
+    if args.source == "file" and not args.issues_file and cfg.get("issues_file"):
+        args.issues_file = cfg["issues_file"]
+
+    # Resolve the Paperclip company id only when the paperclip source is used.
+    # In JSON mode a hard failure emits a structured error document; in the
+    # default mode the existing SystemExit behavior is kept.
+    args.company_id = args.company_id or os.environ.get("PAPERCLIP_COMPANY_ID")
+    if args.source == "paperclip" and not args.company_id:
+        try:
+            args.company_id = get_company_id()
+        except SystemExit as e:
+            if json_mode:
+                print(json.dumps({
+                    "schema_version": SCHEMA_VERSION,
+                    "run": {
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "mode": "dry_run" if args.dry_run else "alert",
+                        "source": args.source,
+                    },
+                    "status": "error",
+                    "error": {"reason": "hard_failure", "message": str(e)},
+                    "tickets": [],
+                }, indent=2))
+                return
+            raise
+
+    if args.source == "none":
+        # Watchdog disabled: no in_review backend configured. Report cleanly.
+        if json_mode:
+            print(json.dumps({
+                "schema_version": SCHEMA_VERSION,
+                "run": {
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "mode": "dry_run" if args.dry_run else "alert",
+                    "source": "none",
+                },
+                "status": "disabled",
+                "error": {"reason": "no_in_review_backend",
+                           "message": "issue source is 'none'; watchdog disabled until an in_review backend is configured"},
+                "tickets": [],
+            }, indent=2))
+            return
+        print("Watchdog disabled: no in_review backend configured (issue source = none).")
+        return
+
+    if json_mode:
+        print(json.dumps(build_report(args), indent=2))
+        return
+
+    # ---- human-readable default path (unchanged) ----
+    issues, _ = load_issues(args)
+    if not issues:
+        print("No in_review issues. All clear.")
+        return
+
+    now = time.time()
+    state = load_state()
+    stuck = collect_stuck(issues, args, now, state)
+
+    if not stuck:
+        print("No stuck in_review tickets.")
+        return
+
+    for t in stuck:
+        ident, title, reviewer, age_min = t["identifier"], t["title"], t["reviewer"], t["age_min"]
+        line = (
+            f"⚠️ **Stuck review: {ident}**\n"
+            f"Title: {title[:120]}\n"
+            f"Reviewer: {reviewer}\n"
+            f"In in_review for {age_min:.0f} min with no verdict.\n"
+            f"Adversary may be down/paused — check it."
+        )
+        print(f"[{'DRY-RUN' if args.dry_run else 'ALERT'}] {ident} ({reviewer}) stuck {age_min:.0f} min")
+        if not args.dry_run:
+            send_alert(line)
+            state[ident] = now
+
+    if not args.dry_run:
+        save_state(state)
+
+if __name__ == "__main__":
+    main()
