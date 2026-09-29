@@ -1,0 +1,141 @@
+# Changelog
+
+All notable changes to Agentic Governance.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
+project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.3.0] — 2026-09-29
+
+### Added
+
+- **BYODS — bring your own design system (setup wizard).** After BYOA
+  adoption, the wizard records the operator's visual foundation so new
+  projects start building immediately instead of designing from scratch:
+  paste a link to your own design system repo/docs, pick a predefined
+  codified system to start from, or build a custom one together in the
+  wizard. Predefined systems: Astryx (Meta's open-source, agent-ready
+  system with MCP tooling — recommended when agents author the UI),
+  Google Material Design, IBM Carbon, Adobe Spectrum, Atlassian Design
+  System, Shopify Polaris, GitHub Primer. Custom build walks through
+  primary/secondary fonts (free Google Font recommendations, custom
+  allowed), primary/secondary/tertiary brand colors as hex codes (answer
+  `help` for curated, contrast-checked starter palettes — every primary
+  is text-safe at ≥ 4.5:1 on white, WCAG AA), a color-vision-deficiency-safe
+  data-viz palette (Okabe–Ito recommended, custom allowed), and brand voice
+  (six example styles, or `i-have-one-already` with sample text now or
+  deferred to the first project kickoff). Recorded to
+  `config/design-system.md`; use as the default every new project starts
+  from (fast development) or re-run per project at kickoff (case by case).
+  New `design_system_palettes` MCP tool returns the starter data as
+  structured JSON for the operator's agent to render natively (swatches,
+  color wheel). Honest limit, stated in the docs: the framework records the
+  design system as advisory config — it does not pixel-enforce it in code;
+  initiative-level craft gates (`DESIGN_SYSTEM_FIRST`, Check 7/8, Cos
+  stamp) still apply per project. New: `docs/onboarding/byods.md`,
+  `tests/test_wizard_byods.py`, capability-report §12.11.
+- **BYODS detail tokens + machine-readable tokens.** The custom build now
+  continues with a quick-setup vs define-each gate: quick applies
+  recommended values with no further questions; define-each walks through
+  neutral ramps (bg/surface/text/muted/border, cool/warm/true-neutral or
+  custom hexes), dark mode (auto light+dark ramps, light-only, dark-only,
+  custom), corner radius (rounded/sharp/pill/custom), icon set (Lucide,
+  Material Symbols, Heroicons, custom), logo/brand-asset link (`later`
+  defers to kickoff), type scale, spacing grid, shadows, motion (honors
+  prefers-reduced-motion), and breakpoints — every question offering its
+  recommended value. Every build also writes `config/design-tokens.json`
+  (W3C-DTCG-flavored `$value`/`$type` tokens) for agents and build tooling
+  to import directly; link/predefined sources write a reference entry.
+- **Opt-in update checks.** The framework now knows its own version
+  (`get_version` MCP tool, single source of truth in
+  `mcp/adversarial_mcp/updates.py`) and can tell the operator when a newer
+  version is published (`check_updates` MCP tool, `scripts/check_updates.py`,
+  banner in the localhost dashboard). Privacy by default: the check is
+  strictly opt-in — it does nothing unless the operator enables it
+  (`AG_UPDATE_CHECK=allow`, or a `## Update checks` / `- allow` section in
+  `config/setup.md`) *and* their network permission is `allow`. When it
+  runs, it only fetches the public CHANGELOG.md from the main branch and
+  compares version headings — no telemetry is sent anywhere, no custom
+  User-Agent fingerprint, results cached 24h in gitignored
+  `runs/update-check.json`, every failure returns a reason instead of
+  raising. New: `tests/test_updates.py` (16 tests).
+
+## [Unreleased]
+
+Product-facing notes for human visitors.
+
+### Added
+
+- Framework technical writing skill for public git docs
+  (`skills/doc-framework-technical-writing/`).
+- External side-effect go-gate: messaging egress only when network permission
+  allows, with a documented Quality check path.
+- Optional private-notes folder at install when a coordinating role is on the roster.
+- Localhost `dashboard/` app for operator/dev — not required to use the
+  framework; marketing face lives in the separate site repo.
+- Governance setup wizard via MCP (`setup_wizard_start` /
+  `setup_wizard_answer`) writing roster and persona config.
+- Local file-based ticket/story helper (`scripts/ticket.py`).
+
+### Changed
+
+- `COUNSEL_GATE` recorded as a short public scar. Apache-2.0 LICENSE only;
+  no acceptance gate.
+- Localhost dashboard admin uses a localhost Host gate only; remote identity
+  login is removed (fail closed off-box).
+- Root README Install section rewritten as an installer-facing clone → MCP →
+  wizard guide.
+- Root license is Apache License 2.0 (see `LICENSE` and `NOTICE`).
+- Setup wizard questions rewritten in plain language; data-source and network
+  permission questions included.
+- Framework restructure: shared `constitution/` + `harnesses/` + MCP engine
+  alongside domain plugins.
+
+### Fixed
+
+- MCP `get_standard` / `get_constitution` path resolution for domain plugins.
+- Setup wizard roster completion so finalize can write config.
+
+### Removed
+
+- Extra use-governor documents beyond Apache-2.0 LICENSE and NOTICE.
+  LICENSE is the only use governor.
+
+## [0.2.0] — 2026-09-24
+
+### Added
+- **Continuous Learning Loop** — repeated mistakes now convert into
+  progressively stronger prevention automatically. Failures are tagged
+  against a canonical failure-class registry
+  (`docs/learning-loop-registry.md`), recurrences are counted in the
+  retrospective, and lessons graduate from written convention (1st
+  occurrence) to mandatory pre-flight checklist item in briefs (2nd,
+  automatic) to fail-closed gate (3rd, maintainer-approved). New:
+  `docs/learning-loop.md`,
+  `docs/adr/0008-continuous-learning-loop.md` (Proposed). Counts attach
+  to failure patterns, never to people.
+
+## [0.1.1] — 2026-09-11
+
+### Added
+- **Product-seat epic retrospectives as SoT** (path on product brief — OUT of
+  AG framework repo; was under `projects/ladders/retros/` — tree removed from
+  tip). Operator LOCK 2026-09-11. Filed triad retros for `migration-drift-gate` and
+  `marketing-landing` (went well / didn't / improve only). Optional mirrors
+  elsewhere OK later. Docs only — no framework-policy
+  change.
+
+## [0.1.0] — 2026-08-26
+
+### Added
+- Five adversarial domain plugins:
+  - `adversarial-ux` — user experience (critic, cx-advocate, evaluative-uxr; 10 skills)
+  - `adversarial-engineer` — engineering (critic, ops-advocate, reliability-reviewer; 9 skills)
+  - `adversarial-qa` — testing/release (critic, quality-advocate, edge-case-reviewer; 8 skills)
+  - `adversarial-researcher` — research/evidence (critic, evidence-advocate, context-reviewer; 8 skills)
+  - `adversarial-universal` — catch-all (universal-adversary; 6 skills)
+- Each plugin: constitution, domain standard, personas, calibration ledger, decision-record
+  + calibration-entry templates, commands.
+- Consolidated flat layer: 13 namespaced agents + 45 namespaced skills.
+- Cursor + Claude Code wiring (agents + skills symlinks).
+- Paperclip wiring: 5 adversarial agents + mandatory-review rule in 8 domain agents.
