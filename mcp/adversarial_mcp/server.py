@@ -32,6 +32,7 @@ from mcp.server.fastmcp import FastMCP
 
 from . import setup_wizard
 from . import spend as spend_meter
+from . import updates as update_check
 from .spend import SpendCapExceeded
 
 # ---------------------------------------------------------------------------
@@ -323,7 +324,7 @@ def setup_wizard_answer(answer: str) -> dict[str, Any]:
     next question, or the completion summary when the wizard is done. For bounded
     questions, answer must be one of the offered options; for roster rows, send
     'done' to finish the roster. On completion writes config/setup.md,
-    config/roster.md, config/design-system.md (BYODS), persona blocks under
+    config/roster.md, config/design-system.md + config/design-tokens.json (BYODS), persona blocks under
     config/personas/, and — when Chief of Staff is seated — Cos memory scaffold via cos_memory_setup.apply_at_cos_seating
     (install/setup seating hook; not a deferred README-only step)."""
     return setup_wizard.answer_wizard(REPO_ROOT, answer)
@@ -334,10 +335,11 @@ def design_system_palettes() -> dict[str, Any]:
     """Return the curated design-system starter data used by the setup wizard's
     BYODS step: contrast-checked starter palettes, the recommended CVD-safe
     data-viz palette (Okabe-Ito), free Google Font recommendations, brand
-    voice styles, and predefined codified design systems. The operator's agent
-    renders these natively (swatches, a color-wheel picker, option lists) and
-    passes the operator's choice back through setup_wizard_answer(); the
-    framework records the choice as config — it does not pixel-enforce it."""
+    voice styles, predefined codified design systems, neutral ramps, corner
+    radius styles, and icon sets. The operator's agent renders these natively
+    (swatches, a color-wheel picker, option lists) and passes the operator's
+    choice back through setup_wizard_answer(); the framework records the choice
+    as config — it does not pixel-enforce it."""
     return {
         "starter_palettes": [
             {
@@ -351,6 +353,21 @@ def design_system_palettes() -> dict[str, Any]:
             }
             for pid, (name, phex, shex, thex) in setup_wizard.DS_PALETTES.items()
         ],
+        "neutral_ramps": [
+            {
+                "id": nid,
+                "name": name,
+                "light": light,
+                "dark": dark,
+                "note": "bg / surface / text / muted / border.",
+            }
+            for nid, (name, light, dark) in setup_wizard.DS_NEUTRALS.items()
+        ],
+        "radius_styles": [
+            {"id": rid, "value": value}
+            for rid, value in setup_wizard.DS_RADIUS_VALUES.items()
+        ],
+        "icon_sets": setup_wizard.DS_ICON_SETS,
         "data_viz_cvd_safe": {
             "name": "Okabe-Ito (recommended)",
             "colors": setup_wizard.DS_VIZ_OKABE_ITO,
@@ -683,7 +700,31 @@ def framework_status() -> dict[str, Any]:
         "verdict_log": str(VERDICT_LOG),
         "verdict_count": sum(1 for _ in VERDICT_LOG.open() if _.strip()) if VERDICT_LOG.exists() else 0,
         "spend": spend_meter.spend_status(REPO_ROOT),
+        "version": update_check.CURRENT_VERSION,
     }
+
+
+@mcp.tool()
+def get_version() -> dict[str, Any]:
+    """Return the framework's own version (single source of truth)."""
+    return {
+        "version": update_check.CURRENT_VERSION,
+        "changelog_url": update_check.CHANGELOG_URL,
+        "releases_url": update_check.RELEASES_URL,
+    }
+
+
+@mcp.tool()
+def check_updates(force: bool = False) -> dict[str, Any]:
+    """Check whether a newer framework version is published.
+
+    Opt-in: only runs when the operator explicitly enabled update checks
+    (AG_UPDATE_CHECK=allow, or "## Update checks" / "- allow" in
+    config/setup.md) AND their network permission is "allow". Otherwise
+    returns checked=False with a reason. Results are cached for 24h unless
+    force=True. Never raises.
+    """
+    return update_check.check_for_updates(force=force, repo_root=REPO_ROOT)
 
 
 def main() -> None:

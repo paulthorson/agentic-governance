@@ -34,6 +34,31 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   initiative-level craft gates (`DESIGN_SYSTEM_FIRST`, Check 7/8, Cos
   stamp) still apply per project. New: `docs/onboarding/byods.md`,
   `tests/test_wizard_byods.py`, capability-report §12.11.
+- **BYODS detail tokens + machine-readable tokens.** The custom build now
+  continues with a quick-setup vs define-each gate: quick applies
+  recommended values with no further questions; define-each walks through
+  neutral ramps (bg/surface/text/muted/border, cool/warm/true-neutral or
+  custom hexes), dark mode (auto light+dark ramps, light-only, dark-only,
+  custom), corner radius (rounded/sharp/pill/custom), icon set (Lucide,
+  Material Symbols, Heroicons, custom), logo/brand-asset link (`later`
+  defers to kickoff), type scale, spacing grid, shadows, motion (honors
+  prefers-reduced-motion), and breakpoints — every question offering its
+  recommended value. Every build also writes `config/design-tokens.json`
+  (W3C-DTCG-flavored `$value`/`$type` tokens) for agents and build tooling
+  to import directly; link/predefined sources write a reference entry.
+- **Opt-in update checks.** The framework now knows its own version
+  (`get_version` MCP tool, single source of truth in
+  `mcp/adversarial_mcp/updates.py`) and can tell the operator when a newer
+  version is published (`check_updates` MCP tool, `scripts/check_updates.py`,
+  banner in the localhost dashboard). Privacy by default: the check is
+  strictly opt-in — it does nothing unless the operator enables it
+  (`AG_UPDATE_CHECK=allow`, or a `## Update checks` / `- allow` section in
+  `config/setup.md`) *and* their network permission is `allow`. When it
+  runs, it only fetches the public CHANGELOG.md from the main branch and
+  compares version headings — no telemetry is sent anywhere, no custom
+  User-Agent fingerprint, results cached 24h in gitignored
+  `runs/update-check.json`, every failure returns a reason instead of
+  raising. New: `tests/test_updates.py` (16 tests).
 
 ## [Unreleased]
 

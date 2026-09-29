@@ -20,6 +20,8 @@ client — can run a governed review without re-reading the framework files.
 | `record_verdict(domain, verdict, summary, ticket)` | Append to the decision record |
 | `query_verdicts(domain, limit)` | Query recent verdicts |
 | `framework_status()` | Health summary (counts, verdict log) |
+| `get_version()` | Framework's own version (single source of truth) |
+| `check_updates(force)` | Opt-in check for a newer published version |
 
 ## Run
 
@@ -60,6 +62,15 @@ Point `ADVERSARIAL_ROOT` at the repo if it isn't `<framework-root>`.
   (work + context + constitution + agent list) for the domain's adversary
   agents to execute.
 - **Decision record** — verdicts append to `runs/verdicts.jsonl` (gitignored).
+- **Update checks are opt-in and private by default** — `check_updates` (and
+  `scripts/check_updates.py`, plus the localhost dashboard banner) does
+  nothing unless the operator explicitly enables it: `AG_UPDATE_CHECK=allow`,
+  or a `## Update checks` section with `- allow` in `config/setup.md` —
+  *and* their network permission is `allow`. When enabled, it only fetches
+  the public CHANGELOG.md from the main branch and compares version
+  headings: no telemetry is sent anywhere, no identifying User-Agent,
+  results cached 24h in gitignored `runs/update-check.json`, and every
+  failure returns a reason instead of raising.
 - **v1 API** — pinned `mcp<2` (FastMCP). v2 renamed FastMCP to MCPServer.
 
 ## See also
