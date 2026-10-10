@@ -82,6 +82,8 @@ around the framework. See ADR-0011, ADR-0012, and
 - Claims are idempotent: an agent that retries a claim gets the ticket it
   already holds for that stage and team, not a second one.
 - `setup_wizard` describes `runs/in_review.json` as framework-maintained.
+- CI runs the test suite on macOS as well as Linux, including a
+  cross-process stress test of locking, commits, and the hash chain.
 - `ticket.py` exit code 5: commit logged but not yet applied.
 - `agent_id` and `team` are optional on MCP `ticket_*` tools when a token is
   passed.

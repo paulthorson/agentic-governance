@@ -551,5 +551,61 @@ class LockedVerifyTest(unittest.TestCase):
         self.assertIn("file_lock(store.ticket_file)", tool)
 
 
+_STRESS_WORKER = r"""
+import os, sys, json
+sys.path.insert(0, os.environ["SCRIPTS"])
+import chain, events
+from pathlib import Path
+d = Path(os.environ["D"])
+store = chain.Store(d / "runs" / "t.json", d / "runs" / "v.jsonl", d / "runs" / "e.jsonl")
+me, n = sys.argv[1], int(sys.argv[2])
+if me.startswith("emit"):
+    for i in range(n):
+        events.emit("verdict.recorded", path=d / "runs" / "e.jsonl", data={"i": i, "who": me})
+else:
+    for i in range(n):
+        store.create(f"{me}-{i}", "pm", "a")
+        t = store.claim_next("pm", "a", me)
+        if t is not None:
+            store.submit(t["identifier"], me)
+"""
+
+
+class CrossPlatformStressTest(unittest.TestCase):
+    """Runs on Linux and macOS in CI: concurrent processes through the real
+    lock, replace, and chain code. Nothing lost, nothing flagged."""
+
+    def test_concurrent_writers_and_emitters(self):
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            (d / "runs").mkdir()
+            worker = d / "worker.py"
+            worker.write_text(_STRESS_WORKER)
+            env = dict(os.environ, SCRIPTS=str(SCRIPTS), D=str(d),
+                       AG_INTEGRITY_KEY_FILE=str(d / "config" / "integrity.key"),
+                       AG_AGENT_REGISTRY=str(d / "config" / "agents.json"),
+                       AG_INTEGRITY_KEY="stress-key")
+            names = [f"w{i}" for i in range(4)] + [f"emit{i}" for i in range(3)]
+            per = 15
+            procs = [subprocess.Popen([sys.executable, str(worker), n, str(per)], env=env,
+                                      stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+                     for n in names]
+            for p in procs:
+                self.assertEqual(p.wait(timeout=180), 0, p.stderr.read().decode())
+            with mock.patch.dict(os.environ, {"AG_INTEGRITY_KEY": "stress-key",
+                                              "AG_INTEGRITY_KEY_FILE": str(d / "config" / "integrity.key")}):
+                store = chain.Store(d / "runs" / "t.json", d / "runs" / "v.jsonl", d / "runs" / "e.jsonl",
+                                    registry=identity.Registry(d / "config" / "agents.json"))
+                store.check_integrity(repair=False)
+                rep = integrity.verify_log(d / "runs" / "e.jsonl", b"stress-key")
+            self.assertTrue(rep["ok"], rep["problems"][:5])
+            tickets = store.load()
+            self.assertEqual(len(tickets), 4 * per)
+            self.assertEqual(len({t["identifier"] for t in tickets}), 4 * per)
+            self.assertTrue(all(t["state"] == "in_review" for t in tickets))
+            emitted = [e for e in events.read_events(d / "runs" / "e.jsonl") if e["kind"] == "verdict.recorded"]
+            self.assertEqual(len(emitted), 3 * per)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

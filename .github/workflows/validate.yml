@@ -43,7 +43,13 @@ jobs:
           EOF
 
   tests:
-    runs-on: ubuntu-latest
+    # macOS is a first-class target: file locking, atomic replace, and file
+    # permissions behave differently across platforms (ADR-0009, ADR-0012).
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
