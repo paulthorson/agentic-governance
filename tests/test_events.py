@@ -150,6 +150,9 @@ class CloseGateTest(unittest.TestCase):
         self._tmp.cleanup()
 
     def _verdict(self, verdict, hits=None):
+        # 1.1: a verdict needs a live review claim (ADR-0010). Claiming
+        # returns nothing for a blocked ticket, and the verdict is refused.
+        tk._store().claim_next("engineer", "", "qa-bot", mode="review")
         tk.cmd_verdict(_Args(id="T-1", verdict=verdict, domain="qa",
                              veto_hits=hits, summary="", agent="qa-bot"))
 
@@ -162,7 +165,7 @@ class CloseGateTest(unittest.TestCase):
     def test_pass_closes_and_emits(self):
         self._verdict("PASS")
         self.assertEqual(self._ticket()["status"], "done")
-        self.assertEqual(self._kinds(), ["ticket.created", "ticket.verdict", "ticket.closed"])
+        self.assertEqual(self._kinds(), ["ticket.created", "ticket.claimed", "ticket.verdict", "ticket.closed"])
 
     def test_verdict_record_carries_event_id(self):
         self._verdict("KICK_BACK")
@@ -266,6 +269,21 @@ class ServerVerdictEventTest(unittest.TestCase):
                     self.assertEqual(rec["status"], "overturned")
             finally:
                 srv.VERDICT_LOG = orig_log
+
+
+class AlertWatermarkTest(unittest.TestCase):
+    def test_unalerted_returns_each_urgent_event_once(self):
+        with tempfile.TemporaryDirectory() as d:
+            tk.ALERT_STATE = Path(d) / "alerts.json"
+            a = events.make_event("ticket.escalated", ticket="T-1", now=100)
+            b = events.make_event("ticket.escalated", ticket="T-2", now=100)  # same ms
+            c = events.make_event("ticket.claimed", ticket="T-3", now=101)
+            new, state = tk._unalerted([a, b, c])
+            self.assertEqual({e["ticket"] for e in new}, {"T-1", "T-2"})
+            tk.ALERT_STATE.write_text(json.dumps(state))
+            self.assertEqual(tk._unalerted([a, b, c])[0], [])
+            d2 = events.make_event("ticket.awaiting_human", ticket="T-1", now=200)
+            self.assertEqual([e["kind"] for e in tk._unalerted([a, b, c, d2])[0]], ["ticket.awaiting_human"])
 
 
 if __name__ == "__main__":

@@ -27,7 +27,7 @@ are self-reported by the caller.
 
 Config (env):
   EVENT_LOG             path to the event log (default: runs/events.jsonl)
-  AG_LOCK_TIMEOUT       seconds to wait for a lock (default: 10)
+  AG_LOCK_TIMEOUT       seconds to wait for a lock (default: 45)
   AG_HARNESS_SHA        override the harness SHA (default: read from .git)
   AG_CONSTITUTION_VERSION  optional constitution version label
   AG_AGENT_ID           default agent_id when the caller passes none
@@ -91,10 +91,12 @@ class UnknownSchemaVersion(ValueError):
 
 
 def _lock_timeout() -> float:
+    # Longer than STALE_LOCK_SECONDS, so a waiter outlasts a crashed holder
+    # and breaks its lock instead of failing.
     try:
-        return float(os.environ.get("AG_LOCK_TIMEOUT", "10"))
+        return float(os.environ.get("AG_LOCK_TIMEOUT", "45"))
     except ValueError:
-        return 10.0
+        return 45.0
 
 
 @contextlib.contextmanager
@@ -102,42 +104,58 @@ def file_lock(target: Path, timeout: float | None = None) -> Iterator[None]:
     """Hold an exclusive lock on ``target`` for the duration of the block.
 
     The lock is a sibling file ``<target>.lock`` created atomically with
-    ``O_CREAT | O_EXCL``. Every writer in this framework that touches a
-    shared ledger takes this lock first, so two agents cannot interleave a
-    read-modify-write and lose an update.
+    ``O_CREAT | O_EXCL`` and stamped with a random token. Every writer in this
+    framework that touches a shared ledger takes this lock first, so two
+    agents cannot interleave a read-modify-write and lose an update.
+
+    On release, the file is removed only if it still holds our token, so a
+    holder whose lock was broken as stale never deletes someone else's lock.
+    A stale lock is broken by renaming it aside (atomic) and then deleting it.
+
+    Limit: a holder paused longer than ``STALE_LOCK_SECONDS`` loses
+    exclusivity. Critical sections here are file reads and writes measured
+    in milliseconds.
     """
     target = Path(target)
     target.parent.mkdir(parents=True, exist_ok=True)
     lock_path = target.with_name(target.name + ".lock")
+    token = f"{os.getpid()} {uuid.uuid4().hex}\n"
     wait = _lock_timeout() if timeout is None else timeout
     deadline = time.monotonic() + wait
-    fd = None
-    while fd is None:
+    while True:
         try:
             fd = os.open(str(lock_path), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-        except FileExistsError:
+            break
+        except (FileExistsError, PermissionError):
+            # PermissionError: Windows reports a lock file that is pending
+            # deletion this way. Treat it as held and retry.
             try:
                 age = time.time() - lock_path.stat().st_mtime
-            except FileNotFoundError:
-                continue  # released between our open and stat; retry now
+            except (FileNotFoundError, PermissionError):
+                age = 0.0
             if age > STALE_LOCK_SECONDS:
-                print(
-                    f"WARN: breaking stale lock {lock_path} (age {age:.0f}s)",
-                    file=sys.stderr,
-                )
-                with contextlib.suppress(FileNotFoundError):
-                    lock_path.unlink()
+                aside = lock_path.with_name(f"{lock_path.name}.stale.{uuid.uuid4().hex}")
+                try:
+                    os.replace(lock_path, aside)
+                    print(f"WARN: broke stale lock {lock_path} (age {age:.0f}s)", file=sys.stderr)
+                    with contextlib.suppress(OSError):
+                        aside.unlink()
+                except OSError:
+                    pass  # another waiter got there first
                 continue
             if time.monotonic() >= deadline:
                 raise LockTimeout(f"Could not lock {target} within {wait}s ({lock_path} held)")
             time.sleep(_POLL_SECONDS)
     try:
-        os.write(fd, f"{os.getpid()} {time.time():.3f}\n".encode("ascii"))
+        os.write(fd, token.encode("ascii"))
         os.close(fd)
         yield
     finally:
-        with contextlib.suppress(FileNotFoundError):
-            lock_path.unlink()
+        try:
+            if lock_path.read_text(encoding="ascii") == token:
+                lock_path.unlink()
+        except OSError:
+            pass
 
 
 def append_jsonl(path: Path, record: dict[str, Any]) -> None:
@@ -197,12 +215,13 @@ def make_event(
     duration_ms: int | None = None,
     outcome: str | None = None,
     data: dict[str, Any] | None = None,
+    now: float | None = None,
 ) -> dict[str, Any]:
     """Build an envelope. ``trace_id`` defaults to the ticket id, so every
     event for one ticket shares a trace without the caller tracking it."""
     if not kind:
         raise ValueError("event kind is required")
-    now = time.time()
+    now = time.time() if now is None else now
     event_id = uuid.uuid4().hex
     ev = {
         "schema_version": SCHEMA_VERSION,

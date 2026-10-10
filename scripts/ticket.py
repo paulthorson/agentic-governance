@@ -28,7 +28,8 @@ Create work:
   python3 scripts/ticket.py new "Title" [--role engineer]   # pre-1.1: register finished work into review
 
 Recovery (also runs automatically on every claim):
-  python3 scripts/ticket.py recover [--alert]
+  python3 scripts/ticket.py recover [--alert]   # --alert sends every escalation, veto, and
+                                                # stall not yet alerted, wherever it was raised
 
 Human-only (operator approval required, see scripts/approval.py):
   python3 scripts/ticket.py clear-veto <id> --by "Name" --reason "."
@@ -39,7 +40,8 @@ Read:
   python3 scripts/ticket.py list [--status in_review|done|all] [--state STATE] [--team T]
   python3 scripts/ticket.py show <id>
 
-Exit codes: 0 ok, 1 bad input, 2 refused by governance, 3 lock timeout.
+Exit codes: 0 ok, 1 bad input or unreadable store, 2 refused by governance,
+3 lock timeout.
 
 Config (env):
   TICKET_FILE, VERDICT_LOG, EVENT_LOG   file locations (defaults above)
@@ -74,14 +76,18 @@ def _load_tickets() -> list[dict]:
     return _store().load()
 
 
-def _approve(action: str, ident: str) -> None:
-    """Human-only actions need operator approval. A refusal is logged."""
-    try:
-        require_approval(action, REPO_ROOT, consume=True)
-    except ApprovalRequired as e:
-        events.emit("ticket.transition_refused", path=EVENT_LOG, ticket=ident,
-                    outcome="refused", data={"transition": action, "reason": str(e)})
-        raise Refused(str(e))
+def _gate(action: str, ident: str):
+    """Operator-approval gate for a human-only action. The store calls it
+    only after the transition is validated, so a mistyped id or a ticket in
+    the wrong state never consumes a one-shot approval. A refusal is logged."""
+    def gate() -> None:
+        try:
+            require_approval(action, REPO_ROOT, consume=True)
+        except ApprovalRequired as e:
+            raise Refused(str(e), {"kind": "ticket.transition_refused", "ticket": ident,
+                                   "outcome": "refused",
+                                   "data": {"transition": action, "reason": str(e)}})
+    return gate
 
 
 def _hits(raw: str | None) -> list[str]:
@@ -175,14 +181,13 @@ def cmd_clear_veto(args) -> None:
     if not args.by or not args.reason:
         print("clear-veto requires --by and --reason.")
         sys.exit(1)
-    _approve("clear_veto", args.id)
-    _store().clear_veto(args.id, args.by, args.reason)
+    _store().clear_veto(args.id, args.by, args.reason, gate=_gate("clear_veto", args.id))
     print(f"{args.id}: veto cleared by {args.by}; back in review.")
 
 
 def cmd_resolve(args) -> None:
-    _approve("resolve_escalation", args.id)
-    t = _store().resolve(args.id, args.by, args.reason, getattr(args, "to_stage", None))
+    t = _store().resolve(args.id, args.by, args.reason, getattr(args, "to_stage", None),
+                         gate=_gate("resolve_escalation", args.id))
     print(f"{args.id}: resolved by {args.by}; queued at stage {t['stage']}.")
 
 
@@ -193,10 +198,10 @@ def cmd_done(args) -> None:
         if not getattr(args, "by", None) or not getattr(args, "reason", None):
             print("--override requires --by and --reason.")
             sys.exit(1)
-        _approve("ticket_done_override", args.id)
     try:
         t = _store().close(args.id, override=override, by=getattr(args, "by", None),
-                           reason=getattr(args, "reason", None), agent=agent)
+                           reason=getattr(args, "reason", None), agent=agent,
+                           gate=_gate("ticket_done_override", args.id) if override else None)
     except KeyError as e:
         print(str(e).strip("'"))
         return
@@ -206,23 +211,54 @@ def cmd_done(args) -> None:
         print(f"{args.id}: already done.")
 
 
+URGENT_KINDS = ("ticket.escalated", "ticket.blocked", "ticket.stalled", "ticket.awaiting_human")
+ALERT_STATE = Path(os.environ.get("TICKET_ALERT_STATE", REPO_ROOT / "runs" / "ticket-alerts-state.json"))
+
+
+def _describe(e: dict) -> str:
+    d = e.get("data", {})
+    detail = (d.get("message") or d.get("reason")
+              or (", ".join(d["veto_hits"]) if d.get("veto_hits") else "")
+              or f"{d.get('mode', '')} attempt {d.get('attempt', '')}".strip())
+    return f"{e['kind']} {e['ticket']} stage={e.get('role')}: {detail}"
+
+
+def _unalerted(evs: list[dict]) -> tuple[list[dict], dict]:
+    """Urgent events not yet alerted. The watermark lives in a state file,
+    so escalations raised during a claim or a verdict (not only during this
+    recover call) still reach the operator."""
+    try:
+        state = json.loads(ALERT_STATE.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        state = {}
+    mark = state.get("ts", 0)
+    seen = set(state.get("ids_at_ts", []))
+    new = [e for e in evs if e["kind"] in URGENT_KINDS
+           and (e["ts"] > mark or (e["ts"] == mark and e["event_id"] not in seen))]
+    if new:
+        top = max(e["ts"] for e in new)
+        ids = {e["event_id"] for e in new if e["ts"] == top}
+        state = {"ts": top, "ids_at_ts": sorted(ids | (seen if top == mark else set()))}
+    return new, state
+
+
 def cmd_recover(args) -> None:
     evs = _store().recover()
+    for e in evs:
+        print(_describe(e))
     if not evs:
         print("Nothing stuck.")
-        return
-    lines = []
-    for e in evs:
-        d = e.get("data", {})
-        detail = d.get("reason") or d.get("message") or f"{d.get('mode', '')} attempt {d.get('attempt', '')}".strip()
-        lines.append(f"{e['kind']} {e['ticket']} stage={e.get('role')}: {detail}")
-    for line in lines:
-        print(line)
     if args.alert:
         from messaging import send_alert
-        urgent = [l for l in lines if l.startswith(("ticket.escalated", "ticket.stalled"))]
-        if urgent:
-            send_alert("Stuck-ticket recovery:\n" + "\n".join(urgent))
+        new, state = _unalerted(events.read_events(EVENT_LOG, strict=False))
+        if not new:
+            return
+        if send_alert("Tickets need attention:\n" + "\n".join(_describe(e) for e in new)):
+            ALERT_STATE.parent.mkdir(parents=True, exist_ok=True)
+            ALERT_STATE.write_text(json.dumps(state), encoding="utf-8")
+        else:
+            print("WARN: alert not delivered (check network permission / approval); will retry next run.",
+                  file=sys.stderr)
 
 
 def main() -> None:
@@ -239,7 +275,8 @@ def main() -> None:
     p.set_defaults(fn=cmd_new)
 
     p = sub.add_parser("list", help="list tickets")
-    p.add_argument("--status", default="all", choices=["in_review", "done", "all"])
+    p.add_argument("--status", default="all",
+                   choices=["all", "in_review", "done", "queued", "working", "blocked", "escalated"])
     p.add_argument("--state", default=None, choices=list(chain.STATES))
     p.add_argument("--team", default=None)
     p.set_defaults(fn=cmd_list)
@@ -274,11 +311,12 @@ def main() -> None:
     p.add_argument("--veto-hits", default=None, help="comma-separated veto hits")
     p.add_argument("--to-stage", dest="to_stage", default=None, help="KICK_BACK target (this stage or earlier)")
     p.add_argument("--summary", default=None)
-    p.add_argument("--agent", default=None, help="reviewer agent id")
+    p.add_argument("--agent", required=True, help="reviewer agent id (must hold the review claim)")
     p.set_defaults(fn=cmd_verdict)
 
     p = sub.add_parser("recover", help="release expired claims, escalate repeat failures, flag stalls")
-    p.add_argument("--alert", action="store_true", help="send escalations/stalls via scripts/messaging.py")
+    p.add_argument("--alert", action="store_true",
+                   help="send unalerted escalations, vetoes, and stalls via scripts/messaging.py")
     p.set_defaults(fn=cmd_recover)
 
     p = sub.add_parser("clear-veto", help="clear an open veto (operator approval required)")

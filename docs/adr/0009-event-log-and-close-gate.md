@@ -48,14 +48,18 @@ directly, never through a subprocess, so it never hits an approval-gated
 call site.
 
 **2. Cross-platform file locking.** Every writer to a shared ledger takes a
-sibling `<file>.lock` created with `O_CREAT | O_EXCL`. `fcntl` was rejected
-because it does not exist on Windows. Locks older than 30 seconds are
-treated as abandoned and broken. `in_review.json` is written atomically via
-temp file + `os.replace`.
+sibling `<file>.lock` created with `O_CREAT | O_EXCL` and stamped with a
+random token. `fcntl` was rejected because it does not exist on Windows.
+Locks older than 30 seconds are treated as abandoned: a waiter renames the
+lock aside (atomic) and deletes it. A holder deletes the lock on release only
+if it still holds its own token. Waiters wait up to 45 seconds by default, so
+they outlast a crashed holder instead of failing. `in_review.json` is written
+atomically via temp file + `os.replace`.
 
 **3. Close gate in `ticket.py` (code, not instruction).**
-- A ticket closes through a recorded PASS verdict.
-- `done` refuses unless the latest verdict is PASS.
+- A ticket closes through a PASS verdict on its last stage.
+- `done` refuses unless the ticket is already done (ADR-0010 adds stages,
+  so an earlier-stage PASS is not enough).
 - A PASS carrying veto hits is refused.
 - A veto opens on the ticket and blocks PASS until `clear-veto` runs.
   `clear-veto` requires operator approval (`scripts/approval.py`) and records
@@ -72,8 +76,10 @@ re-alert old vetoes.
 
 **5. Dual-write for compatibility.** `verdicts.jsonl` and `in_review.json`
 keep their existing shapes so the watchdog, telemetry, dashboard, and any
-operator shims keep working. In 1.1 they are written alongside the event
-log. Deriving them from the event log is deferred.
+operator shims keep working. Ticket transitions write their events first,
+then save the ticket file, both under the ticket lock. If the event write
+fails, the ticket is not saved. Each event's `ts` is the transition time.
+Deriving the views from the event log is deferred.
 
 ## Consequences
 
@@ -87,12 +93,13 @@ log. Deriving them from the event log is deferred.
   outside it. The capability report says so.
 - **Negative:** `agent_id`, `model`, and token fields are self-reported by
   the caller and unauthenticated.
-- **Negative:** dual-write means two records can disagree if a process dies
-  between writes. The event log is the record of truth when they do.
-- **Negative:** a lock-break race exists. If two waiters both see a stale
-  lock in the same instant, one can remove the other's fresh lock. With a
-  30-second threshold and millisecond critical sections this needs a crashed
-  writer plus two waiters racing. Accepted for 1.1.
+- **Negative:** if a process dies after writing events but before saving the
+  ticket file, the log shows a transition the ticket file does not. The
+  reverse (a saved transition with no event) cannot happen through this code.
+- **Negative:** a holder that stalls for more than 30 seconds inside the lock
+  loses exclusivity to the next waiter. Critical sections here are
+  millisecond file reads and writes, so this needs a process paused (debugger,
+  suspended laptop, swap storm) mid-write. Accepted for 1.1.
 - **Behavior change:** `ticket.py done` on a ticket without PASS now exits
   2 instead of closing it. Any automation that relied on the old behavior
   breaks, on purpose.

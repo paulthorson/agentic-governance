@@ -55,7 +55,9 @@ class TicketTest(unittest.TestCase):
 
     def test_verdict_kickback_with_veto_blocks(self):
         self._new("Fix login")
+        tk._store().claim_next("engineer", "team-a", "eng-critic", mode="review")
         class A:
+            agent = "eng-critic"
             id = "T-1"
             verdict = "KICK_BACK"
             domain = "engineer"
@@ -75,7 +77,9 @@ class TicketTest(unittest.TestCase):
 
     def test_verdict_pass_marks_done(self):
         self._new("Fix login")
+        tk._store().claim_next("engineer", "team-a", "eng-critic", mode="review")
         class A:
+            agent = "eng-critic"
             id = "T-1"
             verdict = "PASS"
             domain = "engineer"
