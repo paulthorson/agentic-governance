@@ -156,6 +156,11 @@ def query_in_review_file(path: str) -> tuple[list[dict], dict | None]:
         return [], {"reason": "parse_error", "message": str(e)}
     if not isinstance(data, list):
         return [], {"reason": "shape_error", "message": "expected a JSON list of issues"}
+    # The built-in ticket store keeps every ticket in one file (done, queued,
+    # blocked, ...). Only tickets awaiting review can be stuck in review.
+    # Items with no status field are kept, so external shims that emit only
+    # in-review issues work unchanged.
+    data = [i for i in data if not isinstance(i, dict) or i.get("status", "in_review") == "in_review"]
     return data, None
 
 def load_issues(args) -> tuple[list[dict], dict | None]:

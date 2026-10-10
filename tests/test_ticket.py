@@ -53,7 +53,7 @@ class TicketTest(unittest.TestCase):
         self.assertEqual(tickets[1]["identifier"], "T-2")
         self.assertEqual(tickets[0]["status"], "in_review")
 
-    def test_verdict_kickback_keeps_in_review(self):
+    def test_verdict_kickback_with_veto_blocks(self):
         self._new("Fix login")
         class A:
             id = "T-1"
@@ -68,9 +68,10 @@ class TicketTest(unittest.TestCase):
         rec = json.loads(lines[0])
         self.assertEqual(rec["verdict"], "KICK_BACK")
         self.assertTrue(rec["veto_triggered"])
-        # Ticket still in_review
+        # 1.1: a vetoed ticket is blocked until a human clears it (ADR-0010).
         tickets = tk._load_tickets()
-        self.assertEqual(tickets[0]["status"], "in_review")
+        self.assertEqual(tickets[0]["status"], "blocked")
+        self.assertTrue(tickets[0]["veto_open"])
 
     def test_verdict_pass_marks_done(self):
         self._new("Fix login")

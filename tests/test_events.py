@@ -181,7 +181,7 @@ class CloseGateTest(unittest.TestCase):
         self.assertTrue(self._ticket()["veto_open"])
         with self.assertRaises(tk.Refused):
             self._verdict("PASS")
-        self.assertEqual(self._ticket()["status"], "in_review")
+        self.assertEqual(self._ticket()["state"], "blocked")
 
     def test_clear_veto_requires_approval(self):
         self._verdict("KICK_BACK", hits="data loss")
