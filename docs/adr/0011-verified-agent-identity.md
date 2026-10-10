@@ -45,13 +45,31 @@ the same principal.
 **Fail closed.** An unreadable registry refuses agent actions. It never
 falls back to self-reported ids.
 
-**Ticket creation** stays open to operators without a token. An agent that
-presents one is recorded as verified.
+**Ticket creation.**
+
+- MCP `ticket_create` requires a token once identity is enforced, and the
+  token's team must match.
+- The CLI lets an operator create queued tickets without a token.
+- Creating a ticket straight into review (`ticket.py new` without
+  `--queue`) has two forms:
+  - With a token, it records that agent and principal as the worker, so
+    the same principal cannot review it.
+  - Without a token, it needs operator approval.
+
+  Otherwise unattributed work could reach review and be passed by any
+  reviewer.
+
+**Switching identity off is visible.** The head record (ADR-0012) stores
+whether identity was enforced. If the registry later goes missing or empty
+(deleted, or `AG_AGENT_REGISTRY` pointed elsewhere), writes stop as
+tampering until an operator accepts it.
 
 ## Consequences
 
 - **Positive:** self-review, cross-team claims, and stage hopping are
-  refused for registered agents through every supported path.
+  refused for registered agents through the CLI, `chain.Store`, and the MCP
+  `ticket_*` tools. These are tested per path in
+  `tests/test_identity_integrity.py`.
 - **Positive:** events and verdict records carry `agent_verified`, so
   dashboards can separate verified work from self-reported work.
 - **Negative:** identity is only as strong as token secrecy. Two agents

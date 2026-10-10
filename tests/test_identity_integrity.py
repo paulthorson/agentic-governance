@@ -42,11 +42,12 @@ class Base(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
         self.d = Path(self._tmp.name)
-        self.reg = identity.Registry(self.d / "agents.json")
-        self.store = chain.Store(self.d / "in_review.json", self.d / "verdicts.jsonl", self.d / "events.jsonl",
-                                 chain.Settings(), registry=self.reg)
-        self._env = mock.patch.dict(os.environ, {"AG_INTEGRITY_KEY_FILE": str(self.d / "integrity.key")})
+        self._env = mock.patch.dict(os.environ, {"AG_INTEGRITY_KEY_FILE": str(self.d / "config" / "integrity.key")})
         self._env.start()
+        self.reg = identity.Registry(self.d / "config" / "agents.json")
+        (self.d / "runs").mkdir()
+        self.store = chain.Store(self.d / "runs" / "in_review.json", self.d / "runs" / "verdicts.jsonl",
+                                 self.d / "runs" / "events.jsonl", chain.Settings(), registry=self.reg)
         os.environ.pop("AG_INTEGRITY_KEY", None)
         os.environ.pop("AG_AGENT_TOKEN", None)
 
@@ -74,11 +75,11 @@ class IdentityTest(Base):
         self.store.create("x", "engineer", "team-a", end_stage="engineer", now=T0)
 
     def test_unregistered_install_is_self_reported(self):
-        store = chain.Store(self.d / "t2.json", self.d / "v2.jsonl", self.d / "e2.jsonl",
+        store = chain.Store(self.d / "runs" / "t2.json", self.d / "runs" / "v2.jsonl", self.d / "runs" / "e2.jsonl",
                             registry=identity.Registry(self.d / "none.json"))
         store.create("x", "pm", "a", now=T0)
         store.claim_next("pm", "a", "anyone", now=T0)
-        claimed = [e for e in events.read_events(self.d / "e2.jsonl") if e["kind"] == "ticket.claimed"][0]
+        claimed = [e for e in events.read_events(self.d / "runs" / "e2.jsonl") if e["kind"] == "ticket.claimed"][0]
         self.assertFalse(claimed["agent_verified"])
 
     def test_token_required_once_registered(self):
@@ -252,7 +253,7 @@ class IntegrityTest(Base):
                 raise OSError("simulated crash before replace")
             return real(src, dst)
         with mock.patch.object(chain.os, "replace", side_effect=flaky):
-            with self.assertRaises(OSError):
+            with self.assertRaises(chain.CommitPending):  # tells the agent not to retry
                 self.store.submit("T-1", "w", now=T0)
         self.store.check_integrity()  # rolls forward from the temp file
         self.assertEqual(self.t()["state"], "in_review")
@@ -389,6 +390,165 @@ class HttpIdentityTest(unittest.TestCase):
         src = (REPO_ROOT / "mcp" / "adversarial_mcp" / "server.py").read_text()
         main = src[src.index("def main()"):]
         self.assertLess(main.index("refuse_http_with_agent_token()"), main.index("uvicorn.run") if "uvicorn.run" in main else len(main))
+
+
+class SecondReviewTest(Base):
+    """Regression tests for the 1.2 adversarial review."""
+
+    def _keyed(self):
+        os.environ["AG_INTEGRITY_KEY"] = "operator-secret"
+        self.addCleanup(os.environ.pop, "AG_INTEGRITY_KEY", None)
+
+    def _cycle(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        self.store.submit("T-1", "w", now=T0)
+
+    def test_head_lives_outside_runs(self):
+        """Claim: the head record is not in the ticket store's directory."""
+        self.assertNotEqual(self.store.head_file.parent.resolve(), self.store.ticket_file.parent.resolve())
+        self.assertEqual(self.store.head_file.parent, integrity.key_path().parent)
+
+    def test_head_deleted_plus_junk_line_detected(self):
+        """H1: a junk last line must not make a committed log look fresh."""
+        self._keyed()
+        self._cycle()
+        self.store.head_file.unlink()
+        with self.store.event_log.open("a") as fh:
+            fh.write('{"note": "x"}\n')
+        with self.assertRaises(integrity.TamperDetected):
+            self.store.check_integrity()
+
+    def test_consistent_rollback_detected_when_head_is_protected(self):
+        """H2: restoring older ticket + log files is caught by the head kept in config/."""
+        self._keyed()
+        self._cycle()
+        snap_t = self.store.ticket_file.read_bytes()
+        snap_size = self.store.event_log.stat().st_size
+        self.store.claim_next("pm", "a", "r", mode="review", now=T0)
+        self.store.verdict("T-1", "KICK_BACK", "r", ["user harm"], now=T0)
+        self.store.ticket_file.write_bytes(snap_t)
+        with open(self.store.event_log, "rb+") as fh:
+            fh.truncate(snap_size)
+        with self.assertRaises(integrity.TamperDetected):
+            self.store.check_integrity()
+
+    def test_tokenless_create_into_review_needs_operator_gate(self):
+        """H3: no path puts unattributed work straight into review on an enforced install."""
+        eng = self.reg.add("eng-1", "team-a", ["engineer"], "runtime-a")
+        critic = self.reg.add("eng-critic", "team-a", ["review:engineer"], "runtime-a")
+        with self.assertRaises(chain.Refused):
+            self.store.create("mine", "engineer", "team-a", queued=False, now=T0)
+        # With a token, the creator is recorded as the worker.
+        self.store.create("mine", "engineer", "team-a", queued=False, now=T0, token=eng)
+        self.assertIsNone(self.store.claim_next("engineer", "", None, mode="review", now=T0, token=critic))
+        # An operator may do it with approval; the gate runs.
+        calls = []
+        self.store.create("ops", "engineer", "team-a", queued=False, now=T0, gate=lambda: calls.append(1))
+        self.assertEqual(calls, [1])
+
+    def test_mcp_style_create_requires_token_when_enforced(self):
+        """M6: require_token refuses tokenless creates; tokens are team-bound."""
+        eng = self.reg.add("eng-1", "team-a", ["engineer"], "runtime-a")
+        with self.assertRaises(chain.Refused):
+            self.store.create("x", "qa", "team-a", now=T0, require_token=True)
+        with self.assertRaises(chain.Refused):
+            self.store.create("x", "qa", "team-b", now=T0, token=eng, require_token=True)
+        self.store.create("x", "qa", "team-a", now=T0, token=eng, require_token=True)
+
+    def test_accepted_problem_does_not_cover_later_edit(self):
+        """M1: accepting a problem on a line does not accept future edits to it."""
+        self._cycle()
+        lines = self.store.event_log.read_text().splitlines()
+        ev = json.loads(lines[1]); ev["outcome"] = "x"; lines[1] = json.dumps(ev)
+        self.store.event_log.write_text("\n".join(lines) + "\n")
+        first = integrity.verify_log(self.store.event_log, None)["problems"]
+        ev["outcome"] = "y"; lines[1] = json.dumps(ev)
+        self.store.event_log.write_text("\n".join(lines) + "\n")
+        second = integrity.verify_log(self.store.event_log, None)["problems"]
+        self.assertTrue(integrity.unaccepted(second, first))
+
+    def test_keyless_process_cannot_poison_keyed_log(self):
+        """M2: an emitter without the key refuses instead of appending a downgrade."""
+        self._keyed()
+        self._cycle()
+        os.environ.pop("AG_INTEGRITY_KEY")
+        with self.assertRaises(integrity.KeyRequired):
+            events.emit("x", path=self.store.event_log)
+        os.environ["AG_INTEGRITY_KEY"] = "operator-secret"
+        self.store.check_integrity()
+        self.store.claim_next("pm", "a", "r", mode="review", now=T0)
+
+    def test_torn_append_is_repaired_not_a_halt(self):
+        """M5: a partial last line from a crash does not stop the loop."""
+        self._cycle()
+        with self.store.event_log.open("a") as fh:
+            fh.write('{"schema_version": "1", "kind": "half')
+        self.store.check_integrity()
+        self.store.claim_next("pm", "a", "r", mode="review", now=T0)
+        self.assertTrue(Path(str(self.store.event_log) + ".torn").exists())
+        self.assertTrue(integrity.verify_log(self.store.event_log, None)["ok"])
+
+    def test_identity_cannot_be_silently_switched_off(self):
+        """L6: emptying or redirecting the registry after commits under identity is detected."""
+        eng = self.reg.add("eng-1", "a", ["pm"], "runtime-a")
+        self.store.create("x", "pm", "a", now=T0, token=eng)
+        self.store.registry = identity.Registry(self.d / "elsewhere.json")
+        with self.assertRaises(integrity.TamperDetected):
+            self.store.claim_next("pm", "a", "anyone", now=T0)
+
+    def test_recovery_events_not_credited_as_verified(self):
+        """L4: events produced by recovery are never marked verified."""
+        eng = self.reg.add("eng-1", "a", ["pm"], "runtime-a")
+        self.store.create("x", "pm", "a", now=T0, token=eng)
+        self.store.claim_next("pm", "", None, now=T0, token=eng)
+        self.store.claim_next("pm", "", None, now=T0 + 31 * MIN, token=eng)
+        expired = [e for e in self.evs() if e["kind"] == "ticket.lease_expired"][0]
+        self.assertFalse(expired["agent_verified"])
+        claims = [e for e in self.evs() if e["kind"] == "ticket.claimed"]
+        self.assertTrue(all(c["agent_verified"] for c in claims))
+
+    def test_no_env_agent_id_fallback(self):
+        with mock.patch.dict(os.environ, {"AG_AGENT_ID": "ghost"}):
+            self.assertIsNone(events.make_event("x")["agent_id"])
+
+
+class ReplaceRetryTest(Base):
+    def test_transient_permission_error_retried(self):
+        """M3: a Windows sharing violation on replace is retried, not surfaced as a failure."""
+        self.store.create("x", "pm", "a", now=T0)
+        real = os.replace
+        calls = {"n": 0}
+
+        def flaky(src, dst):
+            if str(dst) == str(self.store.ticket_file) and calls["n"] < 2:
+                calls["n"] += 1
+                raise PermissionError("in use")
+            return real(src, dst)
+        with mock.patch.object(chain.os, "replace", side_effect=flaky), \
+                mock.patch.object(chain.time, "sleep"):
+            self.store.claim_next("pm", "a", "w1", now=T0)
+        self.assertEqual(self.t()["claimedBy"], "w1")
+
+    def test_claim_retry_returns_the_held_claim(self):
+        """M3: an agent that retries a claim does not end up holding two tickets."""
+        self.store.create("a", "pm", "a", now=T0)
+        self.store.create("b", "pm", "a", now=T0 + 1)
+        first = self.store.claim_next("pm", "a", "w1", now=T0 + 2)
+        again = self.store.claim_next("pm", "a", "w1", now=T0 + 3)
+        self.assertEqual(first["identifier"], again["identifier"])
+        self.assertEqual([t["state"] for t in self.store.load()], ["working", "queued"])
+
+
+class LockedVerifyTest(unittest.TestCase):
+    def test_verify_paths_hold_the_ticket_lock(self):
+        """M4: verify / doctor / recover --alert / MCP ticket_verify never race a commit."""
+        src = (SCRIPTS / "ticket.py").read_text()
+        body = src[src.index("def _verify_report"):src.index("def cmd_verify")]
+        self.assertIn("events.file_lock(store.ticket_file)", body)
+        srv = (REPO_ROOT / "mcp" / "adversarial_mcp" / "server.py").read_text()
+        tool = srv[srv.index("def ticket_verify"):srv.index("def ticket_list")]
+        self.assertIn("file_lock(store.ticket_file)", tool)
 
 
 if __name__ == "__main__":

@@ -435,7 +435,7 @@ WIZARD_FLOW: list[dict[str, Any]] = [
     {
         "id": "issues_file",
         "if_issue_source": "file",
-        "question": "Where should the file of in-review work live? (We'll create it for you if it doesn't exist. Default: runs/in_review.json — a simple list your agents update when work enters review.)",
+        "question": "Where should the file of in-review work live? (We'll create it for you if it doesn't exist. Default: runs/in_review.json. The framework maintains it; agents change it only through ticket.py or the MCP ticket tools, and a hand edit stops the loop until an operator accepts it.)",
         "options": None,
     },
     {

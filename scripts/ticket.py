@@ -41,7 +41,8 @@ Read:
   python3 scripts/ticket.py show <id>
 
 Exit codes: 0 ok, 1 bad input or unreadable store, 2 refused by governance,
-3 lock timeout, 4 tamper detected / doctor failure.
+3 lock timeout, 4 tamper detected / missing key / doctor failure,
+5 commit logged but not yet applied (do not retry).
 
 Identity (ADR-0011) and integrity (ADR-0012):
   python3 scripts/ticket.py agent add eng-1 --team team-a --roles engineer --principal runtime-a  (approval)
@@ -124,7 +125,8 @@ def cmd_new(args) -> None:
     t = _store().create(args.title, args.role or ("research" if queued else "engineer"),
                         args.team or "", queued=queued,
                         end_stage=getattr(args, "end_stage", None), agent=getattr(args, "agent", None),
-                        token=_token(args))
+                        token=_token(args),
+                        gate=None if queued else _gate("create_in_review", "new"))
     print(f"Created {t['identifier']}: {args.title} (state: {t['state']}, stages: {' > '.join(t['stages'])})")
 
 
@@ -294,31 +296,37 @@ def cmd_recover(args) -> None:
 
 
 def _verify_report() -> tuple[bool, list[str]]:
+    """Full check. Runs under the ticket lock so a commit landing mid-check
+    is never reported as tampering."""
     lines: list[str] = []
     ok = True
     key = integrity.load_key()
-    rep = integrity.verify_log(EVENT_LOG, key)
-    lines.append(f"event log: {rep['events']} events, {rep['chained']} chained"
+    store = _store()
+    with events.file_lock(store.ticket_file):
+        rep = integrity.verify_log(EVENT_LOG, key)
+        head = None
+        try:
+            head = integrity.read_head(store.head_file, key)
+        except integrity.TamperDetected as e:
+            ok = False
+            lines.append(f"PROBLEM head record: {e}")
+        try:
+            store.check_integrity(repair=False)
+            store_line = "ticket store: matches the last commit"
+        except integrity.TamperDetected as e:
+            ok = False
+            store_line = f"PROBLEM ticket store: {e}"
+    lines.insert(0, f"event log: {rep['events']} events, {rep['chained']} chained"
                  + (f", {rep['unverifiable']} keyed but no key to check" if rep["unverifiable"] else ""))
-    head = None
-    try:
-        head = integrity.read_head(_store().head_file, key)
-    except integrity.TamperDetected as e:
-        ok = False
-        lines.append(f"PROBLEM head record: {e}")
-    accepted = set((head or {}).get("accepted_problems", []))
+    accepted = (head or {}).get("accepted_problems", [])
     for prob in rep["problems"]:
         if prob in accepted:
             lines.append(f"accepted earlier: {prob}")
         else:
             ok = False
             lines.append(f"PROBLEM {prob}")
-    try:
-        _store().check_integrity(repair=False)
-        lines.append("ticket store: matches the last commit")
-    except integrity.TamperDetected as e:
-        ok = False
-        lines.append(f"PROBLEM ticket store: {e}")
+    lines.extend(f"note: {n}" for n in rep.get("notes", []))
+    lines.append(store_line)
     lines.append(f"mode: {'keyed (hmac-sha256)' if key else 'unkeyed (sha256): detects edits, not a forger'}")
     return ok, lines
 
@@ -370,9 +378,14 @@ def cmd_integrity(args) -> None:
         if integrity.load_key():
             print("An integrity key is already configured.")
             return
+        ok, lines = _verify_report()
+        if not ok:
+            for line in lines:
+                print(line)
+            raise Refused("Keying needs a clean `ticket.py verify` (or accepted problems) first.")
         store = _store()
         with events.file_lock(store.ticket_file):
-            store.check_integrity(repair=False)  # only switch modes from a clean state
+            store.check_integrity(repair=True)  # apply any pending commit before re-signing
             try:
                 require_approval("integrity_init_key", REPO_ROOT, consume=True)
             except ApprovalRequired as e:
@@ -383,7 +396,8 @@ def cmd_integrity(args) -> None:
             ev, offset = events.emit_at("store.integrity_keyed", path=EVENT_LOG, outcome="keyed",
                                         data={"state_digest": digest})
             prior = (integrity.read_head(store.head_file, None) or {}).get("accepted_problems", [])
-            integrity.write_head(offset, ev["hash"], digest, store.head_file, key, prior)
+            integrity.write_head(offset, ev["hash"], digest, store.head_file, key, prior,
+                                 store._identity_enforced())
         print(f"Created {path} (0600). The log and head are keyed from here on.")
         print("Keep this file away from agents: see docs/deployment-hardened.md.")
         return
@@ -396,8 +410,13 @@ def cmd_integrity(args) -> None:
         print("Integrity check passes; nothing to accept.")
         return
     rep = integrity.verify_log(EVENT_LOG, integrity.load_key())
-    res = _store().accept_current_state(args.by, args.reason, gate=_gate("integrity_accept", "store"),
-                                        accepted_problems=rep["problems"])
+    store = _store()
+    try:
+        prior = (integrity.read_head(store.head_file, integrity.load_key()) or {}).get("accepted_problems", [])
+    except integrity.TamperDetected:
+        prior = []
+    res = store.accept_current_state(args.by, args.reason, gate=_gate("integrity_accept", "store"),
+                                     accepted_problems=integrity.unaccepted(rep["problems"], prior))
     print(f"Accepted current state as the new baseline ({res['store_digest'][:12]}). Recorded who and why.")
 
 
@@ -551,6 +570,12 @@ def main() -> None:
     except events.LockTimeout as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(3)
+    except chain.CommitPending as e:
+        print(f"PENDING: {e}", file=sys.stderr)
+        sys.exit(5)
+    except integrity.KeyRequired as e:
+        print(f"ERROR: {e}. Run with the integrity key configured.", file=sys.stderr)
+        sys.exit(4)
     except integrity.TamperDetected as e:
         print(f"TAMPER: {e}. All writes are stopped. Run `ticket.py verify`, investigate, then "
               f"`ticket.py integrity accept --by NAME --reason ...` (operator approval).", file=sys.stderr)

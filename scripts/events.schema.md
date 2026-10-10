@@ -38,7 +38,7 @@ Field order is stable.
 | `trace_id` | string | Groups related events. Defaults to the ticket id; falls back to `event_id`. |
 | `ticket` | string \| null | Ticket identifier (`T-12`). |
 | `role` | string \| null | Chain stage or adversary domain the event concerns. |
-| `agent_id` | string \| null | Self-reported by the caller. **Not authenticated.** Falls back to env `AG_AGENT_ID`. |
+| `agent_id` | string \| null | The acting agent. Verified only when `agent_verified` is true (ADR-0011); otherwise self-reported. |
 | `harness_sha` | string \| null | Git commit of the framework checkout, read from `.git` (env `AG_HARNESS_SHA` overrides). |
 | `constitution_version` | string \| null | From env `AG_CONSTITUTION_VERSION`. |
 | `model` | string \| null | Model that produced the work, if the caller reports it. |
@@ -76,6 +76,7 @@ Field order is stable.
 | `verdict.recorded` | MCP `record_verdict` | verdict | `summary`, `rule`, `case_tag`, `source` |
 | `verdict.overturned` | MCP `overturn_verdict` | `overturned` | `reason` |
 | `store.committed` | chain | `saved` | `state_digest` (a commit with no other event) |
+| *(recovery events)* | | | Events produced by recovery are never `agent_verified`, whichever call triggered recovery. |
 | `store.tamper_detected` | chain | `refused` | `reason` |
 | `store.integrity_accepted` | `ticket.py integrity accept` | `accepted` | `by`, `reason`, `problem`, `log_problems`, `state_digest` |
 | `store.integrity_keyed` | `ticket.py integrity init-key` | `keyed` | `state_digest` |

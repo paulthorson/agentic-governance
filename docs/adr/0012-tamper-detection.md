@@ -26,11 +26,28 @@ deleting, or reordering events breaks the chain. Once a keyed event appears,
 an unkeyed one after it is reported as a downgrade. Leading pre-1.2 events
 without hashes are allowed.
 
-**2. Signed head record** next to the ticket store
-(`runs/in_review.integrity.json`). After each commit it records the log byte
-offset, the hash of the event ending there, and the SHA-256 of the ticket
-file, with a MAC under the key. This catches what a chain alone cannot:
+**2. Signed head record** kept beside the key in `config/`, **not** in
+`runs/` (`config/<store>-<hash>.integrity.json`). After each commit it
+records:
+
+- the log byte offset
+- the hash of the event ending there
+- the SHA-256 of the ticket file
+- whether agent identity was enforced
+
+It carries a MAC under the key. This catches what a chain alone cannot:
 deleting the newest events, and editing the ticket file.
+
+Keeping the head out of `runs/` matters. If it lived beside the files it
+protects, anyone who can write `runs/` could delete it, or restore an older
+genuinely signed copy together with older ticket and log files. That rolls
+state back with no forgery at all. With the head in `config/`, that
+rollback needs write access to `config/`.
+
+If a head record is missing while the log anywhere holds committed ticket
+state, that is tampering. The whole log is scanned, so a junk last line
+cannot make a committed log look fresh. If the head says identity was
+enforced and the registry is now missing or empty, that is also tampering.
 
 **3. Commit order:** write temp file, write events stamped with the new
 `state_digest`, replace the ticket file, write the head. On every load:
@@ -43,6 +60,18 @@ deleting the newest events, and editing the ticket file.
 
 Events after the head are re-verified on every load.
 
+**Crash handling.**
+
+- Once the events are written, the commit stands. If the replace keeps
+  failing, the caller gets `CommitPending` (CLI exit 5, MCP status
+  `pending`), which means do not retry. Windows sharing violations are
+  retried first.
+- An append cut short by a crash or a full disk leaves a line with no
+  newline. The next append moves that fragment to `events.jsonl.torn`.
+  Readers never treat an unterminated line as committed.
+- A process without the key refuses to extend a keyed log instead of
+  appending a downgrade that would halt every honest writer.
+
 **4. On tampering, all writes stop.** Claims, submits, verdicts, and
 recovery are refused (CLI exit 4, MCP status `tampered`). A
 `store.tamper_detected` event is logged. `recover --alert` sends integrity
@@ -52,10 +81,12 @@ problems every run until an operator acts. To resume:
 - `ticket.py integrity accept --by --reason` (operator approval) re-baselines
   to the current state. It records the problem, who accepted it, and why.
   Historical chain breaks stay visible as "accepted earlier" and never
-  disappear.
+  disappear. An accepted problem names the line and a digest of its bytes,
+  so a later edit to the same line is a new, unaccepted problem.
 
 **5. Keying.** `ticket.py integrity init-key` (operator approval) creates a
-0600 key, but only from a state that verifies, and re-signs the head. Keyed
+0600 key. It runs only after a clean `verify` (or accepted problems) and
+applies any pending commit first. Then it re-signs the head. Keyed
 installs refuse to load if the key goes missing or the head is unkeyed.
 
 **6. `ticket.py doctor`** reports what is enforced on this install:
@@ -70,16 +101,20 @@ It always prints that same-user writes cannot be prevented in code.
 
 ## Consequences
 
-- **Positive:** a hand edit of the ticket store or log, by an agent or a
-  tool, is caught on the next write. The loop stops instead of continuing on
-  forged state.
+- **Positive:** a hand edit of the ticket store, or of log events written
+  since the last commit, is caught on the next write. The loop stops
+  instead of continuing on forged state. An edit to older log events is
+  caught by `ticket.py verify`, which `recover --alert` runs every time.
 - **Positive:** a crash mid-commit recovers on its own.
 - **Negative, unkeyed mode:** anyone who can write the files can recompute
   SHA-256. Unkeyed mode catches accidents and naive edits, not a deliberate
   forger.
-- **Negative, keyed mode on one OS user:** agents can read the key file
-  and forge. The key helps only when agents cannot read it
-  (`docs/deployment-hardened.md`).
+- **Negative, keyed mode on one OS user:** agents can read the key file,
+  forge, and rewrite the head. The key and the `config/` head help only
+  when agents cannot read or write `config/` (`docs/deployment-hardened.md`).
+- **Negative, unkeyed mode:** the head in `config/` still blocks rollback by
+  someone limited to `runs/`, but anyone who can write `config/` can
+  recompute everything.
 - **Negative:** `verify` reads the whole log. Loads only read events after
   the last commit.
 - **Negative:** the verdict view (`runs/verdicts.jsonl`) is not covered;

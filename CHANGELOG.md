@@ -25,12 +25,27 @@ around the framework. See ADR-0011, ADR-0012, and
 - **Hash-chained event log:** every event carries `prev_hash`, `hash_alg`,
   and `hash`. The hash is HMAC-SHA256 with an operator key, or SHA-256
   without one.
-- **Signed head record** (`runs/in_review.integrity.json`): pins the log
-  position and the ticket file digest after every commit.
-- **Tamper response:** a direct edit to the ticket file or log, deleted
-  events, or a removed head stops all writes (CLI exit 4, MCP status
-  `tampered`) and logs `store.tamper_detected`. An interrupted commit rolls
-  forward on its own.
+- **Signed head record** in `config/` beside the key, not in `runs/`. It
+  pins the log position, the ticket file digest, and whether identity was
+  enforced after every commit. Rolling `runs/` back to an older state, or
+  deleting the head, is detected unless the attacker can also write
+  `config/`.
+- **Tamper response:** writes stop (CLI exit 4, MCP status `tampered`) and
+  `store.tamper_detected` is logged on any of:
+  - a direct edit to the ticket file
+  - an edit to log events since the last commit
+  - truncated or rolled-back logs
+  - a removed head
+  - identity being switched off
+
+  Edits to older log events are reported by `verify` and every
+  `recover --alert` run.
+- **Crash handling:**
+  - An interrupted commit rolls forward on its own.
+  - A torn append (crash, full disk) is moved to `events.jsonl.torn` on the
+    next write.
+  - If the ticket file cannot be replaced, the caller gets `CommitPending`
+    (exit 5 / MCP `pending`): do not retry.
 - **CLI:**
   - `ticket.py agent add|revoke|list`
   - `integrity init-key|accept`
@@ -45,7 +60,8 @@ around the framework. See ADR-0011, ADR-0012, and
 - `docs/deployment-hardened.md`: running the framework as its own OS user so
   agents reach it only over MCP.
 - Envelope fields `agent_verified`, `prev_hash`, `hash_alg`, `hash`. Verdict
-  records gain `agent_id` and `agent_verified`.
+  records written by the chain (CLI and MCP `ticket_verdict`) gain
+  `agent_id` and `agent_verified`; MCP `record_verdict` records do not.
 
 ### Changed (upgrade notes)
 
@@ -55,6 +71,18 @@ around the framework. See ADR-0011, ADR-0012, and
   loop.** Fix-ups by hand are followed by `ticket.py integrity accept`.
 - The MCP HTTP server refuses to start with `AG_AGENT_TOKEN` set, because
   every caller would act as that agent. Stdio servers still use it.
+- **With identity enforced:**
+  - MCP `ticket_create` needs a token for the caller's own team.
+  - `ticket.py new` without `--queue` needs a token, which records the
+    worker, or operator approval.
+- A process without the integrity key can no longer write to a keyed log
+  (exit 4, `KeyRequired`). MCP `record_verdict` returns `recorded: false`
+  in that case.
+- The `AG_AGENT_ID` env fallback for `agent_id` is removed.
+- Claims are idempotent: an agent that retries a claim gets the ticket it
+  already holds for that stage and team, not a second one.
+- `setup_wizard` describes `runs/in_review.json` as framework-maintained.
+- `ticket.py` exit code 5: commit logged but not yet applied.
 - `agent_id` and `team` are optional on MCP `ticket_*` tools when a token is
   passed.
 - Schema rule clarified: new envelope fields are additive; consumers ignore

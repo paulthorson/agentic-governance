@@ -669,7 +669,10 @@ def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "", ru
         "case_tag": case_tag,
         "source": "app",
     }
-    _append_verdict(rec)
+    try:
+        _append_verdict(rec)
+    except Exception as e:  # KeyRequired on a keyed log without the key, lock timeout, ...
+        return {"recorded": False, "error": str(e)}
     return {"recorded": True, "record": rec}
 
 
@@ -766,6 +769,10 @@ def _chain_call(fn) -> dict[str, Any]:
         return fn()
     except chain.Refused as e:
         return {"status": "refused", "reason": str(e)}
+    except chain.CommitPending as e:
+        return {"status": "pending", "reason": str(e), "next": "Do not retry; the change applies on the next call."}
+    except chain.integrity.KeyRequired as e:
+        return {"status": "error", "error": str(e)}
     except chain.integrity.TamperDetected as e:
         return {"status": "tampered", "reason": str(e),
                 "next": "All writes are stopped until an operator runs `ticket.py verify` and `ticket.py integrity accept`."}
@@ -788,7 +795,7 @@ def ticket_create(title: str, stage: str = "research", team: str = "", end_stage
     _, store = _chain_store()
     return _chain_call(lambda: {"status": "created", "ticket": store.create(
         title, stage, team, queued=True, end_stage=end_stage or None, agent=agent_id or None,
-        token=agent_token or None)})
+        token=agent_token or None, require_token=True)})
 
 
 @mcp.tool()
@@ -854,13 +861,24 @@ def ticket_verify() -> dict[str, Any]:
     and compares the ticket store with the last signed commit."""
     chain, store = _chain_store()
     key = chain.integrity.load_key()
-    report = chain.integrity.verify_log(store.event_log, key)
-    try:
-        store.check_integrity(repair=False)
-        report["store"] = "matches last commit"
-    except chain.integrity.TamperDetected as e:
-        report["ok"] = False
-        report["store"] = str(e)
+    with chain.events.file_lock(store.ticket_file):  # never race an honest commit
+        report = chain.integrity.verify_log(store.event_log, key)
+        try:
+            head = chain.integrity.read_head(store.head_file, key) or {}
+        except chain.integrity.TamperDetected as e:
+            head = {}
+            report["head"] = str(e)
+        try:
+            store.check_integrity(repair=False)
+            report["store"] = "matches last commit"
+            store_ok = True
+        except chain.integrity.TamperDetected as e:
+            report["store"] = str(e)
+            store_ok = False
+    open_problems = chain.integrity.unaccepted(report["problems"], head.get("accepted_problems"))
+    report["accepted_problems"] = [p for p in report["problems"] if p not in open_problems]
+    report["problems"] = open_problems
+    report["ok"] = store_ok and not open_problems and "head" not in report
     report["mode"] = "keyed" if key else "unkeyed"
     return report
 

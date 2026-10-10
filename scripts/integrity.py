@@ -9,12 +9,13 @@ Three pieces:
    operator's integrity key when one is configured, plain SHA-256 otherwise.
    Editing, inserting, or deleting a line breaks the chain from that point.
 
-2. **Signed head record** (next to the ticket store, e.g.
-   ``runs/in_review.integrity.json``). After every ticket
-   transaction the store writes: the byte offset of the event log, the hash
-   of the event ending there, and the SHA-256 of the ticket file. With a key,
-   the record carries a MAC. This catches what a chain alone cannot:
-   truncating the newest events, and editing the ticket file directly.
+2. **Signed head record**, kept in the key's directory (``config/``), NOT
+   in ``runs/``. After every ticket transaction the store writes: the byte
+   offset of the event log, the hash of the event ending there, the SHA-256
+   of the ticket file, and whether agent identity was enforced. With a key,
+   the record carries a MAC. Keeping it out of ``runs/`` means someone who
+   can write ``runs/`` but not ``config/`` cannot delete it or roll it back
+   to an older signed copy together with older ticket and log files.
 
 3. **Crash recovery.** Ticket writes go: temp file, events (carrying the new
    ``state_digest``), replace, head. A crash at any step leaves a state the
@@ -31,7 +32,8 @@ Honest limits (also in docs/deployment-hardened.md):
 Config (env):
   AG_INTEGRITY_KEY        key material (string). Overrides the key file.
   AG_INTEGRITY_KEY_FILE   key path (default: config/integrity.key)
-  AG_INTEGRITY_HEAD       head record path (default: <ticket file stem>.integrity.json)
+  AG_INTEGRITY_HEAD       head record path (default: config/<store>-<hash>.integrity.json,
+                          next to the key file)
 """
 from __future__ import annotations
 
@@ -50,6 +52,10 @@ CHAIN_FIELDS = ("prev_hash", "hash", "hash_alg")
 
 class TamperDetected(RuntimeError):
     """The store or log no longer matches what the framework last wrote."""
+
+
+class KeyRequired(RuntimeError):
+    """A keyed log cannot be extended by a process that has no key."""
 
 
 # ---------------------------------------------------------------------------
@@ -156,19 +162,74 @@ def line_ending_at(path: Path, offset: int) -> str | None:
             window *= 4
 
 
-def last_hash(path: Path) -> str:
-    """Hash of the newest chained event, or GENESIS for an empty/unchained log."""
+def repair_torn_tail(path: Path) -> int:
+    """If the log does not end in a newline (a crash or a full disk cut an
+    append short), move the fragment to ``<log>.torn`` and truncate it away.
+    The fragment was never committed: no reader accepts a line without its
+    newline. Returns the fragment length. Caller holds the log lock."""
+    p = Path(path)
+    try:
+        size = p.stat().st_size
+    except FileNotFoundError:
+        return 0
+    if size == 0:
+        return 0
+    with open(p, "rb+") as fh:
+        fh.seek(size - 1)
+        if fh.read(1) == b"\n":
+            return 0
+        window = min(size, 1 << 20)
+        fh.seek(size - window)
+        chunk = fh.read(window)
+        nl = chunk.rfind(b"\n")
+        cut = (size - window + nl + 1) if nl >= 0 else 0
+        fh.seek(cut)
+        fragment = fh.read()
+        with open(str(p) + ".torn", "ab") as torn:
+            torn.write(fragment + b"\n")
+        fh.truncate(cut)
+    return len(fragment)
+
+
+def last_event(path: Path) -> dict | None:
+    """Newest complete event line, or None for an empty log."""
     try:
         size = os.path.getsize(path)
     except OSError:
-        return GENESIS
+        return None
     line = line_ending_at(path, size)
     if not line:
-        return GENESIS
+        return None
     try:
-        return json.loads(line).get("hash") or GENESIS
+        return json.loads(line)
     except json.JSONDecodeError:
-        return GENESIS
+        return {"_bad": True}
+
+
+def last_hash(path: Path) -> str:
+    """Hash of the newest chained event, or GENESIS for an empty/unchained log."""
+    ev = last_event(path)
+    return (ev or {}).get("hash") or GENESIS
+
+
+def log_has_committed_state(path: Path) -> bool:
+    """True if any complete line in the log is a chained event carrying a
+    ticket ``state_digest``. Scans the whole file: a junk line at the end
+    must not make a committed log look fresh."""
+    p = Path(path)
+    if not p.exists():
+        return False
+    with open(p, "rb") as fh:
+        for raw in fh:
+            if not raw.endswith(b"\n") or b'"state_digest"' not in raw:
+                continue
+            try:
+                ev = json.loads(raw)
+            except json.JSONDecodeError:
+                continue
+            if ev.get("hash") and (ev.get("data") or {}).get("state_digest"):
+                return True
+    return False
 
 
 # ---------------------------------------------------------------------------
@@ -176,8 +237,17 @@ def last_hash(path: Path) -> str:
 # ---------------------------------------------------------------------------
 
 
-def head_path() -> Path:
-    return Path(os.environ.get("AG_INTEGRITY_HEAD", REPO_ROOT / "runs" / "integrity.json"))
+def head_path(ticket_file: Path | None = None) -> Path:
+    """Head record for a ticket store. Lives beside the key (``config/``) so
+    it does not share a directory, and its permissions, with ``runs/``."""
+    env = os.environ.get("AG_INTEGRITY_HEAD")
+    if env:
+        return Path(env)
+    if ticket_file is None:
+        return key_path().parent / "integrity.json"
+    tf = Path(ticket_file).resolve()
+    tag = hashlib.sha256(str(tf).encode("utf-8")).hexdigest()[:10]
+    return key_path().parent / f"{tf.stem}-{tag}.integrity.json"
 
 
 def read_head(path: Path | None = None, key: bytes | None = None) -> dict | None:
@@ -202,18 +272,24 @@ def read_head(path: Path | None = None, key: bytes | None = None) -> dict | None
 
 def write_head(log_offset: int, log_head: str, store_digest: str,
                path: Path | None = None, key: bytes | None = None,
-               accepted_problems: list[str] | None = None) -> None:
+               accepted_problems: list[str] | None = None,
+               identity_enforced: bool = False) -> None:
     """``accepted_problems``: historical chain problems an operator reviewed
     and accepted; ``verify`` reports them as accepted instead of failing."""
     p = Path(path) if path else head_path()
     body = {"version": 1, "log_offset": log_offset, "log_head": log_head,
             "store_digest": store_digest, "mac_alg": "hmac-sha256" if key else "sha256",
-            "accepted_problems": sorted(set(accepted_problems or []))}
+            "accepted_problems": sorted(set(accepted_problems or [])),
+            "identity_enforced": bool(identity_enforced)}
     mac, _ = _mac(canonical(body), key)
     body["mac"] = mac
     p.parent.mkdir(parents=True, exist_ok=True)
     tmp = p.with_name(p.name + ".tmp")
     tmp.write_text(json.dumps(body, indent=2), encoding="utf-8")
+    try:
+        os.chmod(tmp, 0o600)
+    except OSError:
+        pass
     os.replace(tmp, p)
 
 
@@ -233,37 +309,49 @@ def verify_log(path: Path, key: bytes | None) -> dict:
     p = Path(path)
     if not p.exists():
         return {"ok": True, "events": 0, "chained": 0, "unverifiable": 0, "problems": []}
+    notes: list[str] = []
     with open(p, "rb") as fh:
         for lineno, raw in enumerate(fh, 1):
+            if not raw.endswith(b"\n"):
+                notes.append(f"line {lineno}: unterminated final line (torn write; moved aside on next append)")
+                continue
             line = raw.decode("utf-8", "replace").strip()
             if not line:
                 continue
             n += 1
+            # Problems name the line AND a digest of its bytes, so accepting
+            # one problem never covers a later edit to the same line.
+            tag = hashlib.sha256(raw).hexdigest()[:16]
             try:
                 ev = json.loads(line)
             except json.JSONDecodeError:
-                problems.append(f"line {lineno}: not valid JSON")
+                problems.append(f"line {lineno} [{tag}]: not valid JSON")
                 continue
             if "hash" not in ev:
                 if started:
-                    problems.append(f"line {lineno}: unchained event after the chain began")
+                    problems.append(f"line {lineno} [{tag}]: unchained event after the chain began")
                 continue
             if not started:
                 started = True
                 if ev.get("prev_hash") != GENESIS:
-                    problems.append(f"line {lineno}: first chained event does not start at genesis")
+                    problems.append(f"line {lineno} [{tag}]: first chained event does not start at genesis")
             elif ev.get("prev_hash") != prev:
-                problems.append(f"line {lineno}: prev_hash does not match line before (deleted or reordered events)")
+                problems.append(f"line {lineno} [{tag}]: prev_hash does not match line before (deleted or reordered events)")
             if ev.get("hash_alg") == "hmac-sha256":
                 keyed_seen = True
             elif keyed_seen:
-                problems.append(f"line {lineno}: unkeyed event after the keyed chain began (downgrade)")
+                problems.append(f"line {lineno} [{tag}]: unkeyed event after the keyed chain began (downgrade)")
             expect = recompute(ev, key)
             if expect is None:
                 unverifiable += 1
             elif not hmac.compare_digest(expect, ev["hash"]):
-                problems.append(f"line {lineno}: hash mismatch (event edited)")
+                problems.append(f"line {lineno} [{tag}]: hash mismatch (event edited)")
             chained += 1
             prev = ev["hash"]
     return {"ok": not problems, "events": n, "chained": chained,
-            "unverifiable": unverifiable, "problems": problems}
+            "unverifiable": unverifiable, "problems": problems, "notes": notes}
+
+
+def unaccepted(problems: list[str], accepted: list[str] | None) -> list[str]:
+    acc = set(accepted or [])
+    return [p for p in problems if p not in acc]

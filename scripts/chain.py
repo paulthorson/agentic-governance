@@ -71,6 +71,17 @@ STATES = ("queued", "working", "in_review", "reviewing", "blocked", "escalated",
 VALID_VERDICTS = {"PASS", "KICK_BACK", "REVIEW_REQUIRED", "ESCALATE"}
 
 
+class _SystemEvents(list):
+    def append(self, spec):  # type: ignore[override]
+        spec["_system"] = True
+        super().append(spec)
+
+
+class CommitPending(RuntimeError):
+    """Events were logged but the ticket file could not be replaced. The
+    change is applied on the next load. Do not retry the action."""
+
+
 class StoreCorrupt(ValueError):
     """The ticket file exists but cannot be parsed. Never overwrite it."""
 
@@ -245,8 +256,10 @@ def _escalate(t: dict, reason: str, now: float, agent: str | None = None) -> dic
 
 
 def recover(tickets: list[dict], now: float, s: Settings) -> list[dict]:
-    """Release expired claims, escalate repeat failures, flag stalls."""
-    out: list[dict] = []
+    """Release expired claims, escalate repeat failures, flag stalls.
+    Events are marked ``_system``: they are never credited as verified to
+    whichever agent's call happened to trigger recovery."""
+    out = _SystemEvents()
     for t in tickets:
         state = t.get("state")
         if state in ("working", "reviewing"):
@@ -287,7 +300,7 @@ def recover(tickets: list[dict], now: float, s: Settings) -> list[dict]:
             why = "open veto" if state == "blocked" else t.get("escalationReason", "escalated")
             out.append(_ev("ticket.awaiting_human", t, None, state, reason=why,
                            message=f"{t['identifier']} is {state} ({why}) and needs a human."))
-    return out
+    return list(out)
 
 
 # ---------------------------------------------------------------------------
@@ -302,6 +315,14 @@ def claim_next(tickets: list[dict], role: str, team: str, agent: str, now: float
     if mode not in ("work", "review"):
         raise ValueError("mode must be 'work' or 'review'")
     evs = recover(tickets, now, s)
+    # Idempotent: an agent that retries a claim (e.g. after a timeout it
+    # could not tell apart from a failure) gets the claim it already holds
+    # instead of a second ticket.
+    held = "working" if mode == "work" else "reviewing"
+    mine = [t for t in tickets if t.get("state") == held and t.get("claimedBy") == agent
+            and t.get("stage") == role and t.get("team", "") == (team or "")]
+    if mine:
+        return mine[0], evs
     want = "queued" if mode == "work" else "in_review"
     candidates = [
         t for t in tickets
@@ -492,9 +513,8 @@ class Store:
         if self.registry is None:
             self.registry = identity.Registry()
         if self.head_file is None:
-            # One head per ticket store, next to it: runs/in_review.integrity.json
-            self.head_file = Path(os.environ.get(
-                "AG_INTEGRITY_HEAD", self.ticket_file.with_name(self.ticket_file.stem + ".integrity.json")))
+            # Beside the key in config/, not in runs/ (ADR-0012).
+            self.head_file = integrity.head_path(self.ticket_file)
 
     # -- reading -------------------------------------------------------------
 
@@ -544,10 +564,13 @@ class Store:
             # A log with committed ticket state but no head: the head (and
             # maybe the ticket file) was removed. Fresh and pre-1.2 installs
             # have no committed state in the log.
-            if integrity.last_hash(self.event_log) != integrity.GENESIS and any(
-                    (e.get("data") or {}).get("state_digest") for e in self._events_after(0)):
+            if integrity.log_has_committed_state(self.event_log):
                 raise integrity.TamperDetected(f"{self.head_file} is missing but the log has committed ticket state")
             return {"head": None, "store_digest": file_d}
+        if head.get("identity_enforced") and not self._identity_enforced():
+            raise integrity.TamperDetected(
+                "agent identity was enforced at the last commit but the registry is now missing or empty "
+                "(to turn identity off on purpose, run `ticket.py integrity accept`)")
         line = integrity.line_ending_at(self.event_log, int(head["log_offset"])) if self.event_log.exists() else None
         try:
             at = json.loads(line).get("hash") if line else None
@@ -570,6 +593,12 @@ class Store:
         raise integrity.TamperDetected(
             f"{self.ticket_file} does not match the last committed state (edited outside the framework?)")
 
+    def _identity_enforced(self) -> bool:
+        try:
+            return self.registry.enforced()
+        except identity.IdentityError:
+            return True  # a broken registry fails closed
+
     def _events_after(self, offset: int) -> list[dict]:
         if not self.event_log.exists():
             return []
@@ -577,6 +606,8 @@ class Store:
         with open(self.event_log, "rb") as fh:
             fh.seek(offset)
             for raw in fh:
+                if not raw.endswith(b"\n"):
+                    break  # torn final fragment: never committed, repaired on next append
                 try:
                     out.append(json.loads(raw))
                 except json.JSONDecodeError:
@@ -620,10 +651,11 @@ class Store:
         out, offset, last = [], None, None
         for spec in specs:
             spec = dict(spec)
+            system = spec.pop("_system", False)
             spec["data"] = dict(spec.get("data") or {})
             if state_digest:
                 spec["data"]["state_digest"] = state_digest
-            verified = bool(verified_id) and spec.get("agent_id") == verified_id
+            verified = (not system) and bool(verified_id) and spec.get("agent_id") == verified_id
             ev, offset = events.emit_at(spec.pop("kind"), path=self.event_log, now=now,
                                         agent_verified=verified, **spec)
             last = ev["hash"]
@@ -648,8 +680,11 @@ class Store:
     def transact(self, fn, *, now: float | None = None, ids: dict | None = None):
         """Run ``fn(tickets, now) -> (result, event_specs)`` under the ticket
         lock. Order: integrity check, mutate, temp file, events (stamped with
-        the new state digest), replace, head. A failure before the replace
-        saves nothing. Refusals are logged; nothing is saved on refusal."""
+        the new state digest), replace, head. A failure before the events are
+        written saves nothing. Once the events are written the change is
+        committed: if the replace keeps failing, ``CommitPending`` is raised
+        and the next load rolls it forward. Refusals are logged; nothing is
+        saved on refusal."""
         now = time.time() if now is None else now
         with events.file_lock(self.ticket_file):
             try:
@@ -677,9 +712,24 @@ class Store:
             self._tmp().write_bytes(content)
             verified_id = (ids or {}).get("v")
             _, offset, last = self._emit_all(specs, now, verified_id, digest)
-            os.replace(self._tmp(), self.ticket_file)
-            integrity.write_head(offset, last, digest, self.head_file, integrity.load_key(), accepted)
+            self._replace_with_retry()
+            integrity.write_head(offset, last, digest, self.head_file, integrity.load_key(), accepted,
+                                 self._identity_enforced())
         return result
+
+    def _replace_with_retry(self) -> None:
+        """Windows refuses to replace a file another process has open
+        (PermissionError). Retry briefly; the events are already logged, so
+        giving up means the commit is pending, not lost."""
+        for attempt in range(20):
+            try:
+                os.replace(self._tmp(), self.ticket_file)
+                return
+            except PermissionError:
+                time.sleep(0.1)
+            except OSError as e:
+                raise CommitPending(f"Logged but not yet applied ({e}). It applies on the next load; do not retry.")
+        raise CommitPending("Logged but not yet applied (file in use). It applies on the next load; do not retry.")
 
     def accept_current_state(self, by: str, reason: str, gate=None, now: float | None = None,
                              accepted_problems: list[str] | None = None) -> dict:
@@ -709,7 +759,7 @@ class Store:
                                         data={"by": by, "reason": reason, "problem": problem,
                                               "log_problems": new_log_problems, "state_digest": digest})
             integrity.write_head(offset, ev["hash"], digest, self.head_file, key,
-                                 prior + new_log_problems)
+                                 prior + new_log_problems, self._identity_enforced())
         return {"accepted": problem, "log_problems": new_log_problems, "store_digest": digest}
 
     # -- wrappers ----------------------------------------------------------------
@@ -722,18 +772,51 @@ class Store:
 
     def create(self, title: str, stage: str, team: str = "", *, queued: bool = True,
                end_stage: str | None = None, agent: str | None = None, now: float | None = None,
-               token: str | None = None) -> dict:
+               token: str | None = None, require_token: bool = False, gate=None) -> dict:
+        """Create a ticket.
+
+        With identity enforced (ADR-0011):
+          - an agent presenting a token may create only for its own team, and
+            a ticket created straight into review (``queued=False``) records
+            that agent as the worker, so its own principal cannot review it;
+          - ``require_token`` (the MCP path) refuses tokenless creates;
+          - a tokenless create straight into review is an operator action and
+            runs ``gate`` (operator approval) first, because no worker would
+            be on record to keep the reviewer independent.
+        """
         ids = {}
 
         def fn(tickets, now):
-            # Operators may create without a token; an agent that presents
-            # one is recorded as verified.
-            aid, _, verified, _ = self.who(agent, token) if (token or not self.registry.enforced()) else (None, None, False, None)
+            enforced = self._identity_enforced()
+            aid, principal, verified, who = (None, None, False, None)
+            if token or not enforced:
+                aid, principal, verified, who = self.who(agent, token)
+            elif require_token:
+                self.who(agent, None)  # raises a logged refusal
+            stub = {"identifier": None, "stage": stage}
+            if who is not None:
+                if (team or "") != who.team:
+                    raise Refused(f"{aid} belongs to team {who.team!r}, not {team!r}.",
+                                  _ev("ticket.transition_refused", stub, aid, "refused",
+                                      transition="create", reason="team mismatch"))
+                if not queued and not who.may_work(stage):
+                    raise Refused(f"{aid} is not registered to work stage {stage!r}.",
+                                  _ev("ticket.transition_refused", stub, aid, "refused",
+                                      transition="create", reason=f"missing role {stage}"))
+            if enforced and not queued and who is None:
+                if gate is None:
+                    raise Refused("Creating work straight into review without a token is an operator action.",
+                                  _ev("ticket.transition_refused", stub, agent, "refused",
+                                      transition="create", reason="operator approval required"))
+                gate()
             ids["v"] = aid if verified else None
             nums = [int(t["identifier"][2:]) for t in tickets
                     if str(t.get("identifier", "")).startswith("T-") and t["identifier"][2:].isdigit()]
             t = new_ticket(f"T-{(max(nums) + 1) if nums else 1}", title, stage, team, now,
                            queued=queued, end_stage=end_stage)
+            if not queued:
+                t["workedBy"] = aid or "operator"
+                t["workedByPrincipal"] = principal or aid or "operator"
             tickets.append(t)
             return t, [_ev("ticket.created", t, aid, t["state"], title=title, team=t["team"], stages=t["stages"])]
         return self.transact(fn, now=now, ids=ids)

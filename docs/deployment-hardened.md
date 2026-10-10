@@ -15,6 +15,12 @@ This page sets up the separation that turns detection into prevention:
 Run `python3 scripts/ticket.py doctor` before and after. It reports what is
 and is not enforced.
 
+**Why `config/` matters most.** It holds the integrity key, the agent
+registry, and the signed head records. An agent that can write `runs/` but
+not `config/` gets caught by tamper detection, including attempts to roll
+`runs/` back to an earlier state. An agent that can write `config/` can do
+anything.
+
 ## What each level gets you
 
 | Setup | An agent can... | Governance is |

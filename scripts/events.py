@@ -34,7 +34,6 @@ Config (env):
   AG_LOCK_TIMEOUT       seconds to wait for a lock (default: 45)
   AG_HARNESS_SHA        override the harness SHA (default: read from .git)
   AG_CONSTITUTION_VERSION  optional constitution version label
-  AG_AGENT_ID           default agent_id when the caller passes none
 """
 from __future__ import annotations
 
@@ -243,7 +242,7 @@ def make_event(
         "trace_id": trace_id or ticket or event_id,
         "ticket": ticket,
         "role": role,
-        "agent_id": agent_id or os.environ.get("AG_AGENT_ID") or None,
+        "agent_id": agent_id or None,
         "harness_sha": harness_sha(),
         "constitution_version": os.environ.get("AG_CONSTITUTION_VERSION") or None,
         "model": model,
@@ -269,8 +268,17 @@ def emit_at(kind: str, path: Path | None = None, **fields: Any) -> tuple[dict[st
 
     p = Path(path) if path else EVENT_LOG
     ev = make_event(kind, **fields)
+    key = integrity.load_key()
     with file_lock(p):
-        ev = integrity.chain_event(ev, integrity.last_hash(p), integrity.load_key())
+        if integrity.repair_torn_tail(p):
+            print(f"WARN: {p} ended in a partial line (crash or full disk); moved it to {p}.torn",
+                  file=sys.stderr)
+        last = integrity.last_event(p) or {}
+        if not key and last.get("hash_alg") == "hmac-sha256":
+            # Never append an unkeyed event to a keyed log: it would read as a
+            # downgrade and stop every honest writer that does have the key.
+            raise integrity.KeyRequired(f"{p} is keyed; this process has no integrity key")
+        ev = integrity.chain_event(ev, last.get("hash") or integrity.GENESIS, key)
         with p.open("ab") as fh:
             fh.write((json.dumps(ev) + "\n").encode("utf-8"))
             offset = fh.tell()
