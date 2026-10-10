@@ -22,8 +22,8 @@ Running AI agents can spend money, exfiltrate data, modify systems, and cause ha
 
 | Kind | Examples (see capability report) |
 |---|---|
-| **Code** | Chain transitions, reviewer independence, and the close rule for writes through `chain.py` (CLI + MCP `ticket_*`); agent identity once a registry exists; tamper detection on the ticket store and event log; framework-unit spend refuse on gated MCP reviews; messaging egress only when `network_permission=allow`; approval checkpoints on listed subprocess/outbound/outside-write sites; MCP HTTP default bind `127.0.0.1` |
-| **Instruction / process** | CEO pacing language; blind-review isolation; human-only veto clearing; append-only ledger norms |
+| **Code** | Chain transitions, reviewer independence, and the close rule for writes through `chain.py` (CLI + MCP `ticket_*`); blind review views for chain tickets (no worker summary or earlier verdict reasons); agent identity once a registry exists; tamper detection on the ticket store and event log; on the hardened macOS install, OS-level separation of agents from governance files; framework-unit spend refuse on gated MCP reviews; messaging egress only when `network_permission=allow`; approval checkpoints on listed subprocess/outbound/outside-write sites; MCP HTTP default bind `127.0.0.1` |
+| **Instruction / process** | CEO pacing language; blind-review isolation for adversary reviews outside the ticket chain; human-only veto clearing; append-only ledger norms |
 
 Detail: [`docs/capability-report.md` §12.8](docs/capability-report.md#128-code-vs-instruction-controls-summary).
 
@@ -39,10 +39,11 @@ This is an independent personal project. It is not a product of, or endorsed by,
 |---|---|---|
 | **Constitution** (`constitution/`) | Written veto rules and domain law | Files in tree |
 | **Harnesses** (`harnesses/`) | Role instructions (own / never / stop conditions) | Files in tree |
-| **Chain** | Research → PM → UX → Engineer → QA as a state machine: team-scoped claims with leases, reviewer independence, kick-back routing, stuck-ticket recovery (CEO routing remains instruction) | `scripts/chain.py`, ADR-0010, capability report §12.13 |
+| **Chain** | Research → PM → UX → Engineer → QA as a state machine: team-scoped claims with leases, reviewer independence, kick-back routing, stuck-ticket recovery (CEO routing remains instruction). The deliverable and the latest verdict's reasons travel on the ticket. | `scripts/chain.py`, ADR-0010, capability report §12.13, §12.17 |
 | **Event log** | Append-only, versioned, hash-chained record of every governed action (`runs/events.jsonl`) | `scripts/events.py`, ADR-0009, ADR-0012, capability report §12.12 |
 | **Identity** | Operator-registered agents with tokens, teams, roles, and principals; reviewer and worker must differ by principal | `scripts/identity.py`, ADR-0011, capability report §12.14 |
-| **Integrity** | Signed head record; direct edits to tickets or the log stop all writes until an operator accepts | `scripts/integrity.py`, ADR-0012, capability report §12.15, [hardened deployment](docs/deployment-hardened.md) |
+| **Integrity** | Signed head record; direct edits to tickets or the log stop all writes until an operator accepts | `scripts/integrity.py`, ADR-0012, capability report §12.15 |
+| **Hardened install** (macOS) | A hidden service user owns governance files; agents reach the framework only over MCP on 127.0.0.1; operator actions need `sudo` | `scripts/macos/`, ADR-0013, capability report §12.16, [hardened deployment](docs/deployment-hardened.md) |
 | **Calibration ledger** (`ledger/`) | Precedent records (ordinary files) | Files in tree |
 | **Config** (`config/`) | Wizard output: roster, budget units, network permission, alerts | Wizard writes; see capability report §12.1–12.3 |
 | **Plugins** (`adversarial-*/`) | Adversary agents and skills | Files in tree |
@@ -103,7 +104,7 @@ Listed subprocess / outbound / outside-write call sites refuse without `AG_APPRO
 
 You need [Git](https://git-scm.com/), [uv](https://docs.astral.sh/uv/), Python 3.11 or newer, and an agent host that can talk to an MCP server. On macOS, the built-in `python3` is 3.9 and will not work; use Homebrew's (`brew install python@3.12`).
 
-To run the framework so agents cannot touch its files, see [docs/deployment-hardened.md](docs/deployment-hardened.md). On macOS that is one command: `sudo scripts/macos/harden.sh`.
+To run the framework so agents cannot touch its files, see [docs/deployment-hardened.md](docs/deployment-hardened.md). On macOS a single script sets it up. It runs as root, so it must be run from a fresh, root-owned clone of a release tag, and it refuses an ordinary checkout. The guide has the exact commands.
 
 1. **Clone the repository**
 
@@ -142,7 +143,7 @@ Conversational via MCP tools. It asks about your runtime, engine, budget model (
 
 ## Adversaries (judges)
 
-Adversaries are instructed to review **blind** (neutral facts, not the worker’s pitch) and to treat customer-harm vetoes as human-cleared only. That isolation is **process/instruction**, not a cryptographic wall ([§12.7](docs/capability-report.md#127-what-governance-does-not-mean)).
+Adversaries are instructed to review **blind** (neutral facts, not the worker’s pitch) and to treat customer-harm vetoes as human-cleared only. For tickets in the chain, the blind view is enforced in code: review claims, `ticket_list`, and `query_verdicts` omit the worker's summary and earlier verdict reasons ([§12.17](docs/capability-report.md#1217-deliverables-and-verdict-reasons-121)). Outside the chain, isolation is **process/instruction**, not a cryptographic wall ([§12.7](docs/capability-report.md#127-what-governance-does-not-mean)).
 
 Domains ship under `adversarial-*/` (UX, engineer, QA, researcher, universal, prompt, security, privacy, compliance, product, ops, docs). Counts change as plugins are added; trust the tree and `scripts/validate.py`, not a marketing number.
 
@@ -158,6 +159,8 @@ Domains ship under `adversarial-*/` (UX, engineer, QA, researcher, universal, pr
 | [`docs/agentic-governance-spec.md`](docs/agentic-governance-spec.md) | Framework spec (includes advisory sections) |
 | [`docs/spec-addendum-01.md`](docs/spec-addendum-01.md) | Addendum |
 | [`docs/deployment.md`](docs/deployment.md) | Remote MCP |
+| [`docs/deployment-hardened.md`](docs/deployment-hardened.md) | Running the framework as its own OS user (macOS script, Linux steps) |
+| [`CHANGELOG.md`](CHANGELOG.md) | Release history |
 | [`docs/adr/`](docs/adr/) | Architecture decisions |
 | [`SECURITY.md`](SECURITY.md) | Reporting + security model (honest) |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | DCO + contribution rules |
@@ -169,8 +172,9 @@ Domains ship under `adversarial-*/` (UX, engineer, QA, researcher, universal, pr
 - `scripts/ticket.py` + `scripts/chain.py` — ticket store, chain state machine, stuck-ticket recovery ([ADR-0010](docs/adr/0010-chain-state-machine-and-recovery.md))
 - `scripts/identity.py` + `scripts/integrity.py` — agent registry and tamper detection; `ticket.py doctor` reports what is enforced on your install ([ADR-0011](docs/adr/0011-verified-agent-identity.md), [ADR-0012](docs/adr/0012-tamper-detection.md))
 - `scripts/events.py` — append-only event log ([schema](scripts/events.schema.md), [ADR-0009](docs/adr/0009-event-log-and-close-gate.md))
+- `scripts/macos/` — hardened macOS install: `harden.sh` (installer), `agctl` (operator commands via sudo), `e2e-test.sh` (end-to-end test) ([ADR-0013](docs/adr/0013-macos-hardened-install.md))
 - `scripts/validate.py` — structure validator; `git apply --check` on patches requires approval when patches exist
-- `.github/workflows/validate.yml` — validate + tests + gitleaks
+- `.github/workflows/validate.yml` — validate, tests on Linux and macOS, the hardened install end to end on a real Mac, and gitleaks
 - `scripts/messaging.py` — alerts (network permission + approval)
 - `scripts/approval.py` — approval checkpoints
 - `mcp/adversarial_mcp/spend.py` — framework-unit meter
