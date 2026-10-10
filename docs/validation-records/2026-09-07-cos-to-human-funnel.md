@@ -3,7 +3,7 @@
 **Epic (mock):** "Add a `--notify` flag for per-team constitutional-veto alert routing"
 (deliberately config-behavior-affecting → triggers Section 10.3 mandatory escalation).
 **Date:** 2026-09-07. **Chain:** CEO → Research → PM → UX → Engineer → QA → **Cos → Human (BA agent)**.
-**Method:** True isolated subagents per role (each loaded constitution + its harness + only its single upstream artifact). Work in `/tmp/cos-test-run/`; governance repo **not** modified (read-only to bots). Real engine — the deepseek-v4-flash model, not a scripted mock.
+**Method:** True isolated subagents per role (each loaded constitution + its harness + only its single upstream artifact). Work in `/tmp/cos-test-run/`; governance repo **not** modified (read-only to bots). Real engine: a live language model, not a scripted mock.
 
 ## Purpose
 

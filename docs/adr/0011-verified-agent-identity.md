@@ -1,6 +1,6 @@
 # ADR-0011: Verified Agent Identity
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-10
 - **Builds on:** ADR-0010
 

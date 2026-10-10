@@ -1,6 +1,6 @@
 # ADR-0012: Tamper Detection for the Ticket Store and Event Log
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-10
 - **Builds on:** ADR-0009, ADR-0010
 
