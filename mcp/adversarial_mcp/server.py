@@ -152,14 +152,46 @@ def _ledger(domain: str) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _events_module():
+    """Load scripts/events.py (ADR-0009 event log). scripts/ is not a package."""
+    import sys
+
+    scripts = str(Path(__file__).resolve().parents[2] / "scripts")
+    if scripts not in sys.path:
+        sys.path.insert(0, scripts)
+    import events  # noqa: E402
+
+    return events
+
+
+def _event_log() -> Path:
+    return Path(os.environ.get("EVENT_LOG", RUNS_DIR / "events.jsonl"))
+
+
 def _append_verdict(record: dict[str, Any]) -> None:
-    record.setdefault("ts", int(time.time() * 1000))
-    # A22: every ruling carries a status (active by default) and a provenance
-    # field linking the artifact to the ruling that permitted it.
+    ev_mod = _events_module()
     record.setdefault("status", "active")
     record.setdefault("provenance", "")
-    with VERDICT_LOG.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(record) + "\n")
+    # ADR-0009: every verdict is also an event in the append-only log. The
+    # event_id is copied onto the verdict record so telemetry can dedupe on it.
+    ev = ev_mod.emit(
+        "verdict.recorded",
+        path=_event_log(),
+        ticket=record.get("ticket") or None,
+        role=record.get("domain") or None,
+        outcome=record.get("verdict"),
+        data={
+            "summary": record.get("summary", ""),
+            "rule": record.get("rule", ""),
+            "case_tag": record.get("case_tag", ""),
+            "source": record.get("source", ""),
+        },
+    )
+    record.setdefault("ts", ev["ts"])
+    record.setdefault("event_id", ev["event_id"])
+    # A22: every ruling carries a status (active by default) and a provenance
+    # field linking the artifact to the ruling that permitted it.
+    ev_mod.append_jsonl(VERDICT_LOG, record)
 
 
 def _load_verdicts(domain: str | None = None, limit: int = 50, source: str | None = None) -> list[dict[str, Any]]:
@@ -667,6 +699,23 @@ def overturn_verdict(ticket: str, reason: str) -> dict[str, Any]:
         return {"status": "error", "error": "ticket and reason are required."}
     if not VERDICT_LOG.exists():
         return {"status": "error", "error": "No verdict log to overturn from."}
+    ev_mod = _events_module()
+    with ev_mod.file_lock(VERDICT_LOG):
+        result = _overturn_locked(ticket, reason)
+    if result.get("status") == "overturned":
+        ev_mod.emit(
+            "verdict.overturned",
+            path=_event_log(),
+            ticket=ticket,
+            outcome="overturned",
+            data={"reason": reason},
+        )
+    return result
+
+
+def _overturn_locked(ticket: str, reason: str) -> dict[str, Any]:
+    """Rewrite the verdict view with the ruling flagged. Caller holds the lock.
+    The event log keeps the original verdict event untouched (append-only)."""
     lines = VERDICT_LOG.read_text(encoding="utf-8").splitlines()
     found = False
     out = []
@@ -686,7 +735,9 @@ def overturn_verdict(ticket: str, reason: str) -> dict[str, Any]:
         out.append(json.dumps(r))
     if not found:
         return {"status": "error", "error": f"No active ruling found for ticket '{ticket}'."}
-    VERDICT_LOG.write_text("\n".join(out) + "\n", encoding="utf-8")
+    tmp = VERDICT_LOG.with_name(VERDICT_LOG.name + ".tmp")
+    tmp.write_text("\n".join(out) + "\n", encoding="utf-8")
+    os.replace(tmp, VERDICT_LOG)
     return {"status": "overturned", "ticket": ticket, "reason": reason}
 
 
