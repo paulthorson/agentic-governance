@@ -67,6 +67,9 @@ import identity  # noqa: E402
 import integrity  # noqa: E402
 
 CHAIN = ("research", "pm", "ux", "engineer", "qa")
+# A deliverable is the work itself (text) or where to find it (a path or URL).
+# Large artifacts belong in files; the ticket carries a pointer.
+DELIVERABLE_MAX_CHARS = 64 * 1024
 STATES = ("queued", "working", "in_review", "reviewing", "blocked", "escalated", "done")
 VALID_VERDICTS = {"PASS", "KICK_BACK", "REVIEW_REQUIRED", "ESCALATE"}
 
@@ -351,17 +354,26 @@ def heartbeat(t: dict, agent: str, now: float, s: Settings) -> list[dict]:
     return [_ev("ticket.heartbeat", t, agent, t["state"])]
 
 
-def submit(t: dict, agent: str, now: float, summary: str = "", principal: str | None = None) -> list[dict]:
+def submit(t: dict, agent: str, now: float, summary: str = "", principal: str | None = None,
+           deliverable: str = "") -> list[dict]:
+    """Hand claimed work to review. ``deliverable`` is the work itself or a
+    path/URL to it; it is stored on the ticket so the reviewer sees exactly
+    what was submitted, and in the event log so every round is kept."""
     if t.get("state") != "working":
         _refuse(t, "submit", f"Ticket is {t.get('state')}, not working.", agent)
     if t.get("claimedBy") != agent:
         _refuse(t, "submit", f"Claimed by {t.get('claimedBy')}, not {agent}.", agent)
+    if deliverable and len(deliverable) > DELIVERABLE_MAX_CHARS:
+        _refuse(t, "submit", f"Deliverable is {len(deliverable)} characters (limit {DELIVERABLE_MAX_CHARS}). "
+                "Save it to a file and submit the path instead.", agent)
     _clear_claim(t)
     t["workedBy"] = agent
     t["workedByPrincipal"] = principal or agent
     t["reviewAttempts"] = 0
+    t["submission"] = {"stage": t.get("stage"), "by": agent, "at": iso(now),
+                       "summary": summary, "deliverable": deliverable}
     _set_state(t, "in_review", now)
-    return [_ev("ticket.submitted", t, agent, "in_review", summary=summary)]
+    return [_ev("ticket.submitted", t, agent, "in_review", summary=summary, deliverable=deliverable)]
 
 
 def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: Settings,
@@ -396,6 +408,9 @@ def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: 
         _refuse(t, f"verdict {v}", f"Kick-back target {target!r} must be this stage or an earlier one in {stages}.", agent)
     _clear_claim(t)
     t["verdict"] = v
+    # The worker who reclaims a kicked-back ticket sees why, on the ticket itself.
+    t["lastVerdict"] = {"verdict": v, "stage": cur, "by": agent, "at": iso(now), "summary": summary,
+                        "veto_hits": hits, "to_stage": target if v == "KICK_BACK" else None}
     out = [_ev("ticket.verdict", t, agent, v, veto_hits=hits, summary=summary, domain=domain or cur)]
 
     if hits:
@@ -858,14 +873,14 @@ class Store:
         return self.transact(fn, now=now, ids=ids)
 
     def submit(self, ident: str, agent: str | None, summary: str = "", now: float | None = None,
-               token: str | None = None):
+               token: str | None = None, deliverable: str = ""):
         ids = {}
 
         def fn(ts, n):
             t = self._one(ts, ident)
             aid, principal, verified, _ = self.who(agent, token, t)
             ids["v"] = aid if verified else None
-            return t, submit(t, aid, n, summary, principal)
+            return t, submit(t, aid, n, summary, principal, deliverable)
         return self.transact(fn, now=now, ids=ids)
 
     def verdict(self, ident: str, v: str, agent: str | None, hits: list[str], *,

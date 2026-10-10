@@ -126,7 +126,7 @@ def main() -> int:
                 ("ticket_create", lambda: mcp_server.ticket_create("smoke", stage="qa", team="smoke", agent_id="smoke")),
                 ("ticket_claim_next", lambda: mcp_server.ticket_claim_next("qa", "smoke", "worker")),
                 ("ticket_heartbeat", lambda: mcp_server.ticket_heartbeat("T-1", "worker")),
-                ("ticket_submit", lambda: mcp_server.ticket_submit("T-1", "worker")),
+                ("ticket_submit", lambda: mcp_server.ticket_submit("T-1", "worker", summary="done", deliverable="smoke deliverable")),
                 ("ticket_claim_next(review)", lambda: mcp_server.ticket_claim_next("qa", "smoke", "reviewer", mode="review")),
                 ("ticket_verdict", lambda: mcp_server.ticket_verdict("T-1", "PASS", "reviewer")),
                 ("ticket_recover", lambda: mcp_server.ticket_recover()),
@@ -142,6 +142,8 @@ def main() -> int:
                 except Exception as e:  # noqa: BLE001
                     failures.append(f"{name} raised: {e}")
             final = mcp_server.ticket_list(team="smoke")
+            if not final or (final[0].get("submission") or {}).get("deliverable") != "smoke deliverable":
+                failures.append("ticket_submit deliverable not stored on the ticket")
             if not final or final[0].get("state") != "done":
                 failures.append(f"chain loop did not end in done: {final}")
         finally:

@@ -805,6 +805,11 @@ def ticket_claim_next(role: str, team: str = "", agent_id: str = "", mode: str =
     awaiting review (never your own). The claim holds a lease; call
     ticket_heartbeat to extend it or it returns to the queue.
 
+    The returned ticket carries ``submission`` (the latest summary and
+    deliverable) and, after any verdict, ``lastVerdict`` (who decided what
+    and why). A worker reclaiming a kicked-back ticket reads the reasons
+    there; a reviewer reads the work from ``submission.deliverable``.
+
     When the operator has registered agents (ADR-0011), pass agent_token (or
     start this server with AG_AGENT_TOKEN set). The token decides your id,
     team, and allowed stages; agent_id and team may then be left empty."""
@@ -824,10 +829,18 @@ def ticket_heartbeat(ticket: str, agent_id: str = "", agent_token: str = "") -> 
 
 
 @mcp.tool()
-def ticket_submit(ticket: str, agent_id: str = "", summary: str = "", agent_token: str = "") -> dict[str, Any]:
-    """Submit work you claimed for review. Only the claimant can submit."""
+def ticket_submit(ticket: str, agent_id: str = "", summary: str = "", agent_token: str = "", deliverable: str = "") -> dict[str, Any]:
+    """Submit work you claimed for review. Only the claimant can submit.
+
+    Args:
+        summary: one line on what you did.
+        deliverable: the work itself (text, up to 64K characters) or a path or
+            URL to it. The reviewer reads it from the ticket, so put the actual
+            output here, not a description of it.
+    """
     _, store = _chain_store()
-    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(ticket, agent_id or None, summary, token=agent_token or None)})
+    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(
+        ticket, agent_id or None, summary, token=agent_token or None, deliverable=deliverable)})
 
 
 @mcp.tool()

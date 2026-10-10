@@ -437,5 +437,62 @@ class McpSurfaceTest(unittest.TestCase):
         self.assertIn('VERDICT_LOG = Path(os.environ.get("VERDICT_LOG"', src)
 
 
+class DeliverableTest(ChainBase):
+    """1.2.1: the work and the reasons travel on the ticket (pilot findings)."""
+
+    def test_reviewer_sees_the_deliverable(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        self.store.submit("T-1", "w", "one line", now=T0, deliverable="the full paragraph")
+        got = self.store.claim_next("pm", "a", "r", mode="review", now=T0)
+        sub = got["submission"]
+        self.assertEqual((sub["by"], sub["summary"], sub["deliverable"], sub["stage"]),
+                         ("w", "one line", "the full paragraph", "pm"))
+        ev = [e for e in events.read_events(self.store.event_log) if e["kind"] == "ticket.submitted"][0]
+        self.assertEqual(ev["data"]["deliverable"], "the full paragraph")
+
+    def test_worker_sees_kick_back_reasons_on_reclaim(self):
+        """Claim: a worker reclaiming a kicked-back ticket sees who decided and why."""
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        self.store.submit("T-1", "w", now=T0, deliverable="draft")
+        self.store.claim_next("pm", "a", "r", mode="review", now=T0)
+        self.store.verdict("T-1", "KICK_BACK", "r", [], summary="fix the second sentence", now=T0)
+        got = self.store.claim_next("pm", "a", "w", now=T0 + 1)
+        lv = got["lastVerdict"]
+        self.assertEqual((lv["verdict"], lv["by"], lv["summary"], lv["to_stage"]),
+                         ("KICK_BACK", "r", "fix the second sentence", "pm"))
+        self.assertEqual(got["submission"]["deliverable"], "draft")  # previous round, for reference
+
+    def test_oversized_deliverable_refused(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        with self.assertRaises(chain.Refused):
+            self.store.submit("T-1", "w", now=T0, deliverable="x" * (chain.DELIVERABLE_MAX_CHARS + 1))
+        self.assertEqual(self.t()["state"], "working")
+
+    def test_cli_show_prints_deliverable_and_reasons(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            (root / "runs").mkdir()
+            env = {k: v for k, v in os.environ.items() if k not in ("AG_APPROVAL", "AG_APPROVAL_TOKEN")}
+            env.update(TICKET_FILE=str(root / "t.json"), VERDICT_LOG=str(root / "v.jsonl"),
+                       EVENT_LOG=str(root / "e.jsonl"), ADVERSARIAL_ROOT=str(root))
+
+            def run(*a):
+                return subprocess.run([sys.executable, str(SCRIPTS / "ticket.py"), *a],
+                                      env=env, capture_output=True, text=True, timeout=30)
+
+            (root / "work.md").write_text("line one\nline two\n")
+            run("new", "x", "--queue", "--role", "qa", "--team", "a")
+            run("claim", "--role", "qa", "--team", "a", "--agent", "w")
+            self.assertEqual(run("submit", "T-1", "--agent", "w", "--deliverable-file", str(root / "work.md")).returncode, 0)
+            run("claim", "--role", "qa", "--team", "a", "--agent", "r", "--mode", "review")
+            run("verdict", "T-1", "KICK_BACK", "--agent", "r", "--summary", "tighten line two")
+            out = run("show", "T-1").stdout
+            self.assertIn("| line two", out)
+            self.assertIn("reasons: tighten line two", out)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
