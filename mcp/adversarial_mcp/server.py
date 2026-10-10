@@ -700,6 +700,12 @@ def overturn_verdict(ticket: str, reason: str) -> dict[str, Any]:
     """
     if not ticket or not reason:
         return {"status": "error", "error": "ticket and reason are required."}
+    _events_module()  # puts scripts/ on sys.path
+    from approval import ApprovalRequired, require_approval
+    try:
+        require_approval("overturn_verdict", REPO_ROOT, consume=True)
+    except ApprovalRequired as e:
+        return {"status": "refused", "error": f"Only a human overturns a precedent. {e}"}
     if not VERDICT_LOG.exists():
         return {"status": "error", "error": "No verdict log to overturn from."}
     ev_mod = _events_module()

@@ -105,10 +105,14 @@ async def main():
             check("independent reviewer claims", res.get("status") == "claimed", res)
             sub = (res.get("ticket") or {}).get("submission") or {}
             check("reviewer sees the deliverable", sub.get("deliverable") == "the work", sub)
+            check("review is blind (no worker summary)", "summary" not in sub and "did it" not in json.dumps(res), sub)
 
             res = await call("ticket_verdict", ticket=tid, verdict="PASS", agent_token=CRIT)
             check("reviewer PASS closes the ticket",
                   res.get("status") == "recorded" and (res.get("ticket") or {}).get("state") == "done", res)
+
+            res = await call("overturn_verdict", ticket=tid, reason="an agent tries")
+            check("overturn_verdict refused over MCP", res.get("status") == "refused", res)
 
             res = await call("ticket_verify")
             check("integrity verifies over MCP", res.get("ok") is True, res)
