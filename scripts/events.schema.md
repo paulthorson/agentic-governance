@@ -18,8 +18,10 @@ Every record carries `schema_version`. The current version is `"1"`. A
 consumer that sees a version it does not recognize **MUST** fail loudly
 rather than mis-parse. The reference reader raises `UnknownSchemaVersion`.
 
-Adding a new `kind` or a new key inside `data` is not a version change.
-Removing, renaming, or retyping an envelope field is.
+Adding a new `kind`, a new key inside `data`, or a new envelope field is not
+a version change; consumers **MUST** ignore fields they do not know.
+Removing, renaming, or retyping an envelope field is. Events written before
+1.2 lack the 1.2 fields below.
 
 ## Envelope
 
@@ -45,9 +47,13 @@ Field order is stable.
 | `framework_units` | number \| null | Framework spend units, if the caller reports them. |
 | `duration_ms` | integer \| null | Caller-reported. |
 | `outcome` | string \| null | Short result: a verdict, the resulting state, or `refused`. |
-| `data` | object | Kind-specific detail. Never null. |
+| `data` | object | Kind-specific detail. Never null. Ticket events committed since 1.2 carry `state_digest` (SHA-256 of the ticket file after the commit). |
+| `agent_verified` | boolean | *1.2+.* True when `agent_id` came from a registry token (ADR-0011). False means self-reported. |
+| `prev_hash` | string | *1.2+.* `hash` of the previous chained event; 64 zeros for the first. |
+| `hash_alg` | string | *1.2+.* `hmac-sha256` (operator key) or `sha256` (no key). |
+| `hash` | string | *1.2+.* `H(prev_hash + canonical JSON of this event without hash)`, canonical = sorted keys, `(",", ":")` separators, UTF-8. Verify with `ticket.py verify` (ADR-0012). |
 
-## Kinds emitted in 1.1
+## Kinds emitted (1.1 and 1.2)
 
 | Kind | Emitted by | `outcome` | Notable `data` keys |
 |---|---|---|---|
@@ -69,6 +75,12 @@ Field order is stable.
 | `ticket.transition_refused` | chain / CLI | `refused` | `transition`, `reason` |
 | `verdict.recorded` | MCP `record_verdict` | verdict | `summary`, `rule`, `case_tag`, `source` |
 | `verdict.overturned` | MCP `overturn_verdict` | `overturned` | `reason` |
+| `store.committed` | chain | `saved` | `state_digest` (a commit with no other event) |
+| `store.tamper_detected` | chain | `refused` | `reason` |
+| `store.integrity_accepted` | `ticket.py integrity accept` | `accepted` | `by`, `reason`, `problem`, `log_problems`, `state_digest` |
+| `store.integrity_keyed` | `ticket.py integrity init-key` | `keyed` | `state_digest` |
+| `agent.registered` | `ticket.py agent add` | `registered` | `team`, `roles`, `principal` |
+| `agent.revoked` | `ticket.py agent revoke` | `revoked` | |
 
 ## Example
 

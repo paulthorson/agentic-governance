@@ -18,6 +18,8 @@ edited.
 | [ADR-0007](adr/0007-watchdog-data-source.md) | Abstract the watchdog data source | Accepted | 2026-09-06 |
 | [ADR-0009](adr/0009-event-log-and-close-gate.md) | Append-only event log and ticket close gate | Proposed | 2026-10-10 |
 | [ADR-0010](adr/0010-chain-state-machine-and-recovery.md) | Enforced chain state machine and stuck-ticket recovery | Proposed | 2026-10-10 |
+| [ADR-0011](adr/0011-verified-agent-identity.md) | Verified agent identity | Proposed | 2026-10-10 |
+| [ADR-0012](adr/0012-tamper-detection.md) | Tamper detection for the ticket store and event log | Proposed | 2026-10-10 |
 
 ## Template
 

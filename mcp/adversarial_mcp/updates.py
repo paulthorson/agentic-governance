@@ -31,7 +31,7 @@ from typing import Any, Callable
 
 # Single source of truth for the framework version. Keep in sync with the
 # newest "## [x.y.z]" heading in CHANGELOG.md (enforced by tests).
-CURRENT_VERSION = "1.1.0"
+CURRENT_VERSION = "1.2.0"
 
 REPO_SLUG = "paulthorson/agentic-governance"
 REMOTE_CHANGELOG_URL = (

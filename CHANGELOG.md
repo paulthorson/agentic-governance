@@ -5,6 +5,70 @@ All notable changes to Agentic Governance.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] — 2026-10-10
+
+Verified agent identity and tamper detection. 1.1 enforced the chain for
+honest callers; 1.2 decides who the caller is and notices when someone goes
+around the framework. See ADR-0011, ADR-0012, and
+`docs/deployment-hardened.md`.
+
+### Added
+
+- **Agent registry** (`scripts/identity.py`, `config/agents.json`): the
+  operator registers each agent with a team, roles (`engineer`,
+  `review:engineer`, ...), and a principal. The registry stores only token
+  hashes and is written 0600. Once any agent is registered, claim,
+  heartbeat, submit, and verdict require a token, and the id, team, and
+  allowed stages come from the registry.
+- **Principal separation:** a reviewer cannot share a principal with the
+  worker, so one runtime holding two tokens cannot review its own work.
+- **Hash-chained event log:** every event carries `prev_hash`, `hash_alg`,
+  and `hash`. The hash is HMAC-SHA256 with an operator key, or SHA-256
+  without one.
+- **Signed head record** (`runs/in_review.integrity.json`): pins the log
+  position and the ticket file digest after every commit.
+- **Tamper response:** a direct edit to the ticket file or log, deleted
+  events, or a removed head stops all writes (CLI exit 4, MCP status
+  `tampered`) and logs `store.tamper_detected`. An interrupted commit rolls
+  forward on its own.
+- **CLI:**
+  - `ticket.py agent add|revoke|list`
+  - `integrity init-key|accept`
+  - `verify`
+  - `doctor`
+  - `--token` / `AG_AGENT_TOKEN` on agent commands
+
+  Admin actions need operator approval.
+- **MCP:** `agent_token` on every `ticket_*` tool, plus `ticket_verify`.
+- `recover --alert` includes integrity problems on every run until an
+  operator accepts them.
+- `docs/deployment-hardened.md`: running the framework as its own OS user so
+  agents reach it only over MCP.
+- Envelope fields `agent_verified`, `prev_hash`, `hash_alg`, `hash`. Verdict
+  records gain `agent_id` and `agent_verified`.
+
+### Changed (upgrade notes)
+
+- **Registering one agent turns identity on for every agent.** Unregistered
+  agents are refused from then on. Register all of them before the first.
+- **Any edit to `runs/in_review.json` outside the framework now stops the
+  loop.** Fix-ups by hand are followed by `ticket.py integrity accept`.
+- The MCP HTTP server refuses to start with `AG_AGENT_TOKEN` set, because
+  every caller would act as that agent. Stdio servers still use it.
+- `agent_id` and `team` are optional on MCP `ticket_*` tools when a token is
+  passed.
+- Schema rule clarified: new envelope fields are additive; consumers ignore
+  unknown fields. `schema_version` stays `"1"`.
+
+### Not enforced (see capability report §12.14–12.15)
+
+- Code cannot stop a process from writing a file its OS user can write.
+  Without the separate-user setup, tamper detection catches edits, and
+  unkeyed mode cannot catch a forger who recomputes SHA-256.
+- Token secrecy and honest principals are the operator's job.
+- Approval is not scoped per action. A token that lets cron send alerts
+  also authorizes `clear-veto`.
+
 ## [1.1.0] — 2026-10-10
 
 Orchestration and observability. The production chain is now enforced in

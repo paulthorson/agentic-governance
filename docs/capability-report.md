@@ -221,7 +221,7 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 |---|---|---|
 | Is the chain enforced in code? | **YES for writes through `chain.py`** (CLI and MCP `ticket_*`). Agents that edit `runs/in_review.json` directly bypass it. | `scripts/chain.py`; `tests/test_chain.py::ChainFlowTest::test_full_chain_runs_to_done` |
 | Are teams isolated? | **YES for claims, submits, and verdicts** — `claim_next` matches stage and team exactly, and a verdict requires the review claim. **NO for reads** — `ticket_list` returns every team's tickets. | `tests/test_chain.py::ChainFlowTest::test_claims_are_team_scoped`; `tests/test_chain.py::ReviewFindingsTest::test_verdict_requires_review_claim` |
-| Can a worker review its own ticket? | **NO** under one `agent_id`; a verdict with no agent id is refused. An agent using two ids is not detected (ids are self-reported). | `tests/test_chain.py::ChainFlowTest::test_worker_cannot_review_own_work`; `tests/test_chain.py::ReviewFindingsTest::test_verdict_without_agent_refused` |
+| Can a worker review its own ticket? | **NO** under one `agent_id`; a verdict with no agent id is refused. Without a registry, an agent using two ids is not detected; with one, see §12.14. | `tests/test_chain.py::ChainFlowTest::test_worker_cannot_review_own_work`; `tests/test_chain.py::ReviewFindingsTest::test_verdict_without_agent_refused` |
 | Can `done` skip remaining stages after an earlier PASS? | **NO** | `tests/test_chain.py::ChainFlowTest::test_done_refused_mid_chain` |
 | What happens when an agent dies holding a ticket? | Lease expires (default 30 min), ticket returns to its queue on the next claim or `recover`. After 3 expiries on one stage it escalates to a human. | `chain.py` `recover`; `tests/test_chain.py::RecoveryTest` |
 | Can a ticket loop between roles forever? | **NO** — escalates after `AG_MAX_KICKBACKS` (default 3) | `tests/test_chain.py::ChainFlowTest::test_kick_back_limit_escalates` |
@@ -232,3 +232,34 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 | Can an MCP agent clear a veto, resolve an escalation, or force a close? | **NO** — those exist only in `scripts/ticket.py` | `tests/test_chain.py::McpSurfaceTest::test_human_only_actions_not_exposed_over_mcp` |
 | Are those CLI actions limited to humans? | **NO — limited to operator approval.** Any process with shell access while `AG_APPROVAL=1` or `runs/approval.ok` is present can run them. Approval is not bound to a ticket. The approval check runs after validation, so a bad id never consumes it. | `scripts/ticket.py` `_gate`; `tests/test_chain.py::ReviewFindingsTest::test_gate_runs_only_after_validation`; `tests/test_chain.py::CliTest` |
 | Are thresholds in the wizard? | **NO** — env vars in 1.1 (`AG_LEASE_MINUTES`, `AG_MAX_ATTEMPTS`, `AG_MAX_KICKBACKS`, `AG_REVIEW_TIMEOUT_MINUTES`, `AG_QUEUE_TIMEOUT_MINUTES`) | `chain.py` `Settings.from_env` |
+
+---
+
+## 12.14 Verified agent identity (ADR-0011)
+
+| Question | Answer | Cite |
+|---|---|---|
+| Are agent ids verified? | **Only once a registry exists.** With at least one active agent in `config/agents.json`, claim / heartbeat / submit / verdict require a token and the id comes from it. Without one, ids are self-reported and events say `agent_verified: false`. | `scripts/identity.py` `resolve`; `tests/test_identity_integrity.py::IdentityTest::test_token_required_once_registered`, `::test_unregistered_install_is_self_reported` |
+| Can a registered agent claim outside its team or stages? | **NO** | `tests/test_identity_integrity.py::IdentityTest::test_team_and_role_come_from_registry` |
+| Can one runtime review its own work under two ids? | **NO if the operator registers both under one principal.** Different principals for one runtime defeat it. | `tests/test_identity_integrity.py::IdentityTest::test_same_principal_cannot_review` |
+| Are tokens stored? | **NO** — SHA-256 only; registry written 0600 | `tests/test_identity_integrity.py::IdentityTest::test_registry_never_stores_token_and_is_private` |
+| Does a broken registry fall back to trusting ids? | **NO** — agent actions are refused | `tests/test_identity_integrity.py::IdentityTest::test_broken_registry_does_not_fall_back` |
+| Can a shared HTTP server inherit one agent's identity? | **NO** — refuses to start with `AG_AGENT_TOKEN` set | `tests/test_identity_integrity.py::HttpIdentityTest` |
+| Can an agent read another agent's token? | **Not prevented in code.** Depends on how the operator stores tokens and separates OS users. | `docs/deployment-hardened.md` |
+| Do tokens expire? | **NO** — revoke and re-add to rotate | `scripts/identity.py` |
+
+---
+
+## 12.15 Tamper detection (ADR-0012)
+
+| Question | Answer | Cite |
+|---|---|---|
+| Can an agent write the ticket file or log directly? | **YES if it runs as the framework's OS user.** Code cannot prevent that. Separate users prevent it. | `docs/deployment-hardened.md` |
+| Is a direct edit of the ticket file detected? | **YES**, on the next load; all writes stop until an operator runs `integrity accept` (approval) | `tests/test_identity_integrity.py::IntegrityTest::test_direct_ticket_edit_stops_writes_until_accepted` |
+| Are edited, deleted, or truncated events detected? | **YES** — chain walk (`verify`) for any line; head record for the newest events on every load | `tests/test_identity_integrity.py::IntegrityTest::test_edited_event_detected`, `::test_deleted_event_detected`, `::test_truncated_log_stops_writes` |
+| Is removing the head (and the ticket file) detected? | **YES** once the log holds committed state | `tests/test_identity_integrity.py::IntegrityTest::test_head_removed_detected`, `::test_head_and_store_removed_detected` |
+| Does a crash mid-commit look like tampering? | **NO** — rolled forward from the temp file | `tests/test_identity_integrity.py::IntegrityTest::test_crash_after_events_rolls_forward` |
+| Can a forger recompute the hashes? | **Unkeyed: YES.** **Keyed: only with the key.** Downgrading keyed events to unkeyed and rewriting the head are detected. | `tests/test_identity_integrity.py::KeyedIntegrityTest` |
+| Does the operator get told? | **Only via `recover --alert`** with a channel, network `allow`, and approval; integrity problems repeat every run until accepted | `scripts/ticket.py` `cmd_recover` |
+| Is the verdict view covered? | **NO** — `runs/verdicts.jsonl` is a convenience view; the event log is the record | ADR-0012 |
+| Does `doctor` tell me what is enforced? | **YES** — registry, key, permissions, verification, and the same-user limit | `tests/test_identity_integrity.py::CliIntegrityTest` |

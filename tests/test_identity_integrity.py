@@ -376,5 +376,20 @@ class McpIntegrityTest(unittest.TestCase):
                 srv.VERDICT_LOG = orig
 
 
+class HttpIdentityTest(unittest.TestCase):
+    def test_http_server_refuses_shared_agent_token(self):
+        """Claim: a shared HTTP server cannot inherit one agent's identity."""
+        sys.path.insert(0, str(REPO_ROOT / "mcp"))
+        from adversarial_mcp import server as srv
+        with mock.patch.dict(os.environ, {"AG_AGENT_TOKEN": "x"}):
+            self.assertTrue(srv.refuse_http_with_agent_token())
+        with mock.patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("AG_AGENT_TOKEN", None)
+            self.assertFalse(srv.refuse_http_with_agent_token())
+        src = (REPO_ROOT / "mcp" / "adversarial_mcp" / "server.py").read_text()
+        main = src[src.index("def main()"):]
+        self.assertLess(main.index("refuse_http_with_agent_token()"), main.index("uvicorn.run") if "uvicorn.run" in main else len(main))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

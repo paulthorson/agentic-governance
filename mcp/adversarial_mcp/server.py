@@ -940,6 +940,15 @@ def refuse_http_without_token(host: str, token: str) -> bool:
     return not token and not is_loopback_bind(host)
 
 
+def refuse_http_with_agent_token() -> bool:
+    """True when a shared HTTP server would inherit one agent's identity.
+
+    AG_AGENT_TOKEN as a server-side fallback is meant for stdio, where each
+    agent host runs its own server process. On HTTP it would let every
+    caller act as that agent."""
+    return bool(os.environ.get("AG_AGENT_TOKEN"))
+
+
 def bearer_token_matches(authorization: str, token: str) -> bool:
     """Constant-time compare of Authorization against Bearer <token>."""
     expected = f"Bearer {token}".encode("utf-8")
@@ -980,6 +989,14 @@ def main() -> None:
     # with a non-stdio transport serves the server on the given port.
     import sys
     import uvicorn
+
+    if refuse_http_with_agent_token():
+        print(
+            "ERROR: AG_AGENT_TOKEN is set for an HTTP server. Every caller would act "
+            "as that one agent. Unset it; HTTP callers pass agent_token per call (ADR-0011).",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
 
     # HTTP transport: require a bearer token off loopback. Loopback may omit
     # MCP_AUTH_TOKEN only with a loud warning. Non-loopback without a token
