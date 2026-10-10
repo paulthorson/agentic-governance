@@ -146,6 +146,9 @@ Governance **does** mean (what code/docs actually provide): role harnesses and c
 | `git apply` in validate | **Code** | `validate.py` + `approval.py` |
 | Ollama generate | **Code** | `server.py` approval |
 | Uvicorn bind default | **Code** | `server.py:662` |
+| Chain routing, reviewer independence, close rule (ADR-0010) | **Code** for writes through `chain.py` (CLI + MCP `ticket_*`) | `scripts/chain.py`; `tests/test_chain.py` |
+| Veto clear / escalation resolve / close override | **Code** (approval) | `scripts/ticket.py` + `approval.py`; not exposed over MCP |
+| Lost-update protection on shared ledgers | **Code** | `scripts/events.py` `file_lock` |
 | CEO pacing / halt language | **Instruction** | harness/spec |
 | Blind review / human-only veto clear / append-only | **Instruction + process** | constitutions, SECURITY model text |
 | Irreversible-action levels 1–3 from wizard | **Config recorded; not fully enforced for all agent actions** | wizard writes level; only listed script sites checkpointed |
@@ -192,3 +195,35 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 | Framework pixel-enforces the recorded design system on projects? | **NO — advisory config only.** Initiative-level craft gates (`DESIGN_SYSTEM_FIRST`, Check 7/8, Cos stamp) still apply per project; a per-project kickoff may override the default | `config/design-system.md` ("Advisory, not enforced"); `docs/onboarding/byods.md` |
 | Detail tokens quick vs define-each? | **YES** — quick setup applies recommended values; define-each walks neutrals, dark mode, radius, icons, logo, type scale, spacing, shadows, motion, breakpoints | `setup_wizard.py` `ds_detail`, `DS_DETAIL_MODES` |
 | Machine-readable tokens? | **YES** — `config/design-tokens.json` (W3C-DTCG-flavored `$value`/`$type`); external sources write a reference entry | `setup_wizard.py` `_write_design_tokens` |
+
+---
+
+## 12.12 Event log and close gate (ADR-0009)
+
+| Question | Answer | Cite |
+|---|---|---|
+| Is every governed action recorded? | **YES for actions through `scripts/ticket.py`, `scripts/chain.py`, and MCP `record_verdict` / `overturn_verdict` / `ticket_*`.** Each appends one envelope to `runs/events.jsonl`. Agent runtimes that do not call these are not recorded. | `scripts/events.py`; `scripts/events.schema.md` |
+| Is the envelope versioned? | **YES** — `schema_version` "1"; the reference reader raises on unknown versions | `events.py` `read_events`; `tests/test_events.py::LogTest::test_unknown_schema_version_fails_loudly` |
+| Can concurrent writers lose updates? | **NO for writers using this code.** O_EXCL lock file per ledger; works on Windows; stale locks (>30 s) broken. A rare lock-break race exists when two waiters see a stale lock at once (ADR-0009). | `events.py` `file_lock`; `tests/test_events.py::LogTest::test_concurrent_processes_lose_no_updates` |
+| Can `ticket.py done` close unreviewed work? | **NO.** Exits 2 unless already done; override needs operator approval plus `--by` / `--reason` and is logged | `scripts/ticket.py` `cmd_done`; `tests/test_events.py::CloseGateTest` |
+| Can a PASS carry veto hits? | **NO** — refused and logged | `chain.py` `verdict`; `tests/test_events.py::CloseGateTest::test_pass_with_veto_hits_refused` |
+| Does every veto alert in `--watch` mode? | **YES** — dedupe on `event_id`; legacy records use a composite key | `scripts/veto-telemetry.py` `_dedupe_key`; `tests/test_events.py::VetoDedupeTest` |
+| Is `agent_id` authenticated? | **NO** — self-reported | `events.schema.md` |
+| Does the event log leave the machine? | **NO** — local file only; no exporter ships | `events.py` (no network) |
+
+---
+
+## 12.13 Chain state machine and stuck-ticket recovery (ADR-0010)
+
+| Question | Answer | Cite |
+|---|---|---|
+| Is the chain enforced in code? | **YES for writes through `chain.py`** (CLI and MCP `ticket_*`). Agents that edit `runs/in_review.json` directly bypass it. | `scripts/chain.py`; `tests/test_chain.py::ChainFlowTest::test_full_chain_runs_to_done` |
+| Are teams isolated? | **YES for claims** — `claim_next` matches stage and team exactly. Reads (`ticket_list`) are not filtered by caller. | `tests/test_chain.py::ChainFlowTest::test_claims_are_team_scoped` |
+| Can a worker review its own ticket? | **NO** under one `agent_id`. An agent using two ids is not detected (ids are self-reported). | `tests/test_chain.py::ChainFlowTest::test_worker_cannot_review_own_work` |
+| Can `done` skip remaining stages after an earlier PASS? | **NO** | `tests/test_chain.py::ChainFlowTest::test_done_refused_mid_chain` |
+| What happens when an agent dies holding a ticket? | Lease expires (default 30 min), ticket returns to its queue on the next claim or `recover`. After 3 expiries on one stage it escalates to a human. | `chain.py` `recover`; `tests/test_chain.py::RecoveryTest` |
+| Can a ticket loop between roles forever? | **NO** — escalates after `AG_MAX_KICKBACKS` (default 3) | `tests/test_chain.py::ChainFlowTest::test_kick_back_limit_escalates` |
+| Does a queue with no agent get noticed? | **YES** — `ticket.stalled` event once per timeout window; `recover --alert` sends it (network permission + approval apply). State is not changed. | `tests/test_chain.py::RecoveryTest::test_stalled_queue_alerts_once_per_window_without_state_change` |
+| Is a scheduler required? | **NO** — recovery runs on every claim. `recover` exists for operators who want a cron. | `tests/test_chain.py::RecoveryTest::test_recovery_runs_on_claim` |
+| Can an MCP agent clear a veto or resolve an escalation? | **NO** — those exist only in `scripts/ticket.py` behind operator approval | `server.py` (no such tools); `tests/test_chain.py::CliTest` |
+| Are thresholds in the wizard? | **NO** — env vars in 1.1 (`AG_LEASE_MINUTES`, `AG_MAX_ATTEMPTS`, `AG_MAX_KICKBACKS`, `AG_REVIEW_TIMEOUT_MINUTES`, `AG_QUEUE_TIMEOUT_MINUTES`) | `chain.py` `Settings.from_env` |

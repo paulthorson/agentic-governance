@@ -112,10 +112,10 @@ log. Deriving them from the event log is deferred.
 - **Ship OpenTelemetry export in this change:** deferred to an optional extra
   behind `network_permission=allow`, since export is egress.
 
-## Next steps (not in this ADR)
+## Next steps
 
-1. Enforced chain state machine in the MCP server (`claim_next`, `submit`,
-   `transition`) with KICK_BACK routing to the previous role.
+1. Enforced chain state machine and stuck-ticket recovery: shipped in the
+   same release as [[ADR-0010]].
 2. Derive the compatibility views from the event log.
 3. Optional OTel exporter, gated as egress.
 4. Flip the watchdog default source from `paperclip` to `file` for public
