@@ -13,24 +13,37 @@ macOS. See ADR-0013.
 ### Added
 
 - **Hardened macOS install** (`sudo scripts/macos/harden.sh`): a hidden
-  service user owns `runs/` and `config/` (mode 700), code is root-owned and
-  read-only, and launchd runs the MCP server on 127.0.0.1 (bearer token
+  service user owns `runs/` and `config/` (mode 700), code and a pinned,
+  hash-checked Python are root-owned and read-only, and launchd runs the MCP server on 127.0.0.1 (bearer token
   required) and recovery every 10 minutes. Agents with a shell can no longer
   read or write governance state or act as an operator.
 - **`scripts/macos/agctl`**: operator commands as the service user. Requires
-  sudo, which becomes the operator gate.
+  sudo, which becomes the operator gate. Approval goes to the one command in
+  its environment, never as a file. Refuses to run if any install file has
+  become writable by someone other than root.
 - **`scripts/macos/e2e-test.sh`** and the `macos-hardened` CI job: installs on
   a real Mac, attacks it from an ordinary account, runs a full MCP ticket
   loop over HTTP, checks tamper detection, launchd restart, and recovery,
-  then uninstalls.
+  then uninstalls. It also checks that the installer refuses dangerous
+  `--prefix` and `--user` values.
 - **Deliverables on tickets:** `ticket_submit` / `ticket.py submit` take a
-  `deliverable` (the work, up to 64K characters, or a path/URL). The ticket
+  `deliverable` (the work, up to 64 KiB of UTF-8, or a path/URL). The ticket
   stores it as `submission`; the event log keeps every round.
   `ticket.py submit --deliverable-file` reads it from a file.
 - **Verdict reasons on tickets:** every verdict stores `lastVerdict` (verdict,
   stage, reviewer, time, reasons, veto hits, kick-back target). A worker
   reclaiming a kicked-back ticket sees why.
 - `ticket.py show` prints the submission and the last verdict.
+
+### Fixed
+
+- **Blind review:** review-mode claims and `ticket_list` no longer return the
+  worker's summary or earlier verdicts. Reviewers get the deliverable only.
+- **`overturn_verdict`** now requires operator approval. It was documented as
+  human-only but any MCP caller could run it.
+- Summaries (submit and verdict) are capped at 2000 characters.
+- Torn-tail repair no longer truncates the whole event log when a crashed
+  append is longer than 1 MB.
 
 ### Changed
 
@@ -47,6 +60,12 @@ macOS. See ADR-0013.
   read each other's tokens.
 - The deliverable is what the worker submitted. The framework stores it and
   does not verify it.
+- The installer runs as root from the source you give it. Install from a
+  root-owned fresh clone of a release tag (see `docs/deployment-hardened.md`).
+- `pip` installs `mcp` and `pydantic` without hash pinning.
+- `query_verdicts` still returns past verdict summaries to any MCP caller,
+  so a reviewer who looks can find earlier reasons for the same ticket.
+- No operator command overturns precedent on a hardened install.
 
 ## [1.2.0] — 2026-10-10
 

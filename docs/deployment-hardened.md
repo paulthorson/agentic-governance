@@ -34,10 +34,17 @@ anything.
 On macOS the whole setup is scripted and tested end to end in CI on a real
 Mac (`scripts/macos/e2e-test.sh`, ADR-0013).
 
+Install from a fresh clone of a release tag that root owns. The installer
+runs as root, so a copy your agents could have edited (any folder your login
+user can write, including your usual checkout) would let them run code as
+root. Use `/usr/bin/git` by its full path for the same reason: a `git` found
+through your PATH may be one your login user can replace.
+
 ```bash
-git clone https://github.com/paulthorson/agentic-governance.git ~/dev/agentic-governance
-cd ~/dev/agentic-governance
-sudo scripts/macos/harden.sh --python /opt/homebrew/bin/python3.12
+sudo /usr/bin/git clone --depth 1 --branch v1.2.1 \
+  https://github.com/paulthorson/agentic-governance.git /private/var/root/ag-src
+sudo /private/var/root/ag-src/scripts/macos/harden.sh
+sudo rm -rf /private/var/root/ag-src
 ```
 
 It creates a hidden service user `_aggov` and installs to
@@ -46,8 +53,11 @@ It creates a hidden service user `_aggov` and installs to
 | Path | Owner | Mode | Holds |
 |---|---|---|---|
 | code, `.venv/` | root | read-only for everyone | the framework |
-| `runs/` | `_aggov` | 700 | tickets, event log, approvals |
+| `python/` | root | read-only for everyone | its own Python (see below) |
+| `runs/` | `_aggov` | 700 | tickets, event log |
 | `config/` | `_aggov` | 700 | integrity key, agent registry, head record, bearer token |
+
+Logs go to `/Library/Logs/AgenticGovernance-app.agenticgovernance/`.
 
 Two launchd daemons run as `_aggov`: the MCP server on
 `http://127.0.0.1:8765/mcp` (bearer token required) and recovery every
@@ -55,7 +65,10 @@ Two launchd daemons run as `_aggov`: the MCP server on
 
 Operator commands go through `agctl`, which needs `sudo`. sudo is the
 operator gate: an agent that cannot sudo cannot register agents, clear
-vetoes, or accept tampering, even with a shell.
+vetoes, or accept tampering, even with a shell. agctl passes approval only
+to the one command it runs, never as a file, so the MCP server never holds
+an approval. It refuses to run (exit 4) if any installed file has become
+writable by someone other than root.
 
 ```bash
 sudo /Library/AgenticGovernance/scripts/macos/agctl agent add <id> --team <team> --roles <stage|review:stage> --principal <runtime>
@@ -69,17 +82,27 @@ that agent's own config.
 
 What the CI test proves on a real Mac, from an ordinary account with a shell:
 it cannot list or read `runs/`, read the key, registry, or bearer token,
-create an approval, or modify the code; it can work tickets only through
-MCP with its token; a same-principal reviewer gets nothing; tampering stops
-writes until the operator accepts; launchd restarts a killed server; and
-`--uninstall --purge` removes everything.
+create an approval, or modify the code, the interpreter, or the venv; it can
+work tickets only through MCP with its token; a same-principal reviewer gets
+nothing; a reviewer never sees the worker's summary; `overturn_verdict` is
+refused over MCP; tampering stops writes until the operator accepts;
+launchd restarts a killed server; a reinstall keeps `config/` at 700; and
+`--uninstall --purge` removes everything. It also checks that the installer
+refuses a relative or top-level prefix, a non-empty folder it did not
+create, a folder the agent created, and a real account as the service user.
 
 To remove: `sudo /Library/AgenticGovernance/scripts/macos/harden.sh --uninstall`
 (keeps data) or add `--purge` (deletes tickets, log, key, registry, and the
 service user; cannot be undone).
 
-Python: 3.11+ from outside your home folder (Homebrew's is fine). The
-`python3` that ships with macOS is 3.9 and will not work.
+Python: the installer downloads a pinned CPython 3.12 build
+(python-build-standalone, checked against a SHA-256 in the script) into
+`python/` and owns it as root. It does not use Homebrew's Python: on Apple
+Silicon `/opt/homebrew` belongs to your login user, so every agent running
+as you could edit that interpreter's standard library and run code as
+`_aggov`, or as root on the next reinstall. For an offline install, pass the
+same archive with `--python-archive FILE`; the hash still has to match.
+`pip` installs `mcp` and `pydantic` from PyPI without hash pinning.
 
 ## Steps (Linux)
 

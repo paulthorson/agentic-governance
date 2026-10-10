@@ -28,15 +28,36 @@ Ship a scripted, tested macOS install:
   bearer token, and recovery every 10 minutes. It keys the event log on
   first install. The code-permission pass never descends into `runs/` or
   `config/`, so a reinstall cannot expose the key.
+- **The interpreter is part of the code.** The install carries its own
+  CPython (a pinned python-build-standalone release, SHA-256 checked),
+  owned by root. A venv on Homebrew's Python would load its standard
+  library from `/opt/homebrew`, which the login user owns on Apple
+  Silicon: any agent could run code as the service user, and as root on
+  the next reinstall.
+- **Arguments are checked before anything is touched.** `--prefix` must be
+  absolute and plain, below the top level, with every ancestor root-owned
+  and not writable by others (sticky directories excepted). A prefix that
+  exists must be root-owned and either empty or carry the installer's
+  marker for this user and label; `rsync --delete` and `--purge` never run
+  without it. `--user` must be a hidden, shell-less account in the uid
+  range the installer allocates. `runs/`, `config/`, and the log folder
+  must not be symlinks. Root runs with a system-only PATH and never runs
+  git.
 - The bearer token lives in `config/` and is read by
   `scripts/macos/run-server.sh` at start, so it never appears in the
   world-readable LaunchDaemon plist. The server's environment is stripped of
   agent tokens and approval variables.
 - `scripts/macos/agctl` is the operator interface. It requires sudo, runs
-  `ticket.py` as the service user with a clean environment, and creates a
-  one-shot approval that is removed when the command ends. **sudo becomes
-  the operator gate:** an agent that cannot sudo cannot perform operator
-  actions, shell or not.
+  `ticket.py` as the service user with a clean environment, and passes
+  approval to that one process as `AG_APPROVAL=1`. It never writes
+  `runs/approval.ok`, which the long-running server (same uid) would also
+  honor, and deletes one if found. Before running, it refuses (exit 4) if
+  any install file outside `runs/` and `config/` is not root-owned or is
+  group- or other-writable, or if the venv is not built on the install's
+  own Python. **sudo becomes the operator gate:** an agent that cannot sudo
+  cannot perform operator actions, shell or not.
+- `overturn_verdict` requires operator approval. The hardened server never
+  has approval, so agents cannot overturn precedent over MCP.
 - `scripts/macos/e2e-test.sh` installs under a throwaway user, label, and
   prefix, attacks the install from an ordinary account, runs a full MCP
   ticket loop over HTTP, checks tamper detection, launchd restart, and the
@@ -52,6 +73,15 @@ Ship a scripted, tested macOS install:
 - **Positive:** the claim is tested on a real Mac on every PR, not argued.
 - **Negative:** anyone who can sudo can do anything, including agents if
   they are given sudo or the operator's password. Agents must not have it.
+- **Negative:** the installer runs as root from whatever source it is given.
+  Installing from a checkout an agent can write hands that agent root. The
+  docs install from a root-owned fresh clone of a release tag; the script
+  cannot enforce this.
+- **Negative:** `pip` fetches `mcp` and `pydantic` from PyPI without hash
+  pinning. A compromised package release would run as root during install.
+- **Negative:** there is no operator path to overturn precedent on a
+  hardened install yet (`overturn_verdict` is refused over MCP and has no
+  `ticket.py` command).
 - **Negative:** agent tokens still live in each agent's own config. Two
   agents running as the same user can read each other's token files. Give
   each agent runtime its own OS user, or accept that risk per agent.
