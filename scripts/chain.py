@@ -63,6 +63,8 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import events  # noqa: E402
+import identity  # noqa: E402
+import integrity  # noqa: E402
 
 CHAIN = ("research", "pm", "ux", "engineer", "qa")
 STATES = ("queued", "working", "in_review", "reviewing", "blocked", "escalated", "done")
@@ -294,7 +296,7 @@ def recover(tickets: list[dict], now: float, s: Settings) -> list[dict]:
 
 
 def claim_next(tickets: list[dict], role: str, team: str, agent: str, now: float,
-               s: Settings, mode: str = "work") -> tuple[dict | None, list[dict]]:
+               s: Settings, mode: str = "work", principal: str | None = None) -> tuple[dict | None, list[dict]]:
     if not agent:
         raise ValueError("agent_id is required to claim")
     if mode not in ("work", "review"):
@@ -305,6 +307,7 @@ def claim_next(tickets: list[dict], role: str, team: str, agent: str, now: float
         t for t in tickets
         if t.get("state") == want and t.get("stage") == role and t.get("team", "") == (team or "")
         and not (mode == "review" and t.get("workedBy") == agent)
+    and not (mode == "review" and principal is not None and t.get("workedByPrincipal") == principal)
     ]
     if not candidates:
         return None, evs
@@ -327,20 +330,22 @@ def heartbeat(t: dict, agent: str, now: float, s: Settings) -> list[dict]:
     return [_ev("ticket.heartbeat", t, agent, t["state"])]
 
 
-def submit(t: dict, agent: str, now: float, summary: str = "") -> list[dict]:
+def submit(t: dict, agent: str, now: float, summary: str = "", principal: str | None = None) -> list[dict]:
     if t.get("state") != "working":
         _refuse(t, "submit", f"Ticket is {t.get('state')}, not working.", agent)
     if t.get("claimedBy") != agent:
         _refuse(t, "submit", f"Claimed by {t.get('claimedBy')}, not {agent}.", agent)
     _clear_claim(t)
     t["workedBy"] = agent
+    t["workedByPrincipal"] = principal or agent
     t["reviewAttempts"] = 0
     _set_state(t, "in_review", now)
     return [_ev("ticket.submitted", t, agent, "in_review", summary=summary)]
 
 
 def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: Settings,
-            to_stage: str | None = None, summary: str = "", domain: str | None = None) -> list[dict]:
+            to_stage: str | None = None, summary: str = "", domain: str | None = None,
+            principal: str | None = None) -> list[dict]:
     v = v.upper()
     if v not in VALID_VERDICTS:
         raise ValueError(f"Invalid verdict {v}. Choose from: {', '.join(sorted(VALID_VERDICTS))}")
@@ -356,6 +361,8 @@ def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: 
         _refuse(t, f"verdict {v}", f"Review is claimed by {t.get('claimedBy')}.", agent)
     if agent == t.get("workedBy"):
         _refuse(t, f"verdict {v}", "The agent that did the work cannot review it.", agent)
+    if (principal or agent) == t.get("workedByPrincipal", t.get("workedBy")):
+        _refuse(t, f"verdict {v}", f"Reviewer and worker share principal {principal or agent!r}; review must come from a different runtime.", agent)
     if v == "PASS" and hits:
         _refuse(t, "verdict PASS", f"A PASS cannot carry veto hits ({', '.join(hits)}). Record KICK_BACK; a human clears the veto.", agent)
 
@@ -389,6 +396,7 @@ def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: 
             t["stage"] = t["role"] = stages[i + 1]
             t["attempts"].pop(t["stage"], None)
             t.pop("workedBy", None)
+            t.pop("workedByPrincipal", None)
             _set_state(t, "queued", now)
             out.append(_ev("ticket.advanced", t, agent, "queued", from_stage=cur, to_stage=t["stage"]))
         return out
@@ -401,6 +409,7 @@ def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: 
     t["stage"] = t["role"] = target
     t["attempts"].pop(target, None)  # a new round on this stage gets fresh lease attempts
     t.pop("workedBy", None)
+    t.pop("workedByPrincipal", None)
     _set_state(t, "queued", now)
     out.append(_ev("ticket.kicked_back", t, agent, "queued", from_stage=cur, to_stage=target, kickbacks=t["kickbacks"]))
     return out
@@ -436,6 +445,7 @@ def resolve(t: dict, by: str, reason: str, now: float, to_stage: str | None = No
     t["kickbacks"] = 0
     t.pop("escalationReason", None)
     t.pop("workedBy", None)
+    t.pop("workedByPrincipal", None)
     _set_state(t, "queued", now)
     return [_ev("ticket.resolved", t, None, "queued", by=by, reason=reason, to_stage=target)]
 
@@ -461,10 +471,32 @@ def close(t: dict, now: float, *, override: bool, by: str | None = None,
 
 @dataclass
 class Store:
+    """Locked load / mutate / save over the ticket file, with:
+
+    - identity (ADR-0011): when the agent registry is enforced, agent actions
+      present a token; the id, team, stages, and principal come from the
+      registry, not the caller.
+    - integrity (ADR-0012): every load checks the ticket file and the event
+      log against the signed head record; every commit writes temp file,
+      events, file, head, in that order, so a crash can be rolled forward and
+      anything else is reported as tampering.
+    """
     ticket_file: Path
     verdict_log: Path
     event_log: Path
     settings: Settings = field(default_factory=Settings.from_env)
+    registry: Any = None
+    head_file: Path | None = None
+
+    def __post_init__(self):
+        if self.registry is None:
+            self.registry = identity.Registry()
+        if self.head_file is None:
+            # One head per ticket store, next to it: runs/in_review.integrity.json
+            self.head_file = Path(os.environ.get(
+                "AG_INTEGRITY_HEAD", self.ticket_file.with_name(self.ticket_file.stem + ".integrity.json")))
+
+    # -- reading -------------------------------------------------------------
 
     def load(self) -> list[dict]:
         """Load and normalize tickets. A missing file is an empty store; a
@@ -497,17 +529,104 @@ class Store:
                 latest[r["ticket"]] = bool(r.get("veto_triggered") or r.get("veto_hits"))
         return {k for k, v in latest.items() if v}
 
-    def _save(self, tickets: list[dict]) -> None:
-        self.ticket_file.parent.mkdir(parents=True, exist_ok=True)
-        tmp = self.ticket_file.with_name(self.ticket_file.name + ".tmp")
-        tmp.write_text(json.dumps(tickets, indent=2), encoding="utf-8")
-        os.replace(tmp, self.ticket_file)
+    # -- integrity -------------------------------------------------------------
 
-    def _emit_all(self, specs: list[dict], now: float) -> list[dict]:
+    def _tmp(self) -> Path:
+        return self.ticket_file.with_name(self.ticket_file.name + ".tmp")
+
+    def check_integrity(self, *, repair: bool = True) -> dict:
+        """Compare the ticket file and log against the head record. Rolls an
+        interrupted commit forward when ``repair``. Raises TamperDetected."""
+        key = integrity.load_key()
+        head = integrity.read_head(self.head_file, key)
+        file_d = integrity.file_digest(self.ticket_file)
+        if head is None:
+            # A log with committed ticket state but no head: the head (and
+            # maybe the ticket file) was removed. Fresh and pre-1.2 installs
+            # have no committed state in the log.
+            if integrity.last_hash(self.event_log) != integrity.GENESIS and any(
+                    (e.get("data") or {}).get("state_digest") for e in self._events_after(0)):
+                raise integrity.TamperDetected(f"{self.head_file} is missing but the log has committed ticket state")
+            return {"head": None, "store_digest": file_d}
+        line = integrity.line_ending_at(self.event_log, int(head["log_offset"])) if self.event_log.exists() else None
+        try:
+            at = json.loads(line).get("hash") if line else None
+        except json.JSONDecodeError:
+            at = None
+        if at != head["log_head"]:
+            raise integrity.TamperDetected("event log was truncated or rewritten before the last commit")
+        tail = self._events_after(int(head["log_offset"]))
+        self._check_segment(tail, head["log_head"], key)
+        digests = [e["data"]["state_digest"] for e in tail if (e.get("data") or {}).get("state_digest")]
+        expected = digests[-1] if digests else head["store_digest"]
+        if file_d == expected:
+            return {"head": head, "store_digest": file_d, "rolled_forward": bool(digests)}
+        # Interrupted commit: events were written, the replace was not.
+        if digests and self._tmp().exists() and integrity.file_digest(self._tmp()) == expected:
+            if repair:
+                os.replace(self._tmp(), self.ticket_file)
+                return {"head": head, "store_digest": expected, "rolled_forward": True}
+            return {"head": head, "store_digest": file_d, "pending_roll_forward": True}
+        raise integrity.TamperDetected(
+            f"{self.ticket_file} does not match the last committed state (edited outside the framework?)")
+
+    def _events_after(self, offset: int) -> list[dict]:
+        if not self.event_log.exists():
+            return []
         out = []
+        with open(self.event_log, "rb") as fh:
+            fh.seek(offset)
+            for raw in fh:
+                try:
+                    out.append(json.loads(raw))
+                except json.JSONDecodeError:
+                    out.append({"_bad": True})
+        return out
+
+    def _check_segment(self, evs: list[dict], prev: str, key: bytes | None) -> None:
+        for e in evs:
+            if e.get("_bad") or "hash" not in e or e.get("prev_hash") != prev:
+                raise integrity.TamperDetected("event log chain is broken after the last commit")
+            if key and e.get("hash_alg") != "hmac-sha256":
+                raise integrity.TamperDetected("unkeyed event appended to a keyed log")
+            expect = integrity.recompute(e, key)
+            if expect is not None and expect != e["hash"]:
+                raise integrity.TamperDetected("event after the last commit was edited")
+            prev = e["hash"]
+
+    def _report_tamper(self, err: Exception, now: float) -> None:
+        try:
+            events.emit("store.tamper_detected", path=self.event_log, now=now, outcome="refused",
+                        data={"reason": str(err)})
+        except Exception:  # noqa: BLE001 - the refusal matters more than the report
+            pass
+
+    # -- identity --------------------------------------------------------------
+
+    def who(self, claimed: str | None, token: str | None, ticket: dict | None = None):
+        """(agent_id, principal, verified, agent). Identity failures become
+        logged refusals."""
+        try:
+            return identity.resolve(claimed, token, self.registry)
+        except identity.IdentityError as e:
+            stub = ticket or {"identifier": None, "stage": None}
+            raise Refused(str(e), _ev("ticket.transition_refused", stub, claimed, "refused",
+                                      transition="identify", reason=str(e)))
+
+    # -- commit ----------------------------------------------------------------
+
+    def _emit_all(self, specs: list[dict], now: float, verified_id: str | None = None,
+                  state_digest: str | None = None) -> tuple[list[dict], int | None, str | None]:
+        out, offset, last = [], None, None
         for spec in specs:
             spec = dict(spec)
-            ev = events.emit(spec.pop("kind"), path=self.event_log, now=now, **spec)
+            spec["data"] = dict(spec.get("data") or {})
+            if state_digest:
+                spec["data"]["state_digest"] = state_digest
+            verified = bool(verified_id) and spec.get("agent_id") == verified_id
+            ev, offset = events.emit_at(spec.pop("kind"), path=self.event_log, now=now,
+                                        agent_verified=verified, **spec)
+            last = ev["hash"]
             out.append(ev)
             if ev["kind"] == "ticket.verdict":
                 hits = ev["data"].get("veto_hits") or []
@@ -521,30 +640,79 @@ class Store:
                     "summary": ev["data"].get("summary", ""),
                     "ts": ev["ts"],
                     "event_id": ev["event_id"],
+                    "agent_id": ev["agent_id"],
+                    "agent_verified": ev["agent_verified"],
                 })
-        return out
+        return out, offset, last
 
-    def transact(self, fn, *, now: float | None = None):
+    def transact(self, fn, *, now: float | None = None, ids: dict | None = None):
         """Run ``fn(tickets, now) -> (result, event_specs)`` under the ticket
-        lock. Events are written before the ticket file is saved, both inside
-        the lock, so a transition is never saved without its event and events
-        from concurrent transactions land in order. If the event write fails,
-        nothing is saved. Refusals are logged and re-raised; nothing is saved
-        on refusal."""
+        lock. Order: integrity check, mutate, temp file, events (stamped with
+        the new state digest), replace, head. A failure before the replace
+        saves nothing. Refusals are logged; nothing is saved on refusal."""
         now = time.time() if now is None else now
         with events.file_lock(self.ticket_file):
+            try:
+                state = self.check_integrity()
+            except integrity.TamperDetected as e:
+                self._report_tamper(e, now)
+                raise
+            accepted = (state.get("head") or {}).get("accepted_problems", [])
             tickets = self.load()
+            before = self.ticket_file.read_bytes() if self.ticket_file.exists() else None
             try:
                 result, specs = fn(tickets, now)
             except Refused as r:
                 if r.event:
                     self._emit_all([r.event], now)
                 raise
-            self._emit_all(specs, now)
-            self._save(tickets)
+            content = json.dumps(tickets, indent=2).encode("utf-8")
+            if not specs and content == before:
+                return result
+            if not specs:
+                specs = [{"kind": "store.committed", "ticket": None, "role": None,
+                          "agent_id": None, "outcome": "saved", "data": {}}]
+            digest = integrity.hashlib.sha256(content).hexdigest()
+            self.ticket_file.parent.mkdir(parents=True, exist_ok=True)
+            self._tmp().write_bytes(content)
+            verified_id = (ids or {}).get("v")
+            _, offset, last = self._emit_all(specs, now, verified_id, digest)
+            os.replace(self._tmp(), self.ticket_file)
+            integrity.write_head(offset, last, digest, self.head_file, integrity.load_key(), accepted)
         return result
 
-    # Convenience wrappers --------------------------------------------------
+    def accept_current_state(self, by: str, reason: str, gate=None, now: float | None = None,
+                             accepted_problems: list[str] | None = None) -> dict:
+        """Operator re-baseline after investigating a tamper report. Records
+        who accepted what; the event stays in the log forever."""
+        now = time.time() if now is None else now
+        key = integrity.load_key()
+        with events.file_lock(self.ticket_file):
+            problem = None
+            try:
+                self.check_integrity(repair=False)
+            except integrity.TamperDetected as e:
+                problem = str(e)
+            new_log_problems = list(accepted_problems or [])
+            if problem is None and not new_log_problems:
+                raise Refused("Integrity check passes; nothing to accept.")
+            if gate is not None:
+                gate()
+            self.load()  # still refuse an unparseable file
+            try:
+                prior = (integrity.read_head(self.head_file, key) or {}).get("accepted_problems", [])
+            except integrity.TamperDetected:
+                prior = []
+            digest = integrity.file_digest(self.ticket_file)
+            ev, offset = events.emit_at("store.integrity_accepted", path=self.event_log, now=now,
+                                        outcome="accepted",
+                                        data={"by": by, "reason": reason, "problem": problem,
+                                              "log_problems": new_log_problems, "state_digest": digest})
+            integrity.write_head(offset, ev["hash"], digest, self.head_file, key,
+                                 prior + new_log_problems)
+        return {"accepted": problem, "log_problems": new_log_problems, "store_digest": digest}
+
+    # -- wrappers ----------------------------------------------------------------
 
     def _one(self, tickets: list[dict], ident: str) -> dict:
         t = next((x for x in tickets if x.get("identifier") == ident), None)
@@ -553,32 +721,81 @@ class Store:
         return t
 
     def create(self, title: str, stage: str, team: str = "", *, queued: bool = True,
-               end_stage: str | None = None, agent: str | None = None, now: float | None = None) -> dict:
+               end_stage: str | None = None, agent: str | None = None, now: float | None = None,
+               token: str | None = None) -> dict:
+        ids = {}
+
         def fn(tickets, now):
+            # Operators may create without a token; an agent that presents
+            # one is recorded as verified.
+            aid, _, verified, _ = self.who(agent, token) if (token or not self.registry.enforced()) else (None, None, False, None)
+            ids["v"] = aid if verified else None
             nums = [int(t["identifier"][2:]) for t in tickets
                     if str(t.get("identifier", "")).startswith("T-") and t["identifier"][2:].isdigit()]
             t = new_ticket(f"T-{(max(nums) + 1) if nums else 1}", title, stage, team, now,
                            queued=queued, end_stage=end_stage)
             tickets.append(t)
-            return t, [_ev("ticket.created", t, agent, t["state"], title=title, team=t["team"], stages=t["stages"])]
-        return self.transact(fn, now=now)
+            return t, [_ev("ticket.created", t, aid, t["state"], title=title, team=t["team"], stages=t["stages"])]
+        return self.transact(fn, now=now, ids=ids)
 
-    def claim_next(self, role: str, team: str, agent: str, mode: str = "work", now: float | None = None):
-        return self.transact(lambda ts, n: claim_next(ts, role, team, agent, n, self.settings, mode), now=now)
+    def claim_next(self, role: str, team: str, agent: str | None, mode: str = "work",
+                   now: float | None = None, token: str | None = None):
+        ids = {}
 
-    def heartbeat(self, ident: str, agent: str, now: float | None = None):
-        return self.transact(lambda ts, n: (self._one(ts, ident), heartbeat(self._one(ts, ident), agent, n, self.settings)), now=now)
+        def fn(tickets, n):
+            aid, principal, verified, who = self.who(agent, token)
+            if not aid:
+                raise ValueError("agent_id is required to claim")
+            ids["v"] = aid if verified else None
+            use_team = team
+            if who is not None:
+                if team and team != who.team:
+                    raise Refused(f"{aid} belongs to team {who.team!r}, not {team!r}.",
+                                  _ev("ticket.transition_refused", {"identifier": None, "stage": role}, aid,
+                                      "refused", transition="claim", reason="team mismatch"))
+                use_team = who.team
+                allowed = who.may_work(role) if mode == "work" else who.may_review(role)
+                if not allowed:
+                    need = role if mode == "work" else f"review:{role}"
+                    raise Refused(f"{aid} is not registered for {need!r}.",
+                                  _ev("ticket.transition_refused", {"identifier": None, "stage": role}, aid,
+                                      "refused", transition="claim", reason=f"missing role {need}"))
+            return claim_next(tickets, role, use_team, aid, n, self.settings, mode,
+                              principal if verified else None)
+        return self.transact(fn, now=now, ids=ids)
 
-    def submit(self, ident: str, agent: str, summary: str = "", now: float | None = None):
-        return self.transact(lambda ts, n: (self._one(ts, ident), submit(self._one(ts, ident), agent, n, summary)), now=now)
+    def heartbeat(self, ident: str, agent: str | None, now: float | None = None, token: str | None = None):
+        ids = {}
+
+        def fn(ts, n):
+            t = self._one(ts, ident)
+            aid, _, verified, _ = self.who(agent, token, t)
+            ids["v"] = aid if verified else None
+            return t, heartbeat(t, aid, n, self.settings)
+        return self.transact(fn, now=now, ids=ids)
+
+    def submit(self, ident: str, agent: str | None, summary: str = "", now: float | None = None,
+               token: str | None = None):
+        ids = {}
+
+        def fn(ts, n):
+            t = self._one(ts, ident)
+            aid, principal, verified, _ = self.who(agent, token, t)
+            ids["v"] = aid if verified else None
+            return t, submit(t, aid, n, summary, principal)
+        return self.transact(fn, now=now, ids=ids)
 
     def verdict(self, ident: str, v: str, agent: str | None, hits: list[str], *,
                 to_stage: str | None = None, summary: str = "", domain: str | None = None,
-                now: float | None = None):
+                now: float | None = None, token: str | None = None):
+        ids = {}
+
         def fn(ts, n):
             t = self._one(ts, ident)
-            return t, verdict(t, v, agent, hits, n, self.settings, to_stage, summary, domain)
-        return self.transact(fn, now=now)
+            aid, principal, verified, _ = self.who(agent, token, t)
+            ids["v"] = aid if verified else None
+            return t, verdict(t, v, aid, hits, n, self.settings, to_stage, summary, domain, principal)
+        return self.transact(fn, now=now, ids=ids)
 
     def clear_veto(self, ident: str, by: str, reason: str, now: float | None = None, gate=None):
         return self.transact(lambda ts, n: (self._one(ts, ident), clear_veto(self._one(ts, ident), by, reason, n, gate)), now=now)

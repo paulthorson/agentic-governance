@@ -131,11 +131,13 @@ def main() -> int:
                 ("ticket_verdict", lambda: mcp_server.ticket_verdict("T-1", "PASS", "reviewer")),
                 ("ticket_recover", lambda: mcp_server.ticket_recover()),
                 ("ticket_list", lambda: mcp_server.ticket_list(team="smoke")),
+                ("ticket_verify", lambda: mcp_server.ticket_verify()),
             ]
             for name, call in steps:
                 try:
                     res = call()
-                    if fails(res) or (isinstance(res, dict) and res.get("status") in ("refused", "error", "empty")):
+                    if fails(res) or (isinstance(res, dict) and (res.get("status") in ("refused", "error", "empty", "tampered")
+                                                                 or res.get("ok") is False)):
                         failures.append(f"{name} returned {res}")
                 except Exception as e:  # noqa: BLE001
                     failures.append(f"{name} raised: {e}")

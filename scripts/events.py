@@ -8,6 +8,10 @@ using a single, versioned envelope. The envelope is a public contract:
 dashboards, exporters, and adapters are expected to build on it. See
 ``scripts/events.schema.md`` for the field reference.
 
+Since 1.2 every event is hash-chained (``prev_hash`` / ``hash`` /
+``hash_alg``; see scripts/integrity.py and ADR-0012) and records whether the
+agent id was verified against the registry (``agent_verified``).
+
 Design constraints:
 
 - **Standard library only.** No new dependencies in the base install.
@@ -44,6 +48,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # sibling modules (integrity)
+
 SCHEMA_VERSION = "1"
 SUPPORTED_SCHEMA_VERSIONS = {"1"}
 
@@ -74,6 +80,10 @@ ENVELOPE_FIELDS = (
     "duration_ms",
     "outcome",
     "data",
+    "agent_verified",
+    "prev_hash",
+    "hash_alg",
+    "hash",
 )
 
 
@@ -216,6 +226,7 @@ def make_event(
     outcome: str | None = None,
     data: dict[str, Any] | None = None,
     now: float | None = None,
+    agent_verified: bool = False,
 ) -> dict[str, Any]:
     """Build an envelope. ``trace_id`` defaults to the ticket id, so every
     event for one ticket shares a trace without the caller tracking it."""
@@ -242,15 +253,33 @@ def make_event(
         "duration_ms": duration_ms,
         "outcome": outcome,
         "data": data or {},
+        "agent_verified": bool(agent_verified),
+        "prev_hash": None,  # filled by emit() when the event is chained
+        "hash_alg": None,
+        "hash": None,
     }
     return {k: ev[k] for k in ENVELOPE_FIELDS}
 
 
-def emit(kind: str, path: Path | None = None, **fields: Any) -> dict[str, Any]:
-    """Build an envelope and append it to the event log. Returns the event."""
+def emit_at(kind: str, path: Path | None = None, **fields: Any) -> tuple[dict[str, Any], int]:
+    """Build an envelope, chain it onto the log's newest hash (ADR-0012), and
+    append it under the log lock. Returns the event and the log's byte
+    offset just after it."""
+    import integrity  # local import: integrity imports nothing from here
+
+    p = Path(path) if path else EVENT_LOG
     ev = make_event(kind, **fields)
-    append_jsonl(Path(path) if path else EVENT_LOG, ev)
-    return ev
+    with file_lock(p):
+        ev = integrity.chain_event(ev, integrity.last_hash(p), integrity.load_key())
+        with p.open("ab") as fh:
+            fh.write((json.dumps(ev) + "\n").encode("utf-8"))
+            offset = fh.tell()
+    return ev, offset
+
+
+def emit(kind: str, path: Path | None = None, **fields: Any) -> dict[str, Any]:
+    """Build, chain, and append an event. Returns the event."""
+    return emit_at(kind, path, **fields)[0]
 
 
 def read_events(path: Path | None = None, *, strict: bool = True) -> list[dict[str, Any]]:

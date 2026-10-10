@@ -41,7 +41,17 @@ Read:
   python3 scripts/ticket.py show <id>
 
 Exit codes: 0 ok, 1 bad input or unreadable store, 2 refused by governance,
-3 lock timeout.
+3 lock timeout, 4 tamper detected / doctor failure.
+
+Identity (ADR-0011) and integrity (ADR-0012):
+  python3 scripts/ticket.py agent add eng-1 --team team-a --roles engineer --principal runtime-a  (approval)
+  python3 scripts/ticket.py agent revoke eng-1                                                    (approval)
+  python3 scripts/ticket.py agent list
+  python3 scripts/ticket.py integrity init-key                                                     (approval)
+  python3 scripts/ticket.py integrity accept --by "Name" --reason "."                             (approval)
+  python3 scripts/ticket.py verify
+  python3 scripts/ticket.py doctor
+  Once any agent is registered, agent commands need --token or AG_AGENT_TOKEN.
 
 Config (env):
   TICKET_FILE, VERDICT_LOG, EVENT_LOG   file locations (defaults above)
@@ -57,6 +67,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chain  # noqa: E402
 import events  # noqa: E402
+import identity  # noqa: E402
+import integrity  # noqa: E402
 from approval import ApprovalRequired, require_approval  # noqa: E402
 
 REPO_ROOT = Path(os.environ.get("ADVERSARIAL_ROOT", Path(__file__).resolve().parent.parent))
@@ -90,6 +102,10 @@ def _gate(action: str, ident: str):
     return gate
 
 
+def _token(args) -> str | None:
+    return getattr(args, "token", None) or os.environ.get("AG_AGENT_TOKEN") or None
+
+
 def _hits(raw: str | None) -> list[str]:
     return [h.strip() for h in raw.split(",") if h.strip()] if raw else []
 
@@ -107,7 +123,8 @@ def cmd_new(args) -> None:
     queued = bool(getattr(args, "queue", False))
     t = _store().create(args.title, args.role or ("research" if queued else "engineer"),
                         args.team or "", queued=queued,
-                        end_stage=getattr(args, "end_stage", None), agent=getattr(args, "agent", None))
+                        end_stage=getattr(args, "end_stage", None), agent=getattr(args, "agent", None),
+                        token=_token(args))
     print(f"Created {t['identifier']}: {args.title} (state: {t['state']}, stages: {' > '.join(t['stages'])})")
 
 
@@ -136,7 +153,7 @@ def cmd_show(args) -> None:
 
 
 def cmd_claim(args) -> None:
-    t = _store().claim_next(args.role, args.team or "", args.agent, args.mode)
+    t = _store().claim_next(args.role, args.team or "", args.agent, args.mode, token=_token(args))
     if t is None:
         print(f"Nothing to {args.mode} for stage={args.role} team={args.team or '-'}.")
         return
@@ -148,12 +165,12 @@ def cmd_claim(args) -> None:
 
 
 def cmd_heartbeat(args) -> None:
-    t = _store().heartbeat(args.id, args.agent)
+    t = _store().heartbeat(args.id, args.agent, token=_token(args))
     print(f"{args.id}: lease extended to {t['leaseExpiresAt']}.")
 
 
 def cmd_submit(args) -> None:
-    _store().submit(args.id, args.agent, args.summary or "")
+    _store().submit(args.id, args.agent, args.summary or "", token=_token(args))
     print(f"{args.id}: submitted for review.")
 
 
@@ -164,7 +181,7 @@ def cmd_verdict(args) -> None:
     try:
         t = _store().verdict(args.id, args.verdict, getattr(args, "agent", None), _hits(args.veto_hits),
                              to_stage=getattr(args, "to_stage", None), summary=args.summary or "",
-                             domain=args.domain)
+                             domain=args.domain, token=_token(args))
     except KeyError as e:
         print(str(e).strip("'"))
         return
@@ -243,22 +260,181 @@ def _unalerted(evs: list[dict]) -> tuple[list[dict], dict]:
 
 
 def cmd_recover(args) -> None:
-    evs = _store().recover()
+    tamper = None
+    try:
+        evs = _store().recover()
+    except integrity.TamperDetected as e:
+        tamper, evs = e, []
     for e in evs:
         print(_describe(e))
-    if not evs:
+    if not evs and not tamper:
         print("Nothing stuck.")
     if args.alert:
         from messaging import send_alert
         new, state = _unalerted(events.read_events(EVENT_LOG, strict=False))
-        if not new:
-            return
-        if send_alert("Tickets need attention:\n" + "\n".join(_describe(e) for e in new)):
-            ALERT_STATE.parent.mkdir(parents=True, exist_ok=True)
-            ALERT_STATE.write_text(json.dumps(state), encoding="utf-8")
+        ok, lines = _verify_report()
+        problems = [] if ok else [l for l in lines if l.startswith("PROBLEM")]
+        if new or problems:
+            body = []
+            if problems:
+                body.append("INTEGRITY (writes stopped until an operator runs `ticket.py integrity accept`):")
+                body.extend(problems)
+            if new:
+                body.append("Tickets need attention:")
+                body.extend(_describe(e) for e in new)
+            if send_alert("\n".join(body)):
+                if new:
+                    ALERT_STATE.parent.mkdir(parents=True, exist_ok=True)
+                    ALERT_STATE.write_text(json.dumps(state), encoding="utf-8")
+            else:
+                print("WARN: alert not delivered (check network permission / approval); will retry next run.",
+                      file=sys.stderr)
+    if tamper:
+        raise tamper
+
+
+def _verify_report() -> tuple[bool, list[str]]:
+    lines: list[str] = []
+    ok = True
+    key = integrity.load_key()
+    rep = integrity.verify_log(EVENT_LOG, key)
+    lines.append(f"event log: {rep['events']} events, {rep['chained']} chained"
+                 + (f", {rep['unverifiable']} keyed but no key to check" if rep["unverifiable"] else ""))
+    head = None
+    try:
+        head = integrity.read_head(_store().head_file, key)
+    except integrity.TamperDetected as e:
+        ok = False
+        lines.append(f"PROBLEM head record: {e}")
+    accepted = set((head or {}).get("accepted_problems", []))
+    for prob in rep["problems"]:
+        if prob in accepted:
+            lines.append(f"accepted earlier: {prob}")
         else:
-            print("WARN: alert not delivered (check network permission / approval); will retry next run.",
-                  file=sys.stderr)
+            ok = False
+            lines.append(f"PROBLEM {prob}")
+    try:
+        _store().check_integrity(repair=False)
+        lines.append("ticket store: matches the last commit")
+    except integrity.TamperDetected as e:
+        ok = False
+        lines.append(f"PROBLEM ticket store: {e}")
+    lines.append(f"mode: {'keyed (hmac-sha256)' if key else 'unkeyed (sha256): detects edits, not a forger'}")
+    return ok, lines
+
+
+def cmd_verify(args) -> None:
+    ok, lines = _verify_report()
+    for line in lines:
+        print(line)
+    if not ok:
+        sys.exit(4)
+
+
+def cmd_agent(args) -> None:
+    reg = identity.Registry()
+    if args.action == "list":
+        rows = reg._load()
+        if not rows:
+            print("No registered agents. Identity is NOT enforced (agent ids are self-reported).")
+            return
+        print(f"Identity enforced: {reg.enforced()}")
+        for r in rows:
+            state = "revoked" if r.get("revoked_at") else "active"
+            print(f"{r['agent_id']:20} {state:8} team={r.get('team') or '-'} principal={r.get('principal')} roles={','.join(r.get('roles', []))}")
+        return
+    if not args.id:
+        print("agent add/revoke needs an agent id.")
+        sys.exit(1)
+    try:
+        require_approval(f"agent_{args.action}", REPO_ROOT, consume=True)
+    except ApprovalRequired as e:
+        raise Refused(str(e))
+    if args.action == "add":
+        if not args.roles or not args.principal:
+            print("agent add needs --roles and --principal.")
+            sys.exit(1)
+        token = reg.add(args.id, args.team or "", args.roles.split(","), args.principal)
+        events.emit("agent.registered", path=EVENT_LOG, agent_id=args.id, outcome="registered",
+                    data={"team": args.team or "", "roles": args.roles.split(","), "principal": args.principal})
+        print(f"Registered {args.id}. Token (shown once, store it in that agent's secret config):")
+        print(token)
+    else:
+        reg.revoke(args.id)
+        events.emit("agent.revoked", path=EVENT_LOG, agent_id=args.id, outcome="revoked")
+        print(f"Revoked {args.id}.")
+
+
+def cmd_integrity(args) -> None:
+    if args.action == "init-key":
+        if integrity.load_key():
+            print("An integrity key is already configured.")
+            return
+        store = _store()
+        with events.file_lock(store.ticket_file):
+            store.check_integrity(repair=False)  # only switch modes from a clean state
+            try:
+                require_approval("integrity_init_key", REPO_ROOT, consume=True)
+            except ApprovalRequired as e:
+                raise Refused(str(e))
+            path = integrity.create_key()
+            key = integrity.load_key()
+            digest = integrity.file_digest(store.ticket_file)
+            ev, offset = events.emit_at("store.integrity_keyed", path=EVENT_LOG, outcome="keyed",
+                                        data={"state_digest": digest})
+            prior = (integrity.read_head(store.head_file, None) or {}).get("accepted_problems", [])
+            integrity.write_head(offset, ev["hash"], digest, store.head_file, key, prior)
+        print(f"Created {path} (0600). The log and head are keyed from here on.")
+        print("Keep this file away from agents: see docs/deployment-hardened.md.")
+        return
+    # accept
+    if not args.by or not args.reason:
+        print("integrity accept needs --by and --reason.")
+        sys.exit(1)
+    ok, lines = _verify_report()
+    if ok:
+        print("Integrity check passes; nothing to accept.")
+        return
+    rep = integrity.verify_log(EVENT_LOG, integrity.load_key())
+    res = _store().accept_current_state(args.by, args.reason, gate=_gate("integrity_accept", "store"),
+                                        accepted_problems=rep["problems"])
+    print(f"Accepted current state as the new baseline ({res['store_digest'][:12]}). Recorded who and why.")
+
+
+def cmd_doctor(args) -> None:
+    """Report how much of the governance is actually enforced on this install."""
+    import stat
+    findings = []
+
+    def add(level, msg):
+        findings.append((level, msg))
+
+    reg = identity.Registry()
+    try:
+        add("OK" if reg.enforced() else "WARN",
+            "agent identity enforced" if reg.enforced() else
+            "no agent registry: agent ids are self-reported (ticket.py agent add)")
+    except identity.IdentityError as e:
+        add("FAIL", str(e))
+    add("OK" if integrity.load_key() else "WARN",
+        "integrity key configured" if integrity.load_key() else
+        "no integrity key: tamper detection catches edits, not a deliberate forger (ticket.py integrity init-key)")
+    for label, path in (("integrity key", integrity.key_path()), ("agent registry", identity.registry_path())):
+        if path.exists() and os.name == "posix":
+            mode = path.stat().st_mode
+            if mode & (stat.S_IRGRP | stat.S_IROTH | stat.S_IWGRP | stat.S_IWOTH):
+                add("FAIL", f"{label} {path} is group/world accessible (chmod 600)")
+    for path in (TICKET_FILE.parent,):
+        if path.exists() and os.name == "posix" and path.stat().st_mode & (stat.S_IWGRP | stat.S_IWOTH):
+            add("FAIL", f"{path} is group/world writable")
+    ok, _ = _verify_report()
+    add("OK" if ok else "FAIL", "log chain and ticket store verify" if ok else "integrity problems: run ticket.py verify")
+    add("INFO", "file writes by agents running as this OS user cannot be prevented in code; "
+                "see docs/deployment-hardened.md for the separate-user setup")
+    for level, msg in findings:
+        print(f"[{level:4}] {msg}")
+    if any(level == "FAIL" for level, _ in findings):
+        sys.exit(4)
 
 
 def main() -> None:
@@ -272,6 +448,7 @@ def main() -> None:
     p.add_argument("--queue", action="store_true", help="queue for agents to claim (chain ticket)")
     p.add_argument("--end-stage", dest="end_stage", default=None, help="last chain stage (default qa)")
     p.add_argument("--agent", default=None, help="self-reported agent id")
+    p.add_argument("--token", default=None)
     p.set_defaults(fn=cmd_new)
 
     p = sub.add_parser("list", help="list tickets")
@@ -288,19 +465,22 @@ def main() -> None:
     p = sub.add_parser("claim", help="claim the next ticket for a stage and team")
     p.add_argument("--role", required=True)
     p.add_argument("--team", default="")
-    p.add_argument("--agent", required=True)
+    p.add_argument("--agent", default=None)
     p.add_argument("--mode", default="work", choices=["work", "review"])
+    p.add_argument("--token", default=None, help="agent token (default: AG_AGENT_TOKEN)")
     p.add_argument("--json", action="store_true")
     p.set_defaults(fn=cmd_claim)
 
     p = sub.add_parser("heartbeat", help="extend a claim's lease")
     p.add_argument("id")
-    p.add_argument("--agent", required=True)
+    p.add_argument("--agent", default=None)
+    p.add_argument("--token", default=None)
     p.set_defaults(fn=cmd_heartbeat)
 
     p = sub.add_parser("submit", help="submit claimed work for review")
     p.add_argument("id")
-    p.add_argument("--agent", required=True)
+    p.add_argument("--agent", default=None)
+    p.add_argument("--token", default=None)
     p.add_argument("--summary", default=None)
     p.set_defaults(fn=cmd_submit)
 
@@ -311,8 +491,30 @@ def main() -> None:
     p.add_argument("--veto-hits", default=None, help="comma-separated veto hits")
     p.add_argument("--to-stage", dest="to_stage", default=None, help="KICK_BACK target (this stage or earlier)")
     p.add_argument("--summary", default=None)
-    p.add_argument("--agent", required=True, help="reviewer agent id (must hold the review claim)")
+    p.add_argument("--agent", default=None, help="reviewer agent id (must hold the review claim); "
+                                                 "with a registry, the token decides it")
+    p.add_argument("--token", default=None)
     p.set_defaults(fn=cmd_verdict)
+
+    p = sub.add_parser("verify", help="check the event log chain and the ticket store against the last commit")
+    p.set_defaults(fn=cmd_verify)
+
+    p = sub.add_parser("doctor", help="report what is and is not enforced on this install")
+    p.set_defaults(fn=cmd_doctor)
+
+    p = sub.add_parser("agent", help="manage the agent registry (add/revoke need operator approval)")
+    p.add_argument("action", choices=["add", "revoke", "list"])
+    p.add_argument("id", nargs="?")
+    p.add_argument("--team", default="")
+    p.add_argument("--roles", default=None, help="comma-separated: stages to work and review:<stage> to review")
+    p.add_argument("--principal", default=None, help="who runs this agent; reviewer and worker must differ")
+    p.set_defaults(fn=cmd_agent)
+
+    p = sub.add_parser("integrity", help="init-key, or accept the current state after investigating a tamper report")
+    p.add_argument("action", choices=["init-key", "accept"])
+    p.add_argument("--by", default=None)
+    p.add_argument("--reason", default=None)
+    p.set_defaults(fn=cmd_integrity)
 
     p = sub.add_parser("recover", help="release expired claims, escalate repeat failures, flag stalls")
     p.add_argument("--alert", action="store_true",
@@ -349,6 +551,10 @@ def main() -> None:
     except events.LockTimeout as e:
         print(f"ERROR: {e}", file=sys.stderr)
         sys.exit(3)
+    except integrity.TamperDetected as e:
+        print(f"TAMPER: {e}. All writes are stopped. Run `ticket.py verify`, investigate, then "
+              f"`ticket.py integrity accept --by NAME --reason ...` (operator approval).", file=sys.stderr)
+        sys.exit(4)
     except (KeyError, ValueError) as e:
         print(f"ERROR: {str(e).strip(chr(39))}", file=sys.stderr)
         sys.exit(1)

@@ -333,7 +333,7 @@ class ReviewFindingsTest(ChainBase):
 
     def test_event_written_before_save_and_uses_transition_time(self):
         self.store.create("x", "pm", "a", now=T0)
-        with mock.patch.object(chain.events, "emit", side_effect=events.LockTimeout("boom")):
+        with mock.patch.object(chain.events, "emit_at", side_effect=events.LockTimeout("boom")):
             with self.assertRaises(events.LockTimeout):
                 self.store.claim_next("pm", "a", "w", now=T0 + MIN)
         self.assertEqual(self.t()["state"], "queued")  # nothing saved without its event
@@ -375,7 +375,8 @@ class ReviewFindingsTest(ChainBase):
         self.store.create("x", "pm", "a", now=T0)
         self.store.ticket_file.write_text('[{"identifier": "T-1", "title": "tr')
         before = self.store.ticket_file.read_text()
-        with self.assertRaises(chain.StoreCorrupt):
+        # 1.2: the integrity check sees the edit before the parser does.
+        with self.assertRaises((chain.StoreCorrupt, chain.integrity.TamperDetected)):
             self.store.create("y", "pm", "a", now=T0)
         self.assertEqual(self.store.ticket_file.read_text(), before)
 

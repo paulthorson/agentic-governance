@@ -766,12 +766,15 @@ def _chain_call(fn) -> dict[str, Any]:
         return fn()
     except chain.Refused as e:
         return {"status": "refused", "reason": str(e)}
+    except chain.integrity.TamperDetected as e:
+        return {"status": "tampered", "reason": str(e),
+                "next": "All writes are stopped until an operator runs `ticket.py verify` and `ticket.py integrity accept`."}
     except (KeyError, ValueError) as e:
         return {"status": "error", "error": str(e).strip("'")}
 
 
 @mcp.tool()
-def ticket_create(title: str, stage: str = "research", team: str = "", end_stage: str = "", agent_id: str = "") -> dict[str, Any]:
+def ticket_create(title: str, stage: str = "research", team: str = "", end_stage: str = "", agent_id: str = "", agent_token: str = "") -> dict[str, Any]:
     """Queue a new ticket for the chain (research > pm > ux > engineer > qa).
 
     Args:
@@ -784,39 +787,44 @@ def ticket_create(title: str, stage: str = "research", team: str = "", end_stage
     """
     _, store = _chain_store()
     return _chain_call(lambda: {"status": "created", "ticket": store.create(
-        title, stage, team, queued=True, end_stage=end_stage or None, agent=agent_id or None)})
+        title, stage, team, queued=True, end_stage=end_stage or None, agent=agent_id or None,
+        token=agent_token or None)})
 
 
 @mcp.tool()
-def ticket_claim_next(role: str, team: str, agent_id: str, mode: str = "work") -> dict[str, Any]:
+def ticket_claim_next(role: str, team: str = "", agent_id: str = "", mode: str = "work", agent_token: str = "") -> dict[str, Any]:
     """Claim the oldest ticket for your stage and team. Runs stuck-ticket
     recovery first. mode="work" claims queued work; mode="review" claims work
     awaiting review (never your own). The claim holds a lease; call
-    ticket_heartbeat to extend it or it returns to the queue."""
+    ticket_heartbeat to extend it or it returns to the queue.
+
+    When the operator has registered agents (ADR-0011), pass agent_token (or
+    start this server with AG_AGENT_TOKEN set). The token decides your id,
+    team, and allowed stages; agent_id and team may then be left empty."""
     _, store = _chain_store()
 
     def go():
-        t = store.claim_next(role, team, agent_id, mode)
+        t = store.claim_next(role, team, agent_id or None, mode, token=agent_token or None)
         return {"status": "claimed", "ticket": t} if t else {"status": "empty", "role": role, "team": team, "mode": mode}
     return _chain_call(go)
 
 
 @mcp.tool()
-def ticket_heartbeat(ticket: str, agent_id: str) -> dict[str, Any]:
+def ticket_heartbeat(ticket: str, agent_id: str = "", agent_token: str = "") -> dict[str, Any]:
     """Extend the lease on a ticket you hold."""
     _, store = _chain_store()
-    return _chain_call(lambda: {"status": "ok", "lease_expires_at": store.heartbeat(ticket, agent_id)["leaseExpiresAt"]})
+    return _chain_call(lambda: {"status": "ok", "lease_expires_at": store.heartbeat(ticket, agent_id or None, token=agent_token or None)["leaseExpiresAt"]})
 
 
 @mcp.tool()
-def ticket_submit(ticket: str, agent_id: str, summary: str = "") -> dict[str, Any]:
+def ticket_submit(ticket: str, agent_id: str = "", summary: str = "", agent_token: str = "") -> dict[str, Any]:
     """Submit work you claimed for review. Only the claimant can submit."""
     _, store = _chain_store()
-    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(ticket, agent_id, summary)})
+    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(ticket, agent_id or None, summary, token=agent_token or None)})
 
 
 @mcp.tool()
-def ticket_verdict(ticket: str, verdict: str, agent_id: str, veto_hits: str = "", summary: str = "", to_stage: str = "") -> dict[str, Any]:
+def ticket_verdict(ticket: str, verdict: str, agent_id: str = "", veto_hits: str = "", summary: str = "", to_stage: str = "", agent_token: str = "") -> dict[str, Any]:
     """Record a review verdict on a ticket and move it along the chain.
 
     PASS advances to the next stage (or closes on the last). KICK_BACK requeues
@@ -828,7 +836,8 @@ def ticket_verdict(ticket: str, verdict: str, agent_id: str, veto_hits: str = ""
     _, store = _chain_store()
     hits = [h.strip() for h in veto_hits.split(",") if h.strip()]
     return _chain_call(lambda: {"status": "recorded", "ticket": store.verdict(
-        ticket, verdict, agent_id or None, hits, to_stage=to_stage or None, summary=summary)})
+        ticket, verdict, agent_id or None, hits, to_stage=to_stage or None, summary=summary,
+        token=agent_token or None)})
 
 
 @mcp.tool()
@@ -837,6 +846,23 @@ def ticket_recover() -> dict[str, Any]:
     failures, and report stalled queues. Safe to call on a schedule."""
     _, store = _chain_store()
     return _chain_call(lambda: {"status": "ok", "events": store.recover()})
+
+
+@mcp.tool()
+def ticket_verify() -> dict[str, Any]:
+    """Read-only integrity check (ADR-0012): walks the hash-chained event log
+    and compares the ticket store with the last signed commit."""
+    chain, store = _chain_store()
+    key = chain.integrity.load_key()
+    report = chain.integrity.verify_log(store.event_log, key)
+    try:
+        store.check_integrity(repair=False)
+        report["store"] = "matches last commit"
+    except chain.integrity.TamperDetected as e:
+        report["ok"] = False
+        report["store"] = str(e)
+    report["mode"] = "keyed" if key else "unkeyed"
+    return report
 
 
 @mcp.tool()
