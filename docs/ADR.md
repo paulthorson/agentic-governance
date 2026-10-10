@@ -20,6 +20,7 @@ edited.
 | [ADR-0010](adr/0010-chain-state-machine-and-recovery.md) | Enforced chain state machine and stuck-ticket recovery | Proposed | 2026-10-10 |
 | [ADR-0011](adr/0011-verified-agent-identity.md) | Verified agent identity | Proposed | 2026-10-10 |
 | [ADR-0012](adr/0012-tamper-detection.md) | Tamper detection for the ticket store and event log | Proposed | 2026-10-10 |
+| [ADR-0013](adr/0013-macos-hardened-install.md) | Hardened install on macOS | Proposed | 2026-10-10 |
 
 ## Template
 

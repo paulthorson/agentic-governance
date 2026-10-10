@@ -29,7 +29,59 @@ anything.
 | Registry + key, same user | Read other agents' tokens and the key if it can read their env or files | Strong against mistakes. Weak against an agent trying to cheat. |
 | **Registry + key + separate user (this page)** | Only call MCP tools with its own token | Enforced. Edits need the framework user's permissions. |
 
-## Steps (Linux; macOS is similar with `dscl` / `launchd`)
+## macOS: one command (1.2.1+)
+
+On macOS the whole setup is scripted and tested end to end in CI on a real
+Mac (`scripts/macos/e2e-test.sh`, ADR-0013).
+
+```bash
+git clone https://github.com/paulthorson/agentic-governance.git ~/dev/agentic-governance
+cd ~/dev/agentic-governance
+sudo scripts/macos/harden.sh --python /opt/homebrew/bin/python3.12
+```
+
+It creates a hidden service user `_aggov` and installs to
+`/Library/AgenticGovernance`:
+
+| Path | Owner | Mode | Holds |
+|---|---|---|---|
+| code, `.venv/` | root | read-only for everyone | the framework |
+| `runs/` | `_aggov` | 700 | tickets, event log, approvals |
+| `config/` | `_aggov` | 700 | integrity key, agent registry, head record, bearer token |
+
+Two launchd daemons run as `_aggov`: the MCP server on
+`http://127.0.0.1:8765/mcp` (bearer token required) and recovery every
+10 minutes. The installer keys the event log on first run.
+
+Operator commands go through `agctl`, which needs `sudo`. sudo is the
+operator gate: an agent that cannot sudo cannot register agents, clear
+vetoes, or accept tampering, even with a shell.
+
+```bash
+sudo /Library/AgenticGovernance/scripts/macos/agctl agent add <id> --team <team> --roles <stage|review:stage> --principal <runtime>
+sudo /Library/AgenticGovernance/scripts/macos/agctl doctor
+sudo cat /Library/AgenticGovernance/config/mcp_auth_token   # the bearer token agents send
+```
+
+Agents connect over HTTP with `Authorization: Bearer <token>` and pass their
+own `agent_token` on every `ticket_*` call. Keep each agent's token only in
+that agent's own config.
+
+What the CI test proves on a real Mac, from an ordinary account with a shell:
+it cannot list or read `runs/`, read the key, registry, or bearer token,
+create an approval, or modify the code; it can work tickets only through
+MCP with its token; a same-principal reviewer gets nothing; tampering stops
+writes until the operator accepts; launchd restarts a killed server; and
+`--uninstall --purge` removes everything.
+
+To remove: `sudo /Library/AgenticGovernance/scripts/macos/harden.sh --uninstall`
+(keeps data) or add `--purge` (deletes tickets, log, key, registry, and the
+service user; cannot be undone).
+
+Python: 3.11+ from outside your home folder (Homebrew's is fine). The
+`python3` that ships with macOS is 3.9 and will not work.
+
+## Steps (Linux)
 
 ### 1. Create a framework user and give it the checkout
 

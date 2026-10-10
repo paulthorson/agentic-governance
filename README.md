@@ -101,7 +101,9 @@ Listed subprocess / outbound / outside-write call sites refuse without `AG_APPRO
 
 ## Install (framework)
 
-You need [Git](https://git-scm.com/), [uv](https://docs.astral.sh/uv/), and an agent host that can talk to an MCP server.
+You need [Git](https://git-scm.com/), [uv](https://docs.astral.sh/uv/), Python 3.11 or newer, and an agent host that can talk to an MCP server. On macOS, the built-in `python3` is 3.9 and will not work; use Homebrew's (`brew install python@3.12`).
+
+To run the framework so agents cannot touch its files, see [docs/deployment-hardened.md](docs/deployment-hardened.md). On macOS that is one command: `sudo scripts/macos/harden.sh`.
 
 1. **Clone the repository**
 

@@ -271,3 +271,26 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 | Does the operator get told? | **Only via `recover --alert`** with a channel, network `allow`, and approval; integrity problems repeat every run until accepted | `scripts/ticket.py` `cmd_recover` |
 | Is the verdict view covered? | **NO** — `runs/verdicts.jsonl` is a convenience view; the event log is the record | ADR-0012 |
 | Does `doctor` tell me what is enforced? | **YES** — registry, key, permissions, verification, and the same-user limit | `tests/test_identity_integrity.py::CliIntegrityTest` |
+
+---
+
+## 12.16 Hardened macOS install (ADR-0013)
+
+| Question | Answer | Cite |
+|---|---|---|
+| Can an agent with a shell write or read governance files? | **NO on a hardened install** for an ordinary account: it cannot list or read `runs/`, read the integrity key, registry, or bearer token, create an approval, or modify the code. **YES on a same-user install.** | `.github/workflows/validate.yml` job `macos-hardened`; `scripts/macos/e2e-test.sh` "agent cannot" checks |
+| Who can perform operator actions? | Anyone who can `sudo` (via `agctl`). Not an account without sudo. | `scripts/macos/agctl`; e2e check "run agctl without sudo" |
+| Does the server leak its bearer token? | **NO** in the launchd plist; it is read from `config/` (700) at start | `scripts/macos/run-server.sh` |
+| Does the hardened server inherit an agent identity or approval? | **NO** — stripped from its environment | `scripts/macos/run-server.sh` |
+| Is it tested on a real Mac? | **YES** — every PR, `macos-latest` | job `macos-hardened` |
+| Does a killed server come back? | **YES** — launchd KeepAlive | e2e check "server restarted by launchd" |
+| Can agents on the same OS user read each other's tokens? | **YES** — tokens live in each agent's own config; separate agent users to prevent it | ADR-0013 |
+| Is a remote (non-local) reviewer supported? | **Not by this install** — loopback only | ADR-0013 |
+
+## 12.17 Deliverables and verdict reasons (1.2.1)
+
+| Question | Answer | Cite |
+|---|---|---|
+| Does the reviewer see the submitted work? | **YES** — `submission.deliverable` on the ticket (text up to 64K characters, or a path/URL) and in the event log | `tests/test_chain.py::DeliverableTest::test_reviewer_sees_the_deliverable` |
+| Does a worker see why work was kicked back? | **YES** — `lastVerdict` on the ticket it reclaims | `tests/test_chain.py::DeliverableTest::test_worker_sees_kick_back_reasons_on_reclaim` |
+| Is the deliverable verified as the actual work? | **NO** — it is what the worker submitted; the framework stores it, it does not check it | `scripts/chain.py` `submit` |

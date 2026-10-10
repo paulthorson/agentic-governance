@@ -60,7 +60,7 @@ Field order is stable.
 | `ticket.created` | chain | `queued` / `in_review` | `title`, `team`, `stages` |
 | `ticket.claimed` | chain | `working` / `reviewing` | `mode`, `lease_minutes` |
 | `ticket.heartbeat` | chain | current state | |
-| `ticket.submitted` | chain | `in_review` | `summary` |
+| `ticket.submitted` | chain | `in_review` | `summary`, `deliverable` (1.2.1+) |
 | `ticket.verdict` | chain | verdict | `veto_hits`, `summary`, `domain` |
 | `ticket.advanced` | chain | `queued` | `from_stage`, `to_stage` |
 | `ticket.kicked_back` | chain | `queued` | `from_stage`, `to_stage`, `kickbacks` |
