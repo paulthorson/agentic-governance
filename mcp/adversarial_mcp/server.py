@@ -741,6 +741,115 @@ def _overturn_locked(ticket: str, reason: str) -> dict[str, Any]:
     return {"status": "overturned", "ticket": ticket, "reason": reason}
 
 
+# ---------------------------------------------------------------------------
+# Chain state machine + stuck-ticket recovery (ADR-0010)
+#
+# Agents run their own loops; these tools govern the edges. Refusals come
+# back as {"status": "refused", ...} and are logged to runs/events.jsonl.
+# Human-only actions (clear a veto, resolve an escalation, override a close)
+# are deliberately NOT exposed over MCP; they live in scripts/ticket.py
+# behind operator approval.
+# ---------------------------------------------------------------------------
+
+
+def _chain_store():
+    _events_module()  # puts scripts/ on sys.path
+    import chain
+
+    ticket_file = Path(os.environ.get("TICKET_FILE", RUNS_DIR / "in_review.json"))
+    return chain, chain.Store(ticket_file, VERDICT_LOG, _event_log())
+
+
+def _chain_call(fn) -> dict[str, Any]:
+    chain, _ = _chain_store()
+    try:
+        return fn()
+    except chain.Refused as e:
+        return {"status": "refused", "reason": str(e)}
+    except (KeyError, ValueError) as e:
+        return {"status": "error", "error": str(e).strip("'")}
+
+
+@mcp.tool()
+def ticket_create(title: str, stage: str = "research", team: str = "", end_stage: str = "", agent_id: str = "") -> dict[str, Any]:
+    """Queue a new ticket for the chain (research > pm > ux > engineer > qa).
+
+    Args:
+        title: what needs doing.
+        stage: first stage (default research). A stage outside the chain makes
+            a single-stage ticket.
+        team: team that owns it. Only that team's agents can claim it.
+        end_stage: last chain stage (default qa).
+        agent_id: self-reported id of the caller.
+    """
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "created", "ticket": store.create(
+        title, stage, team, queued=True, end_stage=end_stage or None, agent=agent_id or None)})
+
+
+@mcp.tool()
+def ticket_claim_next(role: str, team: str, agent_id: str, mode: str = "work") -> dict[str, Any]:
+    """Claim the oldest ticket for your stage and team. Runs stuck-ticket
+    recovery first. mode="work" claims queued work; mode="review" claims work
+    awaiting review (never your own). The claim holds a lease; call
+    ticket_heartbeat to extend it or it returns to the queue."""
+    _, store = _chain_store()
+
+    def go():
+        t = store.claim_next(role, team, agent_id, mode)
+        return {"status": "claimed", "ticket": t} if t else {"status": "empty", "role": role, "team": team, "mode": mode}
+    return _chain_call(go)
+
+
+@mcp.tool()
+def ticket_heartbeat(ticket: str, agent_id: str) -> dict[str, Any]:
+    """Extend the lease on a ticket you hold."""
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "ok", "lease_expires_at": store.heartbeat(ticket, agent_id)["leaseExpiresAt"]})
+
+
+@mcp.tool()
+def ticket_submit(ticket: str, agent_id: str, summary: str = "") -> dict[str, Any]:
+    """Submit work you claimed for review. Only the claimant can submit."""
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(ticket, agent_id, summary)})
+
+
+@mcp.tool()
+def ticket_verdict(ticket: str, verdict: str, agent_id: str, veto_hits: str = "", summary: str = "", to_stage: str = "") -> dict[str, Any]:
+    """Record a review verdict on a ticket and move it along the chain.
+
+    PASS advances to the next stage (or closes on the last). KICK_BACK requeues
+    this stage, or an earlier one via to_stage. Any veto hit blocks the ticket
+    until a human clears it. ESCALATE / REVIEW_REQUIRED hand it to a human.
+    The worker cannot review its own ticket.
+    """
+    _, store = _chain_store()
+    hits = [h.strip() for h in veto_hits.split(",") if h.strip()]
+    return _chain_call(lambda: {"status": "recorded", "ticket": store.verdict(
+        ticket, verdict, agent_id or None, hits, to_stage=to_stage or None, summary=summary)})
+
+
+@mcp.tool()
+def ticket_recover() -> dict[str, Any]:
+    """Run stuck-ticket recovery now: release expired claims, escalate repeat
+    failures, and report stalled queues. Safe to call on a schedule."""
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "ok", "events": store.recover()})
+
+
+@mcp.tool()
+def ticket_list(team: str = "", state: str = "") -> list[dict[str, Any]]:
+    """List tickets, optionally filtered by team and state."""
+    _, store = _chain_store()
+    rows = store.load()
+    if team:
+        rows = [t for t in rows if t.get("team") == team]
+    if state:
+        rows = [t for t in rows if t.get("state") == state]
+    return rows
+
+
 @mcp.tool()
 def framework_status() -> dict[str, Any]:
     """Return a health summary of the framework: domains, agent/skill counts, verdict log size."""

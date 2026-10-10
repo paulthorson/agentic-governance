@@ -112,6 +112,44 @@ def main() -> int:
         except Exception as e:  # noqa: BLE001
             failures.append(f"run_review ({d}) raised: {e}")
 
+    # --- chain tools (ADR-0010): one full ticket loop in a scratch store ---
+    import os as _os
+    import tempfile as _tempfile
+    with _tempfile.TemporaryDirectory() as _d:
+        _saved = {k: _os.environ.get(k) for k in ("TICKET_FILE", "EVENT_LOG")}
+        _saved_log = mcp_server.VERDICT_LOG
+        _os.environ["TICKET_FILE"] = str(Path(_d) / "in_review.json")
+        _os.environ["EVENT_LOG"] = str(Path(_d) / "events.jsonl")
+        mcp_server.VERDICT_LOG = Path(_d) / "verdicts.jsonl"
+        try:
+            steps = [
+                ("ticket_create", lambda: mcp_server.ticket_create("smoke", stage="qa", team="smoke", agent_id="smoke")),
+                ("ticket_claim_next", lambda: mcp_server.ticket_claim_next("qa", "smoke", "worker")),
+                ("ticket_heartbeat", lambda: mcp_server.ticket_heartbeat("T-1", "worker")),
+                ("ticket_submit", lambda: mcp_server.ticket_submit("T-1", "worker")),
+                ("ticket_claim_next(review)", lambda: mcp_server.ticket_claim_next("qa", "smoke", "reviewer", mode="review")),
+                ("ticket_verdict", lambda: mcp_server.ticket_verdict("T-1", "PASS", "reviewer")),
+                ("ticket_recover", lambda: mcp_server.ticket_recover()),
+                ("ticket_list", lambda: mcp_server.ticket_list(team="smoke")),
+            ]
+            for name, call in steps:
+                try:
+                    res = call()
+                    if fails(res) or (isinstance(res, dict) and res.get("status") in ("refused", "error", "empty")):
+                        failures.append(f"{name} returned {res}")
+                except Exception as e:  # noqa: BLE001
+                    failures.append(f"{name} raised: {e}")
+            final = mcp_server.ticket_list(team="smoke")
+            if not final or final[0].get("state") != "done":
+                failures.append(f"chain loop did not end in done: {final}")
+        finally:
+            mcp_server.VERDICT_LOG = _saved_log
+            for k, v in _saved.items():
+                if v is None:
+                    _os.environ.pop(k, None)
+                else:
+                    _os.environ[k] = v
+
     # --- excluded tools (documented) ---
     # run_review_deep: requires an external LLM (Ollama) — would hang/fail
     #   without one; deliberately out of the no-LLM smoke loop.
