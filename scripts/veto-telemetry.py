@@ -86,8 +86,22 @@ def veto_events(rows: list[dict]) -> list[dict]:
                 "ticket": r.get("ticket", ""),
                 "rule": r.get("rule", ""),
                 "case_tag": r.get("case_tag", ""),
+                "event_id": r.get("event_id", ""),
             })
     return events
+
+def _dedupe_key(e: dict) -> str:
+    """Stable identity for a veto event.
+
+    Records written by 1.1+ carry a unique event_id (ADR-0009). Older records
+    fall back to a composite key. Keying on the millisecond timestamp alone
+    dropped one of two vetoes recorded in the same millisecond.
+    """
+    if e.get("event_id"):
+        return f"id:{e['event_id']}"
+    hits = ",".join(e.get("veto_hits") or [])
+    return f"legacy:{e.get('ts')}|{e.get('ticket')}|{e.get('domain')}|{e.get('verdict')}|{hits}"
+
 
 def _load_state() -> dict:
     if not VETO_STATE_FILE.exists():
@@ -124,8 +138,15 @@ def main() -> None:
     if args.watch:
         # Dedupe: only alert on vetoes not seen in the last run.
         state = _load_state()
-        seen = set(state.get("seen", []))
-        new_events = [e for e in events if e.get("ts") not in seen]
+        seen = set(state.get("seen_keys", []))
+        # Migrate a pre-1.1 state file (bare timestamps) so an upgrade does not
+        # re-alert every veto still inside the window.
+        legacy_ts = set(state.get("seen", []))
+        new_events = [
+            e for e in events
+            if _dedupe_key(e) not in seen
+            and not (not e.get("event_id") and e.get("ts") in legacy_ts)
+        ]
         if new_events:
             for e in new_events:
                 msg = (
@@ -137,7 +158,8 @@ def main() -> None:
                     send_alert(msg)
                 else:
                     print(f"[DRY-RUN] {msg}")
-            state["seen"] = sorted({e.get("ts") for e in events})
+            state["seen_keys"] = sorted({_dedupe_key(e) for e in events})
+            state.pop("seen", None)
             _save_state(state)
         else:
             print("No new vetoes since last run.")
