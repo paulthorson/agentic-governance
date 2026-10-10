@@ -1,6 +1,6 @@
 # ADR-0010: Enforced Chain State Machine and Stuck-Ticket Recovery
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-10
 - **Builds on:** ADR-0009
 

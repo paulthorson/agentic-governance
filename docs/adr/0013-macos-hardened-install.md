@@ -1,21 +1,20 @@
 # ADR-0013: Hardened Install on macOS
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-10
 - **Builds on:** ADR-0011, ADR-0012
 
 ## Context
 
 ADR-0012 detects edits to governance files but cannot prevent them: code
-cannot stop a process from writing files its own OS user can write. The
-first pilot ran on a Mac where every agent inherited a shell and ran as the
-operator's user. Those agents could have read the integrity key, the agent
-registry, and other agents' tokens, and could have created
-`runs/approval.ok` to act as an operator. The governance was an audit
-trail, not a control.
+cannot stop a process from writing files its own OS user can write. When
+agents run as the same OS user as the framework, each one can read the
+integrity key, the agent registry, and other agents' tokens, and can create
+`runs/approval.ok` to act as an operator. Governance is then an audit
+trail and nothing more.
 
 `docs/deployment-hardened.md` described the fix (a separate OS user) for
-Linux only. The pilot's agents run on macOS.
+Linux only, and many agent runtimes run locally on macOS.
 
 ## Decision
 

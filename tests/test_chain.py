@@ -438,7 +438,7 @@ class McpSurfaceTest(unittest.TestCase):
 
 
 class DeliverableTest(ChainBase):
-    """1.2.1: the work and the reasons travel on the ticket (pilot findings)."""
+    """1.2.1: the work and the reasons travel on the ticket."""
 
     def test_reviewer_sees_the_deliverable(self):
         self.store.create("x", "pm", "a", now=T0)

@@ -7,7 +7,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.2.1] — 2026-10-10
 
-Fixes from the first pilot loop on 1.2.0, and a tested hardened install for
+Fixes found by running 1.2.0 end to end, and a tested hardened install for
 macOS. See ADR-0013.
 
 ### Added
