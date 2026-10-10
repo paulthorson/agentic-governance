@@ -446,8 +446,8 @@ class DeliverableTest(ChainBase):
         self.store.submit("T-1", "w", "one line", now=T0, deliverable="the full paragraph")
         got = self.store.claim_next("pm", "a", "r", mode="review", now=T0)
         sub = got["submission"]
-        self.assertEqual((sub["by"], sub["summary"], sub["deliverable"], sub["stage"]),
-                         ("w", "one line", "the full paragraph", "pm"))
+        self.assertEqual((sub["by"], sub["deliverable"], sub["stage"]), ("w", "the full paragraph", "pm"))
+        self.assertEqual(self.t()["submission"]["summary"], "one line")  # stored, for the operator
         ev = [e for e in events.read_events(self.store.event_log) if e["kind"] == "ticket.submitted"][0]
         self.assertEqual(ev["data"]["deliverable"], "the full paragraph")
 
@@ -468,8 +468,42 @@ class DeliverableTest(ChainBase):
         self.store.create("x", "pm", "a", now=T0)
         self.store.claim_next("pm", "a", "w", now=T0)
         with self.assertRaises(chain.Refused):
-            self.store.submit("T-1", "w", now=T0, deliverable="x" * (chain.DELIVERABLE_MAX_CHARS + 1))
+            self.store.submit("T-1", "w", now=T0, deliverable="x" * (chain.DELIVERABLE_MAX_BYTES + 1))
         self.assertEqual(self.t()["state"], "working")
+
+    def test_review_claim_is_blind(self):
+        """AGENTS.md rule 1: a reviewer never gets the worker's pitch or an
+        earlier reviewer's verdict, only the work."""
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        self.store.submit("T-1", "w", "this is great, ship it", now=T0, deliverable="v1")
+        self.store.claim_next("pm", "a", "r1", mode="review", now=T0)
+        self.store.verdict("T-1", "KICK_BACK", "r1", [], summary="weak opening", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0 + 1)
+        self.store.submit("T-1", "w", "fixed everything", now=T0 + 1, deliverable="v2")
+        got = self.store.claim_next("pm", "a", "r2", mode="review", now=T0 + 2)
+        self.assertNotIn("summary", got["submission"])
+        self.assertNotIn("lastVerdict", got)
+        self.assertEqual(got["submission"]["deliverable"], "v2")
+        self.assertNotIn("fixed everything", json.dumps(got))
+        self.assertNotIn("weak opening", json.dumps(got))
+
+    def test_deliverable_cap_counts_bytes(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        with self.assertRaises(chain.Refused):  # 4 bytes per character in UTF-8
+            self.store.submit("T-1", "w", now=T0, deliverable="\U0001F600" * (chain.DELIVERABLE_MAX_BYTES // 4 + 1))
+
+    def test_long_summaries_refused(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        with self.assertRaises(chain.Refused):
+            self.store.submit("T-1", "w", "s" * (chain.SUMMARY_MAX_CHARS + 1), now=T0)
+        self.store.submit("T-1", "w", now=T0)
+        self.store.claim_next("pm", "a", "r", mode="review", now=T0)
+        with self.assertRaises(chain.Refused):
+            self.store.verdict("T-1", "PASS", "r", [], summary="s" * (chain.SUMMARY_MAX_CHARS + 1), now=T0)
+        self.assertEqual(self.t()["state"], "reviewing")
 
     def test_cli_show_prints_deliverable_and_reasons(self):
         with tempfile.TemporaryDirectory() as d:

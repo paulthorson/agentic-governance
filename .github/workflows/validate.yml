@@ -81,11 +81,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Homebrew Python 3.12
-        run: brew list python@3.12 >/dev/null 2>&1 || brew install python@3.12
-
       - name: Hardened install end to end
-        run: sudo scripts/macos/e2e-test.sh --python "$(brew --prefix python@3.12)/bin/python3.12"
+        # The installer fetches its own pinned, hash-checked Python; no Homebrew.
+        run: sudo scripts/macos/e2e-test.sh
 
   secrets:
     runs-on: ubuntu-latest

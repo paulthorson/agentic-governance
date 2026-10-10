@@ -69,7 +69,8 @@ import integrity  # noqa: E402
 CHAIN = ("research", "pm", "ux", "engineer", "qa")
 # A deliverable is the work itself (text) or where to find it (a path or URL).
 # Large artifacts belong in files; the ticket carries a pointer.
-DELIVERABLE_MAX_CHARS = 64 * 1024
+DELIVERABLE_MAX_BYTES = 64 * 1024  # UTF-8 bytes
+SUMMARY_MAX_CHARS = 2000
 STATES = ("queued", "working", "in_review", "reviewing", "blocked", "escalated", "done")
 VALID_VERDICTS = {"PASS", "KICK_BACK", "REVIEW_REQUIRED", "ESCALATE"}
 
@@ -363,9 +364,12 @@ def submit(t: dict, agent: str, now: float, summary: str = "", principal: str | 
         _refuse(t, "submit", f"Ticket is {t.get('state')}, not working.", agent)
     if t.get("claimedBy") != agent:
         _refuse(t, "submit", f"Claimed by {t.get('claimedBy')}, not {agent}.", agent)
-    if deliverable and len(deliverable) > DELIVERABLE_MAX_CHARS:
-        _refuse(t, "submit", f"Deliverable is {len(deliverable)} characters (limit {DELIVERABLE_MAX_CHARS}). "
+    size = len(deliverable.encode("utf-8")) if deliverable else 0
+    if size > DELIVERABLE_MAX_BYTES:
+        _refuse(t, "submit", f"Deliverable is {size} bytes (limit {DELIVERABLE_MAX_BYTES}). "
                 "Save it to a file and submit the path instead.", agent)
+    if len(summary) > SUMMARY_MAX_CHARS:
+        _refuse(t, "submit", f"Summary is {len(summary)} characters (limit {SUMMARY_MAX_CHARS}).", agent)
     _clear_claim(t)
     t["workedBy"] = agent
     t["workedByPrincipal"] = principal or agent
@@ -374,6 +378,18 @@ def submit(t: dict, agent: str, now: float, summary: str = "", principal: str | 
                        "summary": summary, "deliverable": deliverable}
     _set_state(t, "in_review", now)
     return [_ev("ticket.submitted", t, agent, "in_review", summary=summary, deliverable=deliverable)]
+
+
+def review_view(t: dict) -> dict:
+    """The ticket as a reviewer may see it (AGENTS.md rule 1, blind review):
+    the work itself (``submission.deliverable``) stays; the worker's own
+    summary and any earlier reviewer's verdict are removed so neither anchors
+    the review. Returns a copy; the stored ticket is unchanged."""
+    v = json.loads(json.dumps(t))
+    v.pop("lastVerdict", None)
+    if isinstance(v.get("submission"), dict):
+        v["submission"].pop("summary", None)
+    return v
 
 
 def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: Settings,
@@ -396,6 +412,8 @@ def verdict(t: dict, v: str, agent: str | None, hits: list[str], now: float, s: 
         _refuse(t, f"verdict {v}", "The agent that did the work cannot review it.", agent)
     if (principal or agent) == t.get("workedByPrincipal", t.get("workedBy")):
         _refuse(t, f"verdict {v}", f"Reviewer and worker share principal {principal or agent!r}; review must come from a different runtime.", agent)
+    if len(summary) > SUMMARY_MAX_CHARS:
+        _refuse(t, f"verdict {v}", f"Summary is {len(summary)} characters (limit {SUMMARY_MAX_CHARS}).", agent)
     if v == "PASS" and hits:
         _refuse(t, "verdict PASS", f"A PASS cannot carry veto hits ({', '.join(hits)}). Record KICK_BACK; a human clears the veto.", agent)
 
@@ -860,7 +878,9 @@ class Store:
                                       "refused", transition="claim", reason=f"missing role {need}"))
             return claim_next(tickets, role, use_team, aid, n, self.settings, mode,
                               principal if verified else None)
-        return self.transact(fn, now=now, ids=ids)
+        t = self.transact(fn, now=now, ids=ids)
+        # Blind review (AGENTS.md rule 1): every caller gets the reviewer's view.
+        return review_view(t) if t and mode == "review" else t
 
     def heartbeat(self, ident: str, agent: str | None, now: float | None = None, token: str | None = None):
         ids = {}

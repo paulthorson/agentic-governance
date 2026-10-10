@@ -5,9 +5,13 @@
 #
 # Runs scripts/ticket.py as the service user that owns runs/ and config/.
 # sudo is the operator gate: only someone who can sudo can register agents,
-# clear vetoes, resolve escalations, or accept integrity problems. agctl
-# creates a one-shot runs/approval.ok for this single command and removes
-# any leftover when the command ends, so approval never outlives the call.
+# clear vetoes, resolve escalations, or accept integrity problems. Approval
+# is passed to this one ticket.py process in its environment (AG_APPROVAL=1)
+# and nowhere else: no approval file is created, so the long-running MCP
+# server never sees an approval, even while an agctl command is running.
+#
+# Before anything runs, agctl checks that the code and the interpreter are
+# still root-owned and not writable by anyone else, and refuses if not.
 #
 # Examples:
 #   sudo .../agctl agent add eng-1 --team team-a --roles engineer --principal runtime-a
@@ -16,23 +20,40 @@
 #   sudo .../agctl verify
 
 set -euo pipefail
-ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+ROOT="$(cd "$(dirname "$0")/../.." && pwd -P)"
+cd /
 
 if [ "$(id -u)" -ne 0 ]; then
   echo "agctl must run with sudo (sudo is the operator gate)." >&2
   exit 1
 fi
-[ -d "$ROOT/runs" ] || { echo "No runs/ under $ROOT. Is this a hardened install?" >&2; exit 1; }
+[ -d "$ROOT/runs" ] && [ ! -L "$ROOT/runs" ] || { echo "No runs/ under $ROOT. Is this a hardened install?" >&2; exit 1; }
 SVC="$(stat -f %Su "$ROOT/runs")"
 if [ "$SVC" = root ]; then
   echo "$ROOT/runs is owned by root, not a service user. Is this a hardened install?" >&2
   exit 1
 fi
 
-cleanup() { rm -f "$ROOT/runs/approval.ok"; }
-trap cleanup EXIT
+# Everything outside runs/ and config/ (code, .venv, python) must be root-owned
+# and not group/other-writable, or the service user and root could be made to
+# run someone else's code.
+BAD="$(find "$ROOT" \( -path "$ROOT/runs" -o -path "$ROOT/config" \) -prune -o \
+        \( ! -user root -o \( ! -type l \( -perm -0020 -o -perm -0002 \) \) \) -print | head -5)"
+if [ -n "$BAD" ]; then
+  echo "REFUSING: these install files are not root-owned or are writable by others:" >&2
+  echo "$BAD" >&2
+  echo "Reinstall with harden.sh from a clean release clone." >&2
+  exit 4
+fi
+grep -q "^home = $ROOT/python/bin\$" "$ROOT/.venv/pyvenv.cfg" 2>/dev/null || {
+  echo "REFUSING: $ROOT/.venv is not built on the install's own Python ($ROOT/python). Reinstall with harden.sh." >&2
+  exit 4
+}
 
-sudo -u "$SVC" /usr/bin/touch "$ROOT/runs/approval.ok"
-cd "$ROOT"
-sudo -u "$SVC" /usr/bin/env -i PATH=/usr/bin:/bin HOME=/var/empty ADVERSARIAL_ROOT="$ROOT" \
+# A leftover approval file (older versions, or a manual touch) would approve
+# whatever the MCP server is asked next. Remove it.
+rm -f "$ROOT/runs/approval.ok"
+
+sudo -u "$SVC" /usr/bin/env -i PATH=/usr/bin:/bin HOME=/var/empty ADVERSARIAL_ROOT="$ROOT" AG_APPROVAL=1 \
   "$ROOT/.venv/bin/python" "$ROOT/scripts/ticket.py" "$@"

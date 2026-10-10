@@ -805,10 +805,10 @@ def ticket_claim_next(role: str, team: str = "", agent_id: str = "", mode: str =
     awaiting review (never your own). The claim holds a lease; call
     ticket_heartbeat to extend it or it returns to the queue.
 
-    The returned ticket carries ``submission`` (the latest summary and
-    deliverable) and, after any verdict, ``lastVerdict`` (who decided what
-    and why). A worker reclaiming a kicked-back ticket reads the reasons
-    there; a reviewer reads the work from ``submission.deliverable``.
+    mode="work": the ticket carries ``lastVerdict`` after any verdict, so a
+    worker reclaiming a kicked-back ticket reads the reasons there.
+    mode="review": the ticket carries ``submission.deliverable`` (the work).
+    Review is blind: the worker's summary and earlier verdicts are removed.
 
     When the operator has registered agents (ADR-0011), pass agent_token (or
     start this server with AG_AGENT_TOKEN set). The token decides your id,
@@ -898,14 +898,15 @@ def ticket_verify() -> dict[str, Any]:
 
 @mcp.tool()
 def ticket_list(team: str = "", state: str = "") -> list[dict[str, Any]]:
-    """List tickets, optionally filtered by team and state."""
-    _, store = _chain_store()
+    """List tickets, optionally filtered by team and state. Shown blind
+    (no worker summaries or verdict reasons), since any agent can call it."""
+    chain_mod, store = _chain_store()
     rows = store.load()
     if team:
         rows = [t for t in rows if t.get("team") == team]
     if state:
         rows = [t for t in rows if t.get("state") == state]
-    return rows
+    return [chain_mod.review_view(t) for t in rows]
 
 
 @mcp.tool()

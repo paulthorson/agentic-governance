@@ -178,11 +178,17 @@ def repair_torn_tail(path: Path) -> int:
         fh.seek(size - 1)
         if fh.read(1) == b"\n":
             return 0
-        window = min(size, 1 << 20)
-        fh.seek(size - window)
-        chunk = fh.read(window)
-        nl = chunk.rfind(b"\n")
-        cut = (size - window + nl + 1) if nl >= 0 else 0
+        # Scan back to the last newline however far it is; only a log with
+        # no newline at all is one fragment (cut = 0).
+        cut, end, step = 0, size, 1 << 20
+        while end > 0:
+            start = max(0, end - step)
+            fh.seek(start)
+            nl = fh.read(end - start).rfind(b"\n")
+            if nl >= 0:
+                cut = start + nl + 1
+                break
+            end = start
         fh.seek(cut)
         fragment = fh.read()
         with open(str(p) + ".torn", "ab") as torn:
