@@ -290,7 +290,8 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 | Does the MCP server ever hold an operator approval? | **NO** — `agctl` passes approval to one process in its environment and writes no file | `scripts/macos/agctl` |
 | Does agctl run on a loosened install? | **NO** — exit 4 if any install file is not root-owned or is writable by others | e2e check "agctl refuses a writable install file" |
 | Does the installer accept a dangerous prefix or user? | **NO** — relative, top-level, foreign non-empty, agent-created, or user-owned-ancestor prefixes and non-service accounts are refused | e2e "installer refuses" checks |
-| Is the installer safe to run from any checkout? | **NO** — it runs as root from its source; install from a root-owned fresh clone of a tag | ADR-0013 |
+| Does the installer run from a checkout an agent can write? | **NO** — refused unless the source is entirely root-owned (override: `--trust-source`) | e2e check "a source tree the agent owns" |
+| Does root read the login user's HOME config during install? | **NO** — HOME, Python user site, pip config and cache, and curlrc are all switched off | `scripts/macos/harden.sh` |
 | Are pip dependencies hash-pinned? | **NO** | ADR-0013 |
 
 ## 12.17 Deliverables and verdict reasons (1.2.1)
@@ -301,5 +302,5 @@ Unchecked (document in SECURITY): dashboard OAuth deploy surface; agent runtimes
 | Does a worker see why work was kicked back? | **YES** — `lastVerdict` on the ticket it reclaims | `tests/test_chain.py::DeliverableTest::test_worker_sees_kick_back_reasons_on_reclaim` |
 | Is the deliverable verified as the actual work? | **NO** — it is what the worker submitted; the framework stores it, it does not check it | `scripts/chain.py` `submit` |
 | Does a reviewer see the worker's summary or earlier verdicts? | **NO** in review claims and `ticket_list` | `tests/test_chain.py::DeliverableTest::test_review_claim_is_blind` |
-| Can a reviewer find earlier verdict reasons anywhere? | **YES** — `query_verdicts` returns past verdict summaries | `mcp/adversarial_mcp/server.py` |
+| Can a reviewer find earlier verdict reasons through `query_verdicts`? | **NO** for chain verdicts (reasons omitted). The event log still holds them for operators. | `tests/test_chain.py::DeliverableTest::test_query_verdicts_hides_chain_reasons` |
 | Can an agent overturn a precedent over MCP? | **NO** without operator approval | `tests/test_events.py::ServerVerdictEventTest` |

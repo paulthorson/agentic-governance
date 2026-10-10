@@ -31,7 +31,8 @@ SVC="_age2e$ID"
 LABEL="app.agenticgovernance.e2e$ID"
 PORT=$((18000 + ID % 1000))
 URL="http://127.0.0.1:$PORT/mcp"
-HARDEN=("$SRC/scripts/macos/harden.sh" --prefix "$PREFIX" --user "$SVC" --label "$LABEL" --port "$PORT")
+# --trust-source: CI installs from its own checkout, which a runner user owns.
+HARDEN=("$SRC/scripts/macos/harden.sh" --prefix "$PREFIX" --user "$SVC" --label "$LABEL" --port "$PORT" --trust-source)
 AGCTL="$PREFIX/scripts/macos/agctl"
 
 PASS=0; FAIL=0
@@ -55,6 +56,7 @@ refuses() { # name, harden.sh args...: passes when harden.sh exits non-zero befo
   local name="$1"; shift
   if "$SRC/scripts/macos/harden.sh" "$@" >/dev/null 2>&1; then bad "installer accepted: $name"; else ok "installer refuses: $name"; fi
 }
+refuses "a source tree the agent owns" --prefix "$PREFIX" --user "$SVC" --label "$LABEL" --port "$PORT"
 refuses "relative prefix"            --prefix . --user "$SVC" --label "$LABEL" --port "$PORT"
 refuses "top-level prefix"           --prefix /Library --user "$SVC" --label "$LABEL" --port "$PORT"
 refuses "non-empty foreign dir"      --prefix /Library/Logs --user "$SVC" --label "$LABEL" --port "$PORT"
@@ -66,6 +68,11 @@ AGDIR="$(sudo -u "$AGENT" mktemp -d /private/var/tmp/ag-agent.XXXXXX)"
 refuses "prefix the agent created"   --prefix "$AGDIR" --user "$SVC" --label "$LABEL" --port "$PORT"
 rm -rf "$AGDIR"
 if [ ! -e "$PREFIX" ] && ! dscl . -read "/Users/$SVC" >/dev/null 2>&1; then ok "refusals changed nothing"; else bad "a refused run left changes"; fi
+
+if dscl . -read /Groups/_lpadmin >/dev/null 2>&1; then
+  "$SRC/scripts/macos/harden.sh" --uninstall --purge --prefix "$BASE/none" --user _lpadmin --label "$LABEL" >/dev/null 2>&1 || true
+  if dscl . -read /Groups/_lpadmin >/dev/null 2>&1; then ok "purge keeps a system group"; else bad "purge deleted the system group _lpadmin"; fi
+fi
 
 echo "== install (prefix $PREFIX, user $SVC, port $PORT, agent $AGENT)"
 if ! "${HARDEN[@]}" ${PYARG[@]+"${PYARG[@]}"}; then

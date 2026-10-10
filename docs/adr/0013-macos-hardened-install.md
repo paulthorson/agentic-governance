@@ -41,8 +41,11 @@ Ship a scripted, tested macOS install:
   marker for this user and label; `rsync --delete` and `--purge` never run
   without it. `--user` must be a hidden, shell-less account in the uid
   range the installer allocates. `runs/`, `config/`, and the log folder
-  must not be symlinks. Root runs with a system-only PATH and never runs
-  git.
+  must not be symlinks. Root runs with a system-only PATH, root's own
+  HOME (macOS sudo keeps the caller's), no Python user site, no pip config
+  or cache, `curl -q`, and never runs git. The source tree must be entirely
+  root-owned under root-owned ancestors unless `--trust-source` is passed.
+  `--purge` deletes a group only in the gid range the installer allocates.
 - The bearer token lives in `config/` and is read by
   `scripts/macos/run-server.sh` at start, so it never appears in the
   world-readable LaunchDaemon plist. The server's environment is stripped of
@@ -73,10 +76,10 @@ Ship a scripted, tested macOS install:
 - **Positive:** the claim is tested on a real Mac on every PR, not argued.
 - **Negative:** anyone who can sudo can do anything, including agents if
   they are given sudo or the operator's password. Agents must not have it.
-- **Negative:** the installer runs as root from whatever source it is given.
-  Installing from a checkout an agent can write hands that agent root. The
-  docs install from a root-owned fresh clone of a release tag; the script
-  cannot enforce this.
+- **Negative:** the installer runs as root from its source. It refuses a
+  source that is not root-owned, but `--trust-source` overrides that, and a
+  root-owned clone is only as good as what was fetched. The docs clone a
+  release tag as root with hooks disabled.
 - **Negative:** `pip` fetches `mcp` and `pydantic` from PyPI without hash
   pinning. A compromised package release would run as root during install.
 - **Negative:** there is no operator path to overturn precedent on a

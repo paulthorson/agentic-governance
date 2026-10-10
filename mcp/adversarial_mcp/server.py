@@ -680,8 +680,15 @@ def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "", ru
 def query_verdicts(domain: str = "", limit: int = 50, source: str = "") -> list[dict[str, Any]]:
     """Query recent review verdicts from the decision record. Optionally filter by
     domain and/or source (e.g. source="app" for real reviews, source="smoke_test"
-    to inspect test records). An empty source filter matches all sources."""
-    return _load_verdicts(domain or None, limit, source or None)
+    to inspect test records). An empty source filter matches all sources.
+
+    Verdicts recorded by the ticket chain are returned without their
+    ``summary``: a reviewer must not read an earlier reviewer's reasons for
+    the ticket it is reviewing (blind review, AGENTS.md rule 1). Operators
+    read them with ``ticket.py show`` or the event log."""
+    rows = _load_verdicts(domain or None, limit, source or None)
+    # Chain copies are the rows chain.py writes with agent_verified.
+    return [{k: v for k, v in r.items() if k != "summary"} if "agent_verified" in r else r for r in rows]
 
 
 @mcp.tool()

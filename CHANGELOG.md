@@ -38,7 +38,8 @@ macOS. See ADR-0013.
 ### Fixed
 
 - **Blind review:** review-mode claims and `ticket_list` no longer return the
-  worker's summary or earlier verdicts. Reviewers get the deliverable only.
+  worker's summary or earlier verdicts, and `query_verdicts` omits the
+  reasons on chain verdicts. Reviewers get the deliverable only.
 - **`overturn_verdict`** now requires operator approval. It was documented as
   human-only but any MCP caller could run it.
 - Summaries (submit and verdict) are capped at 2000 characters.
@@ -60,11 +61,10 @@ macOS. See ADR-0013.
   read each other's tokens.
 - The deliverable is what the worker submitted. The framework stores it and
   does not verify it.
-- The installer runs as root from the source you give it. Install from a
+- The installer runs as root from its source. It refuses a source tree that
+  is not root-owned unless `--trust-source` is passed; install from a
   root-owned fresh clone of a release tag (see `docs/deployment-hardened.md`).
 - `pip` installs `mcp` and `pydantic` without hash pinning.
-- `query_verdicts` still returns past verdict summaries to any MCP caller,
-  so a reviewer who looks can find earlier reasons for the same ticket.
 - No operator command overturns precedent on a hardened install.
 
 ## [1.2.0] — 2026-10-10

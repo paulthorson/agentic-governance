@@ -488,6 +488,24 @@ class DeliverableTest(ChainBase):
         self.assertNotIn("fixed everything", json.dumps(got))
         self.assertNotIn("weak opening", json.dumps(got))
 
+    def test_query_verdicts_hides_chain_reasons(self):
+        """A reviewer cannot read an earlier reviewer's reasons through query_verdicts."""
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "w", now=T0)
+        self.store.submit("T-1", "w", now=T0, deliverable="v1")
+        self.store.claim_next("pm", "a", "r1", mode="review", now=T0)
+        self.store.verdict("T-1", "KICK_BACK", "r1", [], summary="weak opening", now=T0)
+        sys.path.insert(0, str(SCRIPTS.parent / "mcp"))
+        from adversarial_mcp import server as srv
+        orig = srv.VERDICT_LOG
+        srv.VERDICT_LOG = self.store.verdict_log
+        try:
+            rows = srv.query_verdicts()
+        finally:
+            srv.VERDICT_LOG = orig
+        self.assertTrue(any(r.get("ticket") == "T-1" for r in rows))
+        self.assertNotIn("weak opening", json.dumps(rows))
+
     def test_deliverable_cap_counts_bytes(self):
         self.store.create("x", "pm", "a", now=T0)
         self.store.claim_next("pm", "a", "w", now=T0)

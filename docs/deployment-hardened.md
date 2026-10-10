@@ -37,13 +37,17 @@ Mac (`scripts/macos/e2e-test.sh`, ADR-0013).
 Install from a fresh clone of a release tag that root owns. The installer
 runs as root, so a copy your agents could have edited (any folder your login
 user can write, including your usual checkout) would let them run code as
-root. Use `/usr/bin/git` by its full path for the same reason: a `git` found
-through your PATH may be one your login user can replace.
+root. The installer refuses a source tree that is not entirely root-owned
+(override with `--trust-source` only on a throwaway machine such as CI).
+Use `/usr/bin/git` by its full path, since a `git` found through your PATH
+may be one your login user can replace, and `sudo -H`, since plain `sudo` on
+macOS keeps your HOME and git would read your (agent-writable) `~/.gitconfig`
+as root.
 
 ```bash
-sudo /usr/bin/git clone --depth 1 --branch v1.2.1 \
+sudo -H /usr/bin/git -c core.hooksPath=/dev/null clone --depth 1 --branch v1.2.1 \
   https://github.com/paulthorson/agentic-governance.git /private/var/root/ag-src
-sudo /private/var/root/ag-src/scripts/macos/harden.sh
+sudo -H /private/var/root/ag-src/scripts/macos/harden.sh
 sudo rm -rf /private/var/root/ag-src
 ```
 
@@ -88,8 +92,10 @@ nothing; a reviewer never sees the worker's summary; `overturn_verdict` is
 refused over MCP; tampering stops writes until the operator accepts;
 launchd restarts a killed server; a reinstall keeps `config/` at 700; and
 `--uninstall --purge` removes everything. It also checks that the installer
-refuses a relative or top-level prefix, a non-empty folder it did not
-create, a folder the agent created, and a real account as the service user.
+refuses a source tree the agent owns, a relative or top-level prefix, a
+non-empty folder it did not create, a folder the agent created, and a real
+account as the service user, and that `--purge` never deletes a system
+group.
 
 To remove: `sudo /Library/AgenticGovernance/scripts/macos/harden.sh --uninstall`
 (keeps data) or add `--purge` (deletes tickets, log, key, registry, and the

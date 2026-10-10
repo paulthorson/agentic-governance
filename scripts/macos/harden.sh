@@ -20,7 +20,9 @@
 #   sudo scripts/macos/harden.sh --uninstall [--purge] [same options]
 #
 # Run it from a fresh clone of a release tag that no agent can write to,
-# never from a checkout your agents work in: this script runs as root.
+# never from a checkout your agents work in: this script runs as root. It
+# refuses a source tree that is not entirely root-owned, or that sits under
+# a folder someone else can write, unless you pass --trust-source (CI does).
 #
 # --python-archive uses a local copy of the pinned Python download instead of
 # fetching it (it must still match the pinned SHA-256).
@@ -35,6 +37,11 @@ set -euo pipefail
 # Root must never run a program an agent could have replaced (a user-owned
 # PATH entry such as /opt/homebrew/bin). System directories only.
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+# macOS sudo keeps the caller's HOME, so root would otherwise read the login
+# user's (agent-writable) ~/.curlrc, pip config and cache, and Python user
+# site-packages. Give root its own home and switch all of those off.
+export HOME=/var/root PYTHONNOUSERSITE=1 PIP_CONFIG_FILE=/dev/null PIP_NO_CACHE_DIR=1
+unset PYTHONPATH PYTHONHOME PYTHONSTARTUP CURL_HOME
 umask 022
 
 ACTION=install
@@ -44,6 +51,7 @@ SVC_USER=_aggov
 LABEL=app.agenticgovernance
 PORT=8765
 PY_ARCHIVE=""
+TRUST_SOURCE=0
 SRC="$(cd "$(dirname "$0")/../.." && pwd -P)"
 MARKER=.agentic-governance-install
 cd /  # commands run as the service user must not inherit an unreadable working directory
@@ -54,7 +62,7 @@ PBS_VERSION=3.12.14
 PBS_SHA_arm64=4572133a5542f306b9bdb155da5800f9e38950cd0a98d469b832ce256fe299ea
 PBS_SHA_x86_64=1a94c83264731e9603fbea78e57e7ca8f20e7d91eb866627ac2304621b0f6f1f
 
-usage() { sed -n '2,32p' "$0" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,34p' "$0" | sed 's/^# \{0,1\}//'; }
 die() { echo "ERROR: $*" >&2; exit 1; }
 log() { echo "==> $*"; }
 
@@ -67,6 +75,7 @@ while [ $# -gt 0 ]; do
     --label) LABEL="${2:-}"; shift ;;
     --port) PORT="${2:-}"; shift ;;
     --python-archive) PY_ARCHIVE="${2:-}"; shift ;;
+    --trust-source) TRUST_SOURCE=1 ;;
     -h|--help) usage; exit 0 ;;
     *) usage; die "unknown argument: $1" ;;
   esac
@@ -147,7 +156,12 @@ uninstall() {
       log "Deleting service user $SVC_USER"
       dscl . -delete "/Users/$SVC_USER" 2>/dev/null || true
     fi
-    dscl . -delete "/Groups/$SVC_USER" 2>/dev/null || true
+    gid=$(dscl . -read "/Groups/$SVC_USER" PrimaryGroupID 2>/dev/null | awk '{print $2}')
+    if [ -n "$gid" ] && [ "$gid" -ge 450 ] && [ "$gid" -le 499 ]; then
+      dscl . -delete "/Groups/$SVC_USER" 2>/dev/null || true
+    elif [ -n "$gid" ]; then
+      echo "Kept group $SVC_USER (gid $gid is outside 450-499, so this installer did not make it)"
+    fi
   else
     log "Kept $PREFIX (tickets, log, key, registry). Use --purge to delete them."
   fi
@@ -156,6 +170,17 @@ uninstall() {
 if [ "$ACTION" = uninstall ]; then
   uninstall
   exit 0
+fi
+
+if [ "$TRUST_SOURCE" -eq 0 ]; then
+  p="$SRC"
+  while :; do
+    unsafe_dir "$p" && die "source $SRC is not safe to run as root: $p is not root-owned or is writable by others. Install from a root-owned fresh clone (see docs/deployment-hardened.md)."
+    [ "$p" = / ] && break
+    p="$(dirname "$p")"
+  done
+  [ -z "$(find "$SRC" \( ! -user root -o \( ! -type l \( -perm -0020 -o -perm -0002 \) \) \) -print | head -1)" ] \
+    || die "source $SRC contains files not owned by root or writable by others. Install from a root-owned fresh clone (see docs/deployment-hardened.md)."
 fi
 
 if [ -e "$PREFIX" ]; then
@@ -169,7 +194,6 @@ fi
 # No git here: running git as root inside a user-owned clone would execute
 # that clone's config (hooks, fsmonitor) as root.
 log "Source: $SRC (version $(sed -n 's/^CURRENT_VERSION = "\(.*\)"/\1/p' "$SRC/mcp/adversarial_mcp/updates.py" 2>/dev/null | head -1))"
-log "Install only from a fresh clone of a release tag that no agent can write to."
 
 # --- Service user -------------------------------------------------------------
 
@@ -253,7 +277,7 @@ if [ "$(cat "$PREFIX/python/.ag-release" 2>/dev/null)" != "$PBS_STAMP" ]; then
   if [ -n "$PY_ARCHIVE" ]; then
     cp "$PY_ARCHIVE" "$TMPD/py.tgz"
   else
-    curl -fsSL --retry 3 -o "$TMPD/py.tgz" \
+    curl -q -fsSL --retry 3 -o "$TMPD/py.tgz" \
       "https://github.com/astral-sh/python-build-standalone/releases/download/$PBS_RELEASE/${PBS_FILE//+/%2B}"
   fi
   got=$(shasum -a 256 "$TMPD/py.tgz" | awk '{print $1}')
@@ -272,9 +296,9 @@ PY="$PREFIX/python/bin/python3"
 log "Python environment"
 if [ ! -x "$PREFIX/.venv/bin/python" ] || ! grep -q "^home = $PREFIX/python/bin\$" "$PREFIX/.venv/pyvenv.cfg" 2>/dev/null; then
   rm -rf "$PREFIX/.venv"
-  "$PY" -m venv "$PREFIX/.venv"
+  "$PY" -I -m venv "$PREFIX/.venv"
 fi
-"$PREFIX/.venv/bin/python" -m pip install --quiet --disable-pip-version-check --upgrade "mcp>=1.0.0,<2" "pydantic>=2"
+"$PREFIX/.venv/bin/python" -I -m pip install --quiet --disable-pip-version-check --upgrade "mcp>=1.0.0,<2" "pydantic>=2"
 chown -R root:wheel "$PREFIX/.venv"
 chmod -R go-w,a+rX "$PREFIX/.venv"
 sudo -u "$SVC_USER" "$PREFIX/.venv/bin/python" -c 'import mcp' || die "the service user cannot import mcp"
@@ -349,7 +373,7 @@ done
 log "Waiting for the MCP server on 127.0.0.1:$PORT"
 code=000
 for _ in $(seq 1 40); do
-  code=$(curl -s -o /dev/null -w '%{http_code}' -X POST "http://127.0.0.1:$PORT/mcp" || true)
+  code=$(curl -q -s -o /dev/null -w '%{http_code}' -X POST "http://127.0.0.1:$PORT/mcp" || true)
   [ "$code" = 401 ] && break
   sleep 1
 done
