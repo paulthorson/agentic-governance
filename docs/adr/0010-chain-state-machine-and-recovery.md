@@ -38,18 +38,23 @@ States: `queued`, `working`, `in_review`, `reviewing`, `blocked`, `escalated`,
 | queued | claim (work) | working |
 | working | submit (claimant only) | in_review |
 | in_review | claim (review, not the worker) | reviewing |
-| in_review / reviewing | PASS, not last stage | queued at next stage |
-| in_review / reviewing | PASS, last stage | done |
-| in_review / reviewing | KICK_BACK | queued at this or an earlier stage |
-| in_review / reviewing | any verdict with veto hits | blocked |
-| in_review / reviewing | ESCALATE / REVIEW_REQUIRED | escalated |
+| reviewing | PASS from the claimant, not last stage | queued at next stage |
+| reviewing | PASS from the claimant, last stage | done |
+| reviewing | KICK_BACK from the claimant | queued at this or an earlier stage |
+| reviewing | any verdict with veto hits | blocked |
+| reviewing | ESCALATE / REVIEW_REQUIRED | escalated |
 | blocked | clear-veto (human, approval) | in_review |
 | escalated | resolve (human, approval) | queued |
 | working / reviewing | lease expired | queued / in_review |
 
-**Scoping.** Claims match on `(stage, team)` exactly. That gives each team a
-dedicated loop in the hub-and-spoke model: a spoke's agents never see another
-spoke's queue. Oldest ticket first.
+**Scoping.** Claims match on `(stage, team)` exactly. A verdict requires the
+reviewer to hold the review claim, so verdicts inherit the same scope. That
+gives each team a dedicated loop in the hub-and-spoke model: a spoke's agents
+cannot claim, submit, or judge another spoke's work. Reads are not scoped:
+`ticket_list` returns every team's tickets. Oldest ticket first.
+
+**Reviewer independence.** Every verdict must name an agent, that agent must
+hold the review claim, and it cannot be the agent that submitted the work.
 
 **Leases.** A claim holds a lease (default 30 min). `heartbeat` extends it.
 An expired lease releases the ticket back to its queue.
@@ -67,14 +72,27 @@ who want a cron.
   min) with nobody claiming it emits `ticket.stalled` once per window. **It
   does not change state.** A missing agent is an operator problem. Escalating
   the ticket would not start an agent, so the system reports instead.
-  `ticket.py recover --alert` sends these through `scripts/messaging.py`
-  (network permission + approval apply).
+- A blocked or escalated ticket emits `ticket.awaiting_human` on the first
+  recovery pass after it lands there, then once per review window until a
+  human acts.
+- `ticket.py recover --alert` sends every escalation, block, stall, and
+  awaiting-human event not yet alerted, read from the event log against a
+  watermark. An escalation raised inside a claim or a verdict is still
+  delivered. Delivery goes through `scripts/messaging.py` (network
+  permission + approval apply); undelivered alerts retry on the next run.
 
-**Human-only actions stay off MCP.** Clearing a veto, resolving an
+**Operator-gated actions stay off MCP.** Clearing a veto, resolving an
 escalation, and overriding a close exist only in `scripts/ticket.py`, behind
-`scripts/approval.py`. An agent with MCP access cannot reach them.
+`scripts/approval.py`. An agent limited to MCP cannot reach them. The gate
+checks operator approval, not human identity: any process with shell access
+while `AG_APPROVAL=1` is set or `runs/approval.ok` exists can run them. The
+approval check runs only after the action is validated, so a mistyped id
+never consumes a one-shot approval.
 
-**Compatibility.** Pre-1.1 ticket files load as single-stage tickets.
+**Compatibility.** Pre-1.1 ticket files load as single-stage tickets. A
+ticket whose latest 1.0 verdict carried veto hits loads as `blocked`, so an
+open veto survives the upgrade. A ticket file that exists but does not parse
+stops every write (exit 1) instead of being replaced.
 `ticket.py new "Title"` without `--queue` keeps the old meaning (register
 finished work straight into review). Each ticket keeps a `status` field
 (`in_review` / `done` / state name) for existing readers. The watchdog's file
@@ -93,14 +111,16 @@ reported finished tickets as stuck reviews.
   it. `agent_id` is self-reported, so an agent can claim under two names and
   review its own work. Closing that needs agent identity, which this
   framework does not have.
+- **Negative:** approval is not bound to a ticket or an action. One
+  `approval.ok` authorizes whichever gated action runs first.
 - **Negative:** thresholds are env vars, not wizard questions yet.
 - **Negative:** one JSON file for all teams. Every write locks the whole store.
   Fine for tens of agents. Hundreds of agents writing concurrently will
   queue on the lock; at that point the store needs to move to SQLite or
   per-team files.
-- **Behavior change:** a verdict with veto hits now puts the ticket in
-  `blocked` (status `blocked`, previously `in_review`). Verdicts on blocked
-  tickets are refused.
+- **Behavior change:** see CHANGELOG 1.1.0 "Changed" for the full list.
+  The largest: a verdict now needs `--agent` and a review claim, and vetoed
+  tickets become `blocked`.
 
 ## Alternatives considered
 

@@ -258,7 +258,8 @@ class CompatTest(ChainBase):
         t1, t2 = self.store.load()
         self.assertEqual((t1["state"], t1["stages"]), ("in_review", ["ux"]))
         self.assertEqual(t2["state"], "done")
-        self.store.verdict("T-1", "PASS", None, [], now=T0)  # legacy CLI path, no agent
+        self.store.claim_next("ux", "", "ux-critic", mode="review", now=T0)
+        self.store.verdict("T-1", "PASS", "ux-critic", [], now=T0)
         self.assertEqual(self.t("T-1")["state"], "done")
 
     def test_watchdog_only_reads_tickets_in_review(self):
@@ -268,7 +269,9 @@ class CompatTest(ChainBase):
         self.store.create("queued", "pm", "a", now=old)
         self.store.create("in review", "pm", "a", queued=False, now=old)
         self.store.create("done", "pm", "a", queued=False, now=old)
-        self.store.verdict("T-3", "PASS", None, [], now=old)
+        self.store.claim_next("pm", "a", "r", mode="review", now=old)  # oldest in review: T-2
+        self.store.verdict("T-2", "PASS", "r", [], now=old)
+        self.store.claim_next("pm", "a", "r", mode="review", now=old)
         out = subprocess.run(
             [sys.executable, str(SCRIPTS / "stuck-review-watchdog.py"), "--source", "file",
              "--issues-file", str(self.store.ticket_file), "--stale-minutes", "120",
@@ -278,7 +281,8 @@ class CompatTest(ChainBase):
         )
         self.assertEqual(out.returncode, 0, out.stderr)
         ids = [t["identifier"] for t in json.loads(out.stdout)["tickets"]]
-        self.assertEqual(ids, ["T-2"])
+        # T-1 queued, T-2 done, T-3 being reviewed (status in_review, stale) -> only T-3
+        self.assertEqual(ids, ["T-3"])
 
 
 class CliTest(unittest.TestCase):
@@ -304,6 +308,132 @@ class CliTest(unittest.TestCase):
             (root / "runs" / "approval.ok").write_text("")
             self.assertEqual(run("resolve", "T-1", "--by", "Op", "--reason", "x").returncode, 0)
             self.assertIn("[queued]", run("list").stdout)
+
+
+class ReviewFindingsTest(ChainBase):
+    """Regression tests for the 1.1 pre-merge review."""
+
+    def test_verdict_without_agent_refused(self):
+        """Claim: every verdict names a reviewer; an empty id cannot self-review."""
+        self.store.create("x", "pm", "a", now=T0)
+        self.work_and_submit("pm", worker="w")
+        for anon in (None, ""):
+            with self.assertRaises(chain.Refused):
+                self.store.verdict("T-1", "PASS", anon, [], now=T0)
+        self.assertEqual(self.t()["state"], "in_review")
+
+    def test_verdict_requires_review_claim(self):
+        """Claim: a verdict inherits the review claim's team and stage scope."""
+        self.store.create("x", "engineer", "team-a", end_stage="engineer", now=T0)
+        self.work_and_submit("engineer", team="team-a")
+        with self.assertRaises(chain.Refused):
+            self.store.verdict("T-1", "PASS", "ux-critic-team-b", [], now=T0)
+        self.assertIsNone(self.store.claim_next("engineer", "team-b", "ux-critic-team-b", mode="review", now=T0))
+        self.assertEqual(self.t()["state"], "in_review")
+
+    def test_event_written_before_save_and_uses_transition_time(self):
+        self.store.create("x", "pm", "a", now=T0)
+        with mock.patch.object(chain.events, "emit", side_effect=events.LockTimeout("boom")):
+            with self.assertRaises(events.LockTimeout):
+                self.store.claim_next("pm", "a", "w", now=T0 + MIN)
+        self.assertEqual(self.t()["state"], "queued")  # nothing saved without its event
+        self.store.claim_next("pm", "a", "w", now=T0 + MIN)
+        claimed = [e for e in events.read_events(self.store.event_log) if e["kind"] == "ticket.claimed"][0]
+        self.assertEqual(claimed["ts"], int((T0 + MIN) * 1000))
+
+    def test_gate_runs_only_after_validation(self):
+        """Claim: a mistyped id or wrong state never consumes an approval."""
+        self.store.create("x", "pm", "a", now=T0)
+        calls = []
+        gate = lambda: calls.append(1)  # noqa: E731
+        with self.assertRaises(KeyError):
+            self.store.clear_veto("T-9", "Op", "r", now=T0, gate=gate)
+        with self.assertRaises(chain.Refused):
+            self.store.resolve("T-1", "Op", "r", now=T0, gate=gate)  # not escalated
+        with self.assertRaises(chain.Refused):
+            self.store.clear_veto("T-1", "Op", "r", now=T0, gate=gate)  # no veto
+        self.assertEqual(calls, [])
+
+    def test_escalation_raised_during_claim_still_reported(self):
+        """Claim: tickets waiting on a human are reported, wherever they escalated."""
+        self.store.settings.max_attempts = 1
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "dead", now=T0)
+        self.store.claim_next("pm", "a", "other", now=T0 + 31 * MIN)  # recovery escalates here
+        self.assertEqual(self.t()["state"], "escalated")
+        first = self.store.recover(now=T0 + 32 * MIN)
+        self.assertEqual([e["kind"] for e in first], ["ticket.awaiting_human"])
+        self.assertEqual(self.store.recover(now=T0 + 40 * MIN), [])
+        self.assertEqual([e["kind"] for e in self.store.recover(now=T0 + 160 * MIN)], ["ticket.awaiting_human"])
+
+    def test_blocked_ticket_reported(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.review(self.work_and_submit("pm"), "pm", "KICK_BACK", hits=["user harm"])
+        self.assertEqual(self.store.recover(now=T0 + MIN)[0]["data"]["reason"], "open veto")
+
+    def test_corrupt_store_is_never_overwritten(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.ticket_file.write_text('[{"identifier": "T-1", "title": "tr')
+        before = self.store.ticket_file.read_text()
+        with self.assertRaises(chain.StoreCorrupt):
+            self.store.create("y", "pm", "a", now=T0)
+        self.assertEqual(self.store.ticket_file.read_text(), before)
+
+    def test_legacy_open_veto_survives_upgrade(self):
+        self.store.ticket_file.write_text(json.dumps([
+            {"identifier": "T-1", "title": "old", "role": "ux", "status": "in_review",
+             "lastActivityAt": chain.iso(T0)}]))
+        self.store.verdict_log.write_text(json.dumps(
+            {"kind": "verdict", "ticket": "T-1", "verdict": "KICK_BACK", "veto_triggered": True,
+             "veto_hits": ["user harm"], "ts": 1}) + "\n")
+        t = self.store.load()[0]
+        self.assertEqual((t["state"], t["veto_open"]), ("blocked", True))
+
+    def test_to_stage_only_on_kick_back(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.work_and_submit("pm")
+        self.store.claim_next("pm", "a", "r", mode="review", now=T0)
+        with self.assertRaises(chain.Refused):
+            self.store.verdict("T-1", "PASS", "r", [], to_stage="pm", now=T0)
+
+    def test_bad_end_stage_message(self):
+        with self.assertRaisesRegex(ValueError, "not a chain stage"):
+            self.store.create("x", "pm", "a", end_stage="qaa", now=T0)
+        with self.assertRaisesRegex(ValueError, "only applies"):
+            self.store.create("x", "security", "a", end_stage="qa", now=T0)
+
+    def test_kick_back_gives_fresh_lease_attempts(self):
+        self.store.create("x", "pm", "a", now=T0)
+        self.store.claim_next("pm", "a", "dead", now=T0)
+        self.store.recover(now=T0 + 31 * MIN)
+        self.assertEqual(self.t()["attempts"]["pm"], 1)
+        self.review(self.work_and_submit("pm", now=T0 + 32 * MIN), "pm", "KICK_BACK", now=T0 + 33 * MIN)
+        self.assertNotIn("pm", self.t()["attempts"])
+
+    def test_lock_holder_never_deletes_a_lock_it_lost(self):
+        lock = self.store.ticket_file.with_name("in_review.json.lock")
+        with events.file_lock(self.store.ticket_file):
+            lock.write_text("someone else\n")  # simulate: our lock was broken and re-taken
+        self.assertTrue(lock.exists())
+        lock.unlink()
+
+
+class McpSurfaceTest(unittest.TestCase):
+    def test_human_only_actions_not_exposed_over_mcp(self):
+        """Claim: an MCP agent cannot clear a veto, resolve an escalation, or force a close."""
+        src = (REPO_ROOT / "mcp" / "adversarial_mcp" / "server.py").read_text(encoding="utf-8")
+        tools = set()
+        lines = src.splitlines()
+        for i, line in enumerate(lines):
+            if line.strip() == "@mcp.tool()":
+                tools.add(lines[i + 1].split("def ", 1)[1].split("(", 1)[0])
+        self.assertIn("ticket_verdict", tools)
+        for name in tools:
+            self.assertNotRegex(name, r"clear|veto_clear|resolve|override|close|done")
+
+    def test_mcp_verdict_log_honors_env(self):
+        src = (REPO_ROOT / "mcp" / "adversarial_mcp" / "server.py").read_text(encoding="utf-8")
+        self.assertIn('VERDICT_LOG = Path(os.environ.get("VERDICT_LOG"', src)
 
 
 if __name__ == "__main__":

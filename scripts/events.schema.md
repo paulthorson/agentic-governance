@@ -65,6 +65,7 @@ Field order is stable.
 | `ticket.closed` | chain | `done` | `via` (`verdict` / `override`), `by`, `reason` |
 | `ticket.lease_expired` | recovery | `released` | `mode`, `attempt` |
 | `ticket.stalled` | recovery | `stalled` | `waiting_for`, `minutes`, `message` |
+| `ticket.awaiting_human` | recovery | `blocked` / `escalated` | `reason`, `message` |
 | `ticket.transition_refused` | chain / CLI | `refused` | `transition`, `reason` |
 | `verdict.recorded` | MCP `record_verdict` | verdict | `summary`, `rule`, `case_tag`, `source` |
 | `verdict.overturned` | MCP `overturn_verdict` | `overturned` | `reason` |
@@ -77,7 +78,9 @@ Field order is stable.
 
 ## Compatibility views
 
-`runs/verdicts.jsonl` and `runs/in_review.json` keep their pre-1.1 shapes and
-are written alongside this log. Verdict records now include `event_id`. If a
-view and the event log disagree (a process died between writes), the event
-log is the record of truth.
+`runs/verdicts.jsonl` and `runs/in_review.json` keep their pre-1.1 shapes.
+Ticket transitions write their events first and then save the ticket file,
+both under the ticket lock, and each event's `ts` is the transition time.
+Verdict records now include `event_id`. If a process dies between the event
+write and the save, the log holds a transition the ticket file lacks; the
+reverse cannot happen through `scripts/chain.py`.

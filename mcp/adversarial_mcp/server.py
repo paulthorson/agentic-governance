@@ -49,7 +49,7 @@ DOMAIN_DIR = {d: REPO_ROOT / f"adversarial-{d}" for d in DOMAINS}
 
 RUNS_DIR = REPO_ROOT / "runs"
 RUNS_DIR.mkdir(parents=True, exist_ok=True)
-VERDICT_LOG = RUNS_DIR / "verdicts.jsonl"
+VERDICT_LOG = Path(os.environ.get("VERDICT_LOG", RUNS_DIR / "verdicts.jsonl"))
 
 # A21: retention window (days) for the calibration ledger. Entries older than
 # this are summarized to a stub on load (age-out). The operator sets this;
@@ -822,7 +822,8 @@ def ticket_verdict(ticket: str, verdict: str, agent_id: str, veto_hits: str = ""
     PASS advances to the next stage (or closes on the last). KICK_BACK requeues
     this stage, or an earlier one via to_stage. Any veto hit blocks the ticket
     until a human clears it. ESCALATE / REVIEW_REQUIRED hand it to a human.
-    The worker cannot review its own ticket.
+    You must hold the review claim (ticket_claim_next mode="review") and pass
+    your agent_id. The worker cannot review its own ticket.
     """
     _, store = _chain_store()
     hits = [h.strip() for h in veto_hits.split(",") if h.strip()]
