@@ -73,6 +73,20 @@ jobs:
       - name: Run test suite
         run: python -m pytest tests/ -q
 
+  macos-hardened:
+    # Installs the hardened setup on a real Mac (service user, launchd,
+    # locked-down dirs), attacks it from an ordinary account, runs a full
+    # ticket loop over MCP, then uninstalls. ADR-0013.
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Homebrew Python 3.12
+        run: brew list python@3.12 >/dev/null 2>&1 || brew install python@3.12
+
+      - name: Hardened install end to end
+        run: sudo scripts/macos/e2e-test.sh --python "$(brew --prefix python@3.12)/bin/python3.12"
+
   secrets:
     runs-on: ubuntu-latest
     permissions:

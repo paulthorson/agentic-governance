@@ -34,6 +34,7 @@ LABEL=app.agenticgovernance
 PORT=8765
 PY=""
 SRC="$(cd "$(dirname "$0")/../.." && pwd)"
+cd /  # commands run as the service user must not inherit an unreadable working directory
 
 usage() { sed -n '2,25p' "$0" | sed 's/^# \{0,1\}//'; }
 die() { echo "ERROR: $*" >&2; exit 1; }
@@ -133,13 +134,17 @@ rsync -a --delete \
   --exclude '/runs/' --exclude '/config/' --exclude '/.venv/' \
   --exclude '__pycache__/' --exclude 'node_modules/' --exclude '/dashboard/' \
   "$SRC/" "$PREFIX/"
-chown -R root:wheel "$PREFIX"
-chmod -R go-w "$PREFIX"
-chmod -R a+rX "$PREFIX"
+# Code: root-owned, readable by all, writable by none. runs/ and config/
+# hold the key, registry, tokens, and tickets, so this pass must never
+# descend into them (a recursive chmod a+r there would expose the key on a
+# reinstall).
+find "$PREFIX" \( -path "$PREFIX/runs" -o -path "$PREFIX/config" \) -prune -o -exec chown -h root:wheel {} +
+find "$PREFIX" \( -path "$PREFIX/runs" -o -path "$PREFIX/config" \) -prune -o ! -type l -exec chmod go-w,a+rX {} +
 
 mkdir -p "$PREFIX/runs" "$PREFIX/config" "$LOGDIR"
 chown -R "$SVC_USER:$SVC_USER" "$PREFIX/runs" "$PREFIX/config" "$LOGDIR"
 chmod 700 "$PREFIX/runs" "$PREFIX/config"
+chmod -R go-rwx "$PREFIX/runs" "$PREFIX/config"
 chmod 750 "$LOGDIR"
 
 log "Python environment"

@@ -1,0 +1,38 @@
+#!/bin/bash
+# Operator wrapper for a hardened macOS install (ADR-0013).
+#
+#   sudo /Library/AgenticGovernance/scripts/macos/agctl <ticket.py arguments>
+#
+# Runs scripts/ticket.py as the service user that owns runs/ and config/.
+# sudo is the operator gate: only someone who can sudo can register agents,
+# clear vetoes, resolve escalations, or accept integrity problems. agctl
+# creates a one-shot runs/approval.ok for this single command and removes
+# any leftover when the command ends, so approval never outlives the call.
+#
+# Examples:
+#   sudo .../agctl agent add eng-1 --team team-a --roles engineer --principal runtime-a
+#   sudo .../agctl agent list
+#   sudo .../agctl doctor
+#   sudo .../agctl verify
+
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+
+if [ "$(id -u)" -ne 0 ]; then
+  echo "agctl must run with sudo (sudo is the operator gate)." >&2
+  exit 1
+fi
+[ -d "$ROOT/runs" ] || { echo "No runs/ under $ROOT. Is this a hardened install?" >&2; exit 1; }
+SVC="$(stat -f %Su "$ROOT/runs")"
+if [ "$SVC" = root ]; then
+  echo "$ROOT/runs is owned by root, not a service user. Is this a hardened install?" >&2
+  exit 1
+fi
+
+cleanup() { rm -f "$ROOT/runs/approval.ok"; }
+trap cleanup EXIT
+
+sudo -u "$SVC" /usr/bin/touch "$ROOT/runs/approval.ok"
+cd "$ROOT"
+sudo -u "$SVC" /usr/bin/env -i PATH=/usr/bin:/bin HOME=/var/empty ADVERSARIAL_ROOT="$ROOT" \
+  "$ROOT/.venv/bin/python" "$ROOT/scripts/ticket.py" "$@"
