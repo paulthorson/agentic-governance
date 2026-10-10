@@ -5,6 +5,68 @@ All notable changes to Agentic Governance.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] — 2026-10-10
+
+Fixes from the first pilot loop on 1.2.0, and a tested hardened install for
+macOS. See ADR-0013.
+
+### Added
+
+- **Hardened macOS install** (`sudo scripts/macos/harden.sh`): a hidden
+  service user owns `runs/` and `config/` (mode 700), code and a pinned,
+  hash-checked Python are root-owned and read-only, and launchd runs the MCP server on 127.0.0.1 (bearer token
+  required) and recovery every 10 minutes. Agents with a shell can no longer
+  read or write governance state or act as an operator.
+- **`scripts/macos/agctl`**: operator commands as the service user. Requires
+  sudo, which becomes the operator gate. Approval goes to the one command in
+  its environment, never as a file. Refuses to run if any install file has
+  become writable by someone other than root.
+- **`scripts/macos/e2e-test.sh`** and the `macos-hardened` CI job: installs on
+  a real Mac, attacks it from an ordinary account, runs a full MCP ticket
+  loop over HTTP, checks tamper detection, launchd restart, and recovery,
+  then uninstalls. It also checks that the installer refuses dangerous
+  `--prefix` and `--user` values.
+- **Deliverables on tickets:** `ticket_submit` / `ticket.py submit` take a
+  `deliverable` (the work, up to 64 KiB of UTF-8, or a path/URL). The ticket
+  stores it as `submission`; the event log keeps every round.
+  `ticket.py submit --deliverable-file` reads it from a file.
+- **Verdict reasons on tickets:** every verdict stores `lastVerdict` (verdict,
+  stage, reviewer, time, reasons, veto hits, kick-back target). A worker
+  reclaiming a kicked-back ticket sees why.
+- `ticket.py show` prints the submission and the last verdict.
+
+### Fixed
+
+- **Blind review:** review-mode claims and `ticket_list` no longer return the
+  worker's summary or earlier verdicts, and `query_verdicts` omits the
+  reasons on chain verdicts. Reviewers get the deliverable only.
+- **`overturn_verdict`** now requires operator approval. It was documented as
+  human-only but any MCP caller could run it.
+- Summaries (submit and verdict) are capped at 2000 characters.
+- Torn-tail repair no longer truncates the whole event log when a crashed
+  append is longer than 1 MB.
+
+### Changed
+
+- README states the Python 3.11+ requirement and that macOS's built-in
+  `python3` (3.9) will not work.
+- `docs/deployment-hardened.md` has a macOS section; the Linux steps are
+  labeled Linux.
+
+### Not enforced
+
+- Anyone who can sudo can do anything on a hardened install. Agents must not
+  have sudo or the operator's password.
+- Agent tokens live in each agent's own config; agents sharing an OS user can
+  read each other's tokens.
+- The deliverable is what the worker submitted. The framework stores it and
+  does not verify it.
+- The installer runs as root from its source. It refuses a source tree that
+  is not root-owned unless `--trust-source` is passed; install from a
+  root-owned fresh clone of a release tag (see `docs/deployment-hardened.md`).
+- `pip` installs `mcp` and `pydantic` without hash pinning.
+- No operator command overturns precedent on a hardened install.
+
 ## [1.2.0] — 2026-10-10
 
 Verified agent identity and tamper detection. 1.1 enforced the chain for

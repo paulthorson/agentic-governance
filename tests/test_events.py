@@ -262,6 +262,11 @@ class ServerVerdictEventTest(unittest.TestCase):
                     self.assertEqual(evs[0]["trace_id"], "T-9")
                     self.assertEqual(out["record"]["event_id"], evs[0]["event_id"])
 
+                    os.environ.pop("AG_APPROVAL", None)
+                    with mock.patch.object(srv, "REPO_ROOT", d):  # no approval.ok there
+                        refused = srv.overturn_verdict("T-9", "an agent tries")
+                    self.assertEqual(refused["status"], "refused")
+                    os.environ["AG_APPROVAL"] = "1"
                     srv.overturn_verdict("T-9", "precedent was wrong")
                     kinds = [e["kind"] for e in events.read_events(d / "events.jsonl")]
                     self.assertEqual(kinds, ["verdict.recorded", "verdict.overturned"])

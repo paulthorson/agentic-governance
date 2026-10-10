@@ -680,8 +680,15 @@ def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "", ru
 def query_verdicts(domain: str = "", limit: int = 50, source: str = "") -> list[dict[str, Any]]:
     """Query recent review verdicts from the decision record. Optionally filter by
     domain and/or source (e.g. source="app" for real reviews, source="smoke_test"
-    to inspect test records). An empty source filter matches all sources."""
-    return _load_verdicts(domain or None, limit, source or None)
+    to inspect test records). An empty source filter matches all sources.
+
+    Verdicts recorded by the ticket chain are returned without their
+    ``summary``: a reviewer must not read an earlier reviewer's reasons for
+    the ticket it is reviewing (blind review, AGENTS.md rule 1). Operators
+    read them with ``ticket.py show`` or the event log."""
+    rows = _load_verdicts(domain or None, limit, source or None)
+    # Chain copies are the rows chain.py writes with agent_verified.
+    return [{k: v for k, v in r.items() if k != "summary"} if "agent_verified" in r else r for r in rows]
 
 
 @mcp.tool()
@@ -700,6 +707,12 @@ def overturn_verdict(ticket: str, reason: str) -> dict[str, Any]:
     """
     if not ticket or not reason:
         return {"status": "error", "error": "ticket and reason are required."}
+    _events_module()  # puts scripts/ on sys.path
+    from approval import ApprovalRequired, require_approval
+    try:
+        require_approval("overturn_verdict", REPO_ROOT, consume=True)
+    except ApprovalRequired as e:
+        return {"status": "refused", "error": f"Only a human overturns a precedent. {e}"}
     if not VERDICT_LOG.exists():
         return {"status": "error", "error": "No verdict log to overturn from."}
     ev_mod = _events_module()
@@ -805,6 +818,11 @@ def ticket_claim_next(role: str, team: str = "", agent_id: str = "", mode: str =
     awaiting review (never your own). The claim holds a lease; call
     ticket_heartbeat to extend it or it returns to the queue.
 
+    mode="work": the ticket carries ``lastVerdict`` after any verdict, so a
+    worker reclaiming a kicked-back ticket reads the reasons there.
+    mode="review": the ticket carries ``submission.deliverable`` (the work).
+    Review is blind: the worker's summary and earlier verdicts are removed.
+
     When the operator has registered agents (ADR-0011), pass agent_token (or
     start this server with AG_AGENT_TOKEN set). The token decides your id,
     team, and allowed stages; agent_id and team may then be left empty."""
@@ -824,10 +842,18 @@ def ticket_heartbeat(ticket: str, agent_id: str = "", agent_token: str = "") -> 
 
 
 @mcp.tool()
-def ticket_submit(ticket: str, agent_id: str = "", summary: str = "", agent_token: str = "") -> dict[str, Any]:
-    """Submit work you claimed for review. Only the claimant can submit."""
+def ticket_submit(ticket: str, agent_id: str = "", summary: str = "", agent_token: str = "", deliverable: str = "") -> dict[str, Any]:
+    """Submit work you claimed for review. Only the claimant can submit.
+
+    Args:
+        summary: one line on what you did.
+        deliverable: the work itself (text, up to 64K characters) or a path or
+            URL to it. The reviewer reads it from the ticket, so put the actual
+            output here, not a description of it.
+    """
     _, store = _chain_store()
-    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(ticket, agent_id or None, summary, token=agent_token or None)})
+    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(
+        ticket, agent_id or None, summary, token=agent_token or None, deliverable=deliverable)})
 
 
 @mcp.tool()
@@ -885,14 +911,15 @@ def ticket_verify() -> dict[str, Any]:
 
 @mcp.tool()
 def ticket_list(team: str = "", state: str = "") -> list[dict[str, Any]]:
-    """List tickets, optionally filtered by team and state."""
-    _, store = _chain_store()
+    """List tickets, optionally filtered by team and state. Shown blind
+    (no worker summaries or verdict reasons), since any agent can call it."""
+    chain_mod, store = _chain_store()
     rows = store.load()
     if team:
         rows = [t for t in rows if t.get("team") == team]
     if state:
         rows = [t for t in rows if t.get("state") == state]
-    return rows
+    return [chain_mod.review_view(t) for t in rows]
 
 
 @mcp.tool()

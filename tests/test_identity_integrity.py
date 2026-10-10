@@ -489,6 +489,17 @@ class SecondReviewTest(Base):
         self.assertTrue(Path(str(self.store.event_log) + ".torn").exists())
         self.assertTrue(integrity.verify_log(self.store.event_log, None)["ok"])
 
+    def test_torn_tail_longer_than_one_megabyte_keeps_committed_lines(self):
+        """A fragment longer than the old 1 MB scan window must not truncate
+        the committed log to zero."""
+        self._cycle()
+        before = self.store.event_log.read_bytes()
+        with self.store.event_log.open("a") as fh:
+            fh.write('{"kind": "' + "x" * (3 << 20))
+        n = integrity.repair_torn_tail(self.store.event_log)
+        self.assertGreater(n, 3 << 20)
+        self.assertEqual(self.store.event_log.read_bytes(), before)
+
     def test_identity_cannot_be_silently_switched_off(self):
         """L6: emptying or redirecting the registry after commits under identity is detected."""
         eng = self.reg.add("eng-1", "a", ["pm"], "runtime-a")

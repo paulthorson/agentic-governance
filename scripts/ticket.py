@@ -150,8 +150,24 @@ def cmd_show(args) -> None:
     if not t:
         print(f"Ticket {args.id} not found.")
         return
+    sub, lv = t.get("submission"), t.get("lastVerdict")
     for k, v in t.items():
-        print(f"{k}: {v}")
+        if k not in ("submission", "lastVerdict"):
+            print(f"{k}: {v}")
+    if lv:
+        print(f"\n-- last verdict: {lv.get('verdict')} on stage {lv.get('stage')} by {lv.get('by')} at {lv.get('at')}")
+        if lv.get("veto_hits"):
+            print(f"   veto hits: {', '.join(lv['veto_hits'])}")
+        if lv.get("summary"):
+            print(f"   reasons: {lv['summary']}")
+    if sub:
+        print(f"\n-- submission on stage {sub.get('stage')} by {sub.get('by')} at {sub.get('at')}")
+        if sub.get("summary"):
+            print(f"   summary: {sub['summary']}")
+        if sub.get("deliverable"):
+            print("   deliverable:")
+            for line in sub["deliverable"].splitlines() or [""]:
+                print(f"   | {line}")
 
 
 def cmd_claim(args) -> None:
@@ -172,7 +188,10 @@ def cmd_heartbeat(args) -> None:
 
 
 def cmd_submit(args) -> None:
-    _store().submit(args.id, args.agent, args.summary or "", token=_token(args))
+    deliverable = args.deliverable or ""
+    if getattr(args, "deliverable_file", None):
+        deliverable = Path(args.deliverable_file).read_text(encoding="utf-8")
+    _store().submit(args.id, args.agent, args.summary or "", token=_token(args), deliverable=deliverable)
     print(f"{args.id}: submitted for review.")
 
 
@@ -501,6 +520,9 @@ def main() -> None:
     p.add_argument("--agent", default=None)
     p.add_argument("--token", default=None)
     p.add_argument("--summary", default=None)
+    p.add_argument("--deliverable", default=None, help="the work itself, or a path/URL to it")
+    p.add_argument("--deliverable-file", dest="deliverable_file", default=None,
+                   help="read the deliverable text from this file")
     p.set_defaults(fn=cmd_submit)
 
     p = sub.add_parser("verdict", help="record a review verdict")
@@ -580,7 +602,7 @@ def main() -> None:
         print(f"TAMPER: {e}. All writes are stopped. Run `ticket.py verify`, investigate, then "
               f"`ticket.py integrity accept --by NAME --reason ...` (operator approval).", file=sys.stderr)
         sys.exit(4)
-    except (KeyError, ValueError) as e:
+    except (KeyError, ValueError, OSError) as e:
         print(f"ERROR: {str(e).strip(chr(39))}", file=sys.stderr)
         sys.exit(1)
 

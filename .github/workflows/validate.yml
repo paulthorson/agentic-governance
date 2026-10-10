@@ -73,6 +73,18 @@ jobs:
       - name: Run test suite
         run: python -m pytest tests/ -q
 
+  macos-hardened:
+    # Installs the hardened setup on a real Mac (service user, launchd,
+    # locked-down dirs), attacks it from an ordinary account, runs a full
+    # ticket loop over MCP, then uninstalls. ADR-0013.
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Hardened install end to end
+        # The installer fetches its own pinned, hash-checked Python; no Homebrew.
+        run: sudo scripts/macos/e2e-test.sh
+
   secrets:
     runs-on: ubuntu-latest
     permissions:
