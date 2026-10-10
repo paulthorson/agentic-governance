@@ -49,7 +49,7 @@ DOMAIN_DIR = {d: REPO_ROOT / f"adversarial-{d}" for d in DOMAINS}
 
 RUNS_DIR = REPO_ROOT / "runs"
 RUNS_DIR.mkdir(parents=True, exist_ok=True)
-VERDICT_LOG = RUNS_DIR / "verdicts.jsonl"
+VERDICT_LOG = Path(os.environ.get("VERDICT_LOG", RUNS_DIR / "verdicts.jsonl"))
 
 # A21: retention window (days) for the calibration ledger. Entries older than
 # this are summarized to a stub on load (age-out). The operator sets this;
@@ -152,14 +152,46 @@ def _ledger(domain: str) -> str:
 # ---------------------------------------------------------------------------
 
 
+def _events_module():
+    """Load scripts/events.py (ADR-0009 event log). scripts/ is not a package."""
+    import sys
+
+    scripts = str(Path(__file__).resolve().parents[2] / "scripts")
+    if scripts not in sys.path:
+        sys.path.insert(0, scripts)
+    import events  # noqa: E402
+
+    return events
+
+
+def _event_log() -> Path:
+    return Path(os.environ.get("EVENT_LOG", RUNS_DIR / "events.jsonl"))
+
+
 def _append_verdict(record: dict[str, Any]) -> None:
-    record.setdefault("ts", int(time.time() * 1000))
-    # A22: every ruling carries a status (active by default) and a provenance
-    # field linking the artifact to the ruling that permitted it.
+    ev_mod = _events_module()
     record.setdefault("status", "active")
     record.setdefault("provenance", "")
-    with VERDICT_LOG.open("a", encoding="utf-8") as fh:
-        fh.write(json.dumps(record) + "\n")
+    # ADR-0009: every verdict is also an event in the append-only log. The
+    # event_id is copied onto the verdict record so telemetry can dedupe on it.
+    ev = ev_mod.emit(
+        "verdict.recorded",
+        path=_event_log(),
+        ticket=record.get("ticket") or None,
+        role=record.get("domain") or None,
+        outcome=record.get("verdict"),
+        data={
+            "summary": record.get("summary", ""),
+            "rule": record.get("rule", ""),
+            "case_tag": record.get("case_tag", ""),
+            "source": record.get("source", ""),
+        },
+    )
+    record.setdefault("ts", ev["ts"])
+    record.setdefault("event_id", ev["event_id"])
+    # A22: every ruling carries a status (active by default) and a provenance
+    # field linking the artifact to the ruling that permitted it.
+    ev_mod.append_jsonl(VERDICT_LOG, record)
 
 
 def _load_verdicts(domain: str | None = None, limit: int = 50, source: str | None = None) -> list[dict[str, Any]]:
@@ -637,7 +669,10 @@ def record_verdict(domain: str, verdict: str, summary: str, ticket: str = "", ru
         "case_tag": case_tag,
         "source": "app",
     }
-    _append_verdict(rec)
+    try:
+        _append_verdict(rec)
+    except Exception as e:  # KeyRequired on a keyed log without the key, lock timeout, ...
+        return {"recorded": False, "error": str(e)}
     return {"recorded": True, "record": rec}
 
 
@@ -667,6 +702,23 @@ def overturn_verdict(ticket: str, reason: str) -> dict[str, Any]:
         return {"status": "error", "error": "ticket and reason are required."}
     if not VERDICT_LOG.exists():
         return {"status": "error", "error": "No verdict log to overturn from."}
+    ev_mod = _events_module()
+    with ev_mod.file_lock(VERDICT_LOG):
+        result = _overturn_locked(ticket, reason)
+    if result.get("status") == "overturned":
+        ev_mod.emit(
+            "verdict.overturned",
+            path=_event_log(),
+            ticket=ticket,
+            outcome="overturned",
+            data={"reason": reason},
+        )
+    return result
+
+
+def _overturn_locked(ticket: str, reason: str) -> dict[str, Any]:
+    """Rewrite the verdict view with the ruling flagged. Caller holds the lock.
+    The event log keeps the original verdict event untouched (append-only)."""
     lines = VERDICT_LOG.read_text(encoding="utf-8").splitlines()
     found = False
     out = []
@@ -686,8 +738,161 @@ def overturn_verdict(ticket: str, reason: str) -> dict[str, Any]:
         out.append(json.dumps(r))
     if not found:
         return {"status": "error", "error": f"No active ruling found for ticket '{ticket}'."}
-    VERDICT_LOG.write_text("\n".join(out) + "\n", encoding="utf-8")
+    tmp = VERDICT_LOG.with_name(VERDICT_LOG.name + ".tmp")
+    tmp.write_text("\n".join(out) + "\n", encoding="utf-8")
+    os.replace(tmp, VERDICT_LOG)
     return {"status": "overturned", "ticket": ticket, "reason": reason}
+
+
+# ---------------------------------------------------------------------------
+# Chain state machine + stuck-ticket recovery (ADR-0010)
+#
+# Agents run their own loops; these tools govern the edges. Refusals come
+# back as {"status": "refused", ...} and are logged to runs/events.jsonl.
+# Human-only actions (clear a veto, resolve an escalation, override a close)
+# are deliberately NOT exposed over MCP; they live in scripts/ticket.py
+# behind operator approval.
+# ---------------------------------------------------------------------------
+
+
+def _chain_store():
+    _events_module()  # puts scripts/ on sys.path
+    import chain
+
+    ticket_file = Path(os.environ.get("TICKET_FILE", RUNS_DIR / "in_review.json"))
+    return chain, chain.Store(ticket_file, VERDICT_LOG, _event_log())
+
+
+def _chain_call(fn) -> dict[str, Any]:
+    chain, _ = _chain_store()
+    try:
+        return fn()
+    except chain.Refused as e:
+        return {"status": "refused", "reason": str(e)}
+    except chain.CommitPending as e:
+        return {"status": "pending", "reason": str(e), "next": "Do not retry; the change applies on the next call."}
+    except chain.integrity.KeyRequired as e:
+        return {"status": "error", "error": str(e)}
+    except chain.integrity.TamperDetected as e:
+        return {"status": "tampered", "reason": str(e),
+                "next": "All writes are stopped until an operator runs `ticket.py verify` and `ticket.py integrity accept`."}
+    except (KeyError, ValueError) as e:
+        return {"status": "error", "error": str(e).strip("'")}
+
+
+@mcp.tool()
+def ticket_create(title: str, stage: str = "research", team: str = "", end_stage: str = "", agent_id: str = "", agent_token: str = "") -> dict[str, Any]:
+    """Queue a new ticket for the chain (research > pm > ux > engineer > qa).
+
+    Args:
+        title: what needs doing.
+        stage: first stage (default research). A stage outside the chain makes
+            a single-stage ticket.
+        team: team that owns it. Only that team's agents can claim it.
+        end_stage: last chain stage (default qa).
+        agent_id: self-reported id of the caller.
+    """
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "created", "ticket": store.create(
+        title, stage, team, queued=True, end_stage=end_stage or None, agent=agent_id or None,
+        token=agent_token or None, require_token=True)})
+
+
+@mcp.tool()
+def ticket_claim_next(role: str, team: str = "", agent_id: str = "", mode: str = "work", agent_token: str = "") -> dict[str, Any]:
+    """Claim the oldest ticket for your stage and team. Runs stuck-ticket
+    recovery first. mode="work" claims queued work; mode="review" claims work
+    awaiting review (never your own). The claim holds a lease; call
+    ticket_heartbeat to extend it or it returns to the queue.
+
+    When the operator has registered agents (ADR-0011), pass agent_token (or
+    start this server with AG_AGENT_TOKEN set). The token decides your id,
+    team, and allowed stages; agent_id and team may then be left empty."""
+    _, store = _chain_store()
+
+    def go():
+        t = store.claim_next(role, team, agent_id or None, mode, token=agent_token or None)
+        return {"status": "claimed", "ticket": t} if t else {"status": "empty", "role": role, "team": team, "mode": mode}
+    return _chain_call(go)
+
+
+@mcp.tool()
+def ticket_heartbeat(ticket: str, agent_id: str = "", agent_token: str = "") -> dict[str, Any]:
+    """Extend the lease on a ticket you hold."""
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "ok", "lease_expires_at": store.heartbeat(ticket, agent_id or None, token=agent_token or None)["leaseExpiresAt"]})
+
+
+@mcp.tool()
+def ticket_submit(ticket: str, agent_id: str = "", summary: str = "", agent_token: str = "") -> dict[str, Any]:
+    """Submit work you claimed for review. Only the claimant can submit."""
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "submitted", "ticket": store.submit(ticket, agent_id or None, summary, token=agent_token or None)})
+
+
+@mcp.tool()
+def ticket_verdict(ticket: str, verdict: str, agent_id: str = "", veto_hits: str = "", summary: str = "", to_stage: str = "", agent_token: str = "") -> dict[str, Any]:
+    """Record a review verdict on a ticket and move it along the chain.
+
+    PASS advances to the next stage (or closes on the last). KICK_BACK requeues
+    this stage, or an earlier one via to_stage. Any veto hit blocks the ticket
+    until a human clears it. ESCALATE / REVIEW_REQUIRED hand it to a human.
+    You must hold the review claim (ticket_claim_next mode="review") and pass
+    your agent_id. The worker cannot review its own ticket.
+    """
+    _, store = _chain_store()
+    hits = [h.strip() for h in veto_hits.split(",") if h.strip()]
+    return _chain_call(lambda: {"status": "recorded", "ticket": store.verdict(
+        ticket, verdict, agent_id or None, hits, to_stage=to_stage or None, summary=summary,
+        token=agent_token or None)})
+
+
+@mcp.tool()
+def ticket_recover() -> dict[str, Any]:
+    """Run stuck-ticket recovery now: release expired claims, escalate repeat
+    failures, and report stalled queues. Safe to call on a schedule."""
+    _, store = _chain_store()
+    return _chain_call(lambda: {"status": "ok", "events": store.recover()})
+
+
+@mcp.tool()
+def ticket_verify() -> dict[str, Any]:
+    """Read-only integrity check (ADR-0012): walks the hash-chained event log
+    and compares the ticket store with the last signed commit."""
+    chain, store = _chain_store()
+    key = chain.integrity.load_key()
+    with chain.events.file_lock(store.ticket_file):  # never race an honest commit
+        report = chain.integrity.verify_log(store.event_log, key)
+        try:
+            head = chain.integrity.read_head(store.head_file, key) or {}
+        except chain.integrity.TamperDetected as e:
+            head = {}
+            report["head"] = str(e)
+        try:
+            store.check_integrity(repair=False)
+            report["store"] = "matches last commit"
+            store_ok = True
+        except chain.integrity.TamperDetected as e:
+            report["store"] = str(e)
+            store_ok = False
+    open_problems = chain.integrity.unaccepted(report["problems"], head.get("accepted_problems"))
+    report["accepted_problems"] = [p for p in report["problems"] if p not in open_problems]
+    report["problems"] = open_problems
+    report["ok"] = store_ok and not open_problems and "head" not in report
+    report["mode"] = "keyed" if key else "unkeyed"
+    return report
+
+
+@mcp.tool()
+def ticket_list(team: str = "", state: str = "") -> list[dict[str, Any]]:
+    """List tickets, optionally filtered by team and state."""
+    _, store = _chain_store()
+    rows = store.load()
+    if team:
+        rows = [t for t in rows if t.get("team") == team]
+    if state:
+        rows = [t for t in rows if t.get("state") == state]
+    return rows
 
 
 @mcp.tool()
@@ -753,6 +958,15 @@ def refuse_http_without_token(host: str, token: str) -> bool:
     return not token and not is_loopback_bind(host)
 
 
+def refuse_http_with_agent_token() -> bool:
+    """True when a shared HTTP server would inherit one agent's identity.
+
+    AG_AGENT_TOKEN as a server-side fallback is meant for stdio, where each
+    agent host runs its own server process. On HTTP it would let every
+    caller act as that agent."""
+    return bool(os.environ.get("AG_AGENT_TOKEN"))
+
+
 def bearer_token_matches(authorization: str, token: str) -> bool:
     """Constant-time compare of Authorization against Bearer <token>."""
     expected = f"Bearer {token}".encode("utf-8")
@@ -793,6 +1007,14 @@ def main() -> None:
     # with a non-stdio transport serves the server on the given port.
     import sys
     import uvicorn
+
+    if refuse_http_with_agent_token():
+        print(
+            "ERROR: AG_AGENT_TOKEN is set for an HTTP server. Every caller would act "
+            "as that one agent. Unset it; HTTP callers pass agent_token per call (ADR-0011).",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
 
     # HTTP transport: require a bearer token off loopback. Loopback may omit
     # MCP_AUTH_TOKEN only with a loud warning. Non-loopback without a token

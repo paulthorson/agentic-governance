@@ -26,8 +26,12 @@ class TicketTest(unittest.TestCase):
         self.root = Path(self._tmp.name)
         self.ticket_file = self.root / "in_review.json"
         self.verdict_log = self.root / "verdicts.jsonl"
+        self.event_log = self.root / "events.jsonl"
         tk.TICKET_FILE = self.ticket_file
         tk.VERDICT_LOG = self.verdict_log
+        tk.EVENT_LOG = self.event_log
+        # Approval checks resolve against this root, never the real checkout.
+        tk.REPO_ROOT = self.root
 
     def tearDown(self):
         self._tmp.cleanup()
@@ -49,9 +53,11 @@ class TicketTest(unittest.TestCase):
         self.assertEqual(tickets[1]["identifier"], "T-2")
         self.assertEqual(tickets[0]["status"], "in_review")
 
-    def test_verdict_kickback_keeps_in_review(self):
+    def test_verdict_kickback_with_veto_blocks(self):
         self._new("Fix login")
+        tk._store().claim_next("engineer", "team-a", "eng-critic", mode="review")
         class A:
+            agent = "eng-critic"
             id = "T-1"
             verdict = "KICK_BACK"
             domain = "engineer"
@@ -64,13 +70,16 @@ class TicketTest(unittest.TestCase):
         rec = json.loads(lines[0])
         self.assertEqual(rec["verdict"], "KICK_BACK")
         self.assertTrue(rec["veto_triggered"])
-        # Ticket still in_review
+        # 1.1: a vetoed ticket is blocked until a human clears it (ADR-0010).
         tickets = tk._load_tickets()
-        self.assertEqual(tickets[0]["status"], "in_review")
+        self.assertEqual(tickets[0]["status"], "blocked")
+        self.assertTrue(tickets[0]["veto_open"])
 
     def test_verdict_pass_marks_done(self):
         self._new("Fix login")
+        tk._store().claim_next("engineer", "team-a", "eng-critic", mode="review")
         class A:
+            agent = "eng-critic"
             id = "T-1"
             verdict = "PASS"
             domain = "engineer"
@@ -80,13 +89,19 @@ class TicketTest(unittest.TestCase):
         tickets = tk._load_tickets()
         self.assertEqual(tickets[0]["status"], "done")
 
-    def test_done_marks_done(self):
+    def test_done_without_pass_is_refused(self):
+        """ADR-0009: `done` no longer closes a ticket that skipped review."""
         self._new("Fix login")
         class A:
             id = "T-1"
-        tk.cmd_done(A())
+            override = False
+            agent = "eng-bot"
+        with self.assertRaises(tk.Refused):
+            tk.cmd_done(A())
         tickets = tk._load_tickets()
-        self.assertEqual(tickets[0]["status"], "done")
+        self.assertEqual(tickets[0]["status"], "in_review")
+        kinds = [json.loads(l)["kind"] for l in self.event_log.read_text().splitlines()]
+        self.assertIn("ticket.transition_refused", kinds)
 
     def test_watchdog_integration(self):
         # A ticket created now is fresh (not stuck) -> ok_no_findings

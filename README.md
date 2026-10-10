@@ -22,7 +22,7 @@ Running AI agents can spend money, exfiltrate data, modify systems, and cause ha
 
 | Kind | Examples (see capability report) |
 |---|---|
-| **Code** | Framework-unit spend refuse on gated MCP reviews; messaging egress only when `network_permission=allow`; approval checkpoints on listed subprocess/outbound/outside-write sites; MCP HTTP default bind `127.0.0.1` |
+| **Code** | Chain transitions, reviewer independence, and the close rule for writes through `chain.py` (CLI + MCP `ticket_*`); agent identity once a registry exists; tamper detection on the ticket store and event log; framework-unit spend refuse on gated MCP reviews; messaging egress only when `network_permission=allow`; approval checkpoints on listed subprocess/outbound/outside-write sites; MCP HTTP default bind `127.0.0.1` |
 | **Instruction / process** | CEO pacing language; blind-review isolation; human-only veto clearing; append-only ledger norms |
 
 Detail: [`docs/capability-report.md` §12.8](docs/capability-report.md#128-code-vs-instruction-controls-summary).
@@ -39,7 +39,10 @@ This is an independent personal project. It is not a product of, or endorsed by,
 |---|---|---|
 | **Constitution** (`constitution/`) | Written veto rules and domain law | Files in tree |
 | **Harnesses** (`harnesses/`) | Role instructions (own / never / stop conditions) | Files in tree |
-| **Chain** | Directed edges Research → PM → UX → Engineer → QA → CEO (documented) | Spec + harnesses |
+| **Chain** | Research → PM → UX → Engineer → QA as a state machine: team-scoped claims with leases, reviewer independence, kick-back routing, stuck-ticket recovery (CEO routing remains instruction) | `scripts/chain.py`, ADR-0010, capability report §12.13 |
+| **Event log** | Append-only, versioned, hash-chained record of every governed action (`runs/events.jsonl`) | `scripts/events.py`, ADR-0009, ADR-0012, capability report §12.12 |
+| **Identity** | Operator-registered agents with tokens, teams, roles, and principals; reviewer and worker must differ by principal | `scripts/identity.py`, ADR-0011, capability report §12.14 |
+| **Integrity** | Signed head record; direct edits to tickets or the log stop all writes until an operator accepts | `scripts/integrity.py`, ADR-0012, capability report §12.15, [hardened deployment](docs/deployment-hardened.md) |
 | **Calibration ledger** (`ledger/`) | Precedent records (ordinary files) | Files in tree |
 | **Config** (`config/`) | Wizard output: roster, budget units, network permission, alerts | Wizard writes; see capability report §12.1–12.3 |
 | **Plugins** (`adversarial-*/`) | Adversary agents and skills | Files in tree |
@@ -161,6 +164,9 @@ Domains ship under `adversarial-*/` (UX, engineer, QA, researcher, universal, pr
 
 ## Tooling & CI
 
+- `scripts/ticket.py` + `scripts/chain.py` — ticket store, chain state machine, stuck-ticket recovery ([ADR-0010](docs/adr/0010-chain-state-machine-and-recovery.md))
+- `scripts/identity.py` + `scripts/integrity.py` — agent registry and tamper detection; `ticket.py doctor` reports what is enforced on your install ([ADR-0011](docs/adr/0011-verified-agent-identity.md), [ADR-0012](docs/adr/0012-tamper-detection.md))
+- `scripts/events.py` — append-only event log ([schema](scripts/events.schema.md), [ADR-0009](docs/adr/0009-event-log-and-close-gate.md))
 - `scripts/validate.py` — structure validator; `git apply --check` on patches requires approval when patches exist
 - `.github/workflows/validate.yml` — validate + tests + gitleaks
 - `scripts/messaging.py` — alerts (network permission + approval)
