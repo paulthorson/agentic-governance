@@ -136,6 +136,10 @@ def parse_proc_net_tcp(text: str) -> list[Socket]:
 
 # ---- finding the server and its clients ---------------------------------------
 
+class CheckError(Exception):
+    """The check could not see what it needs. Reported as FAIL, never as PASS."""
+
+
 def _loopback(host: str) -> bool:
     try:
         return ipaddress.ip_address(host).is_loopback
@@ -149,18 +153,24 @@ def server_ports(sockets: list[Socket], service_uid: int) -> set[int]:
 
 
 def client_sockets(sockets: list[Socket], ports: set[int], service_uid: int) -> list[Socket]:
-    """Established loopback connections whose remote end is one of the server's ports.
+    """Established connections from this host whose remote end is one of the server's ports.
 
+    A connection counts when its remote address is loopback or any address this
+    host owns (a server bound to 0.0.0.0 can be reached on a LAN address too).
     The server's own accepted sockets have the port on the local side, so they
     drop out. A client running as the service user stays in: that is a finding.
     """
+    own = {s.local[0] for s in sockets} | {"127.0.0.1", "::1"}
     return [s for s in sockets
             if not s.listening and s.remote is not None
-            and s.remote[1] in ports and _loopback(s.remote[0])
+            and s.remote[1] in ports and (_loopback(s.remote[0]) or s.remote[0] in own)
             and not (s.uid == service_uid and s.local[1] in ports)]
 
 
 # ---- who is allowed ----------------------------------------------------------
+
+TIMEOUT = 15  # seconds for each external command; a stall is a FAIL, not a hang
+
 
 def _user_name(uid: int) -> str:
     try:
@@ -169,24 +179,49 @@ def _user_name(uid: int) -> str:
         return f"uid {uid}"
 
 
+def _in_group(user: str, group: str) -> bool:
+    try:
+        g = grp.getgrnam(group)
+    except KeyError:
+        return False
+    try:
+        primary = pwd.getpwnam(user).pw_gid
+    except KeyError:
+        primary = None
+    return user in g.gr_mem or primary == g.gr_gid
+
+
 def is_admin_macos(user: str) -> bool:
-    r = subprocess.run([DSEDITGROUP, "-o", "checkmember", "-m", user, "admin"],
-                       capture_output=True, text=True)
-    return r.returncode == 0
+    """Member of the admin group, by dseditgroup and by the group database.
+
+    Either source saying yes is enough. dseditgroup output that is neither a
+    clear yes nor a clear no raises CheckError, so a directory-service failure
+    can never turn an admin into a PASS.
+    """
+    if _in_group(user, "admin"):
+        return True
+    try:
+        r = subprocess.run([DSEDITGROUP, "-o", "checkmember", "-m", user, "admin"],
+                           capture_output=True, text=True, timeout=TIMEOUT)
+    except subprocess.TimeoutExpired:
+        raise CheckError(f"dseditgroup timed out checking whether {user} is an admin")
+    out = r.stdout.strip().lower()
+    if out.startswith("yes"):
+        return True
+    if out.startswith("no") and "not a member" in out:
+        return False
+    raise CheckError(f"could not tell whether {user} is an admin "
+                     f"(dseditgroup exit {r.returncode}: {(r.stdout or r.stderr).strip()[:120]})")
 
 
 def is_admin_linux(user: str) -> bool:
     try:
         pw = pwd.getpwnam(user)
     except KeyError:
-        return False
+        raise CheckError(f"no account named {user}")
     if pw.pw_uid == 0:
         return True
-    names = set()
-    for g in grp.getgrall():
-        if user in g.gr_mem or g.gr_gid == pw.pw_gid:
-            names.add(g.gr_name)
-    return bool(names & set(ADMIN_GROUPS_LINUX))
+    return any(_in_group(user, g) for g in ADMIN_GROUPS_LINUX)
 
 
 def classify(clients: list[Socket], *, service_user: str, operator: str | None,
@@ -201,8 +236,8 @@ def classify(clients: list[Socket], *, service_user: str, operator: str | None,
             p.pids.add(s.pid)
 
     if not peers:
-        return [("INFO", "no live MCP connections; start the agents and run doctor again "
-                         "to see which OS users they run as")]
+        return [("INFO", "no live MCP connections, so no agent was checked; start the agents "
+                         "and run doctor again while they are connected")]
 
     findings: list[tuple[str, str]] = []
     for uid in sorted(peers):
@@ -214,11 +249,19 @@ def classify(clients: list[Socket], *, service_user: str, operator: str | None,
             tail = "(process not visible without root)"
         if uid == 0:
             findings.append(("FAIL", f"an MCP client runs as root {tail}"))
-        elif p.user == service_user:
+            continue
+        if p.user == service_user:
             findings.append(("FAIL", f"an MCP client runs as the service user {p.user}, which owns runs/ and config/ {tail}"))
-        elif operator and p.user == operator:
+            continue
+        if operator and p.user == operator:
             findings.append(("FAIL", f"an MCP client runs as the operator's login user {p.user} {tail}"))
-        elif is_admin(p.user):
+            continue
+        try:
+            admin = is_admin(p.user)
+        except CheckError as e:
+            findings.append(("FAIL", f"{e}; treating {p.user} as unchecked {tail}"))
+            continue
+        if admin:
             findings.append(("FAIL", f"an MCP client runs as {p.user}, an admin {tail}"))
         else:
             findings.append(("PASS", f"agent user {p.user} {tail}"))
@@ -230,20 +273,33 @@ def classify(clients: list[Socket], *, service_user: str, operator: str | None,
 def collect_macos() -> list[Socket]:
     if os.geteuid() != 0:
         raise PermissionError("on macOS only root can see other users' connections; run via sudo agctl doctor")
-    r = subprocess.run([LSOF, "-nP", "-iTCP", "-sTCP:LISTEN,ESTABLISHED", "-F", "pcun"],
-                       capture_output=True, text=True)
-    # lsof exits 1 when it finds nothing; any other failure leaves stdout empty.
+    try:
+        r = subprocess.run([LSOF, "-nP", "-iTCP", "-sTCP:LISTEN,ESTABLISHED", "-F", "pcun"],
+                           capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           timeout=TIMEOUT)
+    except subprocess.TimeoutExpired:
+        raise CheckError("lsof timed out listing connections")
+    except OSError as e:
+        raise CheckError(f"could not run lsof: {e}")
+    # lsof exits 0 with results, 1 with none. Anything else, or exit 1 with an
+    # error message, means the list cannot be trusted.
+    if r.returncode not in (0, 1) or (r.returncode == 1 and r.stderr.strip()):
+        raise CheckError(f"lsof failed (exit {r.returncode}): {r.stderr.strip()[:160]}")
     return parse_lsof(r.stdout)
 
 
 def collect_linux() -> list[Socket]:
     socks: list[Socket] = []
+    read_any = False
     for path in ("/proc/net/tcp", "/proc/net/tcp6"):
         try:
-            with open(path, encoding="ascii") as fh:
+            with open(path, encoding="ascii", errors="replace") as fh:
                 socks += parse_proc_net_tcp(fh.read())
+            read_any = True
         except FileNotFoundError:
             continue
+    if not read_any:
+        raise CheckError("could not read /proc/net/tcp")
     return socks
 
 
@@ -252,22 +308,37 @@ def findings(service_user: str, operator: str | None = None, port: int | None = 
         service_uid = pwd.getpwnam(service_user).pw_uid
     except KeyError:
         return [("FAIL", f"service user {service_user} does not exist")]
-    if sys.platform == "darwin":
-        try:
-            socks = collect_macos()
-        except PermissionError as e:
-            return [("INFO", str(e))]
-        is_admin = is_admin_macos
-    elif sys.platform.startswith("linux"):
-        socks = collect_linux()
-        is_admin = is_admin_linux
-    else:
-        return [("INFO", f"connection peers are not checked on {sys.platform}")]
+    out: list[tuple[str, str]] = []
+    if not operator:
+        out.append(("INFO", "operator login unknown (not run through sudo); an agent running as "
+                            "the operator's own account is caught only if that account is an admin"))
+    try:
+        if sys.platform == "darwin":
+            try:
+                socks = collect_macos()
+            except PermissionError as e:
+                return out + [("INFO", str(e))]
+            is_admin = is_admin_macos
+        elif sys.platform.startswith("linux"):
+            socks = collect_linux()
+            is_admin = is_admin_linux
+        else:
+            return out + [("INFO", f"connection peers are not checked on {sys.platform}")]
+    except CheckError as e:
+        return out + [("FAIL", f"{e}; cannot check which users agents run as")]
 
-    ports = {port} if port else server_ports(socks, service_uid)
+    listening = server_ports(socks, service_uid)
+    if port:
+        if port not in listening:
+            return out + [("FAIL", f"nothing is listening on port {port} as {service_user}; "
+                                   f"cannot check which users agents run as")]
+        ports = {port}
+    else:
+        ports = listening
     if not ports:
-        return [("WARN", f"no MCP server listening as {service_user}; cannot check which users agents run as")]
-    out = [("INFO", f"MCP server port{'s' if len(ports) > 1 else ''} checked: {', '.join(map(str, sorted(ports)))}")]
+        return out + [("FAIL", f"no MCP server is listening as {service_user}; "
+                               f"cannot check which users agents run as")]
+    out.append(("INFO", f"MCP server port{'s' if len(ports) > 1 else ''} checked: {', '.join(map(str, sorted(ports)))}"))
     out += classify(client_sockets(socks, ports, service_uid),
                     service_user=service_user, operator=operator, is_admin=is_admin)
     return out

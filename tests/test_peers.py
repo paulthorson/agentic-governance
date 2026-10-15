@@ -1,7 +1,8 @@
 """S1.1.1: doctor reports which OS user each live MCP connection runs as.
 
-Parsers are tested against captured-format fixtures for macOS lsof and Linux
-/proc/net/tcp. On Linux a live test opens a real listener and a real client
+Parsers are tested against hand-written fixtures in the field formats of
+macOS `lsof -F pcun` and Linux /proc/net/tcp. The hardened macOS e2e test
+prints real lsof-derived output. On Linux a live test opens a real listener and a real client
 and checks the report end to end. The macOS root path (agctl doctor) is
 tested on a hardened install in scripts/macos/e2e-test.sh.
 """
@@ -140,6 +141,108 @@ class ClassifyTest(unittest.TestCase):
     def test_one_line_per_user_mixed(self):
         res = self._run([self._s(502, pid=1), self._s(501, pid=2)], names={502: "agent", 501: "opuser"})
         self.assertEqual([lvl for lvl, _ in res], ["FAIL", "PASS"])
+
+
+class FailClosedTest(unittest.TestCase):
+    """Every way the check can fail to see something must be a FAIL, never a PASS."""
+
+    def _fake_run(self, rc=0, out="", err="", raise_timeout=False):
+        def run(*a, **k):
+            if raise_timeout:
+                raise subprocess.TimeoutExpired(a[0], 1)
+            return subprocess.CompletedProcess(a[0], rc, out, err)
+        return run
+
+    def _patch(self, name, value):
+        orig = getattr(peers, name)
+        setattr(peers, name, value)
+        self.addCleanup(setattr, peers, name, orig)
+
+    def _patch_run(self, fn):
+        orig = peers.subprocess.run
+        peers.subprocess.run = fn
+        self.addCleanup(setattr, peers.subprocess, "run", orig)
+
+    def test_dseditgroup_yes_no_and_garbage(self):
+        self._patch("_in_group", lambda u, g: False)
+        self._patch_run(self._fake_run(0, "yes alice is a member of admin\n"))
+        self.assertTrue(peers.is_admin_macos("alice"))
+        self._patch_run(self._fake_run(67, "no bob is NOT a member of admin\n"))
+        self.assertFalse(peers.is_admin_macos("bob"))
+        self._patch_run(self._fake_run(70, "", "Unable to contact the directory\n"))
+        with self.assertRaises(peers.CheckError):
+            peers.is_admin_macos("carol")
+        self._patch_run(self._fake_run(raise_timeout=True))
+        with self.assertRaises(peers.CheckError):
+            peers.is_admin_macos("dave")
+
+    def test_group_database_yes_wins_without_dseditgroup(self):
+        self._patch("_in_group", lambda u, g: u == "eve" and g == "admin")
+        self._patch_run(self._fake_run(70, "", "broken"))
+        self.assertTrue(peers.is_admin_macos("eve"))
+
+    def test_admin_check_error_is_a_fail(self):
+        def broken(user):
+            raise peers.CheckError(f"could not tell whether {user} is an admin")
+        sock = peers.Socket(7, "agent", 502, ("127.0.0.1", 50000), ("127.0.0.1", 8765))
+        self._patch("_user_name", lambda uid: "frank")
+        res = peers.classify([sock], service_user="_aggov", operator="op", is_admin=broken)
+        self.assertEqual(res[0][0], "FAIL")
+        self.assertIn("could not tell whether frank is an admin", res[0][1])
+
+    def test_lsof_failure_is_a_check_error(self):
+        self._patch_run(self._fake_run(2, "", "lsof: unsupported"))
+        orig = peers.os.geteuid
+        peers.os.geteuid = lambda: 0
+        self.addCleanup(setattr, peers.os, "geteuid", orig)
+        with self.assertRaises(peers.CheckError):
+            peers.collect_macos()
+        self._patch_run(self._fake_run(1, "", "lsof: WARNING: can't stat()"))
+        with self.assertRaises(peers.CheckError):
+            peers.collect_macos()
+        self._patch_run(self._fake_run(1, "", ""))
+        self.assertEqual(peers.collect_macos(), [])
+
+    def test_lsof_odd_bytes_in_command_name(self):
+        text = "p1\ncsrv\nu450\nn127.0.0.1:8765\np2\ncag\ufffd\\x0aent\nu502\nn127.0.0.1:50000->127.0.0.1:8765\n"
+        socks = peers.parse_lsof(text)
+        self.assertEqual([c.uid for c in peers.client_sockets(socks, {8765}, 450)], [502])
+
+    def test_client_on_lan_address_is_counted(self):
+        # Server bound to 0.0.0.0; the agent connects to the host's LAN address.
+        text = ("p1\ncsrv\nu450\nn*:8765\nn192.168.1.20:8765->192.168.1.20:50111\n"
+                "p2\ncagent\nu502\nn192.168.1.20:50111->192.168.1.20:8765\n"
+                "p3\ncbrowser\nu502\nn192.168.1.20:50222->10.9.9.9:8765\n")
+        socks = peers.parse_lsof(text)
+        self.assertEqual([c.pid for c in peers.client_sockets(socks, {8765}, 450)], [2])
+
+    def test_is_admin_linux_unknown_user_raises(self):
+        with self.assertRaises(peers.CheckError):
+            peers.is_admin_linux("no-such-user-ag")
+
+    def test_is_admin_linux_root(self):
+        self.assertTrue(peers.is_admin_linux(pwd.getpwuid(0).pw_name))
+
+
+@unittest.skipUnless(sys.platform.startswith("linux"), "Linux /proc path")
+class LinuxNothingToSeeTest(unittest.TestCase):
+    def test_no_listener_for_service_user_is_a_fail(self):
+        res = peers.findings("nobody", "op", None)
+        self.assertEqual(res[-1][0], "FAIL")
+        self.assertIn("no MCP server is listening as nobody", res[-1][1])
+
+    def test_port_without_listener_is_a_fail(self):
+        me = pwd.getpwuid(os.getuid()).pw_name
+        with socket.socket() as s:
+            s.bind(("127.0.0.1", 0))
+            free = s.getsockname()[1]  # bound, not listening
+            res = peers.findings(me, "op", free)
+        self.assertEqual(res[-1][0], "FAIL")
+        self.assertIn(f"nothing is listening on port {free}", res[-1][1])
+
+    def test_unknown_operator_is_stated(self):
+        res = peers.findings("nobody", None, None)
+        self.assertIn("operator login unknown", res[0][1])
 
 
 # The live client runs as whoever runs the tests. As root that is the root

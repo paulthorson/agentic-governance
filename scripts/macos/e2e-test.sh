@@ -35,6 +35,16 @@ URL="http://127.0.0.1:$PORT/mcp"
 HARDEN=("$SRC/scripts/macos/harden.sh" --prefix "$PREFIX" --user "$SVC" --label "$LABEL" --port "$PORT" --trust-source)
 AGCTL="$PREFIX/scripts/macos/agctl"
 
+# A run killed with SIGKILL skips cleanup. Remove its leftover test account:
+# only hidden, shell-less _agpeer<digits> accounts with a uid in 400-449.
+for u in $(dscl . -list /Users | grep -E '^_agpeer[0-9]+$' || true); do
+  uid=$(dscl . -read "/Users/$u" UniqueID 2>/dev/null | awk '{print $2}')
+  sh=$(dscl . -read "/Users/$u" UserShell 2>/dev/null | awk '{print $2}')
+  if [ -n "$uid" ] && [ "$uid" -ge 400 ] && [ "$uid" -le 449 ] && [ "$sh" = /usr/bin/false ]; then
+    dscl . -delete "/Users/$u" 2>/dev/null || true; dscl . -delete "/Groups/$u" 2>/dev/null || true
+  fi
+done
+
 PASS=0; FAIL=0
 ok()  { echo "PASS: $1"; PASS=$((PASS+1)); }
 bad() { echo "FAIL: $1"; FAIL=$((FAIL+1)); }
@@ -127,31 +137,49 @@ if echo "$DOC" | grep -q '\[FAIL'; then bad "doctor reports FAIL"; else ok "doct
 
 echo "== doctor reports the OS user behind each live MCP connection (S1.1.1)"
 # A throwaway hidden, non-admin account stands in for a properly separated
-# agent. The account that ran sudo (the CI runner, an admin) stands in for an
-# agent running as the operator.
-PEER="_agpeer$ID"
+# agent. The account that ran sudo stands in for an agent running as the
+# operator, and (checked without an operator name) as an admin.
+HOLD='import socket,sys,time; c=socket.create_connection(("127.0.0.1",int(sys.argv[1]))); time.sleep(120)'
 used=$( { dscl . -list /Users UniqueID; dscl . -list /Groups PrimaryGroupID; } | awk '{print $2}' )
 PEERID=""
 for i in $(seq 400 449); do echo "$used" | grep -qx "$i" || { PEERID=$i; break; }; done
-dscl . -create "/Groups/$PEER"; dscl . -create "/Groups/$PEER" PrimaryGroupID "$PEERID"
-dscl . -create "/Users/$PEER"; dscl . -create "/Users/$PEER" UniqueID "$PEERID"
-dscl . -create "/Users/$PEER" PrimaryGroupID "$PEERID"; dscl . -create "/Users/$PEER" UserShell /usr/bin/false
-dscl . -create "/Users/$PEER" NFSHomeDirectory /var/empty; dscl . -create "/Users/$PEER" IsHidden 1
-HOLD='import socket,sys,time; c=socket.create_connection(("127.0.0.1",int(sys.argv[1]))); time.sleep(30)'
-sudo -u "$PEER" "$PREFIX/python/bin/python3" -c "$HOLD" "$PORT" & HOLD_PIDS="$!"
-sleep 2
-DOC=$("$AGCTL" doctor 2>&1); rc=$?
-echo "$DOC" | grep -E '^\[(PASS|FAIL|INFO)\] (agent user|an MCP client|MCP server|no live)' || true
-if echo "$DOC" | grep -q "^\[PASS\] agent user $PEER "; then ok "doctor lists a non-admin agent user as PASS"; else bad "doctor did not list $PEER as PASS"; fi
-if [ "$rc" -eq 0 ]; then ok "doctor exits 0 with only a non-admin agent connected"; else bad "doctor exit $rc with a non-admin agent"; fi
-as_agent "$PREFIX/python/bin/python3" -c "$HOLD" "$PORT" & HOLD_PIDS="$HOLD_PIDS $!"
-sleep 2
-DOC=$("$AGCTL" doctor 2>&1); rc=$?
-if echo "$DOC" | grep -q "^\[FAIL\] an MCP client runs as the operator's login user $AGENT "; then
-  ok "doctor fails an agent running as the operator's login"; else bad "doctor did not flag $AGENT"; echo "$DOC"; fi
-if [ "$rc" -eq 4 ]; then ok "doctor exits 4 when an agent runs as the operator"; else bad "doctor exit $rc with the operator connected"; fi
-kill $HOLD_PIDS 2>/dev/null; wait $HOLD_PIDS 2>/dev/null; HOLD_PIDS=""
-dscl . -delete "/Users/$PEER"; dscl . -delete "/Groups/$PEER"; PEER=""
+if [ -z "$PEERID" ]; then
+  bad "no free uid in 400-449 for the test account; S1.1.1 checks skipped"
+else
+  PEER="_agpeer$ID"
+  dscl . -create "/Groups/$PEER"; dscl . -create "/Groups/$PEER" PrimaryGroupID "$PEERID"
+  dscl . -create "/Users/$PEER"; dscl . -create "/Users/$PEER" UniqueID "$PEERID"
+  dscl . -create "/Users/$PEER" PrimaryGroupID "$PEERID"; dscl . -create "/Users/$PEER" UserShell /usr/bin/false
+  dscl . -create "/Users/$PEER" NFSHomeDirectory /var/empty; dscl . -create "/Users/$PEER" IsHidden 1
+
+  sudo -u "$PEER" "$PREFIX/python/bin/python3" -c "$HOLD" "$PORT" & HOLD_PIDS="$!"
+  sleep 2
+  DOC=$("$AGCTL" doctor 2>&1); rc=$?
+  echo "$DOC" | grep -E '^\[(PASS|FAIL|INFO)\] (agent user|an MCP client|MCP server|no live|could not|operator)' || true
+  if echo "$DOC" | grep -q "^\[PASS\] agent user $PEER "; then ok "doctor lists a non-admin agent user as PASS"; else bad "doctor did not list $PEER as PASS"; fi
+  if [ "$rc" -eq 0 ]; then ok "doctor exits 0 with only a non-admin agent connected"; else bad "doctor exit $rc with a non-admin agent"; fi
+
+  as_agent "$PREFIX/python/bin/python3" -c "$HOLD" "$PORT" & HOLD_PIDS="$HOLD_PIDS $!"
+  sleep 2
+  DOC=$("$AGCTL" doctor 2>&1); rc=$?
+  if echo "$DOC" | grep -q "^\[FAIL\] an MCP client runs as the operator's login user $AGENT "; then
+    ok "doctor fails an agent running as the operator's login"; else bad "doctor did not flag $AGENT as the operator"; echo "$DOC"; fi
+  if [ "$rc" -eq 4 ]; then ok "doctor exits 4 when an agent runs as the operator"; else bad "doctor exit $rc with the operator connected"; fi
+
+  # The admin rule on its own: same connection, no operator name given.
+  if dseditgroup -o checkmember -m "$AGENT" admin >/dev/null 2>&1; then
+    OUT=$(/usr/bin/env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin HOME=/var/root \
+          "$PREFIX/python/bin/python3" -I "$PREFIX/scripts/peers.py" --service-user "$SVC" 2>&1); rc=$?
+    if echo "$OUT" | grep -q "^\[FAIL\] an MCP client runs as $AGENT, an admin "; then
+      ok "doctor fails an agent running as an admin"; else bad "admin rule did not flag $AGENT"; echo "$OUT"; fi
+    if [ "$rc" -eq 4 ]; then ok "admin connection exits 4"; else bad "admin connection exit $rc"; fi
+  else
+    echo "SKIP: $AGENT is not an admin, so the admin rule is not exercised here"
+  fi
+
+  kill $HOLD_PIDS 2>/dev/null; wait $HOLD_PIDS 2>/dev/null; HOLD_PIDS=""
+  dscl . -delete "/Users/$PEER"; dscl . -delete "/Groups/$PEER"; PEER=""
+fi
 
 echo "== tamper (simulating someone with service-user rights) is detected and stops writes"
 sudo -u "$SVC" /usr/bin/sed -i '' 's/"state": "done"/"state": "queued"/' "$PREFIX/runs/in_review.json"

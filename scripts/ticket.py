@@ -473,9 +473,10 @@ def cmd_doctor(args) -> None:
     if sys.platform == "darwin":
         add("INFO", "agent OS users: sudo agctl doctor checks live MCP connections as root")
     elif args.mcp_port:
-        import getpass
+        import pwd
         import peers
-        for level, msg in peers.findings(getpass.getuser(), os.environ.get("SUDO_USER"), args.mcp_port):
+        me = pwd.getpwuid(os.geteuid()).pw_name  # the framework user doctor runs as, not $USER
+        for level, msg in peers.findings(me, os.environ.get("SUDO_USER"), args.mcp_port):
             add(level, msg)
     else:
         add("INFO", "agent OS users: pass --mcp-port <port> to check which users live MCP connections run as")

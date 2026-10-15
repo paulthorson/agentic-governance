@@ -88,9 +88,12 @@ that agent's own config.
 `sudo .../agctl doctor`. For every live connection to the MCP server it
 prints the OS user on the other end: `[PASS] agent user <name>` for an
 ordinary account, `[FAIL]` for root, an admin, the service user, or the
-login you ran sudo from. Any FAIL exits 4. An agent that is not connected
-when doctor runs does not show up, so run it while the agents are up. On
-Linux, run `ticket.py doctor --mcp-port <port>` as the framework user.
+login you ran sudo from. Any FAIL exits 4, and so does a check that could
+not run. An agent that is not connected when doctor runs does not show up:
+`no live MCP connections` means nothing was checked, so run doctor while the
+agents are up. "Admin" means a member of the `admin` group; sudo rights
+granted another way are not detected. On Linux, run
+`ticket.py doctor --mcp-port <port>` as the framework user.
 
 What the CI test proves on a real Mac, from an ordinary account with a shell:
 it cannot list or read `runs/`, read the key, registry, or bearer token,

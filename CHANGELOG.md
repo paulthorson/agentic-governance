@@ -10,20 +10,37 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - `agctl doctor` reports the OS user behind each live MCP connection:
-  `[PASS] agent user <name>` for an ordinary account, `[FAIL]` and exit 4
+  `[PASS] agent user <name>` for an ordinary account; `[FAIL]` and exit 4
   for root, an admin, the service user, or the operator's own login. On
-  macOS the check runs as root inside `agctl` (only root can see other
-  users' sockets); on Linux, `ticket.py doctor --mcp-port <port>` reads
-  `/proc/net/tcp`. New `scripts/peers.py`, standard library only. Tested on
-  a hardened install in CI with a throwaway non-admin account (PASS) and the
-  admin account that ran the test (FAIL). (S1.1.1)
+  macOS the check runs as root inside `agctl`, because only root can see
+  other users' sockets; on Linux, `ticket.py doctor --mcp-port <port>` reads
+  `/proc/net/tcp`. New `scripts/peers.py`, standard library only.
+- The check fails closed. If lsof or the admin lookup errors or times out,
+  if no server is listening as the service user, or if the given port has
+  no listener, doctor prints FAIL rather than PASS.
+- Tested on a hardened Mac install in CI. A throwaway non-admin account
+  holding a connection gets PASS and exit 0. The account that ran the test
+  gets FAIL as the operator's login. With no operator name, the same
+  connection gets FAIL as an admin, if that account is one; the test says
+  SKIP otherwise. On Linux, unit tests cover both parsers and every rule,
+  and a live test checks a real connection.
+- This is the connection half of S1.1.1. The other half, checking who owns
+  each agent's enrollment stub, waits for stubs, which arrive with
+  `team enroll` in 1.4.
 
 ### Not enforced
 
 - Doctor sees only connections open while it runs. An agent that is not
-  running, or that connects only when it has work, is not checked.
+  running, or that connects only when it has work, is not checked. INFO
+  "no live MCP connections" with exit 0 means nothing was checked.
 - Doctor reports which user an agent runs as. Nothing stops an agent from
   running as an admin; the operator acts on the FAIL.
+- "Admin" means a member of the `admin` group on macOS, or of `sudo`,
+  `wheel`, `admin` or `root` on Linux. A user given sudo rights directly in
+  `/etc/sudoers` shows as PASS.
+- A PASS names the owner of the client socket. An agent that reaches the
+  server through a forwarder (an ssh tunnel, a bridge, a port forward) is
+  reported as the forwarder's user.
 
 ## [1.2.2] — 2026-10-15
 
