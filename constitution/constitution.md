@@ -6,8 +6,8 @@ file before acting, and no agent may edit one.
 
 ## What is enforced by code, and what is not
 
-Rule 1 is enforced by code. In every domain the harm veto has two code gates,
-and the first one is narrow.
+Rule 1 has two code gates: a word-match tripwire on submissions, and a veto
+clear that only a human can approve.
 
 - The review tools in the MCP server scan a submission against a fixed list
   of the domain's veto terms and patterns and return `KICK_BACK` on a match

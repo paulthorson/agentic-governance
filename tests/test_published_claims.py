@@ -498,7 +498,9 @@ class TestPublishedClaims(unittest.TestCase):
         for f in self._constitution_files():
             text = " ".join(f.read_text(encoding="utf-8").split())  # collapse line wrapping
             self.assertNotIn("enforced mechanically", text, f"{f.relative_to(REPO_ROOT)} overclaims enforcement")
-            self.assertIn("Rule 1 is enforced by code", text, f"{f.relative_to(REPO_ROOT)} must say what code enforces")
+            self.assertIn("Rule 1 has two code gates: a word-match tripwire on submissions, and a veto clear that only a human can approve.", text,
+                          f"{f.relative_to(REPO_ROOT)} must say what code enforces, and that the first gate is a word match")
+            self.assertNotIn("Rule 1 is enforced by code", text, f"{f.relative_to(REPO_ROOT)} overstates the Rule 1 gate")
             self.assertIn("Rules 2 through 4 are instructions", text, f"{f.relative_to(REPO_ROOT)} must say rules 2-4 are instructions")
 
     def test_constitution_rule_1_code_gate_exists(self):

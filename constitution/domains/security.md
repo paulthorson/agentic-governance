@@ -1,9 +1,9 @@
 # The Constitution
 
-Four rules for reviewing security. Rule 1 is enforced by code: the review tools scan for the
-veto terms and return `KICK_BACK` on a hit, and a veto clears only with operator approval.
-Rules 2 through 4 are instructions the adversary applies on every review, with every
-override logged in the calibration ledger.
+Four rules for reviewing security. Rule 1 has two code gates: a word-match tripwire on
+submissions, and a veto clear that only a human can approve. Rules 2 through 4 are
+instructions the adversary applies on every review, with every override logged in the
+calibration ledger.
 
 Every agent in this system reads this file before acting. No agent may edit it.
 

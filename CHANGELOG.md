@@ -58,8 +58,11 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   fixed list of terms and patterns, so a harmful plan that uses none of them
   passes as `REVIEW_REQUIRED` and the adversary has to catch it. An
   end-to-end run found that "drop the production database with no backup
-  and no rollback" produced no veto hits in any domain. The capability
-  report has a row for the scan.
+  and no rollback" produced no veto hits in any domain. Every constitution
+  page now opens Rule 1 with "two code gates: a word-match tripwire on
+  submissions, and a veto clear that only a human can approve," so the limit
+  is in the first sentence and not a paragraph later. The capability report
+  has a row for the scan.
 - The root page listed four rules the domain files do not have and a second
   amendment procedure ("a designated human master") that nothing
   implements. It now describes the shape ten domains share, names security
