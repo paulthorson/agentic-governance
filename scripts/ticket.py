@@ -469,6 +469,16 @@ def cmd_doctor(args) -> None:
     add("OK" if ok else "FAIL", "log chain and ticket store verify" if ok else "integrity problems: run ticket.py verify")
     add("INFO", "file writes by agents running as this OS user cannot be prevented in code; "
                 "see docs/deployment-hardened.md for the separate-user setup")
+    # Which OS user is on the other end of each live MCP connection (S1.1.1).
+    if sys.platform == "darwin":
+        add("INFO", "agent OS users: sudo agctl doctor checks live MCP connections as root")
+    elif args.mcp_port:
+        import getpass
+        import peers
+        for level, msg in peers.findings(getpass.getuser(), os.environ.get("SUDO_USER"), args.mcp_port):
+            add(level, msg)
+    else:
+        add("INFO", "agent OS users: pass --mcp-port <port> to check which users live MCP connections run as")
     for level, msg in findings:
         print(f"[{level:4}] {msg}")
     if any(level == "FAIL" for level, _ in findings):
@@ -541,6 +551,8 @@ def main() -> None:
     p.set_defaults(fn=cmd_verify)
 
     p = sub.add_parser("doctor", help="report what is and is not enforced on this install")
+    p.add_argument("--mcp-port", dest="mcp_port", type=int, default=None,
+                   help="Linux: MCP server port; report the OS user behind each live connection to it")
     p.set_defaults(fn=cmd_doctor)
 
     p = sub.add_parser("agent", help="manage the agent registry (add/revoke need operator approval)")

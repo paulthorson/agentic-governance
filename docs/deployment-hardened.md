@@ -84,6 +84,14 @@ Agents connect over HTTP with `Authorization: Bearer <token>` and pass their
 own `agent_token` on every `ticket_*` call. Keep each agent's token only in
 that agent's own config.
 
+**Check which OS user each agent runs as.** Start your agents, then run
+`sudo .../agctl doctor`. For every live connection to the MCP server it
+prints the OS user on the other end: `[PASS] agent user <name>` for an
+ordinary account, `[FAIL]` for root, an admin, the service user, or the
+login you ran sudo from. Any FAIL exits 4. An agent that is not connected
+when doctor runs does not show up, so run it while the agents are up. On
+Linux, run `ticket.py doctor --mcp-port <port>` as the framework user.
+
 What the CI test proves on a real Mac, from an ordinary account with a shell:
 it cannot list or read `runs/`, read the key, registry, or bearer token,
 create an approval, or modify the code, the interpreter, or the venv; it can

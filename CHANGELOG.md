@@ -5,6 +5,26 @@ All notable changes to Agentic Governance.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `agctl doctor` reports the OS user behind each live MCP connection:
+  `[PASS] agent user <name>` for an ordinary account, `[FAIL]` and exit 4
+  for root, an admin, the service user, or the operator's own login. On
+  macOS the check runs as root inside `agctl` (only root can see other
+  users' sockets); on Linux, `ticket.py doctor --mcp-port <port>` reads
+  `/proc/net/tcp`. New `scripts/peers.py`, standard library only. Tested on
+  a hardened install in CI with a throwaway non-admin account (PASS) and the
+  admin account that ran the test (FAIL). (S1.1.1)
+
+### Not enforced
+
+- Doctor sees only connections open while it runs. An agent that is not
+  running, or that connects only when it has work, is not checked.
+- Doctor reports which user an agent runs as. Nothing stops an agent from
+  running as an admin; the operator acts on the FAIL.
+
 ## [1.2.2] — 2026-10-15
 
 Docs and a review gate that said more than the code does, found by running

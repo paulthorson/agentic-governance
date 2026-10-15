@@ -55,5 +55,19 @@ grep -q "^home = $ROOT/python/bin\$" "$ROOT/.venv/pyvenv.cfg" 2>/dev/null || {
 # whatever the MCP server is asked next. Remove it.
 rm -f "$ROOT/runs/approval.ok"
 
+# doctor: before the service-user checks, report which OS user is on the other
+# end of each live MCP connection. Only root can see other users' sockets, so
+# this part runs here, as root, from the root-owned install verified above.
+# peers.py is standard library only and runs isolated (-I) with an empty env.
+PEERS_RC=0
+if [ "${1:-}" = doctor ]; then
+  /usr/bin/env -i PATH=/usr/bin:/bin:/usr/sbin:/sbin HOME=/var/root \
+    "$ROOT/python/bin/python3" -I "$ROOT/scripts/peers.py" \
+    --service-user "$SVC" --operator "${SUDO_USER:-}" || PEERS_RC=$?
+fi
+
+RC=0
 sudo -u "$SVC" /usr/bin/env -i PATH=/usr/bin:/bin HOME=/var/empty ADVERSARIAL_ROOT="$ROOT" AG_APPROVAL=1 \
-  "$ROOT/.venv/bin/python" "$ROOT/scripts/ticket.py" "$@"
+  "$ROOT/.venv/bin/python" "$ROOT/scripts/ticket.py" "$@" || RC=$?
+[ "$RC" -eq 0 ] && [ "$PEERS_RC" -ne 0 ] && RC=$PEERS_RC
+exit "$RC"
