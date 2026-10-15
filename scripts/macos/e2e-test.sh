@@ -153,14 +153,16 @@ else
   dscl . -create "/Users/$PEER" PrimaryGroupID "$PEERID"; dscl . -create "/Users/$PEER" UserShell /usr/bin/false
   dscl . -create "/Users/$PEER" NFSHomeDirectory /var/empty; dscl . -create "/Users/$PEER" IsHidden 1
 
-  sudo -u "$PEER" "$PREFIX/python/bin/python3" -c "$HOLD" "$PORT" & HOLD_PIDS="$!"
+  # -I: the test account cannot read the checkout this script runs from, and
+  # Python would otherwise try to import from the current directory.
+  sudo -u "$PEER" "$PREFIX/python/bin/python3" -I -c "$HOLD" "$PORT" & HOLD_PIDS="$!"
   sleep 2
   DOC=$("$AGCTL" doctor 2>&1); rc=$?
   echo "$DOC" | grep -E '^\[(PASS|FAIL|INFO)\] (agent user|an MCP client|MCP server|no live|could not|operator)' || true
   if echo "$DOC" | grep -q "^\[PASS\] agent user $PEER "; then ok "doctor lists a non-admin agent user as PASS"; else bad "doctor did not list $PEER as PASS"; fi
   if [ "$rc" -eq 0 ]; then ok "doctor exits 0 with only a non-admin agent connected"; else bad "doctor exit $rc with a non-admin agent"; fi
 
-  as_agent "$PREFIX/python/bin/python3" -c "$HOLD" "$PORT" & HOLD_PIDS="$HOLD_PIDS $!"
+  as_agent "$PREFIX/python/bin/python3" -I -c "$HOLD" "$PORT" & HOLD_PIDS="$HOLD_PIDS $!"
   sleep 2
   DOC=$("$AGCTL" doctor 2>&1); rc=$?
   if echo "$DOC" | grep -q "^\[FAIL\] an MCP client runs as the operator's login user $AGENT "; then
