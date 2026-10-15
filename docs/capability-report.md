@@ -150,6 +150,7 @@ Governance **does** mean (what code/docs actually provide): role harnesses and c
 | Veto clear / escalation resolve / close override | **Code** (approval) | `scripts/ticket.py` + `approval.py`; not exposed over MCP |
 | Lost-update protection on shared ledgers | **Code** | `scripts/events.py` `file_lock` |
 | CEO pacing / halt language | **Instruction** | harness/spec |
+| Veto scan (Rule 1 first pass) | **Code**, fixed term and pattern match only; a harm described without a listed term passes as `REVIEW_REQUIRED` | `server.py` `VETO_KEYWORDS`, `VETO_PATTERNS`, `_veto_hits` |
 | Blind review / human-only veto clear / append-only | **Instruction + process** | constitutions, SECURITY model text |
 | Irreversible-action levels 1–3 from wizard | **Config recorded; not fully enforced for all agent actions** | wizard writes level; only listed script sites checkpointed |
 

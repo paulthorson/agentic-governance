@@ -56,6 +56,41 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `adversarial-docs/skills/framework-technical-writing/` like every other
   flat skill.
 
+### Changed
+
+- The constitution pages now say what is enforced by code and what is not.
+  The root page and all twelve domain files claimed every rule was "enforced
+  mechanically, by checks that produce a pass or a fail." Only Rule 1 has
+  code behind it: the review tools scan for veto terms and return
+  `KICK_BACK`, and clearing a veto needs operator approval. Rules 2 through 4
+  are instructions the adversary applies, which is what the capability
+  report (section 12.8) already said.
+- The root page also states how narrow the Rule 1 scan is: it matches a
+  fixed list of terms and patterns, so a harmful plan that uses none of them
+  passes as `REVIEW_REQUIRED` and the adversary has to catch it. An
+  end-to-end run found that "drop the production database with no backup
+  and no rollback" produced no veto hits in any domain. Every constitution
+  page now opens Rule 1 with "two code gates: a word-match tripwire on
+  submissions, and a veto clear that only a human can approve," so the limit
+  is in the first sentence and not a paragraph later. The capability report
+  has a row for the scan.
+- The root page listed four rules the domain files do not have and a second
+  amendment procedure ("a designated human master") that nothing
+  implements. It now describes the shape ten domains share, names security
+  and prompt as the two that depart from it, and states one procedure, the
+  domain files' own.
+- Every domain file pointed its amendment log at
+  `references/calibration-ledger.md`, which resolves to nothing from
+  `constitution/domains/`. All twelve now point at their plugin's ledger.
+  `gen-plugin.py` writes the corrected preamble and path for new domains.
+- `scripts/check-doc-refs.py` also checks bare relative `.md` paths against
+  directories the repo tracks. It found one wrong proposal filename in
+  `docs/spec-addendum-01.md`, now fixed.
+- `tests/test_published_claims.py` covers the constitution: no page claims
+  mechanical enforcement, the Rule 1 code gate exists, the scan's limit is
+  stated, the domain files have the shape the root page describes, and the
+  ledger paths resolve.
+
 ## [1.2.1] — 2026-10-10
 
 Fixes found by running 1.2.0 end to end, and a tested hardened install for

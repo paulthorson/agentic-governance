@@ -1,7 +1,8 @@
 # The Constitution
 
-Four universal rules. They are enforced mechanically, by checks that produce a pass or a fail,
-regardless of domain.
+Four universal rules. Rule 1 has two code gates: a word-match tripwire on submissions, and a
+veto clear that only a human can approve. Rules 2 through 4 are instructions the adversary
+applies on every review, with every override logged in the calibration ledger.
 
 Every agent in this system reads this file before acting. No agent may edit it.
 
@@ -69,6 +70,6 @@ red flag, not a pass.
 ---
 ## Amendment procedure
 
-- Every human override is logged in `references/calibration-ledger.md`.
+- Every human override is logged in `../../adversarial-universal/references/calibration-ledger.md`.
 - Three overrides of one rule puts the rule on trial.
 - Only a human edits `constitution/domains/universal.md` (this file).

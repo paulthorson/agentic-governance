@@ -1,7 +1,9 @@
 # The Constitution
 
-Four rules for reviewing security. They are enforced mechanically, by checks
-that produce a pass or a fail, regardless of the change under review.
+Four rules for reviewing security. Rule 1 has two code gates: a word-match tripwire on
+submissions, and a veto clear that only a human can approve. Rules 2 through 4 are
+instructions the adversary applies on every review, with every override logged in the
+calibration ledger.
 
 Every agent in this system reads this file before acting. No agent may edit it.
 
@@ -68,6 +70,6 @@ data, over-retention, and insecure transit. A failure is a finding.
 ---
 ## Amendment procedure
 
-- Every human override is logged in `references/calibration-ledger.md`.
+- Every human override is logged in `../../adversarial-security/references/calibration-ledger.md`.
 - Three overrides of one rule puts the rule on trial.
 - Only a human edits `constitution/domains/security.md` (this file).
