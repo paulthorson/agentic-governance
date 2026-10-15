@@ -22,8 +22,9 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   holding a connection gets PASS and exit 0. The account that ran the test
   gets FAIL as the operator's login. With no operator name, the same
   connection gets FAIL as an admin, if that account is one; the test says
-  SKIP otherwise. On Linux, unit tests cover both parsers and every rule,
-  and a live test checks a real connection.
+  SKIP otherwise. Unit tests cover both parsers, each FAIL rule, and the
+  admin lookups on both platforms; on Linux a live test checks a real
+  connection.
 - This is the connection half of S1.1.1. The other half, checking who owns
   each agent's enrollment stub, waits for stubs, which arrive with
   `team enroll` in 1.4.

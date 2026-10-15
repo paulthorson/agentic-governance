@@ -40,7 +40,8 @@ AGCTL="$PREFIX/scripts/macos/agctl"
 for u in $(dscl . -list /Users | grep -E '^_agpeer[0-9]+$' || true); do
   uid=$(dscl . -read "/Users/$u" UniqueID 2>/dev/null | awk '{print $2}')
   sh=$(dscl . -read "/Users/$u" UserShell 2>/dev/null | awk '{print $2}')
-  if [ -n "$uid" ] && [ "$uid" -ge 400 ] && [ "$uid" -le 449 ] && [ "$sh" = /usr/bin/false ]; then
+  hid=$(dscl . -read "/Users/$u" IsHidden 2>/dev/null | awk '{print $2}')
+  if [ -n "$uid" ] && [ "$uid" -ge 400 ] && [ "$uid" -le 449 ] && [ "$sh" = /usr/bin/false ] && [ "$hid" = 1 ]; then
     dscl . -delete "/Users/$u" 2>/dev/null || true; dscl . -delete "/Groups/$u" 2>/dev/null || true
   fi
 done

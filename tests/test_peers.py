@@ -223,6 +223,31 @@ class FailClosedTest(unittest.TestCase):
     def test_is_admin_linux_root(self):
         self.assertTrue(peers.is_admin_linux(pwd.getpwuid(0).pw_name))
 
+    def test_is_admin_linux_groups(self):
+        import grp
+        me = pwd.getpwuid(os.getuid())
+        fake = {"wheel": grp.struct_group(("wheel", "x", 4242, ["alice"])),
+                "sudo": grp.struct_group(("sudo", "x", 4243, []))}
+        orig_g, orig_p = peers.grp.getgrnam, peers.pwd.getpwnam
+
+        def getgrnam(name):
+            if name in fake:
+                return fake[name]
+            raise KeyError(name)
+
+        def getpwnam(name):
+            if name in ("alice", "bob"):
+                return pwd.struct_passwd((name, "x", 5000, 5000, "", "/", "/bin/sh"))
+            if name == "carol":  # primary group is sudo
+                return pwd.struct_passwd((name, "x", 5001, 4243, "", "/", "/bin/sh"))
+            return orig_p(name)
+        peers.grp.getgrnam, peers.pwd.getpwnam = getgrnam, getpwnam
+        self.addCleanup(setattr, peers.grp, "getgrnam", orig_g)
+        self.addCleanup(setattr, peers.pwd, "getpwnam", orig_p)
+        self.assertTrue(peers.is_admin_linux("alice"))   # listed in wheel
+        self.assertTrue(peers.is_admin_linux("carol"))   # sudo is her primary group
+        self.assertFalse(peers.is_admin_linux("bob"))    # in neither
+
 
 @unittest.skipUnless(sys.platform.startswith("linux"), "Linux /proc path")
 class LinuxNothingToSeeTest(unittest.TestCase):
