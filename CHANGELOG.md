@@ -5,7 +5,11 @@ All notable changes to Agentic Governance.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.2.2] — 2026-10-15
+
+Docs and a review gate that said more than the code does, found by running
+1.2.1 end to end. No schema, event or install change; a 1.2.1 install
+upgrades by pulling the tag.
 
 ### Fixed
 
@@ -90,6 +94,20 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   mechanical enforcement, the Rule 1 code gate exists, the scan's limit is
   stated, the domain files have the shape the root page describes, and the
   ledger paths resolve.
+
+### Not enforced
+
+- The Rule 1 veto scan is a word match. A harmful plan that uses none of the
+  listed terms or patterns passes as `REVIEW_REQUIRED`; the adversary has to
+  catch it. An end-to-end run wrote six harmful plans in its own words and
+  all six passed the scan.
+- Rules 2 through 4 of every constitution are instructions to the
+  adversary. No code refuses a submission for failing them.
+- The `schedule_driven` and `ops_goal` fields that the engineer, QA,
+  researcher and UX constitutions call "mechanical checks" are not read by
+  any code.
+- `check-doc-refs.py` checks that paths exist, not that the text around them
+  is true.
 
 ## [1.2.1] — 2026-10-10
 

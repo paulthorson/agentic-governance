@@ -45,7 +45,7 @@ macOS keeps your HOME and git would read your (agent-writable) `~/.gitconfig`
 as root.
 
 ```bash
-sudo -H /usr/bin/git -c core.hooksPath=/dev/null clone --depth 1 --branch v1.2.1 \
+sudo -H /usr/bin/git -c core.hooksPath=/dev/null clone --depth 1 --branch v1.2.2 \
   https://github.com/paulthorson/agentic-governance.git /private/var/root/ag-src
 sudo -H /private/var/root/ag-src/scripts/macos/harden.sh
 sudo rm -rf /private/var/root/ag-src
