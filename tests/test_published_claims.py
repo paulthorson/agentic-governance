@@ -509,6 +509,16 @@ class TestPublishedClaims(unittest.TestCase):
         ticket = (REPO_ROOT / "scripts" / "ticket.py").read_text(encoding="utf-8")
         self.assertIn('gate=_gate("clear_veto"', ticket)
 
+    def test_constitution_states_the_veto_scan_limit(self):
+        """The veto scan is a word match. The root page and the capability
+        report must both say a harm described without a listed term passes
+        the scan, so nobody reads the Rule 1 code gate as a harm detector."""
+        root_text = " ".join((REPO_ROOT / "constitution" / "constitution.md").read_text(encoding="utf-8").split())
+        self.assertIn("The scan matches words, not meaning.", root_text)
+        self.assertIn("passes the scan with `REVIEW_REQUIRED`", root_text)
+        report = (REPO_ROOT / "docs" / "capability-report.md").read_text(encoding="utf-8")
+        self.assertIn("| Veto scan (Rule 1 first pass) | **Code**, fixed term and pattern match only", report)
+
     def test_root_constitution_rule_pattern_matches_domain_files(self):
         """The root page describes a shared shape for ten domains and two
         exceptions. The domain files must actually have that shape."""

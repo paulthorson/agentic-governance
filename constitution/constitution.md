@@ -6,11 +6,18 @@ file before acting, and no agent may edit one.
 
 ## What is enforced by code, and what is not
 
-Rule 1 is enforced by code. In every domain the harm veto has two code gates.
-The review tools in the MCP server scan a submission for the domain's veto
-terms and return `KICK_BACK` on a hit (`run_review`, `run_review_deep`).
-Clearing a veto on a ticket requires an operator approval that the agent
-runtime cannot supply (`ticket.py clear-veto`, behind `approval.py`).
+Rule 1 is enforced by code. In every domain the harm veto has two code gates,
+and the first one is narrow.
+
+- The review tools in the MCP server scan a submission against a fixed list
+  of the domain's veto terms and patterns and return `KICK_BACK` on a match
+  (`run_review`, `run_review_deep`). The scan matches words, not meaning. A
+  submission that does damage without using any listed term or pattern
+  passes the scan with `REVIEW_REQUIRED`, and spotting the harm is then the
+  adversary's job. The scan is a tripwire, not a detector.
+- Clearing a veto on a ticket requires an operator approval that the agent
+  runtime cannot supply (`ticket.py clear-veto`, behind `approval.py`). This
+  gate holds no matter how the veto was raised.
 
 Rules 2 through 4 are instructions. The adversary applies them in its review,
 the verdict is recorded, and the calibration ledger audits the overrides.
