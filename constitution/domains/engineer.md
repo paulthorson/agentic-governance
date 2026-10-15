@@ -1,7 +1,9 @@
 # The Constitution
 
-Four rules. They are enforced mechanically, by checks that produce a pass or a fail, not by
-style-guide language that everyone reads differently.
+Four rules. Rule 1 is enforced by code: the review tools scan for the veto terms and return
+`KICK_BACK` on a hit, and a veto clears only with operator approval. Rules 2 through 4 are
+instructions the adversary applies on every review, with every override logged in the
+calibration ledger.
 
 Every agent in this system reads this file before acting. No agent may edit it. Changes come
 through the amendment procedure at the bottom.
@@ -93,7 +95,7 @@ These apply to every run and need no adversary to raise them.
 
 A rule is not permanent, and it does not change casually.
 
-- Every human override of a verdict is logged in `references/calibration-ledger.md`.
+- Every human override of a verdict is logged in `../../adversarial-engineer/references/calibration-ledger.md`.
 - When one rule is overridden three times, the rule goes on trial: open a ledger entry naming
   the three overrides and propose either a revision or an explicit carve-out.
 - A rule changes only by a human editing this file. An agent may propose an amendment in the

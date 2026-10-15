@@ -65,8 +65,8 @@ Against `references/security-baseline.md` if present, else the defaults below:
 
 ## Standards to fill in (delete what does not apply)
 
-- `references/security.md` — the security baseline the Critic checks Check 2 against.
-- `references/config.md` — the config paths that are protected and how changes are validated.
+- `references/security.md` (optional) — the security baseline the Critic checks Check 2 against.
+- `references/config.md` (optional) — the config paths that are protected and how changes are validated.
 
 ## If a check is UNVERIFIABLE
 

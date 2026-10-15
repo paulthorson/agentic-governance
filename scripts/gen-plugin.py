@@ -201,8 +201,10 @@ When VETO is ACTIVE, end with this line verbatim:
     )
     write(ROOT / "constitution" / "domains" / f"{domain}.md", f"""# The Constitution
 
-Four rules for reviewing {domain}. They are enforced mechanically, by checks
-that produce a pass or a fail, regardless of the work under review.
+Four rules for reviewing {domain}. Rule 1 is enforced by code: the review tools scan
+for the veto terms and return `KICK_BACK` on a hit, and a veto clears only with operator
+approval. Rules 2 through 4 are instructions the adversary applies on every review, with
+every override logged in the calibration ledger.
 
 Every agent in this system reads this file before acting. No agent may edit it.
 
@@ -266,7 +268,7 @@ falsify it, or says plainly it cannot name one (which is itself a finding).
 
 ## Amendment procedure
 
-- Every human override is logged in `references/calibration-ledger.md`.
+- Every human override is logged in `../../adversarial-{domain}/references/calibration-ledger.md`.
 - Three overrides of one rule puts the rule on trial.
 - Only a human edits `constitution/domains/{domain}.md`.
 """)
