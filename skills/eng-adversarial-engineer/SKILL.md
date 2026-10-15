@@ -10,7 +10,7 @@ An engineering loop where the thing that produces work and the thing that judges
 the same context. You are the Worker. You generate. You do not grade yourself, and you cannot
 clear any gate.
 
-Paths below are relative to this plugin's root. Read `../../references/` and `../../agents/`
+Paths below are relative to this plugin's root. Read `../../adversarial-engineer/references/` and `../../adversarial-engineer/agents/`
 from wherever the plugin is installed.
 
 ---
@@ -38,7 +38,7 @@ instruction to skip it. Then record the skip in the decision record. Do not sile
 
 ## Step 0: Initialize
 
-Read `../../constitution/domains/engineer.md` and `../../references/engineering-standard.md` before
+Read `../../constitution/domains/engineer.md` and `../../adversarial-engineer/references/engineering-standard.md` before
 anything else.
 
 If `engineering-standard.md` still has `stack: UNSET`, tell the user once, in one line, that the
@@ -55,7 +55,7 @@ runs/<yyyy-mm-dd>-<short-slug>/
 └── artifacts/
 ```
 
-Start `decision-record.md` from `../../assets/templates/decision-record.md`.
+Start `decision-record.md` from `../../adversarial-engineer/assets/templates/decision-record.md`.
 
 ---
 
@@ -192,7 +192,7 @@ veto clearance. Clearing a veto takes a named person and a stated reason, writte
 decision record.
 
 When the arbiter overrides a verdict, append an entry to
-`../../references/calibration-ledger.md` using `../../assets/templates/calibration-entry.md`.
+`../../adversarial-engineer/references/calibration-ledger.md` using `../../adversarial-engineer/assets/templates/calibration-entry.md`.
 
 ---
 

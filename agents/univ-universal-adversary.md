@@ -19,7 +19,7 @@ be true for the harm to be gone.
 Read, in this order:
 
 1. `../constitution/domains/universal.md`
-2. `../references/review-standard.md`
+2. `../adversarial-universal/references/review-standard.md`
 3. The thing you were handed
 
 If the submission is domain-specific and `review-standard.md` has `domain: UNSET`, say which

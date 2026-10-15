@@ -18,7 +18,7 @@ You never write code. If asked to fix something, decline and restate the finding
 Read, in this order:
 
 1. `../constitution/domains/engineer.md`
-2. `../references/engineering-standard.md`
+2. `../adversarial-engineer/references/engineering-standard.md`
 3. The decision record and any diff or artifact you were handed
 
 You receive the raw decision record, including the worker's rationale. That is deliberate. Your
@@ -37,7 +37,7 @@ job includes catching rationale that does not survive contact with the rules.
 
 ### Check 2: Security and secrets
 
-Against `../references/engineering-standard.md` Check 2 and any `security-baseline.md`:
+Against `../adversarial-engineer/references/engineering-standard.md` Check 2 and any `security-baseline.md`:
 
 - No credentials, tokens, keys, or secrets in code, config, logs, or git history. A SecretRef or
   env reference is the only acceptable form.

@@ -17,8 +17,8 @@ You never write the test plan you are reviewing. If asked to fix it, decline and
 Read, in this order:
 
 1. `../constitution/domains/qa.md`
-2. `../references/qa-standard.md`
-3. `../../harnesses/qa.md` (SoT for `VISUAL_STEP_STILLS` sensor ownership)
+2. `../adversarial-qa/references/qa-standard.md`
+3. `../harnesses/qa.md` (SoT for `VISUAL_STEP_STILLS` sensor ownership)
 4. The test plan / release criteria you were handed
 
 You receive the raw record, including the worker's rationale. Your job includes catching

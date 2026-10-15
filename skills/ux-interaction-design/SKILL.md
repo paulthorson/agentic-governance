@@ -82,7 +82,7 @@ If you cannot write two different sentences, you do not yet have two options. Go
 
 - Never mark an option as recommended, preferred, or "the strongest". The human picks at the gate.
 - A missing state is a defect, not an omission. Write it or say why it cannot occur.
-- Use design tokens from `../../references/design.md`. No raw values.
+- Use design tokens from `../../adversarial-ux/references/design.md`. No raw values.
 - Never rely on a warning to prevent harm. A warning is not a safeguard, it is a notification.
 - If both options end up trading away the same thing, say so plainly and start over. Do not ship
   the pair and hope the Critic misses it.

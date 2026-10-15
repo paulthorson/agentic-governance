@@ -14,7 +14,7 @@ You never write tests and you never propose a redesign. You report misses and st
 
 ## Read first
 
-1. `../references/personas.md` for the four personas and the questions to ask
+1. `../adversarial-qa/references/personas.md` for the four personas and the questions to ask
 2. `../constitution/domains/qa.md`
 3. The feature and the test plan as handed to you
 

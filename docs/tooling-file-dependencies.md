@@ -18,7 +18,7 @@ resolves from the file's own location; `DOMAIN_DIR[domain] = REPO_ROOT/adversari
 
 | Path read | Reader | Depends on it | Notes |
 |---|---|---|---|
-| `constitution/domains/<domain>.md` | `_constitution(domain)` | `get_constitution`, `run_review`, `run_review_deep` | Already relocated here (was `adversarial-<domain>/references/constitution.md`). **Do not strip.**
+| `constitution/domains/<domain>.md` | `_constitution(domain)` | `get_constitution`, `run_review`, `run_review_deep` | Relocated here from the per-plugin `references/` folder before 1.0. **Do not strip.**
 | `adversarial-<domain>/references/*.md` (the single standard file) | `_standard(domain)` (glob, excludes `calibration-ledger.md`/`personas.md`) | `get_standard`, `run_review_deep` | Domain-specific names (`qa-standard.md`, `design.md`, …). Exactly-one-match enforced.
 | `adversarial-<domain>/references/personas.md` | `_personas(domain)` | (review context) | 
 | `adversarial-<domain>/references/calibration-ledger.md` | `_ledger(domain)` | (ledger read) | 
@@ -35,17 +35,18 @@ resolves from the file's own location; `DOMAIN_DIR[domain] = REPO_ROOT/adversari
 | `runs/verdicts.jsonl` | `calibration-report.py` | Calibration report | Same log as MCP.
 | `runs/stuck-watchdog.json` | `stuck-review-watchdog.py` | Stuck-review state | `STUCK_STATE_FILE` override.
 | company ticket dirs | `stuck-review-watchdog.py` | Watchdog | Reads external ticket dirs.
-| Every plugin: `agents/*.md`, `skills/*/SKILL.md`, `references/` (`constitution.md`, `calibration-ledger.md`, `personas.md`), `assets/templates/`, `commands/`; flat `agents/` + `skills/` | `validate.py` | CI structure validation | **BROKEN as of 2026-09-04**: still requires `references/constitution.md` in each plugin, which was moved to `constitution/domains/`. Must be repointed. Hardcoded default `--root <framework-root>`.
+| Every plugin: `agents/*.md`, `skills/*/SKILL.md`, `references/` (`calibration-ledger.md`, `personas.md`), `assets/templates/`, `commands/`; `constitution/domains/<domain>.md`; flat `agents/` + `skills/` | `validate.py` | CI structure validation | Reads the per-domain constitution from `constitution/domains/` and fails on any file that still names the retired per-plugin path. Hardcoded default `--root <framework-root>`.
 
 ## Write-only (not reads) — noted for awareness
 
-- `scripts/gen-plugin.py` — scaffolds new plugins. **If run, it regenerates `references/constitution.md` + `references/<domain>-standard.md` in the new plugin**, reintroducing the duplicate-constitution pattern. Guard against recreating it.
+- `scripts/gen-plugin.py` — scaffolds new plugins. Writes the new domain's constitution to `constitution/domains/<domain>.md` and only the standard to the plugin's `references/`, so it does not recreate the duplicate-constitution pattern.
+- `scripts/consolidate-adversarial.py` — regenerates the flat `agents/` + `skills/` layer from the plugins. `--check` (run in CI) fails on drift.
 
 ---
 
 ## Read-before-strip flags (stop-and-check before migrating these)
 
-1. **`validate.py`** is already failing (12 plugins missing `references/constitution.md`) because of the earlier constitution relocation. It is not migrated content; it is a consumer. It must be updated to read `constitution/domains/<domain>.md` — but that is a separate fix, filed here, not performed silently.
+1. **`validate.py`** reads `constitution/domains/<domain>.md` (fixed; it used to require the retired per-plugin copy). It is a consumer, not migrated content.
 2. `adversarial-<domain>/agents/*.md` and `skills/*/SKILL.md` are read **and** are migration targets. Stripping must remove only identity lines, never capability — otherwise `_agents_for`/`_skills_for` and `list_agents`/`list_skills`/`run_review`/`run_review_deep`/`framework_status` lose content.
 3. `constitution/domains/*.md` and the per-plugin standard files are constitutional content — on the carve-out, not migration targets.
 

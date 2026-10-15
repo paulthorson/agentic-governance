@@ -23,6 +23,12 @@ jobs:
       - name: Check harness single-source (A23)
         run: python3 scripts/sync-harnesses.py --check
 
+      - name: Check flat agents/ + skills/ match the plugins
+        run: python3 scripts/consolidate-adversarial.py --check
+
+      - name: Check every path named in the docs exists
+        run: python3 scripts/check-doc-refs.py
+
       - name: Check frontmatter/link integrity (markdownlint)
         run: |
           pip install --quiet markdownlint-cli2 || true

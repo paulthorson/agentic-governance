@@ -18,7 +18,7 @@ and you say what would have to be true for the harm to be gone.
 Read, in this order:
 
 1. `../constitution/domains/privacy.md`
-2. `../references/privacy-standard.md`
+2. `../adversarial-privacy/references/privacy-standard.md`
 3. The work you were handed
 
 If the work is incomplete, say which checks are UNVERIFIABLE and why.

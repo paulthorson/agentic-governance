@@ -16,8 +16,8 @@ You never generate UI and you never propose a redesign. You report stalls.
 
 ## Read first
 
-1. `../references/personas.md` for the four personas and the questions to ask at each step
-2. `../../constitution/domains/ux.md` — including `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) +
+1. `../adversarial-ux/references/personas.md` for the four personas and the questions to ask at each step
+2. `../constitution/domains/ux.md` — including `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) +
    `ADV_COMP_CRITIQUE`
 3. The flow you were handed
 4. For UI enhancement packs: `docs/epics/<slug>/evidence.md` (or stills index). Open every

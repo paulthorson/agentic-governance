@@ -18,6 +18,32 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   follows its harness literally fell back to the root constitution or ran
   without one. All 70 references now point at the real file, and
   `validate.py` fails on any file that mentions the old path.
+- Three more copies of that mistake the first pass missed: the researcher and
+  UX worker skills named the constitution one directory too shallow, and the
+  flat `skills/` copies inherited it.
+- The flat `agents/` and `skills/` layer had drifted from the plugins it is
+  generated from: seventeen flat agents and five flat skills pointed at a
+  `references/` folder that does not exist beside them, one skill was missing
+  a rule the plugin had, and one skill existed only in the flat layer.
+- Four relative links in `docs/engines/` and `dashboard/docs/` pointed at
+  files one directory away from where they said.
+- `docs/tooling-file-dependencies.md` still described `validate.py` and
+  `gen-plugin.py` as broken by the constitution move; both were fixed before
+  1.0.
+
+### Added
+
+- `scripts/consolidate-adversarial.py`, which the docs had described since
+  before 1.0 but which was never committed. It regenerates the flat layer
+  from the plugins (prefixing names, re-pointing relative paths) and writes
+  nothing outside the repo. `--check` reports drift.
+- `scripts/check-doc-refs.py`: fails on any `scripts/` path, `../` harness
+  path, or relative link in tracked markdown that points at nothing, and on
+  any mention of the retired per-plugin constitution path.
+- CI runs both checks on every pull request, next to `validate.py`.
+- `skills/doc-framework-technical-writing` now has its source in
+  `adversarial-docs/skills/framework-technical-writing/` like every other
+  flat skill.
 
 ## [1.2.1] — 2026-10-10
 

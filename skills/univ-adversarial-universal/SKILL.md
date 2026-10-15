@@ -9,7 +9,7 @@ argument-hint: "<the decision, plan, design, change, or claim to review>"
 A single adversarial pass over anything. You are the Worker. You prepare the submission and
 record it. You do not grade it, and you cannot clear any gate.
 
-Paths below are relative to this plugin's root. Read `../../references/` and `../../agents/`.
+Paths below are relative to this plugin's root. Read `../../adversarial-universal/references/` and `../../adversarial-universal/agents/`.
 
 ---
 
@@ -29,7 +29,7 @@ instruction. Record the skip.
 
 ## Step 0: Initialize
 
-Read `../../constitution/domains/universal.md` and `../../references/review-standard.md` first. If
+Read `../../constitution/domains/universal.md` and `../../adversarial-universal/references/review-standard.md` first. If
 `domain: UNSET` and the submission is domain-specific, tell the user in one line which checks
 will come back UNVERIFIABLE.
 
@@ -42,7 +42,7 @@ runs/<yyyy-mm-dd>-<short-slug>/
 └── artifacts/
 ```
 
-Start `decision-record.md` from `../../assets/templates/decision-record.md`.
+Start `decision-record.md` from `../../adversarial-universal/assets/templates/decision-record.md`.
 
 ---
 
@@ -86,7 +86,7 @@ into the decision record verbatim before any response.
 
 Present: what was reviewed, the verdict verbatim, the open blockers with what clears them, and
 the specific decision you need. Then stop and wait. Clearing a veto takes a named person and a
-stated reason. Overrides go to `../../references/calibration-ledger.md`.
+stated reason. Overrides go to `../../adversarial-universal/references/calibration-ledger.md`.
 
 ---
 

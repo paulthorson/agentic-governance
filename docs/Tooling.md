@@ -29,11 +29,24 @@ Runs on push to `main` and pull requests:
 ## `scripts/consolidate-adversarial.py`
 
 Rebuilds the flat namespaced `agents/` and `skills/` layers from the plugin
-folders and re-symlinks them into Cursor (`~/.cursor/`) and Claude
-(`~/.claude/`). Idempotent. Run after editing any plugin:
+folders: adds the domain prefix to each `name:` and re-points relative paths
+so they resolve from the flat location. Writes nothing outside the repo.
+Idempotent. Run after editing any plugin:
 
 ```bash
-python3 scripts/consolidate-adversarial.py
+python3 scripts/consolidate-adversarial.py          # rebuild
+python3 scripts/consolidate-adversarial.py --check  # CI: fail on drift
+```
+
+## `scripts/check-doc-refs.py`
+
+Checks every tracked markdown file for paths that point at nothing: `scripts/`
+mentions that do not exist, `../` harness paths that do not resolve, relative
+links to missing files, and any use of the retired per-plugin constitution
+path. Runs in CI on every PR.
+
+```bash
+python3 scripts/check-doc-refs.py
 ```
 
 ## `scripts/stuck-review-watchdog.py`

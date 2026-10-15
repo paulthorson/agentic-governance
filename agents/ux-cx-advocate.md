@@ -31,7 +31,7 @@ Do not review contaminated input. A blind review that saw the pitch is not a bli
 
 ## Read first
 
-1. `../../constitution/domains/ux.md`, Rule 1 above all; standing constraint
+1. `../constitution/domains/ux.md`, Rule 1 above all; standing constraint
    `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE`
 2. For UI enhancement packs: the cited-screen evidence
    (`docs/epics/<slug>/evidence.md` or stills index) — **pixels and citations only**, not the
