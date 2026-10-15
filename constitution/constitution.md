@@ -6,7 +6,7 @@ language that everyone reads differently.
 
 ## The four rules
 
-Every domain plugin ships a `references/constitution.md` with the same four
+Every domain has a constitution at `constitution/domains/<domain>.md` with the same four
 rules, adapted to the domain:
 
 1. **Production harm is a veto.** Any change that risks irrecoverable harm
@@ -32,7 +32,7 @@ survive adversarial scrutiny and a human gate.
 
 ## Per-domain constitutions
 
-Each domain's `references/constitution.md` adapts the four rules to its
+Each domain's `constitution/domains/<domain>.md` adapts the four rules to its
 subject matter. The MCP `get_constitution(domain)` tool returns the live text.
 
 ## See also

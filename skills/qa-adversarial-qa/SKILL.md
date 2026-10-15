@@ -30,7 +30,7 @@ instruction. Record the skip.
 
 ## Step 0: Initialize
 
-Read `../../references/constitution.md` and `../../references/qa-standard.md` first. If
+Read `../../constitution/domains/qa.md` and `../../references/qa-standard.md` first. If
 `qa-standard.md` has `test_command: UNSET`, tell the user in one line that the Critic will
 report coverage as UNVERIFIABLE until it is set.
 

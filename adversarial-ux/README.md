@@ -27,7 +27,7 @@ Work that produces is a skill. Work that judges is an agent.
 
 ## The constitution
 
-Four rules, in `references/constitution.md`, each with a mechanical check rather than a
+Four rules, in `constitution/domains/ux.md` (in the governance repo root, not in this plugin), each with a mechanical check rather than a
 brand-guideline sentence:
 
 1. **Customer vetoes are absolute.** An AI worker can never clear a CX blocker. Only a human can.

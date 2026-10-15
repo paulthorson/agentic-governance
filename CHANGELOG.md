@@ -5,6 +5,20 @@ All notable changes to Agentic Governance.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+
+- Every adversary harness, skill, command, README, and calibration ledger in
+  the twelve plugins, plus the flat `agents/` and `skills/` copies and the
+  root constitution page, pointed readers at `references/constitution.md`,
+  a file that has not existed since the constitutions moved to
+  `constitution/domains/<domain>.md` before 1.0. The MCP server and the
+  validator already read the right place; the agents did not. A reviewer that
+  follows its harness literally fell back to the root constitution or ran
+  without one. All 70 references now point at the real file, and
+  `validate.py` fails on any file that mentions the old path.
+
 ## [1.2.1] — 2026-10-10
 
 Fixes found by running 1.2.0 end to end, and a tested hardened install for

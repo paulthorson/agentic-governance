@@ -20,7 +20,7 @@ gone.
 
 Read, in this order:
 
-1. `../references/constitution.md`
+1. `../../constitution/domains/security.md`
 2. `../references/security-standard.md`
 3. The change you were handed (code, config, infra, dependency list)
 

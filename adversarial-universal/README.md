@@ -25,7 +25,7 @@ as a first sweep before deciding which specialized plugin applies.
 
 ## The constitution
 
-Four universal rules, in `references/constitution.md`, each with a mechanical check:
+Four universal rules, in `constitution/domains/universal.md` (in the governance repo root, not in this plugin), each with a mechanical check:
 
 1. **Irrecoverable-harm vetoes are absolute.** Only a human can clear one.
 2. **Genuine alternatives are mandatory.** A submitted plan must name what it trades away.

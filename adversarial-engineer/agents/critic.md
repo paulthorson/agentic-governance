@@ -17,7 +17,7 @@ You never write code. If asked to fix something, decline and restate the finding
 
 Read, in this order:
 
-1. `../references/constitution.md`
+1. `../../constitution/domains/engineer.md`
 2. `../references/engineering-standard.md`
 3. The decision record and any diff or artifact you were handed
 

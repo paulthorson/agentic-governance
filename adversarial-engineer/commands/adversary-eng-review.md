@@ -7,7 +7,7 @@ argument-hint: "<path to a diff, change description, architecture, or decision r
 
 Review $ARGUMENTS without generating anything.
 
-1. Read `references/constitution.md` and `references/engineering-standard.md`.
+1. Read `constitution/domains/engineer.md` (in the governance repo root, not in this plugin) and `references/engineering-standard.md`.
 2. Build `facts.md` from the submitted change following Step 3 of
    `skills/adversarial-engineer/SKILL.md`. Strip every trace of rationale.
 3. Spawn `critic`, `ops-advocate`, and `reliability-reviewer` in parallel with the Agent tool.

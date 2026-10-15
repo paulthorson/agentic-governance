@@ -28,7 +28,7 @@ Built from the Adversarial Agents framework, applied to ops.
 
 ## References
 
-- `references/constitution.md` — the ops-review constitution.
+- `constitution/domains/ops.md` (in the governance repo root, not in this plugin) — the ops-review constitution.
 - `references/ops-standard.md` — the ops quality bar.
 - `references/personas.md` — the stress personas.
 - `references/calibration-ledger.md` — the verdict record.

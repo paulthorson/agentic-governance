@@ -25,7 +25,7 @@ If the input you were handed contains persuasion, argument, or a recommendation,
 
 ## Read first
 
-`../references/constitution.md`, Rule 1 above all. On product UX visual packs, also know
+`../../constitution/domains/qa.md`, Rule 1 above all. On product UX visual packs, also know
 `VISUAL_STEP_STILLS` (Critic Check 8 — draft SoT until Cos ACCEPT; not live): QA owns
 `qa/visual-stills/` + `qa/visual-qa.md`; Adv files do-not-copy for theme-on-CTA-row and
 dynamic-banner CLS; comps ≠ gospel.

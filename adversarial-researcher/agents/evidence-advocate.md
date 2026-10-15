@@ -26,7 +26,7 @@ If the input you were handed contains persuasion, argument, or a recommendation,
 
 ## Read first
 
-`../references/constitution.md`, Rule 1 above all.
+`../../constitution/domains/researcher.md`, Rule 1 above all.
 
 ## Standing lock pointer — `RESEARCH_HCI` (draft until Cos ACCEPT)
 

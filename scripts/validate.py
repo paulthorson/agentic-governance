@@ -67,6 +67,15 @@ def main():
         # per-domain constitution now lives outside the plugin, in constitution/domains/
         if not os.path.exists(os.path.join(root, "constitution", "domains", f"{domain}.md")):
             errors.append(f"[{p}] missing constitution/domains/{domain}.md")
+        # no file in the plugin may still point a reader at the old constitution path
+        for dirpath, _, files in os.walk(base):
+            for fn in files:
+                if fn.endswith(".md"):
+                    fp = os.path.join(dirpath, fn)
+                    with open(fp, encoding="utf-8", errors="replace") as fh:
+                        if "references/constitution.md" in fh.read():
+                            errors.append(f"[{p}] {os.path.relpath(fp, root)} still references references/constitution.md "
+                                          f"(moved to constitution/domains/{domain}.md)")
         # references
         ref_dir = os.path.join(base, "references")
         if os.path.isdir(ref_dir):

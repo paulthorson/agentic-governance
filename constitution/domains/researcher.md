@@ -93,4 +93,4 @@ decision, the entry says so and routes to the human gate.
 
 - Every human override is logged in `references/calibration-ledger.md`.
 - Three overrides of one rule puts the rule on trial.
-- Only a human edits `references/constitution.md`.
+- Only a human edits `constitution/domains/researcher.md` (this file).

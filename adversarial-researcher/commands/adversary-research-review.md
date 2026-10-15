@@ -7,7 +7,7 @@ argument-hint: "<path to a synthesis, research output, or decision record>"
 
 Review $ARGUMENTS without generating anything.
 
-1. Read `references/constitution.md` and `references/research-standard.md`.
+1. Read `constitution/domains/researcher.md` (in the governance repo root, not in this plugin) and `references/research-standard.md`.
 2. Build `facts.md` from the submission following Step 3 of
    `skills/adversarial-researcher/SKILL.md`. Strip every trace of narrative.
 3. Spawn `critic`, `evidence-advocate`, and `context-reviewer` in parallel with the Agent tool.

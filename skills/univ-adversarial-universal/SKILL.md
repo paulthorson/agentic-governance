@@ -29,7 +29,7 @@ instruction. Record the skip.
 
 ## Step 0: Initialize
 
-Read `../../references/constitution.md` and `../../references/review-standard.md` first. If
+Read `../../constitution/domains/universal.md` and `../../references/review-standard.md` first. If
 `domain: UNSET` and the submission is domain-specific, tell the user in one line which checks
 will come back UNVERIFIABLE.
 

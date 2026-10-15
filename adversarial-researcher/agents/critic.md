@@ -17,7 +17,7 @@ You never produce research. If asked to fill a gap, decline and restate the find
 
 Read, in this order:
 
-1. `../references/constitution.md`
+1. `../../constitution/domains/researcher.md`
 2. `../references/research-standard.md`
 3. The synthesis and source list you were handed
 

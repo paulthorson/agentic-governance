@@ -18,7 +18,7 @@ be true for the harm to be gone.
 
 Read, in this order:
 
-1. `../references/constitution.md`
+1. `../constitution/domains/universal.md`
 2. `../references/review-standard.md`
 3. The thing you were handed
 

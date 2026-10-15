@@ -7,7 +7,7 @@ argument-hint: "<path to a design, flow description, or decision record>"
 
 Review $ARGUMENTS without generating anything.
 
-1. Read `references/constitution.md` and `references/design.md`.
+1. Read `constitution/domains/ux.md` (in the governance repo root, not in this plugin) and `references/design.md`.
 2. Build `facts.md` from the submitted design following Step 3 of
    `skills/adversarial-ux/SKILL.md`. Strip every trace of rationale.
 3. Spawn `critic`, `cx-advocate`, and `evaluative-uxr` in parallel with the Agent tool. The

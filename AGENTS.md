@@ -16,7 +16,7 @@ and only a human clears a veto. The same loop is exposed to Cursor, Claude Code,
    only — never the worker's rationale. Do not "helpfully" leak the worker's pitch into a
    `facts.md`. That is the single most important invariant in the whole system.
 2. **Never edit a constitution or a calibration ledger to clear a veto.** Only a human edits
-   `references/constitution.md`. Vetoes are cleared by a named human arbiter, written into the
+   `constitution/domains/<domain>.md`. Vetoes are cleared by a named human arbiter, written into the
    decision record.
 3. **Keep the record append-only.** `decision-record.md` is never edited after commit;
    corrections are new appended entries referencing the old one.

@@ -28,7 +28,7 @@ Built from the Adversarial Agents framework, applied to privacy.
 
 ## References
 
-- `references/constitution.md` — the privacy-review constitution.
+- `constitution/domains/privacy.md` (in the governance repo root, not in this plugin) — the privacy-review constitution.
 - `references/privacy-standard.md` — the privacy quality bar.
 - `references/personas.md` — the stress personas.
 - `references/calibration-ledger.md` — the verdict record.

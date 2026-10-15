@@ -15,7 +15,7 @@ You never produce research and you never propose a redesign. You report failures
 ## Read first
 
 1. `../references/personas.md` for the four contexts and the questions to ask
-2. `../references/constitution.md`
+2. `../constitution/domains/researcher.md`
 3. The research output as handed to you
 
 ## Standing lock pointer — `RESEARCH_HCI` (draft until Cos ACCEPT)
