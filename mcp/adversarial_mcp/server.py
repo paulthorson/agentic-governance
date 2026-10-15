@@ -304,10 +304,34 @@ VETO_KEYWORDS = {
 }
 
 # Regex patterns for credential/secret exposure that keyword matching misses.
+# Destructive actions, matched on what the plan says it will do rather than on
+# whether it names the harm. VETO_KEYWORDS catch "this causes data loss"; these
+# catch "drop the production database". Still a word match: a plan that does
+# damage in words not listed here passes the scan and the adversary has to
+# catch it. Kept narrow on purpose, because every hit is a KICK_BACK that only
+# a human can clear.
+DESTRUCTIVE_ACTION_PATTERNS = [
+    # drop / truncate / wipe something in production
+    r"\b(drop|truncate|delete|wipe|purge|destroy|erase)\b.{0,30}\b(prod|production|live)\b"
+    r".{0,20}\b(database|db|table|tables|schema|data|bucket|cluster|volume)s?\b",
+    r"\b(drop|truncate)\s+(table|database|schema)\b",
+    # recursive force delete
+    r"\brm\s+-(?=[a-z]*r)(?=[a-z]*f)[a-z]+\b",
+    # force-push to a shared branch
+    r"\b(force[- ]push|push\s+(-f|--force)\b)[^.\n]{0,40}\b(main|master|prod|production|release)\b",
+    # proceeding with no way back
+    r"\b(no|without( a)?|skip(ping)?( the)?)\s+(backups?|rollback|roll[- ]back)\b",
+    # switching off a protection
+    r"\b(disabl\w*|turn(ing)? off|bypass\w*)\s+(the\s+)?(auth\w*|mfa|2fa|tls|ssl|encryption)\b",
+]
+
 VETO_PATTERNS = {
     "engineer": [r"(expos|leak|commit).{0,20}(api[ -]?key|secret|credential|token|password)",
-                  r"(api[ -]?key|secret|credential|token|password).{0,20}(expos|leak|log|commit)"],
-    "universal": [r"(expos|leak).{0,20}(api[ -]?key|secret|credential|token|password)"],
+                  r"(api[ -]?key|secret|credential|token|password).{0,20}(expos|leak|log|commit)",
+                  *DESTRUCTIVE_ACTION_PATTERNS],
+    "universal": [r"(expos|leak).{0,20}(api[ -]?key|secret|credential|token|password)",
+                  *DESTRUCTIVE_ACTION_PATTERNS],
+    "ops": [*DESTRUCTIVE_ACTION_PATTERNS],
 }
 
 

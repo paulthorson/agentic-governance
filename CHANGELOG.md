@@ -9,6 +9,17 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- The Rule 1 veto scan in the universal, engineer and ops domains now
+  matches destructive actions as well as named harms. Before, "drop the
+  production database with no backup and no rollback" produced no veto hits
+  in any domain, because the term lists only matched phrases like "data
+  loss." New patterns cover drop/truncate/wipe in production, `DROP TABLE`,
+  `rm -rf`, force-push to a shared branch, proceeding with no backup or
+  rollback, and disabling auth, MFA or TLS. `tests/test_veto_scan.py` pins
+  13 plans that must trip the scan and 11 ordinary sentences that must not
+  (a backup step, a rollback plan, a drop shadow, a force-push to a feature
+  branch). It is still a word match; a harm described in other words passes
+  as `REVIEW_REQUIRED` for the adversary to catch.
 - Every adversary harness, skill, command, README, and calibration ledger in
   the twelve plugins, plus the flat `agents/` and `skills/` copies and the
   root constitution page, pointed readers at `references/constitution.md`,
