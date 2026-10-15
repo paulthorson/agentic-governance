@@ -1,7 +1,8 @@
 # The Constitution
 
-Four rules. They are enforced mechanically, by checks that produce a pass or a fail, not by
-quality-brand language that everyone reads differently.
+Four rules. Rule 1 has two code gates: a word-match tripwire on submissions, and a veto
+clear that only a human can approve. Rules 2 through 4 are instructions the adversary
+applies on every review, with every override logged in the calibration ledger.
 
 Every agent in this system reads this file before acting. No agent may edit it. Changes come
 through the amendment procedure at the bottom.
@@ -82,6 +83,6 @@ can name the metric, the entry says so and routes to the human gate.
 ---
 ## Amendment procedure
 
-- Every human override is logged in `references/calibration-ledger.md`.
+- Every human override is logged in `../../adversarial-qa/references/calibration-ledger.md`.
 - Three overrides of one rule puts the rule on trial.
 - Only a human edits `constitution/domains/qa.md` (this file). An agent may propose, never apply.

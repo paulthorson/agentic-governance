@@ -484,6 +484,74 @@ class TestPublishedClaims(unittest.TestCase):
         self.assertIn("Off loopback", deploy)
         self.assertIn("missing token is refused", deploy)
 
+    # ---- Constitution claims --------------------------------------------------
+
+    def _constitution_files(self):
+        root = REPO_ROOT / "constitution"
+        return [root / "constitution.md", *sorted((root / "domains").glob("*.md"))]
+
+    def test_constitution_does_not_claim_mechanical_enforcement_of_all_rules(self):
+        """Capability report 12.8: blind review, human-only veto clear and
+        append-only are 'Instruction + process'. Only the Rule 1 veto scan and
+        the veto-clear approval are code. No constitution page may say every
+        rule is enforced mechanically."""
+        for f in self._constitution_files():
+            text = " ".join(f.read_text(encoding="utf-8").split())  # collapse line wrapping
+            self.assertNotIn("enforced mechanically", text, f"{f.relative_to(REPO_ROOT)} overclaims enforcement")
+            self.assertIn("Rule 1 has two code gates: a word-match tripwire on submissions, and a veto clear that only a human can approve.", text,
+                          f"{f.relative_to(REPO_ROOT)} must say what code enforces, and that the first gate is a word match")
+            self.assertNotIn("Rule 1 is enforced by code", text, f"{f.relative_to(REPO_ROOT)} overstates the Rule 1 gate")
+            self.assertIn("Rules 2 through 4 are instructions", text, f"{f.relative_to(REPO_ROOT)} must say rules 2-4 are instructions")
+
+    def test_constitution_rule_1_code_gate_exists(self):
+        """The one enforcement claim the constitution does make must be true:
+        a veto hit flips the MCP verdict to KICK_BACK and clear-veto is gated."""
+        server = (REPO_ROOT / "mcp" / "adversarial_mcp" / "server.py").read_text(encoding="utf-8")
+        self.assertIn('"KICK_BACK" if structural["veto_triggered"]', server)
+        ticket = (REPO_ROOT / "scripts" / "ticket.py").read_text(encoding="utf-8")
+        self.assertIn('gate=_gate("clear_veto"', ticket)
+
+    def test_constitution_states_the_veto_scan_limit(self):
+        """The veto scan is a word match. The root page and the capability
+        report must both say a harm described without a listed term passes
+        the scan, so nobody reads the Rule 1 code gate as a harm detector."""
+        root_text = " ".join((REPO_ROOT / "constitution" / "constitution.md").read_text(encoding="utf-8").split())
+        self.assertIn("The scan matches words, not meaning.", root_text)
+        self.assertIn("passes the scan with `REVIEW_REQUIRED`", root_text)
+        report = (REPO_ROOT / "docs" / "capability-report.md").read_text(encoding="utf-8")
+        self.assertIn("| Veto scan (Rule 1 first pass) | **Code**, fixed term and pattern match only", report)
+
+    def test_root_constitution_rule_pattern_matches_domain_files(self):
+        """The root page describes a shared shape for ten domains and two
+        exceptions. The domain files must actually have that shape."""
+        domains = sorted((REPO_ROOT / "constitution" / "domains").glob("*.md"))
+        self.assertEqual(len(domains), 12)
+        for f in domains:
+            text = f.read_text(encoding="utf-8")
+            heads = re.findall(r"^## Rule (\d): (.+)$", text, re.M)
+            self.assertEqual([h[0] for h in heads], ["1", "2", "3", "4"], f"{f.name} must have Rules 1-4 in order")
+            self.assertIn("vetoes are absolute", heads[0][1], f"{f.name} Rule 1 must be the veto")
+            if f.stem in ("security", "prompt"):
+                continue
+            self.assertIn("Genuine", heads[1][1], f"{f.name} Rule 2 must be genuine alternatives")
+            self.assertIn("can't silently win", heads[2][1], f"{f.name} Rule 3 must be the fast-path rule")
+            self.assertTrue("falsify" in heads[3][1] or "must tie to" in heads[3][1], f"{f.name} Rule 4: {heads[3][1]}")
+
+    def test_constitution_amendment_procedure_is_one_procedure(self):
+        """Root and domain pages state the same procedure, and the ledger each
+        domain points at exists."""
+        root_text = (REPO_ROOT / "constitution" / "constitution.md").read_text(encoding="utf-8")
+        on_trial = r"(Three overrides of one rule puts the rule on trial|overridden three times, the rule goes on trial)"
+        self.assertRegex(root_text, on_trial)
+        self.assertNotIn("designated human master", root_text)
+        for f in sorted((REPO_ROOT / "constitution" / "domains").glob("*.md")):
+            text = f.read_text(encoding="utf-8")
+            self.assertRegex(text, on_trial, f.name)
+            m = re.search(r"logged in `([^`]+calibration-ledger\.md)`", text)
+            self.assertIsNotNone(m, f"{f.name} must name its ledger")
+            self.assertTrue((f.parent / m.group(1)).exists(), f"{f.name}: {m.group(1)} does not resolve")
+            self.assertRegex(text, r"(Only a human edits `constitution/domains/" + f.stem + r"\.md`|only by a human editing this file)", f.name)
+
 
 if __name__ == "__main__":
     unittest.main()

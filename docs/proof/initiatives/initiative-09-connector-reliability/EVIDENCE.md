@@ -41,7 +41,7 @@ session rescue, provider reliability scorecard.
 - `initiatives/i09/calendar_handoff.py` — side-effect-free interview-prep
   and follow-up drafts; `confirm_and_handoff` refuses without `confirm=True`
   AND refuses confirmed drafts with missing times (no fabricated defaults).
-- `initiatives/i09/integration_notes.md` — exact copy-paste wiring snippets
+- `initiatives/i09/integration_notes.md` (not in this repo) — exact copy-paste wiring snippets
   for `server.py` / `cli.py` / `dashboard.py` / `webui.py` (not edited here;
   owned by the integration sweep per disjoint file scope), plus an explicit
   list of what must NOT be wired yet.
