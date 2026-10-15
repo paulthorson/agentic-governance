@@ -9,7 +9,7 @@ The ledger exists so the system can find out where it is wrong. Two patterns mat
    `agents/` and note the change here.
 2. **A rule that keeps losing.** When the same constitutional rule is overridden three times,
    the rule goes on trial. Open a trial entry naming the three overrides and propose either a
-   revision or an explicit carve-out. A human edits `references/constitution.md`. An agent
+   revision or an explicit carve-out. A human edits `constitution/domains/ux.md`. An agent
    never does.
 
 Use `assets/templates/calibration-entry.md` for the entry format.

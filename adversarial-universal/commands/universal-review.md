@@ -7,7 +7,7 @@ argument-hint: "<path to a decision, plan, design, change, or claim>"
 
 Review $ARGUMENTS without generating anything.
 
-1. Read `references/constitution.md` and `references/review-standard.md`.
+1. Read `constitution/domains/universal.md` (in the governance repo root, not in this plugin) and `references/review-standard.md`.
 2. Prepare the submission per Step 1 of `skills/adversarial-universal/SKILL.md`.
 3. Spawn `universal-adversary` with the Agent tool, handing it the full submission.
 4. Paste the verdict verbatim.

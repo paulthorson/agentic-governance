@@ -1,5 +1,5 @@
 **DESIGN_SYSTEM_FIRST LIVE:** #45 @ `ead012f` — DS before pixels; Research×UX Cos signoff; Design/Experience/Branding paramount.
-**Website DS LOCKED:** [`design-system.md`](design-system.md) — Cos GO SIGNOFF 2026-09-14 (Sage instrument · Advercase+Geist · Direct founder · Process Instrument in the Void).
+**Website DS LOCKED:** [`design-system.md`](../design-system.md) — Cos GO SIGNOFF 2026-09-14 (Sage instrument · Advercase+Geist · Direct founder · Process Instrument in the Void).
 # Check 8 — Process Instrument in the Void
 
 **standing rule 2026-09-14 hybrid:** **A** Editorial Void + **B** Process Story + **C** Measured Instrument.

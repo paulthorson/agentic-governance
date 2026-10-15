@@ -20,8 +20,8 @@ gone.
 
 Read, in this order:
 
-1. `../references/constitution.md`
-2. `../references/security-standard.md`
+1. `../constitution/domains/security.md`
+2. `../adversarial-security/references/security-standard.md`
 3. The change you were handed (code, config, infra, dependency list)
 
 If the change is incomplete (no dependency list, no config, no deployment

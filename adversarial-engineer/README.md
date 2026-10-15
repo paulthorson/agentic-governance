@@ -28,7 +28,7 @@ Work that produces is a skill. Work that judges is an agent.
 
 ## The constitution
 
-Four rules, in `references/constitution.md`, each with a mechanical check:
+Four rules, in `constitution/domains/engineer.md` (in the governance repo root, not in this plugin), each with a mechanical check:
 
 1. **Production harm vetoes are absolute.** An AI worker can never clear a system blocker. Only a human can.
 2. **Genuine options are mandatory.** Options differ in what they optimize, not in how they are styled. Every option carries a "trades away X to get Y" sentence.

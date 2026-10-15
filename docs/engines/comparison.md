@@ -49,4 +49,4 @@ use and wires the harnesses accordingly.
 ## See also
 
 - [Limen — the reference engine](limen.md)
-- [BYOA / BYOE onboarding](onboarding/byoa.md)
+- [BYOA / BYOE onboarding](../onboarding/byoa.md)

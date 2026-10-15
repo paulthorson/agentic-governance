@@ -7,7 +7,7 @@ argument-hint: "<path to a test plan, release criteria, or decision record>"
 
 Review $ARGUMENTS without generating anything.
 
-1. Read `references/constitution.md` and `references/qa-standard.md`.
+1. Read `constitution/domains/qa.md` (in the governance repo root, not in this plugin) and `references/qa-standard.md`.
 2. Build `facts.md` from the submission following Step 3 of `skills/adversarial-qa/SKILL.md`.
    Strip every trace of rationale.
 3. Spawn `critic`, `quality-advocate`, and `edge-case-reviewer` in parallel with the Agent

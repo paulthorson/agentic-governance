@@ -28,7 +28,7 @@ Built from the Adversarial Agents framework, applied to compliance.
 
 ## References
 
-- `references/constitution.md` — the compliance-review constitution.
+- `constitution/domains/compliance.md` (in the governance repo root, not in this plugin) — the compliance-review constitution.
 - `references/compliance-standard.md` — the compliance quality bar.
 - `references/personas.md` — the stress personas.
 - `references/calibration-ledger.md` — the verdict record.

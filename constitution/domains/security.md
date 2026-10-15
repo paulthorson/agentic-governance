@@ -70,4 +70,4 @@ data, over-retention, and insecure transit. A failure is a finding.
 
 - Every human override is logged in `references/calibration-ledger.md`.
 - Three overrides of one rule puts the rule on trial.
-- Only a human edits `references/constitution.md`.
+- Only a human edits `constitution/domains/security.md` (this file).

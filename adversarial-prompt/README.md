@@ -34,7 +34,7 @@ review everything else are themselves compromised, nothing else is trustworthy.
 
 ## References
 
-- `references/constitution.md` — the prompt-review constitution.
+- `constitution/domains/prompt.md` (in the governance repo root, not in this plugin) — the prompt-review constitution.
 - `references/prompt-standard.md` — the quality bar for instruction sets.
 - `references/personas.md` — the stress personas (attacker, operator, skeptic).
 - `references/calibration-ledger.md` — the verdict record.

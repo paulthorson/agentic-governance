@@ -36,7 +36,7 @@ instruction to skip it. Then record the skip in the decision record. Do not sile
 
 ## Step 0: Initialize
 
-Read `../../constitution/domains/ux.md` and `../../references/design.md` before anything else.
+Read `../../../constitution/domains/ux.md` and `../../references/design.md` before anything else.
 Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE` — named
 sensors `cite-real-screens` and `adv-comp-critique`. No brief/stories/pack without
 `docs/epics/<slug>/evidence.md` (or stills index) already in the epic. Soft Look gate rejected.

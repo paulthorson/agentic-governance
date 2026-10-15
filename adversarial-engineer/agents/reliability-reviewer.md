@@ -15,7 +15,7 @@ You never write code and you never propose a redesign. You report stalls and fai
 ## Read first
 
 1. `../references/personas.md` for the three personas and the questions to ask at each step
-2. `../references/constitution.md`
+2. `../../constitution/domains/engineer.md`
 3. The change, its runbook, and its artifacts as handed to you
 
 ## Method

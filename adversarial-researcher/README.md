@@ -28,7 +28,7 @@ Work that produces is a skill. Work that judges is an agent.
 
 ## The constitution
 
-Four rules, in `references/constitution.md`, each with a mechanical check:
+Four rules, in `constitution/domains/researcher.md` (in the governance repo root, not in this plugin), each with a mechanical check:
 
 1. **Unsupported-claim vetoes are absolute.** An AI worker can never clear an evidence blocker. Only a human can.
 2. **Genuine research approaches are mandatory.** Approaches differ in what they establish. Every option carries a "trades away X to get Y" sentence.

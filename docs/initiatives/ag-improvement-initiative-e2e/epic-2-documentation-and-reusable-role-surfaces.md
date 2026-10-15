@@ -20,7 +20,7 @@ A public page states only what the repository contains. A path that does not exi
 **Facts that do not match the tree.**
 - `docs/Domains.md`, `docs/Tooling.md`, and `docs/README.md` say the framework ships five domains. The structure validator reports twelve plugin folders, and the table in `docs/Domains.md` itself lists twelve.
 - `constitution/vetoes.md` lists veto conditions for five domains. `constitution/domains/` contains twelve files.
-- `constitution/constitution.md` describes the constitution as enforced mechanically and points to a per-plugin `references/constitution.md`. `README.md`, `SECURITY.md`, and `docs/capability-report.md` describe instruction and process controls with a small number of code gates, and the validator looks for domain constitutions under `constitution/domains/`.
+- `constitution/constitution.md` described the constitution as enforced mechanically and, until the path fix, pointed to a per-plugin copy that no longer existed. `README.md`, `SECURITY.md`, and `docs/capability-report.md` describe instruction and process controls with a small number of code gates, and the validator looks for domain constitutions under `constitution/domains/`.
 - `docs/Roadmap.md` states agent, skill, tool, and test counts that differ from what the validator and test suite report.
 - `docs/Home.md` says the repository is private.
 

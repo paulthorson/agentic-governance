@@ -10,7 +10,7 @@ A design loop where the thing that produces work and the thing that judges it ar
 same context. You are the Worker. You generate. You do not grade yourself, and you cannot clear
 any gate.
 
-Paths below are relative to this plugin's root. Read `../../references/` and `../../agents/`
+Paths below are relative to this plugin's root. Read `../../adversarial-ux/references/` and `../../adversarial-ux/agents/`
 from wherever the plugin is installed.
 
 ---
@@ -36,7 +36,7 @@ instruction to skip it. Then record the skip in the decision record. Do not sile
 
 ## Step 0: Initialize
 
-Read `../../constitution/domains/ux.md` and `../../references/design.md` before anything else.
+Read `../../constitution/domains/ux.md` and `../../adversarial-ux/references/design.md` before anything else.
 Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) + `ADV_COMP_CRITIQUE` — named
 sensors `cite-real-screens` and `adv-comp-critique`. No brief/stories/pack without
 `docs/epics/<slug>/evidence.md` (or stills index) already in the epic. Soft Look gate rejected.
@@ -102,7 +102,7 @@ runs/<yyyy-mm-dd>-<short-slug>/
 └── artifacts/
 ```
 
-Start `decision-record.md` from `../../assets/templates/decision-record.md`.
+Start `decision-record.md` from `../../adversarial-ux/assets/templates/decision-record.md`.
 
 ---
 
@@ -200,7 +200,7 @@ Spawn all three in parallel with the Agent tool, in a single message:
 | Evaluative UXR | `evaluative-uxr` | The flow description and artifacts, no rationale |
 
 If subagents are unavailable in the current surface, run the three roles one at a time, each in
-its own pass, reading only its permitted input and its own agent file from `../../agents/`.
+its own pass, reading only its permitted input and its own agent file from `../../adversarial-ux/agents/`.
 Record in the decision record that the review ran in series rather than isolated contexts. That
 is a weaker review and the record should say so.
 
@@ -216,7 +216,7 @@ Check number.
 - File the Critic template block as **CRITIC** under `verdicts/critic.md` (isolated pass).
 - Checks 7–8 (and Check 8 visual grades) **must** have that Critic-labeled artifact/run
   separate from Adv. Silent dual-hat = FAIL. Adv-only stamps = **fail closed**.
-- If no Critic bot: Adv runs `../../agents/critic.md` as a **second pass labeled CRITIC** —
+- If no Critic bot: Adv runs `../../adversarial-ux/agents/critic.md` as a **second pass labeled CRITIC** —
   still a separate artifact; **not** folded into ADV prose.
 - Stack: on Check 7 + Check 8 (`VISUAL_STEP_STILLS`, **LIVE** via `#15` / `d61f4c1`) +
   `ADV_COMP_CRITIQUE` — Critic grades; Adv challenges. Does not replace either. Roster seat
@@ -261,8 +261,8 @@ veto clearance. Clearing a veto takes a named person and a stated reason, writte
 decision record.
 
 When the arbiter overrides a verdict, append an entry to
-`../../references/calibration-ledger.md` using
-`../../assets/templates/calibration-entry.md`. That ledger is how the system finds out its own
+`../../adversarial-ux/references/calibration-ledger.md` using
+`../../adversarial-ux/assets/templates/calibration-entry.md`. That ledger is how the system finds out its own
 rules are wrong: three overrides of the same rule puts the rule on trial.
 
 ---

@@ -10,7 +10,7 @@ A QA loop where the thing that produces the plan and the thing that judges it ar
 same context. You are the Worker. You generate. You do not grade yourself, and you cannot clear
 any gate.
 
-Paths below are relative to this plugin's root. Read `../../references/` and `../../agents/`.
+Paths below are relative to this plugin's root. Read `../../adversarial-qa/references/` and `../../adversarial-qa/agents/`.
 
 ---
 
@@ -30,7 +30,7 @@ instruction. Record the skip.
 
 ## Step 0: Initialize
 
-Read `../../references/constitution.md` and `../../references/qa-standard.md` first. If
+Read `../../constitution/domains/qa.md` and `../../adversarial-qa/references/qa-standard.md` first. If
 `qa-standard.md` has `test_command: UNSET`, tell the user in one line that the Critic will
 report coverage as UNVERIFIABLE until it is set.
 
@@ -44,7 +44,7 @@ runs/<yyyy-mm-dd>-<short-slug>/
 └── artifacts/
 ```
 
-Start `decision-record.md` from `../../assets/templates/decision-record.md`.
+Start `decision-record.md` from `../../adversarial-qa/assets/templates/decision-record.md`.
 
 ---
 
@@ -143,7 +143,7 @@ only. Wrong-surface FAIL explicit. HOLD ACCEPT until Adv PASS.
 
 Present: what you produced, the three verdicts verbatim, the open blockers with what clears
 them, and the specific decision you need. Then stop and wait. Clearing a veto takes a named
-person and a stated reason. Overrides go to `../../references/calibration-ledger.md`.
+person and a stated reason. Overrides go to `../../adversarial-qa/references/calibration-ledger.md`.
 
 ---
 

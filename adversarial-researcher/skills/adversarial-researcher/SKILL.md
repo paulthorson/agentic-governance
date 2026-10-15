@@ -30,7 +30,7 @@ instruction. Record the skip.
 
 ## Step 0: Initialize
 
-Read `../../constitution/domains/researcher.md` and `../../references/research-standard.md`
+Read `../../../constitution/domains/researcher.md` and `../../references/research-standard.md`
 first. Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — named sensor
 `cite-real-screens`. For UI enhancement work, `docs/epics/<slug>/evidence.md` (or stills index)
 must exist before brief/stories; soft Look gate rejected. **Draft stack (not live until Cos

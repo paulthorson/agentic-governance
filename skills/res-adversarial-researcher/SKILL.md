@@ -10,7 +10,7 @@ A research loop where the thing that produces and the thing that judges are neve
 context. You are the Worker. You produce. You do not grade yourself, and you cannot clear any
 gate.
 
-Paths below are relative to this plugin's root. Read `../../references/` and `../../agents/`.
+Paths below are relative to this plugin's root. Read `../../adversarial-researcher/references/` and `../../adversarial-researcher/agents/`.
 
 ---
 
@@ -30,7 +30,7 @@ instruction. Record the skip.
 
 ## Step 0: Initialize
 
-Read `../../constitution/domains/researcher.md` and `../../references/research-standard.md`
+Read `../../constitution/domains/researcher.md` and `../../adversarial-researcher/references/research-standard.md`
 first. Standing constraint: `RESEARCH_BEFORE_ENHANCE` (Rule 2 A) — named sensor
 `cite-real-screens`. For UI enhancement work, `docs/epics/<slug>/evidence.md` (or stills index)
 must exist before brief/stories; soft Look gate rejected. **Draft stack (not live until Cos
@@ -41,8 +41,7 @@ stacks on `DESIGN_AGENCY_BAR` + `RESEARCH_HCI` + `RESEARCH_BEFORE_ENHANCE` + Che
 Design/Experience/Branding paramount (Eng follows signed craft); design system is FIRST
 Initiative deliverable (Cos-signed `design-system.md` incl. Experience principles + Brand
 Voice + Audience/promise + info-design + Research cite before pixels / stills / Eng handoff);
-Adv must name before Cos ACCEPT; cite #43 @ `7e9e0b6`; #38 @ `214ed5b`; not external-runtime briefs. If
-`source_policy: UNSET`, tell the
+Adv must name before Cos ACCEPT; cite #43 @ `7e9e0b6`; #38 @ `214ed5b`; not external-runtime briefs. If `source_policy: UNSET`, tell the
 user in one line that the Critic will report source checks as UNVERIFIABLE until it is set.
 
 Create the run directory:
@@ -55,7 +54,7 @@ runs/<yyyy-mm-dd>-<short-slug>/
 └── artifacts/
 ```
 
-Start `decision-record.md` from `../../assets/templates/decision-record.md`.
+Start `decision-record.md` from `../../adversarial-researcher/assets/templates/decision-record.md`.
 
 ---
 
@@ -138,7 +137,7 @@ three into the record before any response.
 
 Present: what you produced, the three verdicts verbatim, the open blockers with what clears
 them, and the specific decision you need. Then stop and wait. Overrides go to
-`../../references/calibration-ledger.md`.
+`../../adversarial-researcher/references/calibration-ledger.md`.
 
 ---
 

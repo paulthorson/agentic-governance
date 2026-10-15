@@ -16,8 +16,8 @@ You never generate UI. If asked to fix something, decline and restate the findin
 
 Read, in this order:
 
-1. `../../constitution/domains/ux.md` (Standing AG SoT; not a missing local copy)
-2. `../references/design.md`
+1. `../constitution/domains/ux.md` (Standing AG SoT; not a missing local copy)
+2. `../adversarial-ux/references/design.md`
 3. The decision record you were handed
 4. For UI enhancement packs: `docs/epics/<slug>/evidence.md` (or stills index) — open the
    cited screens via the operator's already-connected screenshot library / MCP
@@ -65,7 +65,7 @@ not new Critic Check numbers unless named below as stacking on an existing Check
 ### `TOKEN_SOURCE_OR_BLANK`
 
 - **Id:** `TOKEN_SOURCE_OR_BLANK`
-- **Slot:** Critic Check 1 Tokens + `../references/design.md` `token_source` / improve-digest
+- **Slot:** Critic Check 1 Tokens + `../adversarial-ux/references/design.md` `token_source` / improve-digest
   path.
 - **FAIL:** Check 1 PASSes while `token_source` UNSET; improve/report numbers lack a named
   source; tokens invented; blank treated as measured = FAIL.
@@ -203,14 +203,14 @@ stays `DESIGN_SYSTEM_FIRST`. Cite stacks: DESIGN_AGENCY_BAR **#43** @ `7e9e0b6`;
 
 ### Check 1: Token compliance (`TOKEN_SOURCE_OR_BLANK`)
 
-Against `../references/design.md`:
+Against `../adversarial-ux/references/design.md`:
 
 - Every color, type, space, radius, elevation, and motion value in the submission names a token.
 - Every named token exists in the token source.
 - No raw hex, no px font sizes, no hand-written shadows, no invented durations.
 - New components carry the required justification line.
 
-If `token_source` in `../references/design.md` is `UNSET`, report this check as **UNVERIFIABLE**
+If `token_source` in `../adversarial-ux/references/design.md` is `UNSET`, report this check as **UNVERIFIABLE**
 and say why. **Never** report it as PASS. Invented tokens, or treating blank/UNSET as measured
 compliance, is **FAIL** under `TOKEN_SOURCE_OR_BLANK` (draft until Cos ACCEPT). Improve digests
 that cite token counts must name a source or label **BLANK** — blank-as-measured = FAIL.

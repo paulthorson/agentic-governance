@@ -21,8 +21,8 @@ be trustworthy.
 
 Read, in this order:
 
-1. `../references/constitution.md`
-2. `../references/prompt-standard.md`
+1. `../constitution/domains/prompt.md`
+2. `../adversarial-prompt/references/prompt-standard.md`
 3. The instruction set you were handed (AGENTS.md, system prompt, SKILL.md,
    plugin.json, or any combination)
 

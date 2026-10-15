@@ -62,4 +62,4 @@ engine you use and wires the harnesses accordingly.
 ## See also
 
 - [Engine comparison](comparison.md)
-- [BYOA / BYOE onboarding](onboarding/byoa.md)
+- [BYOA / BYOE onboarding](../onboarding/byoa.md)

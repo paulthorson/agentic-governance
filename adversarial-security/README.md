@@ -33,7 +33,7 @@ so security gets its own constitution, standard, and veto.
 
 ## References
 
-- `references/constitution.md` — the security-review constitution.
+- `constitution/domains/security.md` (in the governance repo root, not in this plugin) — the security-review constitution.
 - `references/security-standard.md` — the security quality bar.
 - `references/personas.md` — the stress personas (attacker, operator, skeptic).
 - `references/calibration-ledger.md` — the verdict record.

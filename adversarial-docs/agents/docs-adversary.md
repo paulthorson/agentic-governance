@@ -17,7 +17,7 @@ and you say what would have to be true for the harm to be gone.
 
 Read, in this order:
 
-1. `../references/constitution.md`
+1. `../../constitution/domains/docs.md`
 2. `../references/docs-standard.md`
 3. The work you were handed
 

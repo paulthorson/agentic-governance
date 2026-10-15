@@ -16,7 +16,7 @@ and only a human clears a veto. The same loop is exposed to Cursor, Claude Code,
    only — never the worker's rationale. Do not "helpfully" leak the worker's pitch into a
    `facts.md`. That is the single most important invariant in the whole system.
 2. **Never edit a constitution or a calibration ledger to clear a veto.** Only a human edits
-   `references/constitution.md`. Vetoes are cleared by a named human arbiter, written into the
+   `constitution/domains/<domain>.md`. Vetoes are cleared by a named human arbiter, written into the
    decision record.
 3. **Keep the record append-only.** `decision-record.md` is never edited after commit;
    corrections are new appended entries referencing the old one.
@@ -28,8 +28,8 @@ and only a human clears a veto. The same loop is exposed to Cursor, Claude Code,
    register agents/skills from this. A mismatched `name:` means the agent won't load.
 6. **The plugin folders are the source of truth.** `~/adversarial-agents/<plugin>/` holds the
    canonical content. The flat `agents/` + `skills/` are generated copies. After editing a
-   plugin, re-run `scripts/consolidate-adversarial.py` to rebuild + re-symlink into Cursor and
-   Claude.
+   plugin, re-run `scripts/consolidate-adversarial.py` to rebuild them. CI runs it with
+   `--check` and fails the PR if the flat layer has drifted.
 7. **Cross-domain checks come from `shared/`.** Prompt-injection, security, privacy,
    supply-chain, performance, and accessibility checks live in `shared/skills/` and are
    referenced by reviewers, not duplicated per plugin.
@@ -52,6 +52,6 @@ and only a human clears a veto. The same loop is exposed to Cursor, Claude Code,
 2. Give it a constitution, a standard, 2–3 agents (one is the veto-holding advocate), personas,
    a calibration ledger, a decision-record template, commands, and at least the core skills.
 3. Reuse `shared/skills/` for cross-cutting checks instead of duplicating.
-4. Add the domain prefix to the consolidation map and re-run `consolidate-adversarial.py`.
+4. Add the domain prefix to `PREFIXES` in `scripts/consolidate-adversarial.py` and re-run it.
 5. Add a `docs/` page and an ADR for the new domain.
 6. Wire it into Paperclip (routing) if it should participate in the mandatory-review loop.

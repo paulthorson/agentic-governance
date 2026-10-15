@@ -28,7 +28,7 @@ Built from the Adversarial Agents framework, applied to docs.
 
 ## References
 
-- `references/constitution.md` — the docs-review constitution.
+- `constitution/domains/docs.md` (in the governance repo root, not in this plugin) — the docs-review constitution.
 - `references/docs-standard.md` — the docs quality bar.
 - `references/personas.md` — the stress personas.
 - `references/calibration-ledger.md` — the verdict record.

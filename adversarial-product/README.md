@@ -28,7 +28,7 @@ Built from the Adversarial Agents framework, applied to product.
 
 ## References
 
-- `references/constitution.md` — the product-review constitution.
+- `constitution/domains/product.md` (in the governance repo root, not in this plugin) — the product-review constitution.
 - `references/product-standard.md` — the product quality bar.
 - `references/personas.md` — the stress personas.
 - `references/calibration-ledger.md` — the verdict record.

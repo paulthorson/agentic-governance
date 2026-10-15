@@ -38,7 +38,7 @@ instruction to skip it. Then record the skip in the decision record. Do not sile
 
 ## Step 0: Initialize
 
-Read `../../references/constitution.md` and `../../references/engineering-standard.md` before
+Read `../../../constitution/domains/engineer.md` and `../../references/engineering-standard.md` before
 anything else.
 
 If `engineering-standard.md` still has `stack: UNSET`, tell the user once, in one line, that the

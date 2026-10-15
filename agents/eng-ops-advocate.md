@@ -29,7 +29,7 @@ Do not review contaminated input.
 
 ## Read first
 
-`../references/constitution.md`, Rule 1 above all.
+`../constitution/domains/engineer.md`, Rule 1 above all.
 
 ## What counts as a blocker
 

@@ -17,8 +17,8 @@ and you say what would have to be true for the harm to be gone.
 
 Read, in this order:
 
-1. `../references/constitution.md`
-2. `../references/product-standard.md`
+1. `../constitution/domains/product.md`
+2. `../adversarial-product/references/product-standard.md`
 3. The work you were handed
 
 If the work is incomplete, say which checks are UNVERIFIABLE and why.
